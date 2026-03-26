@@ -1,8 +1,9 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import { bp } from "@/lib/basePath";
 import {
   ArrowLeft,
   Facebook,
@@ -430,7 +431,7 @@ export default function InfinityAuctionHousePage() {
             <div className="float-slow relative overflow-hidden rounded-3xl shadow-2xl shadow-[#1E3A8A]/10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/infinity-auction-house/hero.jpg"
+                src={bp("/infinity-auction-house/hero.jpg")}
                 alt="Infinity Auction House Products"
                 className="h-[500px] w-full object-cover"
               />
@@ -677,7 +678,7 @@ export default function InfinityAuctionHousePage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={img.src}
+                    src={bp(img.src)}
                     alt={img.alt}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

@@ -1,7 +1,8 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
+import { bp } from "@/lib/basePath";
 import {
   ArrowLeft,
   Facebook,
@@ -395,7 +396,7 @@ export default function LussoPage() {
               <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/lusso/hero.jpg"
+                  src={bp("/lusso/hero.jpg")}
                   alt="LUSSO Fashion Jewelry"
                   className="h-[520px] w-full object-cover"
                 />
@@ -477,7 +478,7 @@ export default function LussoPage() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img.src}
+                  src={bp(img.src)}
                   alt={img.alt}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
@@ -516,7 +517,7 @@ export default function LussoPage() {
                   <div className="group relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={col.image}
+                      src={bp(col.image)}
                       alt={col.name}
                       className="h-[380px] w-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
@@ -570,7 +571,7 @@ export default function LussoPage() {
           <div className="relative h-[50vh] min-h-[400px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/lusso/model.jpg"
+              src={bp("/lusso/model.jpg")}
               alt="LUSSO Fashion"
               className="h-full w-full object-cover"
             />

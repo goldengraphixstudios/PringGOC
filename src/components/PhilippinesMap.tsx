@@ -39,7 +39,7 @@ export default function PhilippinesMap() {
       <div className="relative w-full max-w-[500px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/ph_mapsicon.svg"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/ph_mapsicon.svg`}
           alt="Philippines Map"
           className="ph-map-img relative h-auto w-full"
           draggable={false}

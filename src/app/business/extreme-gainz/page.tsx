@@ -1,7 +1,8 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
+import { bp } from "@/lib/basePath";
 import {
   ArrowLeft,
   Facebook,
@@ -195,7 +196,7 @@ export default function ExtremeGainzPage() {
         <div className="hero-zoom absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/extreme-gainz/hero.jpg"
+            src={bp("/extreme-gainz/hero.jpg")}
             alt="Extreme Gainz Gym"
             className="h-full w-full object-cover"
           />
@@ -406,7 +407,7 @@ export default function ExtremeGainzPage() {
               <div className="relative aspect-[3/4] max-h-[600px] overflow-hidden rounded-2xl border border-white/[0.06]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/extreme-gainz/3.jpg"
+                  src={bp("/extreme-gainz/3.jpg")}
                   alt="BUILDFIT Equipment"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -495,7 +496,7 @@ export default function ExtremeGainzPage() {
                 <div className="group relative overflow-hidden rounded-xl border border-white/[0.04] transition-all duration-500 hover:border-[#F0C030]/20">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={img.src}
+                    src={bp(img.src)}
                     alt={img.alt}
                     className={`w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110 ${
                       img.span ? "aspect-[16/9]" : "aspect-[3/4]"
@@ -566,7 +567,7 @@ export default function ExtremeGainzPage() {
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/extreme-gainz/motivation.jpg"
+            src={bp("/extreme-gainz/motivation.jpg")}
             alt="Gym atmosphere"
             className="h-full w-full object-cover opacity-30"
           />
@@ -783,7 +784,7 @@ export default function ExtremeGainzPage() {
               <div className="relative aspect-[4/5] max-h-[500px] overflow-hidden rounded-2xl border border-white/[0.06]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/extreme-gainz/workout.jpg"
+                  src={bp("/extreme-gainz/workout.jpg")}
                   alt="Training at Extreme Gainz"
                   className="h-full w-full object-cover"
                 />

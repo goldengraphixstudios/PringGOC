@@ -1,8 +1,9 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import { bp } from "@/lib/basePath";
 import {
   ArrowLeft,
   Facebook,
@@ -408,7 +409,7 @@ export default function LuckyFindsPage() {
             <div className="float-soft relative overflow-hidden rounded-3xl shadow-2xl shadow-[#DC2626]/[0.08]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/lucky-finds/hero.jpg"
+                src={bp("/lucky-finds/hero.jpg")}
                 alt="Lucky Finds Kitchenware Collection"
                 className="h-[480px] w-full object-cover"
               />
@@ -553,7 +554,7 @@ export default function LuckyFindsPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={img.src}
+                    src={bp(img.src)}
                     alt={img.alt}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

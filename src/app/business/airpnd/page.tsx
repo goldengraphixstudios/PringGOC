@@ -1,7 +1,8 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
+import { bp } from "@/lib/basePath";
 import {
   ArrowLeft,
   Facebook,
@@ -137,7 +138,7 @@ export default function AirpndPage() {
         <div className="hero-bg-zoom absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/airpnd/hero.jpg"
+            src={bp("/airpnd/hero.jpg")}
             alt="AIRPND Luxury Apartments"
             className="h-full w-full object-cover"
           />
@@ -296,7 +297,7 @@ export default function AirpndPage() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/airpnd/living.jpg"
+                  src={bp("/airpnd/living.jpg")}
                   alt="Modern Living Space"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -498,7 +499,7 @@ export default function AirpndPage() {
                 <div className="group relative overflow-hidden rounded-2xl">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={img.src}
+                    src={bp(img.src)}
                     alt={img.alt}
                     className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${
                       i === 0 ? "aspect-[4/3]" : "aspect-[3/2]"
