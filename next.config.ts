@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  basePath: "/PringGOC",
+  images: { unoptimized: true },
+  turbopack: {
+    root: ".",
+  },
 };
 
 export default nextConfig;
