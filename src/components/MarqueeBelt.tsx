@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "@/components/Img";
 import Link from "next/link";
 
@@ -19,39 +19,45 @@ export default function MarqueeBelt({
 }) {
   const track1 = useRef<HTMLDivElement>(null);
   const track2 = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const pos1Ref = useRef(0);
+  const pos2Ref = useRef(0);
+  const pausedRef = useRef(false);
+
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    let raf: number;
-    let pos1 = 0;
-    let pos2 = 0;
+    pausedRef.current = hovered;
+  }, [hovered]);
 
-    const speed = 0.5; // px per frame (~30px/s → full loop in ~60s for typical content width)
+  useEffect(() => {
+    const speed = 0.5;
 
     function tick() {
-      if (track1.current && track2.current) {
+      if (!pausedRef.current && track1.current && track2.current) {
         const w1 = track1.current.scrollWidth / 3;
         const w2 = track2.current.scrollWidth / 3;
 
-        pos1 -= speed;
-        pos2 += speed;
+        pos1Ref.current -= speed;
+        pos2Ref.current += speed;
 
-        if (pos1 <= -w1) pos1 = 0;
-        if (pos2 >= 0) pos2 = -w2;
+        if (pos1Ref.current <= -w1) pos1Ref.current = 0;
+        if (pos2Ref.current >= 0) pos2Ref.current = -w2;
 
-        track1.current.style.transform = `translateX(${pos1}px)`;
-        track2.current.style.transform = `translateX(${pos2}px)`;
+        track1.current.style.transform = `translateX(${pos1Ref.current}px)`;
+        track2.current.style.transform = `translateX(${pos2Ref.current}px)`;
       }
-      raf = requestAnimationFrame(tick);
+      rafRef.current = requestAnimationFrame(tick);
     }
 
     // Start row2 offset
     if (track2.current) {
       const w2 = track2.current.scrollWidth / 3;
-      pos2 = -w2;
+      pos2Ref.current = -w2;
     }
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   const renderItems = (items: Business[], prefix: string) =>
@@ -75,7 +81,11 @@ export default function MarqueeBelt({
     ));
 
   return (
-    <section className="relative z-10 overflow-hidden border-y border-black/[0.04] bg-warm-100/50 py-5">
+    <section
+      className="relative z-10 overflow-hidden border-y border-black/[0.04] bg-warm-100/50 py-5"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <div className="mb-3 overflow-hidden">
         <div ref={track1} className="flex w-max items-center gap-5">
           {renderItems([...row1, ...row1, ...row1], "r1")}

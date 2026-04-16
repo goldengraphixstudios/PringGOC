@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   Gavel,
   Package,
@@ -105,6 +106,7 @@ export default function RFGAuctionDavaoPage() {
 
   return (
     <main className="relative overflow-hidden bg-[#09090B]">
+      <BusinessNavArrows currentSlug="rfg-auction-davao" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -239,7 +241,7 @@ export default function RFGAuctionDavaoPage() {
       {/* HERO */}
       <section className="relative min-h-screen overflow-hidden pt-16">
         <div className="absolute inset-0">
-          <Image src="/rfg-auction-davao/hero.jpg" alt="Warehouse" fill className="object-cover" priority />
+          <Image src="/rfg-auction-davao/item-1.jpg" alt="Warehouse" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#09090B] via-[#09090B]/95 to-[#09090B]/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/30 to-transparent" />
         </div>
@@ -359,7 +361,7 @@ export default function RFGAuctionDavaoPage() {
 
       {/* HOW IT WORKS */}
       <section id="how-it-works" className="relative z-10 overflow-hidden bg-[#0D0D0F] px-6 py-20 md:py-28">
-        <div className="absolute inset-0"><Image src="/rfg-auction-davao/warehouse.jpg" alt="" fill className="object-cover opacity-[0.03]" /></div>
+        <div className="absolute inset-0"><Image src="/rfg-auction-davao/item-2.jpg" alt="" fill className="object-cover opacity-[0.03]" /></div>
         <div className="relative mx-auto max-w-5xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-14 text-center">
@@ -395,11 +397,11 @@ export default function RFGAuctionDavaoPage() {
           </ScrollReveal>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { src: "/rfg-auction-davao/warehouse.jpg", label: "Store Floor", span: "lg:col-span-2 lg:row-span-2" },
-              { src: "/rfg-auction-davao/auction.jpg", label: "Premium Goods", span: "" },
-              { src: "/rfg-auction-davao/surplus.jpg", label: "UK & Japan Items", span: "" },
-              { src: "/rfg-auction-davao/deals.jpg", label: "Happy Customers", span: "sm:col-span-2 lg:col-span-1" },
-              { src: "/rfg-auction-davao/industrial.jpg", label: "Quality Selection", span: "lg:col-span-2" },
+              { src: "/rfg-auction-davao/item-1.jpg", label: "Store Floor", span: "lg:col-span-2 lg:row-span-2" },
+              { src: "/rfg-auction-davao/item-2.jpg", label: "Premium Goods", span: "" },
+              { src: "/rfg-auction-davao/item-3.jpg", label: "UK & Japan Items", span: "" },
+              { src: "/rfg-auction-davao/item-4.jpg", label: "Happy Customers", span: "sm:col-span-2 lg:col-span-1" },
+              { src: "/rfg-auction-davao/item-5.jpg", label: "Quality Selection", span: "lg:col-span-2" },
             ].map((img, i) => (
               <ScrollReveal key={img.label} variant="scale" delay={i * 80}>
                 <div className={`ylw-gallery-item group relative overflow-hidden rounded-2xl border border-white/[0.04] ${img.span}`}>
@@ -477,7 +479,7 @@ export default function RFGAuctionDavaoPage() {
                   </a>
                 </div>
                 <div className="relative aspect-square md:aspect-auto md:h-full">
-                  <Image src="/rfg-auction-davao/deals.jpg" alt="RFG Davao" fill className="object-cover" />
+                  <Image src="/rfg-auction-davao/item-4.jpg" alt="RFG Davao" fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#111113] via-transparent to-transparent md:bg-gradient-to-r" />
                   <div className="pointer-events-none absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-[#FACC15]/[0.04] to-transparent" />
                 </div>
@@ -490,7 +492,7 @@ export default function RFGAuctionDavaoPage() {
       {/* FINAL CTA */}
       <section className="relative z-10 overflow-hidden px-6 py-24 md:py-32">
         <div className="absolute inset-0">
-          <Image src="/rfg-auction-davao/industrial.jpg" alt="" fill className="object-cover opacity-[0.05]" />
+          <Image src="/rfg-auction-davao/item-6.jpg" alt="" fill className="object-cover opacity-[0.05]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/95 to-[#09090B]/80" />
         </div>
         <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FACC15]/[0.06]" style={{ filter: "blur(80px)", animation: "ylwGlow 6s ease-in-out infinite" }} />

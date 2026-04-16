@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -43,25 +44,25 @@ export default function RFGEventsPlacePage() {
       icon: Heart,
       title: "Weddings",
       desc: "Celebrate your love story in an elegant, fully air-conditioned venue with gold-accented decor and up to 250 guests.",
-      img: "/rfg-events-place/wedding.jpg",
+      img: "/rfg-events-place/event-xmas-473571.jpg",
     },
     {
       icon: Utensils,
       title: "Corporate Events",
       desc: "Seminars, product launches, and company dinners — professional setup with full AV support.",
-      img: "/rfg-events-place/corporate.jpg",
+      img: "/rfg-events-place/venue-3.jpg",
     },
     {
       icon: PartyPopper,
       title: "Birthday Celebrations",
       desc: "From intimate gatherings to grand parties, create unforgettable birthday memories with style.",
-      img: "/rfg-events-place/party.jpg",
+      img: "/rfg-events-place/event-birthday-500909.jpg",
     },
     {
       icon: GlassWater,
       title: "Social Gatherings",
       desc: "Reunions, debuts, anniversaries, and more — a versatile space for every milestone.",
-      img: "/rfg-events-place/dining.jpg",
+      img: "/rfg-events-place/event-christening-473360.jpg",
     },
   ];
 
@@ -110,6 +111,7 @@ export default function RFGEventsPlacePage() {
 
   return (
     <main className="relative overflow-hidden bg-[#0A0A0A]">
+      <BusinessNavArrows currentSlug="rfg-events-place" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -308,7 +310,7 @@ export default function RFGEventsPlacePage() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/rfg-events-place/hero.jpg"
+            src="/rfg-events-place/event-xmas-473571.jpg"
             alt="RFG Events Place Venue"
             fill
             className="object-cover"
@@ -667,11 +669,11 @@ export default function RFGEventsPlacePage() {
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
             {[
-              { src: "/rfg-events-place/hero.jpg", alt: "Grand Ballroom", span: "md:col-span-2 md:row-span-2" },
-              { src: "/rfg-events-place/wedding.jpg", alt: "Wedding Setup", span: "" },
-              { src: "/rfg-events-place/corporate.jpg", alt: "Corporate Event", span: "" },
-              { src: "/rfg-events-place/dining.jpg", alt: "Dining Setup", span: "" },
-              { src: "/rfg-events-place/party.jpg", alt: "Celebration", span: "" },
+              { src: "/rfg-events-place/venue-1.jpg", alt: "Grand Ballroom", span: "md:col-span-2 md:row-span-2" },
+              { src: "/rfg-events-place/event-xmas-473571.jpg", alt: "Wedding Setup", span: "" },
+              { src: "/rfg-events-place/venue-3.jpg", alt: "Corporate Event", span: "" },
+              { src: "/rfg-events-place/event-christening-473360.jpg", alt: "Dining Setup", span: "" },
+              { src: "/rfg-events-place/event-birthday-500909.jpg", alt: "Celebration", span: "" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
@@ -750,7 +752,7 @@ export default function RFGEventsPlacePage() {
                 {/* Map / Image side */}
                 <div className="relative min-h-[280px] md:min-h-[380px]">
                   <Image
-                    src="/rfg-events-place/venue.jpg"
+                    src="/rfg-events-place/venue-2.jpg"
                     alt="RFG Events Place Venue"
                     fill
                     className="object-cover"

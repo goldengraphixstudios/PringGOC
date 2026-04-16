@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -32,22 +33,22 @@ const collections = [
   {
     name: "Necklaces",
     desc: "Statement pieces that command attention",
-    image: "/lusso/necklace.jpg",
+    image: "/lusso/jewelry-3.jpg",
   },
   {
     name: "Rings",
     desc: "Elegant bands for every occasion",
-    image: "/lusso/rings.jpg",
+    image: "/lusso/jewelry-5.jpg",
   },
   {
     name: "Earrings",
     desc: "From subtle studs to dramatic drops",
-    image: "/lusso/earrings.jpg",
+    image: "/lusso/jewelry-2.jpg",
   },
   {
     name: "Bracelets",
     desc: "Wrap your wrist in luxury",
-    image: "/lusso/bracelet.jpg",
+    image: "/lusso/jewelry-8.jpg",
   },
 ];
 
@@ -107,17 +108,20 @@ const reasons = [
 
 /* Marquee images — repeated for seamless loop */
 const marqueeImages = [
-  { src: "/lusso/necklace.jpg", alt: "Gold Necklace" },
-  { src: "/lusso/rings.jpg", alt: "Fashion Rings" },
-  { src: "/lusso/earrings.jpg", alt: "Elegant Earrings" },
-  { src: "/lusso/bracelet.jpg", alt: "Luxury Bracelet" },
-  { src: "/lusso/detail.jpg", alt: "Jewelry Detail" },
-  { src: "/lusso/collection.jpg", alt: "LUSSO Collection" },
+  { src: "/lusso/jewelry-1.jpg", alt: "Gold Necklace" },
+  { src: "/lusso/jewelry-2.jpg", alt: "Fashion Rings" },
+  { src: "/lusso/jewelry-3.jpg", alt: "Elegant Earrings" },
+  { src: "/lusso/jewelry-4.jpg", alt: "Luxury Bracelet" },
+  { src: "/lusso/jewelry-5.jpg", alt: "Jewelry Detail" },
+  { src: "/lusso/jewelry-6.jpg", alt: "LUSSO Collection" },
+  { src: "/lusso/jewelry-7.jpg", alt: "Jewelry Set" },
+  { src: "/lusso/jewelry-9.jpg", alt: "Premium Pieces" },
 ];
 
 export default function LussoPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#060606] text-white">
+      <BusinessNavArrows currentSlug="lusso" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -379,7 +383,7 @@ export default function LussoPage() {
             </div>
           </div>
 
-          {/* Right — Hero Image */}
+          {/* Right — Hero Video */}
           <div
             className="relative hidden lg:block"
             style={{
@@ -391,14 +395,17 @@ export default function LussoPage() {
               animationFillMode: "forwards",
             }}
           >
-            <div className="float-jewelry relative">
-              {/* Main image */}
-              <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={bp("/lusso/hero.jpg")}
-                  alt="LUSSO Fashion Jewelry"
-                  className="h-[520px] w-full object-cover"
+            <div className="float-jewelry relative flex justify-center">
+              {/* Main video */}
+              <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/10" style={{ width: "68%" }}>
+                <video
+                  src={bp("/lusso/showcase.mp4")}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  suppressHydrationWarning
+                  style={{ display: "block", width: "100%", height: "auto" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/40 via-transparent to-[#060606]/10" />
 
@@ -519,7 +526,8 @@ export default function LussoPage() {
                     <img
                       src={bp(col.image)}
                       alt={col.name}
-                      className="h-[380px] w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="w-full transition-transform duration-1000 group-hover:scale-105"
+                      style={{ display: "block", height: "auto" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/50 via-transparent to-[#060606]/10" />
 
@@ -571,7 +579,7 @@ export default function LussoPage() {
           <div className="relative h-[50vh] min-h-[400px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={bp("/lusso/model.jpg")}
+              src={bp("/lusso/jewelry-10.jpg")}
               alt="LUSSO Fashion"
               className="h-full w-full object-cover"
             />
@@ -694,7 +702,7 @@ export default function LussoPage() {
 
               <div className="relative">
                 <Image
-                  src="/logos/lusso.jpg"
+                  src="/logos/lusso.png"
                   alt="LUSSO"
                   width={72}
                   height={72}

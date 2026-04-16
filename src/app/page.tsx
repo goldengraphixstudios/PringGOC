@@ -15,21 +15,33 @@ import {
   Star,
   ShieldCheck,
   Zap,
+  Truck,
+  Mail,
+  Send,
+  Clock,
+  Package,
+  CalendarCheck,
 } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
 import PhilippinesMap from "@/components/PhilippinesMap";
 import MarqueeBelt from "@/components/MarqueeBelt";
+import WelcomePopup from "@/components/WelcomePopup";
+import FloatingChat from "@/components/FloatingChat";
+
+// Businesses visible in the main grid (exclude sub-branch pages)
+const BRANCH_SLUGS = ["rfg-auction-bulacan", "rfg-auction-davao"];
+const mainBusinesses = businesses.filter((b) => !BRANCH_SLUGS.includes(b.slug));
 
 const stats = [
-  { value: 16, suffix: "+", label: "Businesses", icon: Building2 },
+  { value: 18, suffix: "+", label: "Businesses", icon: Building2 },
   { value: 8, suffix: "+", label: "Industries", icon: TrendingUp },
   { value: 6, suffix: "+", label: "Locations", icon: MapPin },
   { value: 1, suffix: "", label: "Family", icon: Users },
 ];
 
-const categories = [...new Set(businesses.map((b) => b.category))];
+const categories = [...new Set(mainBusinesses.map((b) => b.category))];
 
 const categoryIcons: Record<string, typeof Building2> = {
   "Real Estate": Building2,
@@ -42,12 +54,15 @@ const categoryIcons: Record<string, typeof Building2> = {
   "Events & Venues": Globe,
   "Fashion & Apparel": Crown,
   "Toys & Kids": Star,
+  "Logistics & Transport": Truck,
 };
 
 export default function Home() {
   return (
     <main className="relative overflow-hidden">
       <LoadingScreen />
+      <WelcomePopup />
+      <FloatingChat />
 
       {/* ═══ Page-wide animations ═══ */}
       <style
@@ -117,6 +132,13 @@ export default function Home() {
   transform: translateY(-6px);
   box-shadow: 0 20px 60px rgba(0,0,0,0.08);
 }
+.card-featured {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.card-featured:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.14);
+}
 .industry-pill {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -175,8 +197,8 @@ export default function Home() {
               </a>
             ))}
           </div>
-          <a href="#businesses" className="hidden cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-5 py-2 text-xs font-semibold text-white transition-all duration-200 hover:bg-navy-700 hover:shadow-lg sm:flex">
-            Explore <ArrowRight className="h-3.5 w-3.5" />
+          <a href="#contact" className="hidden cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-5 py-2 text-xs font-semibold text-white transition-all duration-200 hover:bg-navy-700 hover:shadow-lg sm:flex">
+            Book a Meeting <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </nav>
@@ -185,7 +207,7 @@ export default function Home() {
           HERO — Full-viewport cinematic
       ═══════════════════════════════════════════ */}
       <section className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-8">
-        {/* BG image — visible */}
+        {/* BG image */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
             src="/landing/hero-bg.jpg"
@@ -201,79 +223,45 @@ export default function Home() {
 
         {/* Ambient glow orbs */}
         <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-          <div
-            className="absolute rounded-full"
-            style={{ top: "15%", left: "10%", width: 400, height: 400, background: "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)", animation: "floatOrb 18s ease-in-out infinite", filter: "blur(60px)" }}
-          />
-          <div
-            className="absolute rounded-full"
-            style={{ top: "50%", right: "5%", width: 350, height: 350, background: "radial-gradient(circle, rgba(27,58,92,0.08) 0%, transparent 70%)", animation: "floatOrb 22s ease-in-out infinite 3s", filter: "blur(50px)" }}
-          />
-          <div
-            className="absolute rounded-full"
-            style={{ bottom: "10%", left: "30%", width: 300, height: 300, background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "floatOrb 20s ease-in-out infinite 6s", filter: "blur(70px)" }}
-          />
+          <div className="absolute rounded-full" style={{ top: "15%", left: "10%", width: 400, height: 400, background: "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)", animation: "floatOrb 18s ease-in-out infinite", filter: "blur(60px)" }} />
+          <div className="absolute rounded-full" style={{ top: "50%", right: "5%", width: 350, height: 350, background: "radial-gradient(circle, rgba(27,58,92,0.08) 0%, transparent 70%)", animation: "floatOrb 22s ease-in-out infinite 3s", filter: "blur(50px)" }} />
+          <div className="absolute rounded-full" style={{ bottom: "10%", left: "30%", width: 300, height: 300, background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "floatOrb 20s ease-in-out infinite 6s", filter: "blur(70px)" }} />
         </div>
 
         {/* Floating particles */}
         <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
           {[...Array(8)].map((_, i) => (
-            <div
-              key={`p-${i}`}
-              className="absolute rounded-full bg-gold-500"
-              style={{
-                width: `${2 + (i % 3)}px`,
-                height: `${2 + (i % 3)}px`,
-                left: `${8 + i * 11}%`,
-                bottom: "-10px",
-                opacity: 0,
-                animation: `floatUp ${12 + i * 3}s linear infinite ${i * 2}s`,
-              }}
-            />
+            <div key={`p-${i}`} className="absolute rounded-full bg-gold-500"
+              style={{ width: `${2 + (i % 3)}px`, height: `${2 + (i % 3)}px`, left: `${8 + i * 11}%`, bottom: "-10px", opacity: 0, animation: `floatUp ${12 + i * 3}s linear infinite ${i * 2}s` }} />
           ))}
         </div>
 
         <div className="flex-[1]" />
 
         <div className="hero-stagger relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
-          {/* Logo — animated */}
           <div className="hero-logo mb-8">
-            <Image
-              src="/logos/pring-group.png"
-              alt="Pring Group Logo"
-              width={140}
-              height={140}
-              className="relative z-10 drop-shadow-lg"
-              priority
-            />
+            <Image src="/logos/pring-group.png" alt="Pring Group Logo" width={140} height={140} className="relative z-10 drop-shadow-lg" priority />
           </div>
 
-          {/* Tag */}
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-500/25 bg-gold-500/[0.08] px-5 py-1.5 text-[11px] font-semibold tracking-[0.15em] text-gold-600 uppercase shadow-sm">
             <Crown className="h-3.5 w-3.5" />
             Family-Owned Conglomerate
           </span>
 
-          {/* Headline */}
           <h1 className="mb-6 font-[family-name:var(--font-heading)] text-[2rem] leading-[1.1] font-bold tracking-tight text-navy-900 sm:text-3xl md:text-4xl lg:text-5xl">
             Building Legacies
             <br />
             <span className="gold-shimmer">Across Industries</span>
           </h1>
 
-          {/* Divider line */}
-          <div
-            className="mb-6 h-[2px] w-24 origin-center rounded-full bg-gradient-to-r from-transparent via-gold-500 to-transparent"
-            style={{ opacity: 0, animation: "heroLine 0.6s ease-out 0.55s forwards, heroReveal 0.5s ease-out 0.55s forwards" }}
-          />
+          <div className="mb-6 h-[2px] w-24 origin-center rounded-full bg-gradient-to-r from-transparent via-gold-500 to-transparent"
+            style={{ opacity: 0, animation: "heroLine 0.6s ease-out 0.55s forwards, heroReveal 0.5s ease-out 0.55s forwards" }} />
 
-          {/* Sub */}
           <p className="mx-auto mb-10 max-w-xl text-[15px] leading-[1.8] text-navy-700/70 sm:text-base md:text-lg md:leading-[1.8]">
-            16+ businesses spanning 8+ industries. One family united by a shared
+            18+ businesses spanning 8+ industries. One family united by a shared
             vision of growth and excellence across the Philippines.
           </p>
 
-          {/* CTAs */}
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a href="#businesses" className="group flex cursor-pointer items-center gap-2.5 rounded-full bg-navy-800 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-navy-900/10 transition-all duration-200 hover:bg-navy-700 hover:shadow-xl hover:shadow-navy-900/15 active:scale-[0.98]">
               Explore Our Businesses
@@ -285,7 +273,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll hint */}
         <div className="mt-auto pt-8">
           <div className="flex flex-col items-center gap-2" style={{ opacity: 0, animation: "heroReveal 0.5s ease-out 1.2s forwards" }}>
             <span className="text-[10px] tracking-[0.2em] text-navy-700/50 uppercase">Scroll</span>
@@ -295,38 +282,31 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          LOGO MARQUEE BELT — Dual row (client component)
+          LOGO MARQUEE BELT
       ═══════════════════════════════════════════ */}
       <MarqueeBelt
-        row1={businesses.slice(0, 8).map(b => ({ slug: b.slug, name: b.name, logo: b.logo }))}
-        row2={businesses.slice(8, 16).map(b => ({ slug: b.slug, name: b.name, logo: b.logo }))}
+        row1={mainBusinesses.slice(0, 9).map(b => ({ slug: b.slug, name: b.name, logo: b.logo }))}
+        row2={mainBusinesses.slice(9).map(b => ({ slug: b.slug, name: b.name, logo: b.logo }))}
       />
 
       {/* ═══════════════════════════════════════════
-          STATS — Dark with background image
+          STATS
       ═══════════════════════════════════════════ */}
       <section className="stats-section relative z-10 overflow-hidden bg-navy-900 px-6 py-8 md:py-10">
-        {/* Gold grid overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: "linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-        {/* Ambient glow */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[500px] rounded-full" style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "breathe 8s ease-in-out infinite" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: "linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[500px] rounded-full"
+          style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "breathe 8s ease-in-out infinite" }} />
 
         <div className="relative mx-auto flex max-w-3xl items-center justify-between gap-4 md:gap-6">
           {stats.map((stat, i) => (
             <ScrollReveal key={stat.label} variant="scale" delay={i * 150}>
-              <div className="stat-card group relative text-center" style={{ animationDelay: `${i * 0.15}s` }}>
+              <div className="stat-card group relative text-center">
                 <stat.icon className="mx-auto mb-1.5 h-4 w-4 text-gold-400 transition-all duration-300 group-hover:scale-125 group-hover:text-gold-300" />
                 <div className="font-[family-name:var(--font-heading)] text-2xl font-bold text-white md:text-3xl">
                   <CountUp end={stat.value} suffix={stat.suffix} duration={2500} className="text-white" />
                 </div>
                 <div className="mt-1 text-[10px] tracking-[0.15em] text-white/80 uppercase">{stat.label}</div>
-                {/* Hover glow */}
                 <div className="pointer-events-none absolute -inset-3 -z-10 rounded-2xl bg-gold-500/0 transition-all duration-500 group-hover:bg-gold-500/[0.04] group-hover:shadow-[0_0_30px_rgba(201,168,76,0.08)]" />
               </div>
             </ScrollReveal>
@@ -335,10 +315,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          ABOUT / OUR STORY — with image
+          ABOUT / OUR STORY
       ═══════════════════════════════════════════ */}
       <section id="about" className="relative z-10 px-6 py-14 md:py-20">
-        {/* Subtle background particles */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[...Array(5)].map((_, i) => (
             <div key={`ap-${i}`} className="absolute rounded-full bg-gold-500"
@@ -353,25 +332,42 @@ export default function Home() {
                 <Sparkles className="h-3.5 w-3.5" /> Our Story
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-navy-900 md:text-4xl lg:text-[2.75rem]">
-                One Family. <span className="text-gradient-gold">Multiple Empires.</span>
+                From Humble Beginnings <span className="text-gradient-gold">to Resilient Success</span>
               </h2>
             </div>
           </ScrollReveal>
 
-          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
             <ScrollReveal variant="fadeRight" delay={100}>
               <div>
-                <p className="mb-4 text-base leading-[1.8] text-navy-700/70">
-                  Pring Group of Companies is a family-owned business
-                  conglomerate where each family member takes the helm of their
-                  own venture. From auction houses and bookstores to fitness
-                  gyms and event venues, the Pring family has built a diverse
-                  portfolio that serves communities across the Philippines.
+                <p className="mb-4 text-base leading-[1.9] text-navy-700/70">
+                  Every great journey begins with a single step, and for our family, it all started in{" "}
+                  <strong className="text-navy-800">Baguio City</strong>. We weren&apos;t born into privilege — just
+                  a normal family with a simple dream: to build something meaningful through hard work,
+                  faith, and perseverance. It was there where I worked as a secretary and began selecting
+                  ukay-ukay items to sell to co-workers. At that time, it was a small side hustle —
+                  but the seed of something much greater.
                 </p>
-                <p className="mb-6 text-base leading-[1.8] text-navy-700/70">
-                  What started as a single business has grown into a network of
-                  16+ thriving enterprises — each with its own brand identity,
-                  loyal customer base, and vision for growth.
+                <p className="mb-4 text-base leading-[1.9] text-navy-700/70">
+                  Through tireless effort and faith, our capital grew and opportunities unfolded. We opened
+                  our first stores in Dagupan, Batangas, Calamba, Laguna, Mindoro, and Romblon. But like
+                  any true business journey, it wasn&apos;t always smooth sailing. We faced hardships,
+                  financial losses, and moments of uncertainty — yet with every setback, we rose again,
+                  stronger and more determined.
+                </p>
+                <p className="mb-4 text-base leading-[1.9] text-navy-700/70">
+                  A pivotal moment came when we discovered a Japan Surplus retail store. One of our trusted
+                  suppliers, seeing our potential, offered us a loan for our first container. In just one
+                  week, we repaid it — but the supplier said,{" "}
+                  <em className="font-medium text-navy-800">&quot;Jo, use this as the foundation of your new business.&quot;</em>{" "}
+                  That was the turning point.
+                </p>
+                <p className="mb-6 text-base leading-[1.9] text-navy-700/70">
+                  With God&apos;s grace and our unwavering family bond, we opened our first retail store in
+                  Santa Rosa, Laguna. From there, what started as a small ukay-ukay operation evolved into{" "}
+                  <strong className="text-navy-800">RFG Auction House</strong> — now importing from Japan,
+                  China, Korea, and the UK across seven branches. Our story is far from over. We are
+                  built on a foundation of resilience, faith, and family.
                 </p>
 
                 {/* Trust badges */}
@@ -403,10 +399,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          INDUSTRIES — with bg image
+          INDUSTRIES
       ═══════════════════════════════════════════ */}
       <section className="relative z-10 overflow-hidden border-y border-black/[0.04] bg-warm-100/40 px-6 py-20 md:py-24">
-        {/* Background image */}
         <div className="pointer-events-none absolute inset-0">
           <Image src="/landing/network.jpg" alt="" fill sizes="100vw" className="object-cover opacity-[0.04]" />
         </div>
@@ -422,7 +417,7 @@ export default function Home() {
               </h2>
               <p className="mx-auto max-w-md text-sm leading-relaxed text-navy-700/55">
                 A diverse ecosystem of businesses spanning retail, hospitality,
-                fitness, real estate, and more.
+                fitness, real estate, logistics, and more.
               </p>
             </div>
           </ScrollReveal>
@@ -430,7 +425,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((cat, i) => {
               const Icon = categoryIcons[cat] || Building2;
-              const count = businesses.filter((b) => b.category === cat).length;
+              const count = mainBusinesses.filter((b) => b.category === cat).length;
               return (
                 <ScrollReveal key={cat} variant="scale" delay={i * 60}>
                   <div className="industry-pill flex cursor-default items-center gap-2.5 rounded-2xl border border-navy-700/[0.06] bg-white/80 px-5 py-3 shadow-sm backdrop-blur-sm">
@@ -449,7 +444,6 @@ export default function Home() {
           BUSINESSES GRID
       ═══════════════════════════════════════════ */}
       <section id="businesses" className="relative z-10 px-6 py-24 md:py-32">
-        {/* Floating particles */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[...Array(6)].map((_, i) => (
             <div key={`bp-${i}`} className="absolute rounded-full bg-navy-700"
@@ -474,51 +468,58 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {businesses.map((biz, i) => (
+            {mainBusinesses.map((biz, i) => (
               <ScrollReveal key={biz.slug} variant="fadeUp" delay={(i % 4) * 80}>
-                <Link
-                  href={`/business/${biz.slug}`}
-                  className="card-glow group relative block cursor-pointer overflow-hidden rounded-2xl border border-black/[0.04] bg-white p-0"
-                >
-                  {/* Color accent bar */}
-                  <div className="h-1" style={{ background: `linear-gradient(90deg, ${biz.colors[0]}, ${biz.colors[1] || biz.colors[0]}, ${biz.colors[2] || biz.colors[0]})` }} />
+                  <Link
+                    href={`/business/${biz.slug}`}
+                    className="card-glow group relative block cursor-pointer overflow-hidden rounded-2xl border border-black/[0.04] bg-white p-0"
+                  >
+                    <div className="h-1" style={{ background: `linear-gradient(90deg, ${biz.colors[0]}, ${biz.colors[1] || biz.colors[0]}, ${biz.colors[2] || biz.colors[0]})` }} />
 
-                  <div className="p-5">
-                    <div className="mb-4 flex items-start gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-warm-100 p-1 transition-transform duration-300 group-hover:scale-105">
-                        <Image src={biz.logo} alt={biz.name} width={48} height={48} className="h-full w-full rounded-lg object-contain" />
+                    <div className="p-5">
+                      <div className="mb-4 flex items-start gap-4">
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-warm-100 p-1 transition-transform duration-300 group-hover:scale-105">
+                          <Image src={biz.logo} alt={biz.name} width={48} height={48} className="h-full w-full rounded-lg object-contain" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="mb-0.5 truncate text-[15px] font-bold text-navy-900">{biz.name}</h3>
+                          <p className="truncate font-[family-name:var(--font-cursive)] text-[12px] font-medium text-gold-600 italic">{biz.tagline}</p>
+                        </div>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="mb-0.5 truncate text-[15px] font-bold text-navy-900">{biz.name}</h3>
-                        <p className="truncate font-[family-name:var(--font-cursive)] text-[12px] font-medium text-gold-600 italic">{biz.tagline}</p>
+
+                      {/* Tags row */}
+                      <div className="mb-2 flex flex-wrap items-center gap-1.5">
+                        {biz.location && (
+                          <div className="flex items-center gap-1 text-[11px] text-navy-700/50">
+                            <MapPin className="h-3 w-3" /> {biz.location}
+                          </div>
+                        )}
+                        {biz.shipsNationwide && (
+                          <span className="ml-auto rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">
+                            Ships Nationwide
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="mb-4 line-clamp-2 text-[13px] leading-[1.7] text-navy-700/60">{biz.description}</p>
+
+                      <div className="mb-4 flex flex-wrap gap-1.5">
+                        {biz.services.slice(0, 2).map((s) => (
+                          <span key={s} className="rounded-full bg-warm-100/80 px-2.5 py-0.5 text-[10px] font-medium text-navy-700/55">{s}</span>
+                        ))}
+                        {biz.services.length > 2 && (
+                          <span className="rounded-full bg-warm-100/80 px-2.5 py-0.5 text-[10px] font-medium text-navy-700/40">+{biz.services.length - 2}</span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-black/[0.03] pt-3">
+                        <span className="rounded-full bg-warm-100 px-3 py-1 text-[10px] font-semibold text-navy-700/50">{biz.category}</span>
+                        <div className="flex items-center gap-1.5 text-[12px] font-semibold text-navy-800/50 transition-colors duration-200 group-hover:text-navy-800">
+                          View <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </div>
                       </div>
                     </div>
-
-                    {biz.location && (
-                      <div className="mb-3 flex items-center gap-1.5 text-[11px] text-navy-700/50">
-                        <MapPin className="h-3 w-3" /> {biz.location}
-                      </div>
-                    )}
-
-                    <p className="mb-4 line-clamp-2 text-[13px] leading-[1.7] text-navy-700/60">{biz.description}</p>
-
-                    <div className="mb-4 flex flex-wrap gap-1.5">
-                      {biz.services.slice(0, 2).map((s) => (
-                        <span key={s} className="rounded-full bg-warm-100/80 px-2.5 py-0.5 text-[10px] font-medium text-navy-700/55">{s}</span>
-                      ))}
-                      {biz.services.length > 2 && (
-                        <span className="rounded-full bg-warm-100/80 px-2.5 py-0.5 text-[10px] font-medium text-navy-700/40">+{biz.services.length - 2}</span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between border-t border-black/[0.03] pt-3">
-                      <span className="rounded-full bg-warm-100 px-3 py-1 text-[10px] font-semibold text-navy-700/50">{biz.category}</span>
-                      <div className="flex items-center gap-1.5 text-[12px] font-semibold text-navy-800/50 transition-colors duration-200 group-hover:text-navy-800">
-                        View <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
               </ScrollReveal>
             ))}
           </div>
@@ -526,19 +527,17 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          LOCATIONS — Dark with bg image
+          LOCATIONS
       ═══════════════════════════════════════════ */}
       <section id="locations" className="relative z-10 overflow-hidden bg-navy-900 px-6 py-24 md:py-32">
-        {/* Background image */}
         <div className="pointer-events-none absolute inset-0">
           <Image src="/landing/locations.jpg" alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />
           <div className="absolute inset-0 bg-navy-900/85" />
         </div>
-        {/* Grid overlay */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "linear-gradient(rgba(201,168,76,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.6) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
-        {/* Glow */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full" style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "breathe 10s ease-in-out infinite" }} />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full"
+          style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)", animation: "breathe 10s ease-in-out infinite" }} />
 
         <div className="relative mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
@@ -570,38 +569,199 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CTA / CONTACT — with bg image
+          INVESTOR / INQUIRY FORM
       ═══════════════════════════════════════════ */}
-      <footer id="contact" className="relative z-10 overflow-hidden px-6 py-24 md:py-32">
-        {/* Background texture */}
-        <div className="pointer-events-none absolute inset-0">
-          <Image src="/landing/cta-bg.jpg" alt="" fill sizes="100vw" className="object-cover opacity-[0.03]" />
+      <section id="inquire" className="relative z-10 px-6 py-24 md:py-32">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full opacity-[0.04]"
+            style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(circle, #C9A84C 0%, transparent 70%)", filter: "blur(80px)" }} />
         </div>
-        {/* Ambient glow */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full" style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)", animation: "breathe 12s ease-in-out infinite" }} />
 
         <div className="relative mx-auto max-w-4xl">
           <ScrollReveal variant="fadeUp">
-            <div className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-2xl shadow-navy-900/[0.06]">
+            <div className="mb-12 text-center">
+              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] text-gold-500 uppercase">
+                <Send className="h-3.5 w-3.5" /> Get in Touch
+              </span>
+              <h2 className="mb-3 font-[family-name:var(--font-heading)] text-3xl font-bold text-navy-900 md:text-4xl">
+                Invest, Consign, <span className="text-gradient-gold">or Inquire</span>
+              </h2>
+              <p className="mx-auto max-w-md text-sm leading-relaxed text-navy-700/55">
+                Interested in partnering, consigning items, investing, or simply have
+                a question? Fill out the form and we&apos;ll get back to you.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal variant="fadeUp" delay={100}>
+            <div className="overflow-hidden rounded-3xl border border-black/[0.05] bg-white shadow-xl shadow-navy-900/[0.04]">
+              <div className="h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
+              <form
+                action={`https://formsubmit.co/official.pringgroupofcompany@gmail.com`}
+                method="POST"
+                className="grid gap-5 px-8 py-10 sm:grid-cols-2 md:px-12"
+              >
+                {/* FormSubmit config */}
+                <input type="hidden" name="_subject" value="New PGC Website Inquiry" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="text" name="_honey" className="hidden" />
+
+                <div className="sm:col-span-2 grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Full Name *</label>
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="Your full name"
+                      className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Email Address *</label>
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Phone Number</label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder="+63 9XX XXX XXXX"
+                    className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Type of Inquiry *</label>
+                  <select
+                    name="inquiry_type"
+                    required
+                    className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
+                  >
+                    <option value="">Select an inquiry type</option>
+                    <option value="Partnership">Partnership Opportunity</option>
+                    <option value="Investment">Investment Inquiry</option>
+                    <option value="Consignment">Consign Items</option>
+                    <option value="Trucking">Trucking / Logistics</option>
+                    <option value="Apartment">Apartment / Real Estate</option>
+                    <option value="Event Venue">Event Venue Booking</option>
+                    <option value="General">General Inquiry</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Message *</label>
+                  <textarea
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Tell us about your inquiry, proposal, or how we can help you..."
+                    className="w-full resize-none rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
+                  />
+                </div>
+
+                <div className="sm:col-span-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-2 text-[11px] text-navy-700/40">
+                    <Mail className="h-3.5 w-3.5" />
+                    Sent to: official.pringgroupofcompany@gmail.com
+                  </div>
+                  <button
+                    type="submit"
+                    className="group flex cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-8 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-navy-700 hover:shadow-lg active:scale-[0.98]"
+                  >
+                    Send Inquiry
+                    <Send className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </button>
+                </div>
+              </form>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          CONTACT / CALENDLY + SOCIAL
+      ═══════════════════════════════════════════ */}
+      <footer id="contact" className="relative z-10 overflow-hidden px-6 py-24 md:py-32">
+        <div className="pointer-events-none absolute inset-0">
+          <Image src="/landing/cta-bg.jpg" alt="" fill sizes="100vw" className="object-cover opacity-[0.03]" />
+        </div>
+        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full"
+          style={{ transform: "translate(-50%, -50%)", background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)", animation: "breathe 12s ease-in-out infinite" }} />
+
+        <div className="relative mx-auto max-w-5xl">
+          {/* Book a meeting — Calendly */}
+          <ScrollReveal variant="fadeUp">
+            <div className="mb-16 overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-2xl shadow-navy-900/[0.06]">
               <div className="h-1.5 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
-              <div className="px-8 py-14 text-center md:px-16 md:py-20">
-                <div className="mb-6 flex justify-center">
+              <div className="px-8 py-12 text-center md:px-14 md:py-14">
+                <CalendarCheck className="mx-auto mb-4 h-8 w-8 text-gold-500/70" />
+                <h2 className="mb-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-navy-900 md:text-3xl">
+                  Book a Meeting <span className="text-gradient-gold">With Us</span>
+                </h2>
+                <p className="mx-auto mb-8 max-w-md text-sm leading-[1.8] text-navy-700/55">
+                  Schedule a 1-hour meeting with the Pring Group team to discuss
+                  partnerships, business opportunities, or any inquiry.
+                </p>
+
+                {/* Calendly inline widget */}
+                <div className="overflow-hidden rounded-2xl border border-black/[0.04] bg-warm-50">
+                  <div
+                    className="calendly-inline-widget"
+                    data-url="https://calendly.com/official-pringgroupofcompany/1hr?primary_color=003b5c"
+                    style={{ minWidth: "320px", height: "700px" }}
+                  />
+                </div>
+
+                {/* Also offer quick 30-min link */}
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm">
+                  <span className="text-navy-700/45">Prefer a quick call?</span>
+                  <a
+                    href="https://calendly.com/alisonjoy-pringg/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 font-semibold text-navy-700 underline underline-offset-2 hover:text-navy-900"
+                  >
+                    <Clock className="h-3.5 w-3.5" />
+                    Book a 30-min call instead
+                  </a>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Social links + Facebook pages */}
+          <ScrollReveal variant="fadeUp" delay={100}>
+            <div className="overflow-hidden rounded-3xl border border-black/[0.06] bg-white shadow-xl shadow-navy-900/[0.04]">
+              <div className="h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
+              <div className="px-8 py-12 text-center md:px-14">
+                <div className="mb-4 flex justify-center">
                   <div className="relative">
-                    <Image src="/logos/pring-group.png" alt="Pring Group" width={56} height={56} className="relative z-10 rounded-lg shadow-md" />
+                    <Image src="/logos/pring-group.png" alt="Pring Group" width={48} height={48} className="relative z-10 rounded-lg shadow-md" />
                     <div className="absolute inset-0 -m-2 rounded-xl bg-gold-500/15" style={{ animation: "pulseGlow 3s ease-in-out infinite", filter: "blur(8px)" }} />
                   </div>
                 </div>
 
-                <h2 className="mb-3 font-[family-name:var(--font-heading)] text-2xl font-bold text-navy-900 md:text-3xl lg:text-4xl">
-                  Partner With the <span className="text-gradient-gold">Pring Group</span>
+                <h2 className="mb-2 font-[family-name:var(--font-heading)] text-xl font-bold text-navy-900 md:text-2xl">
+                  Connect With <span className="text-gradient-gold">Our Businesses</span>
                 </h2>
-                <p className="mx-auto mb-10 max-w-md text-sm leading-[1.8] text-navy-700/55">
-                  Interested in partnerships, franchising, or business
-                  inquiries? Connect with us through any of our business pages.
+                <p className="mx-auto mb-8 max-w-md text-sm leading-[1.8] text-navy-700/55">
+                  Follow any of our business pages on Facebook for updates,
+                  live selling schedules, and auction announcements.
                 </p>
 
-                <div className="mb-10 flex flex-wrap justify-center gap-2">
-                  {businesses.map((biz) => (
+                <div className="mb-8 flex flex-wrap justify-center gap-2">
+                  {mainBusinesses.map((biz) => (
                     <a key={biz.slug} href={biz.facebook} target="_blank" rel="noopener noreferrer"
                       className="flex cursor-pointer items-center gap-1.5 rounded-full border border-navy-700/[0.06] bg-warm-50 px-3.5 py-2 text-[11px] font-medium text-navy-700/65 transition-all duration-200 hover:border-gold-500/20 hover:bg-white hover:text-navy-900 hover:shadow-sm">
                       <Facebook className="h-3 w-3" /> {biz.name}
@@ -609,16 +769,24 @@ export default function Home() {
                   ))}
                 </div>
 
-                <a href="https://www.facebook.com/RFGauctionhouse" target="_blank" rel="noopener noreferrer"
-                  className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-navy-900/10 transition-all duration-200 hover:bg-navy-700 hover:shadow-xl active:scale-[0.98]">
-                  <Facebook className="h-4 w-4" />
-                  Follow Us on Facebook
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </a>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <a href="https://www.facebook.com/RFGauctionhouse" target="_blank" rel="noopener noreferrer"
+                    className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-navy-900/10 transition-all duration-200 hover:bg-navy-700 hover:shadow-xl active:scale-[0.98]">
+                    <Facebook className="h-4 w-4" />
+                    Follow Us on Facebook
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </a>
+                  <a href="mailto:official.pringgroupofcompany@gmail.com"
+                    className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-navy-800/15 px-8 py-3.5 text-sm font-semibold text-navy-700 transition-all duration-200 hover:border-navy-800/25 hover:bg-navy-800/[0.04] hover:text-navy-900 active:scale-[0.98]">
+                    <Package className="h-4 w-4" />
+                    Email Us
+                  </a>
+                </div>
               </div>
             </div>
           </ScrollReveal>
 
+          {/* Footer bottom */}
           <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-black/[0.03] pt-6 md:flex-row">
             <div className="flex items-center gap-2.5">
               <Image src="/logos/pring-group.png" alt="Pring Group" width={20} height={20} className="rounded" />

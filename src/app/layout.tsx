@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Jost, Cormorant_Garamond, Oswald } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const bodoni = Bodoni_Moda({
@@ -44,6 +45,10 @@ export default function RootLayout({
     <html lang="en" className={`${bodoni.variable} ${jost.variable} ${cormorant.variable} ${oswald.variable}`}>
       <body className="bg-warm-50 text-navy-900 font-[family-name:var(--font-body)] antialiased">
         {children}
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

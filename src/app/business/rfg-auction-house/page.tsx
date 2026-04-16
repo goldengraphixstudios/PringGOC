@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   Gavel,
   Package,
@@ -54,10 +55,10 @@ export default function RFGAuctionHousePage() {
   ];
 
   const categories = [
-    { name: "Furniture", img: "/rfg-auction-house/furniture.jpg", tag: "Top Seller" },
-    { name: "Electronics", img: "/rfg-auction-house/electronics.jpg", tag: "Hot Lots" },
-    { name: "Premium Goods", img: "/rfg-auction-house/luxury.jpg", tag: "Imported" },
-    { name: "Wholesale", img: "/rfg-auction-house/warehouse.jpg", tag: "Bulk Deals" },
+    { name: "Furniture", img: "/rfg-auction-house/items-bed-1.jpg", tag: "Top Seller" },
+    { name: "Electronics", img: "/rfg-auction-house/items-electronics-65580.jpg", tag: "Hot Lots" },
+    { name: "Premium Goods", img: "/rfg-auction-house/items-kitchen-1.jpg", tag: "Imported" },
+    { name: "Wholesale", img: "/rfg-auction-house/items-toys-1.jpg", tag: "Bulk Deals" },
   ];
 
   const steps = [
@@ -67,14 +68,14 @@ export default function RFGAuctionHousePage() {
   ];
 
   const galleryImages = [
-    { src: "/rfg-auction-house/hero.jpg", alt: "Auction scene" },
-    { src: "/rfg-auction-house/furniture.jpg", alt: "Quality furniture" },
-    { src: "/rfg-auction-house/electronics.jpg", alt: "Electronics" },
-    { src: "/rfg-auction-house/crowd.jpg", alt: "Auction crowd" },
-    { src: "/rfg-auction-house/luxury.jpg", alt: "Premium goods" },
-    { src: "/rfg-auction-house/deals.jpg", alt: "Great deals" },
-    { src: "/rfg-auction-house/import.jpg", alt: "Global imports" },
-    { src: "/rfg-auction-house/warehouse.jpg", alt: "Warehouse" },
+    { src: "/rfg-auction-house/items-bed-1.jpg", alt: "Auction scene" },
+    { src: "/rfg-auction-house/items-bed-2.jpg", alt: "Quality furniture" },
+    { src: "/rfg-auction-house/items-electronics-65580.jpg", alt: "Electronics" },
+    { src: "/rfg-auction-house/items-kitchen-1.jpg", alt: "Auction crowd" },
+    { src: "/rfg-auction-house/items-toys-1.jpg", alt: "Premium goods" },
+    { src: "/rfg-auction-house/items-toys-2.jpg", alt: "Great deals" },
+    { src: "/rfg-auction-house/items-bed-1.jpg", alt: "Global imports" },
+    { src: "/rfg-auction-house/items-bed-2.jpg", alt: "Warehouse" },
   ];
 
   const marqueeItems = [
@@ -101,6 +102,7 @@ export default function RFGAuctionHousePage() {
 
   return (
     <>
+      <BusinessNavArrows currentSlug="rfg-auction-house" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -913,7 +915,7 @@ export default function RFGAuctionHousePage() {
       <section className="rfg-hero">
         <div className="rfg-hero-bg">
           <Image
-            src="/rfg-auction-house/hero.jpg"
+            src="/rfg-auction-house/items-bed-1.jpg"
             alt="RFG Auction House"
             fill
             priority

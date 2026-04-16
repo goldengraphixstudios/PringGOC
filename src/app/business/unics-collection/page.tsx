@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -55,7 +56,7 @@ export default function UnicsCollectionPage() {
       icon: CookingPot,
       title: "Premium Cookware",
       desc: "From pots and pans to specialty cookware — we have everything your kitchen needs to level up your home cooking game.",
-      img: "/unics-collection/cookware.jpg",
+      img: "/unics-collection/product-1.jpg",
       badge: "Best Seller",
       accent: "#CE1127",
     },
@@ -63,7 +64,7 @@ export default function UnicsCollectionPage() {
       icon: UtensilsCrossed,
       title: "Kitchen Essentials",
       desc: "Spatulas, ladles, chopping boards, containers — every little tool that makes meal prep faster and easier.",
-      img: "/unics-collection/essentials.jpg",
+      img: "/unics-collection/product-2.jpg",
       badge: "Must Have",
       accent: "#D4A030",
     },
@@ -71,7 +72,7 @@ export default function UnicsCollectionPage() {
       icon: Video,
       title: "Daily Live Selling",
       desc: "Catch us LIVE on Facebook every day from 1PM to 10PM! Exclusive deals, flash sales, and first-dibs on new arrivals.",
-      img: "/unics-collection/live-selling.jpg",
+      img: "/unics-collection/product-3.jpg",
       badge: "LIVE Daily",
       accent: "#CE1127",
     },
@@ -79,7 +80,7 @@ export default function UnicsCollectionPage() {
       icon: House,
       title: "Home Items",
       desc: "Beyond the kitchen — home organizers, storage solutions, and everyday essentials that keep your home running smooth.",
-      img: "/unics-collection/kitchen.jpg",
+      img: "/unics-collection/product-4.jpg",
       badge: "New Drops",
       accent: "#D4A030",
     },
@@ -110,6 +111,7 @@ export default function UnicsCollectionPage() {
 
   return (
     <main className="relative overflow-hidden" style={{ background: "#FFFAFA" }}>
+      <BusinessNavArrows currentSlug="unics-collection" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -338,7 +340,7 @@ export default function UnicsCollectionPage() {
           className="pointer-events-none absolute top-16 right-0 bottom-0 hidden w-[44%] overflow-hidden md:block"
           style={{ clipPath: "polygon(21% 0, 100% 0, 100% 100%, 3% 100%)" }}
         >
-          <Image src="/unics-collection/cookware.jpg" alt="Premium Kitchen Cookware" fill className="object-cover" style={{ objectPosition: "center 30%" }} />
+          <Image src="/unics-collection/product-1.jpg" alt="Premium Kitchen Cookware" fill className="object-cover" style={{ objectPosition: "center 30%" }} />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0D0809]/70 via-[#0D0809]/15 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0D0809]/50 via-transparent to-[#0D0809]/15" />
           {/* Live selling overlay badge */}
@@ -353,7 +355,7 @@ export default function UnicsCollectionPage() {
 
         {/* Mobile hero image */}
         <div className="relative h-[42vh] overflow-hidden md:hidden">
-          <Image src="/unics-collection/cookware.jpg" alt="Premium Kitchen Cookware" fill className="object-cover" />
+          <Image src="/unics-collection/product-1.jpg" alt="Premium Kitchen Cookware" fill className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0D0809]/25 via-transparent to-[#0D0809]" />
           <div className="absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r from-[#CE1127] via-[#D4A030] to-[#CE1127]" />
           {/* Mobile live badge */}
@@ -668,11 +670,11 @@ export default function UnicsCollectionPage() {
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {[
-              { src: "/unics-collection/hero.jpg", alt: "Kitchen Collection", span: "md:col-span-2 md:row-span-2", border: "#CE1127" },
-              { src: "/unics-collection/cookware.jpg", alt: "Cookware", span: "", border: "#D4A030" },
-              { src: "/unics-collection/cooking.jpg", alt: "Cooking", span: "", border: "#CE1127" },
-              { src: "/unics-collection/essentials.jpg", alt: "Essentials", span: "", border: "#D4A030" },
-              { src: "/unics-collection/kitchen.jpg", alt: "Kitchen Setup", span: "", border: "#CE1127" },
+              { src: "/unics-collection/product-1.jpg", alt: "Kitchen Collection", span: "md:col-span-2 md:row-span-2", border: "#CE1127" },
+              { src: "/unics-collection/product-2.jpg", alt: "Cookware", span: "", border: "#D4A030" },
+              { src: "/unics-collection/product-3.jpg", alt: "Cooking", span: "", border: "#CE1127" },
+              { src: "/unics-collection/product-4.jpg", alt: "Essentials", span: "", border: "#D4A030" },
+              { src: "/unics-collection/product-5.jpg", alt: "Kitchen Setup", span: "", border: "#CE1127" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
@@ -743,7 +745,7 @@ export default function UnicsCollectionPage() {
             <div className="overflow-hidden rounded-[2rem] border-2 border-[#CE1127]/10 bg-white shadow-xl">
               <div className="grid md:grid-cols-2">
                 <div className="relative min-h-[280px] md:min-h-[380px]">
-                  <Image src="/unics-collection/cooking.jpg" alt="Unic's Collection" fill className="object-cover" />
+                  <Image src="/unics-collection/product-6.jpg" alt="Unic's Collection" fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/50 md:to-white/80" />
                 </div>
                 <div className="flex flex-col justify-center px-8 py-10 md:px-12">

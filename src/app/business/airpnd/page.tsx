@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
+import GalleryCarousel from "@/components/GalleryCarousel";
 import {
   ArrowLeft,
   Facebook,
@@ -70,16 +72,17 @@ const units = [
 ];
 
 const gallery = [
-  { src: "/airpnd/living.jpg", alt: "Modern Living Room" },
-  { src: "/airpnd/bedroom.jpg", alt: "Elegant Bedroom" },
-  { src: "/airpnd/kitchen.jpg", alt: "Fully-Equipped Kitchen" },
-  { src: "/airpnd/bathroom.jpg", alt: "Modern Bathroom" },
-  { src: "/airpnd/interior.jpg", alt: "Interior Design" },
+  { src: "/airpnd/macabling-1.jpg", alt: "Modern Living Room" },
+  { src: "/airpnd/macabling-2.jpg", alt: "Elegant Bedroom" },
+  { src: "/airpnd/macabling-3.jpg", alt: "Fully-Equipped Kitchen" },
+  { src: "/airpnd/golden-city-1.jpg", alt: "Modern Bathroom" },
+  { src: "/airpnd/golden-city-2.jpg", alt: "Interior Design" },
 ];
 
 export default function AirpndPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#060606] text-white">
+      <BusinessNavArrows currentSlug="airpnd" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -138,7 +141,7 @@ export default function AirpndPage() {
         <div className="hero-bg-zoom absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bp("/airpnd/hero.jpg")}
+            src={bp("/airpnd/golden-city-1.jpg")}
             alt="AIRPND Luxury Apartments"
             className="h-full w-full object-cover"
           />
@@ -292,16 +295,168 @@ export default function AirpndPage() {
       >
         <div className="mx-auto max-w-6xl">
           <div className="grid items-center gap-16 lg:grid-cols-2">
-            {/* Image */}
+            {/* Animated Building */}
             <ScrollReveal variant="fadeRight">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={bp("/airpnd/living.jpg")}
-                  alt="Modern Living Space"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="relative flex items-center justify-center rounded-2xl overflow-hidden" style={{ aspectRatio: "4/3", background: "linear-gradient(180deg, #080808 0%, #0f0f0f 60%, #181818 100%)" }}>
+                <style dangerouslySetInnerHTML={{ __html: `
+                  @keyframes airpnd-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+                  @keyframes airpnd-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+                  @keyframes airpnd-star { 0%,100%{opacity:0.8} 50%{opacity:0.2} }
+                  @keyframes airpnd-cloud { 0%{transform:translateX(-10px)} 100%{transform:translateX(10px)} }
+                  @keyframes airpnd-glow { 0%,100%{opacity:0.1} 50%{opacity:0.25} }
+                  .airpnd-win { animation: airpnd-blink var(--d,3s) var(--delay,0s) ease-in-out infinite; }
+                  .airpnd-float { animation: airpnd-float 4s ease-in-out infinite; }
+                  .airpnd-star { animation: airpnd-star var(--d,2s) var(--delay,0s) ease-in-out infinite; }
+                  .airpnd-cloud { animation: airpnd-cloud 6s ease-in-out infinite alternate; }
+                  .airpnd-glow { animation: airpnd-glow 3s ease-in-out infinite; }
+                ` }} />
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+                  {/* Stars */}
+                  {[{x:30,y:20,d:"2.5s",dl:"0s"},{x:80,y:12,d:"3s",dl:"0.5s"},{x:150,y:18,d:"2s",dl:"1s"},{x:220,y:10,d:"3.5s",dl:"0.3s"},{x:300,y:15,d:"2s",dl:"0.8s"},{x:360,y:22,d:"2.5s",dl:"0.2s"},{x:50,y:40,d:"3s",dl:"1.2s"},{x:330,y:35,d:"2s",dl:"0.6s"}].map((s,i)=>(
+                    <circle key={i} cx={s.x} cy={s.y} r="1.5" fill="white" className="airpnd-star" style={{"--d":s.d,"--delay":s.dl} as React.CSSProperties} />
+                  ))}
+                  {/* Moon */}
+                  <path d="M370 30 Q378 22 378 35 Q365 42 370 30Z" fill="#F0EAD6" opacity="0.7" />
+                  {/* Ground */}
+                  <rect x="0" y="260" width="400" height="40" fill="#0a0a0a" />
+                  {/* Road */}
+                  <rect x="150" y="258" width="100" height="44" fill="#111111" />
+                  <rect x="195" y="260" width="10" height="8" fill="#F0EAD6" opacity="0.3" rx="2" />
+                  <rect x="195" y="275" width="10" height="8" fill="#F0EAD6" opacity="0.3" rx="2" />
+                  {/* Ground glow */}
+                  <ellipse cx="200" cy="265" rx="120" ry="12" fill="#888888" className="airpnd-glow" />
+                  {/* Cloud 1 */}
+                  <g className="airpnd-cloud" style={{transformOrigin:"100px 50px"}}>
+                    <ellipse cx="90" cy="55" rx="30" ry="12" fill="#222222" opacity="0.7" />
+                    <ellipse cx="108" cy="50" rx="22" ry="14" fill="#222222" opacity="0.7" />
+                    <ellipse cx="72" cy="52" rx="18" ry="11" fill="#222222" opacity="0.7" />
+                  </g>
+                  {/* Cloud 2 */}
+                  <g className="airpnd-cloud" style={{transformOrigin:"310px 45px", animationDelay:"3s"}}>
+                    <ellipse cx="310" cy="48" rx="28" ry="11" fill="#222222" opacity="0.6" />
+                    <ellipse cx="326" cy="44" rx="20" ry="13" fill="#222222" opacity="0.6" />
+                    <ellipse cx="294" cy="46" rx="16" ry="10" fill="#222222" opacity="0.6" />
+                  </g>
+
+                  {/* ── BUILDING — MAIN (center tall) ── */}
+                  <g className="airpnd-float">
+                    {/* Main body */}
+                    <rect x="155" y="80" width="90" height="180" rx="3" fill="#1c1c1c" />
+                    {/* Facade stripes */}
+                    <rect x="155" y="80" width="90" height="180" rx="3" fill="url(#bldg-stripe)" />
+                    {/* Roof top bar */}
+                    <rect x="150" y="75" width="100" height="10" rx="2" fill="#2e2e2e" />
+                    <rect x="192" y="65" width="16" height="12" rx="2" fill="#1e1e1e" />
+                    {/* Antenna */}
+                    <line x1="200" y1="45" x2="200" y2="65" stroke="#666666" strokeWidth="2" />
+                    <circle cx="200" cy="44" r="3" fill="#D4C4A8">
+                      <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    {/* Windows — grid 3×7 */}
+                    {[...Array(7)].map((_,row)=>
+                      [0,1,2].map(col=>{
+                        const wx = 168 + col*26;
+                        const wy = 92 + row*22;
+                        const isLit = (row*3+col) % 3 !== 2;
+                        const delay = `${(row*3+col)*0.4}s`;
+                        return (
+                          <rect key={`${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
+                            fill={isLit ? "#EDE8DC" : "#0f0f0f"}
+                            className={isLit ? "airpnd-win" : ""}
+                            style={isLit ? {"--delay":delay} as React.CSSProperties : {}}
+                            opacity={isLit ? 0.9 : 1}
+                          />
+                        );
+                      })
+                    )}
+                    {/* Balconies */}
+                    {[1,3,5].map(row=>(
+                      <rect key={row} x="152" y={92+row*22+10} width="96" height="4" rx="1" fill="#282828" />
+                    ))}
+                    {/* Ground floor entrance */}
+                    <rect x="186" y="232" width="28" height="28" rx="3" fill="#0d0d0d" />
+                    <rect x="190" y="236" width="10" height="18" rx="2" fill="#1d1d1d" />
+                    <rect x="200" y="236" width="10" height="18" rx="2" fill="#1d1d1d" />
+                    {/* Door handle */}
+                    <circle cx="199" cy="246" r="1.5" fill="#D4C4A8" opacity="0.8" />
+                    <circle cx="201" cy="246" r="1.5" fill="#D4C4A8" opacity="0.8" />
+                  </g>
+
+                  {/* ── BUILDING — LEFT (shorter) ── */}
+                  <g className="airpnd-float" style={{animationDelay:"1s"}}>
+                    <rect x="60" y="130" width="68" height="130" rx="3" fill="#151515" />
+                    <rect x="55" y="125" width="78" height="8" rx="2" fill="#1c1c1c" />
+                    {/* Windows 2×4 */}
+                    {[...Array(4)].map((_,row)=>
+                      [0,1].map(col=>{
+                        const wx = 72 + col*28;
+                        const wy = 140 + row*22;
+                        const isLit = (row+col) % 2 === 0;
+                        return (
+                          <rect key={`l${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
+                            fill={isLit ? "#E8E0D0" : "#0d0d0d"}
+                            className={isLit ? "airpnd-win" : ""}
+                            style={isLit ? {"--delay":`${(row*2+col)*0.6}s`} as React.CSSProperties : {}}
+                            opacity={isLit ? 0.85 : 1}
+                          />
+                        );
+                      })
+                    )}
+                    {/* Entrance */}
+                    <rect x="82" y="230" width="24" height="30" rx="2" fill="#0b0b0b" />
+                  </g>
+
+                  {/* ── BUILDING — RIGHT (medium) ── */}
+                  <g className="airpnd-float" style={{animationDelay:"2s"}}>
+                    <rect x="272" y="110" width="72" height="150" rx="3" fill="#161616" />
+                    <rect x="267" y="105" width="82" height="8" rx="2" fill="#1e1e1e" />
+                    <rect x="302" y="92" width="12" height="14" rx="2" fill="#151515" />
+                    <line x1="308" y1="78" x2="308" y2="93" stroke="#666666" strokeWidth="1.5" />
+                    <circle cx="308" cy="77" r="2.5" fill="#C8B89A">
+                      <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" begin="1s" repeatCount="indefinite" />
+                    </circle>
+                    {/* Windows 2×5 */}
+                    {[...Array(5)].map((_,row)=>
+                      [0,1].map(col=>{
+                        const wx = 283 + col*30;
+                        const wy = 118 + row*22;
+                        const isLit = !((row===1&&col===0)||(row===3&&col===1));
+                        return (
+                          <rect key={`r${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
+                            fill={isLit ? "#EDE8DC" : "#0d0d0d"}
+                            className={isLit ? "airpnd-win" : ""}
+                            style={isLit ? {"--delay":`${(row*2+col)*0.5}s`} as React.CSSProperties : {}}
+                            opacity={isLit ? 0.85 : 1}
+                          />
+                        );
+                      })
+                    )}
+                    <rect x="286" y="228" width="26" height="32" rx="2" fill="#0b0b0b" />
+                  </g>
+
+                  {/* Street lamps */}
+                  <line x1="140" y1="220" x2="140" y2="260" stroke="#2a2a2a" strokeWidth="3" />
+                  <ellipse cx="140" cy="218" rx="8" ry="4" fill="#2a2a2a" />
+                  <ellipse cx="140" cy="216" rx="5" ry="3" fill="#F0EAD6" opacity="0.6">
+                    <animate attributeName="opacity" values="0.6;0.3;0.6" dur="4s" repeatCount="indefinite" />
+                  </ellipse>
+                  <line x1="260" y1="220" x2="260" y2="260" stroke="#2a2a2a" strokeWidth="3" />
+                  <ellipse cx="260" cy="218" rx="8" ry="4" fill="#2a2a2a" />
+                  <ellipse cx="260" cy="216" rx="5" ry="3" fill="#F0EAD6" opacity="0.6">
+                    <animate attributeName="opacity" values="0.6;0.3;0.6" dur="4s" begin="2s" repeatCount="indefinite" />
+                  </ellipse>
+
+                  {/* AIRPND sign glow on main building */}
+                  <rect x="167" y="82" width="66" height="14" rx="3" fill="#222222" opacity="0.8" />
+                  <text x="200" y="92" textAnchor="middle" fill="#F0EAD6" fontSize="8" fontWeight="bold" letterSpacing="2" opacity="0.9">AIRPND</text>
+
+                  <defs>
+                    <pattern id="bldg-stripe" x="0" y="0" width="10" height="40" patternUnits="userSpaceOnUse">
+                      <rect x="0" y="0" width="10" height="40" fill="none" />
+                      <line x1="0" y1="0" x2="0" y2="40" stroke="#2e2e2e" strokeWidth="0.5" opacity="0.3" />
+                    </pattern>
+                  </defs>
+                </svg>
               </div>
             </ScrollReveal>
 
@@ -488,33 +643,7 @@ export default function AirpndPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((img, i) => (
-              <ScrollReveal
-                key={img.alt}
-                variant="fadeUp"
-                delay={i * 80}
-                className={i === 0 ? "sm:col-span-2 sm:row-span-2" : ""}
-              >
-                <div className="group relative overflow-hidden rounded-2xl">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={bp(img.src)}
-                    alt={img.alt}
-                    className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${
-                      i === 0 ? "aspect-[4/3]" : "aspect-[3/2]"
-                    }`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="absolute bottom-0 left-0 translate-y-4 px-6 pb-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                    <span className="font-[family-name:var(--font-cursive)] text-sm italic text-white/80">
-                      {img.alt}
-                    </span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <GalleryCarousel images={gallery} />
         </div>
       </section>
 

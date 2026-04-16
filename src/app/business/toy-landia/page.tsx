@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -50,7 +51,7 @@ export default function ToyLandiaPage() {
       icon: Scale,
       title: "Toys Per Kilo",
       desc: "Our signature! Pick brand new toys and pay by weight — the more you grab, the bigger your savings.",
-      img: "/toy-landia/toys.jpg",
+      img: "/toy-landia/toy-1.jpg",
       badge: "Best Seller",
       accent: "#F01800",
     },
@@ -58,7 +59,7 @@ export default function ToyLandiaPage() {
       icon: Gift,
       title: "Brand New Toys",
       desc: "100% factory-sealed. Action figures, dolls, puzzles, building blocks — all legit and ready to play.",
-      img: "/toy-landia/lego.jpg",
+      img: "/toy-landia/toy-2.jpg",
       badge: "100% New",
       accent: "#FFD800",
     },
@@ -66,7 +67,7 @@ export default function ToyLandiaPage() {
       icon: PartyPopper,
       title: "Party Supplies",
       desc: "Kiddie party coming? We've got giveaway packs, party favors, and themed toy bundles to make it epic.",
-      img: "/toy-landia/party.jpg",
+      img: "/toy-landia/toy-3.jpg",
       badge: "Popular",
       accent: "#F01800",
     },
@@ -74,7 +75,7 @@ export default function ToyLandiaPage() {
       icon: Package,
       title: "Bulk Toy Orders",
       desc: "Events, reselling, charities — order in bulk and get wholesale pricing that can't be beat.",
-      img: "/toy-landia/bulk.jpg",
+      img: "/toy-landia/toy-4.jpg",
       badge: "Wholesale",
       accent: "#FFD800",
     },
@@ -105,6 +106,7 @@ export default function ToyLandiaPage() {
 
   return (
     <main className="relative overflow-hidden bg-white">
+      <BusinessNavArrows currentSlug="toy-landia" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -638,11 +640,11 @@ export default function ToyLandiaPage() {
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {[
-              { src: "/toy-landia/hero.jpg", alt: "Toy Collection", span: "md:col-span-2 md:row-span-2", border: "#F01800" },
-              { src: "/toy-landia/toys.jpg", alt: "Toys Per Kilo", span: "", border: "#FFD800" },
-              { src: "/toy-landia/kids.jpg", alt: "Happy Kids", span: "", border: "#F01800" },
-              { src: "/toy-landia/party.jpg", alt: "Party Supplies", span: "", border: "#FFD800" },
-              { src: "/toy-landia/lego.jpg", alt: "Building Blocks", span: "", border: "#F01800" },
+              { src: "/toy-landia/toy-1.jpg", alt: "Toy Collection", span: "md:col-span-2 md:row-span-2", border: "#F01800" },
+              { src: "/toy-landia/toy-2.jpg", alt: "Toys Per Kilo", span: "", border: "#FFD800" },
+              { src: "/toy-landia/toy-3.jpg", alt: "Happy Kids", span: "", border: "#F01800" },
+              { src: "/toy-landia/toy-4.jpg", alt: "Party Supplies", span: "", border: "#FFD800" },
+              { src: "/toy-landia/toy-5.jpg", alt: "Building Blocks", span: "", border: "#F01800" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
@@ -728,7 +730,7 @@ export default function ToyLandiaPage() {
             <div className="overflow-hidden rounded-[2rem] border-[3px] border-[#F01800]/12 bg-white" style={{ boxShadow: "8px 8px 0px rgba(240,24,0,0.05), 0 4px 24px rgba(0,0,0,0.06)" }}>
               <div className="grid md:grid-cols-2">
                 <div className="relative min-h-[280px] md:min-h-[380px]">
-                  <Image src="/toy-landia/bulk.jpg" alt="Toy Landia Store" fill className="object-cover" />
+                  <Image src="/toy-landia/toy-6.jpg" alt="Toy Landia Store" fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/50 md:to-white/80" />
                 </div>
                 <div className="flex flex-col justify-center px-8 py-10 md:px-12">

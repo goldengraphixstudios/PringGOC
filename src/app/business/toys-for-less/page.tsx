@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -55,7 +56,7 @@ export default function ToysForLessPage() {
       icon: Crown,
       title: "UK Imported Toys",
       desc: "Straight from the UK! Premium-quality toys that kids in Britain love — now available in the Philippines at unbeatable prices.",
-      img: "/toys-for-less/uk-toys.jpg",
+      img: "/toys-for-less/toy-1.jpg",
       badge: "UK Quality",
       accent: "#F06018",
     },
@@ -63,7 +64,7 @@ export default function ToysForLessPage() {
       icon: Tag,
       title: "Nothing Above ₱200",
       desc: "Every single toy in our store is ₱200 or less. No surprises, no hidden costs — just pure affordable fun for every family.",
-      img: "/toys-for-less/toys.jpg",
+      img: "/toys-for-less/toy-2.jpg",
       badge: "Best Deal",
       accent: "#D42020",
     },
@@ -71,7 +72,7 @@ export default function ToysForLessPage() {
       icon: Boxes,
       title: "Wholesale Supply",
       desc: "Resellers, event organizers, schools — get wholesale pricing on bulk orders. The more you buy, the more you save.",
-      img: "/toys-for-less/wholesale.jpg",
+      img: "/toys-for-less/toy-3.jpg",
       badge: "Bulk Ready",
       accent: "#8B5E34",
     },
@@ -79,7 +80,7 @@ export default function ToysForLessPage() {
       icon: Store,
       title: "Retail Toy Sales",
       desc: "Walk in and browse our full collection. Every visit is a treasure hunt — new UK toy drops arrive regularly!",
-      img: "/toys-for-less/store.jpg",
+      img: "/toys-for-less/toy-4.jpg",
       badge: "Walk-In",
       accent: "#F0D800",
     },
@@ -110,6 +111,7 @@ export default function ToysForLessPage() {
 
   return (
     <main className="relative overflow-hidden" style={{ background: "#FFF8F0" }}>
+      <BusinessNavArrows currentSlug="toys-for-less" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -659,11 +661,11 @@ export default function ToysForLessPage() {
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {[
-              { src: "/toys-for-less/hero.jpg", alt: "Toy Collection", span: "md:col-span-2 md:row-span-2", border: "#F06018" },
-              { src: "/toys-for-less/toys.jpg", alt: "UK Toys", span: "", border: "#D42020" },
-              { src: "/toys-for-less/kids.jpg", alt: "Happy Kids", span: "", border: "#F0D800" },
-              { src: "/toys-for-less/wholesale.jpg", alt: "Wholesale", span: "", border: "#8B5E34" },
-              { src: "/toys-for-less/uk-toys.jpg", alt: "Premium Toys", span: "", border: "#F06018" },
+              { src: "/toys-for-less/toy-1.jpg", alt: "Toy Collection", span: "md:col-span-2 md:row-span-2", border: "#F06018" },
+              { src: "/toys-for-less/toy-2.jpg", alt: "UK Toys", span: "", border: "#D42020" },
+              { src: "/toys-for-less/toy-3.jpg", alt: "Happy Kids", span: "", border: "#F0D800" },
+              { src: "/toys-for-less/toy-4.jpg", alt: "Wholesale", span: "", border: "#8B5E34" },
+              { src: "/toys-for-less/toy-5.jpg", alt: "Premium Toys", span: "", border: "#F06018" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
@@ -736,7 +738,7 @@ export default function ToysForLessPage() {
             <div className="overflow-hidden rounded-[2rem] border-[3px] border-[#F06018]/12 bg-white shadow-xl">
               <div className="grid md:grid-cols-2">
                 <div className="relative min-h-[280px] md:min-h-[380px]">
-                  <Image src="/toys-for-less/store.jpg" alt="Toys for Less Store" fill className="object-cover" />
+                  <Image src="/toys-for-less/toy-5.jpg" alt="Toys for Less Store" fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/50 md:to-white/80" />
                 </div>
                 <div className="flex flex-col justify-center px-8 py-10 md:px-12">

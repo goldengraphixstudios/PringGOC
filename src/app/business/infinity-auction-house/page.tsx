@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import { bp } from "@/lib/basePath";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -148,6 +149,7 @@ const gallery = [
 export default function InfinityAuctionHousePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFBFF] text-[#0F172A]">
+      <BusinessNavArrows currentSlug="infinity-auction-house" />
       <style
         dangerouslySetInnerHTML={{
           __html: `

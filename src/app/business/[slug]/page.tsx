@@ -12,10 +12,22 @@ import {
   Layers,
   Star,
   ChevronRight,
+  Package,
+  ShoppingBag,
+  Warehouse,
+  Gavel,
+  Users,
+  Mail,
+  Globe,
+  Navigation,
+  Clock,
+  Tv,
+  Trophy,
 } from "lucide-react";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 
 export function generateStaticParams() {
   return businesses.map((biz) => ({ slug: biz.slug }));
@@ -56,6 +68,7 @@ export default async function BusinessPage({
   const isDark = biz.theme === "dark";
   const primary = biz.colors[0];
   const accent = biz.colors[1] || biz.colors[0];
+  const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const tertiary = biz.colors[2] || accent;
 
   // Compute readable text colors for light/dark themes
@@ -73,6 +86,9 @@ export default async function BusinessPage({
       className="relative min-h-screen overflow-hidden"
       style={{ backgroundColor: bgBase, color: textPrimary }}
     >
+      {/* ===== FLOATING BUSINESS NAV ARROWS ===== */}
+      <BusinessNavArrows currentSlug={slug} />
+
       {/* ===== ANIMATED BACKGROUND ===== */}
       {isDark ? (
         <AnimatedBackground colors={[accent, primary, tertiary]} orbCount={5} variant="dark" />
@@ -237,80 +253,122 @@ export default async function BusinessPage({
         )}
 
         {biz.heroStyle === "split" && (
-          <div className="mx-auto flex min-h-[65vh] max-w-6xl items-center">
-            <div className="grid w-full items-center gap-12 md:grid-cols-2">
+          <div className="mx-auto flex min-h-[75vh] max-w-6xl items-center">
+            <div className="grid w-full items-center gap-10 md:grid-cols-2">
+              {/* ── LEFT: Text Content ── */}
               <div>
+                {/* Logo mark */}
                 <ScrollReveal variant="fadeRight">
-                  <p
-                    className="mb-4 text-sm font-semibold tracking-[0.15em] uppercase"
-                    style={{ color: isDark ? accent : primary }}
-                  >
-                    {biz.category}
-                    {biz.location && ` — ${biz.location}`}
-                  </p>
+                  <div className="mb-6 flex items-center gap-4">
+                    <div
+                      className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl p-1.5"
+                      style={{ backgroundColor: `${accent}18`, border: `1px solid ${accent}30` }}
+                    >
+                      <Image src={biz.logo} alt={biz.name} width={44} height={44} className="rounded-xl object-contain" priority />
+                    </div>
+                    <p className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: isDark ? accent : primary }}>
+                      {biz.category}{biz.location && ` · ${biz.location}`}
+                    </p>
+                  </div>
                 </ScrollReveal>
 
                 <ScrollReveal variant="fadeRight" delay={100}>
-                  <h1 className="mb-4 font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.1] md:text-6xl">
+                  <h1
+                    className="mb-3 font-[family-name:var(--font-heading)] text-6xl font-bold leading-[1.05] md:text-7xl"
+                    style={{ letterSpacing: "-0.02em" }}
+                  >
                     {biz.name}
                   </h1>
                 </ScrollReveal>
 
-                <ScrollReveal variant="fadeRight" delay={200}>
+                <ScrollReveal variant="fadeRight" delay={180}>
                   <p
-                    className="mb-6 font-[family-name:var(--font-heading)] text-xl italic"
+                    className="mb-6 font-[family-name:var(--font-heading)] text-2xl italic"
                     style={{ color: isDark ? accent : primary }}
                   >
                     {biz.tagline}
                   </p>
                 </ScrollReveal>
 
-                <ScrollReveal variant="fadeRight" delay={300}>
-                  <p className="mb-8 max-w-lg text-lg leading-relaxed" style={{ color: textSecondary }}>
+                <ScrollReveal variant="fadeRight" delay={260}>
+                  <p className="mb-8 max-w-md text-base leading-relaxed" style={{ color: textSecondary }}>
                     {biz.description}
                   </p>
                 </ScrollReveal>
 
-                <ScrollReveal variant="fadeRight" delay={400}>
-                  <a
-                    href={biz.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold transition-all duration-300 hover:shadow-lg"
-                    style={{
-                      background: `linear-gradient(135deg, ${primary}, ${accent})`,
-                      color: "#fff",
-                      boxShadow: `0 4px 20px ${primary}30`,
-                    }}
-                  >
-                    Visit Facebook Page
-                    <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
+                <ScrollReveal variant="fadeRight" delay={340}>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href={biz.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:shadow-xl hover:brightness-110"
+                      style={{
+                        background: `linear-gradient(135deg, ${accent}, ${primary})`,
+                        color: "#0A0A0A",
+                        boxShadow: `0 4px 24px ${accent}40`,
+                      }}
+                    >
+                      Shop Now
+                      <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                    {biz.shipsNationwide && (
+                      <span className="flex items-center gap-1.5 rounded-full px-4 py-3.5 text-xs font-semibold" style={{ backgroundColor: "#dcfce7", color: "#15803d", border: "1px solid #bbf7d0" }}>
+                        <Package className="h-3.5 w-3.5" /> Ships Nationwide
+                      </span>
+                    )}
+                  </div>
                 </ScrollReveal>
               </div>
 
-              <ScrollReveal variant="fadeLeft" delay={200}>
+              {/* ── RIGHT: Video or Logo ── */}
+              <ScrollReveal variant="fadeLeft" delay={150}>
                 <div className="flex items-center justify-center">
-                  <div className="relative">
+                  <div className="relative w-full max-w-md">
+                    {/* Glow ring */}
                     <div
-                      className="absolute -inset-8 rounded-[2rem] blur-3xl"
-                      style={{ backgroundColor: `${primary}10` }}
+                      className="absolute -inset-6 rounded-[2.5rem] blur-3xl"
+                      style={{ backgroundColor: `${accent}18` }}
                     />
+                    {/* Gold border frame */}
                     <div
-                      className="relative flex h-72 w-72 items-center justify-center rounded-[2rem] p-8 backdrop-blur-xl md:h-80 md:w-80"
+                      className="absolute -inset-[2px] rounded-[2rem]"
+                      style={{ background: `linear-gradient(135deg, ${accent}60, transparent, ${accent}40)`, borderRadius: "2rem" }}
+                    />
+                    {biz.heroVideo ? (
+                      <video
+                        src={`${BASE}${biz.heroVideo}`}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="relative w-full rounded-[2rem] object-cover"
+                        style={{
+                          aspectRatio: "9/16",
+                          maxHeight: "70vh",
+                          border: `1px solid ${accent}25`,
+                          backdropFilter: "blur(4px)",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="relative flex h-80 w-full items-center justify-center rounded-[2rem] p-8 backdrop-blur-xl"
+                        style={{ backgroundColor: cardBg, border: `1px solid ${surfaceBorder}` }}
+                      >
+                        <Image src={biz.logo} alt={biz.name} width={220} height={220} className="rounded-2xl object-contain" priority />
+                      </div>
+                    )}
+
+                    {/* Floating badge: Sold per kilo */}
+                    <div
+                      className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-5 py-2.5 text-xs font-bold tracking-wider shadow-xl"
                       style={{
-                        backgroundColor: cardBg,
-                        border: `1px solid ${surfaceBorder}`,
+                        background: `linear-gradient(135deg, ${accent}, ${primary})`,
+                        color: "#0A0A0A",
+                        border: `1px solid ${accent}60`,
                       }}
                     >
-                      <Image
-                        src={biz.logo}
-                        alt={biz.name}
-                        width={220}
-                        height={220}
-                        className="rounded-2xl object-contain"
-                        priority
-                      />
+                      ✦ Sold Per Kilo · Direct Import
                     </div>
                   </div>
                 </div>
@@ -503,6 +561,297 @@ export default async function BusinessPage({
         )}
       </section>
 
+      {/* ===== HERO BADGES (Ships Nationwide / Featured on TV) ===== */}
+      {(biz.shipsNationwide || biz.highlights.some(h => h.toLowerCase().includes("television"))) && (
+        <div className="relative z-10 px-6 pb-4">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2">
+            {biz.shipsNationwide && (
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold tracking-wide"
+                style={{ backgroundColor: "#dcfce7", color: "#15803d", border: "1px solid #bbf7d0" }}
+              >
+                <Package className="h-3.5 w-3.5" /> Ships Nationwide
+              </span>
+            )}
+            {biz.highlights.some(h => h.toLowerCase().includes("television")) && (
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold tracking-wide"
+                style={{ backgroundColor: isDark ? "rgba(234,179,8,0.15)" : "#fef9c3", color: isDark ? "#facc15" : "#854d0e", border: isDark ? "1px solid rgba(234,179,8,0.25)" : "1px solid #fef08a" }}
+              >
+                <Tv className="h-3.5 w-3.5" /> As Seen on National TV
+              </span>
+            )}
+            {biz.highlights.some(h => h.toLowerCase().includes("toyfair") || h.toLowerCase().includes("toy fair")) && (
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold tracking-wide"
+                style={{ backgroundColor: isDark ? "rgba(99,102,241,0.15)" : "#ede9fe", color: isDark ? "#a5b4fc" : "#4f46e5", border: isDark ? "1px solid rgba(99,102,241,0.25)" : "1px solid #c4b5fd" }}
+              >
+                <Trophy className="h-3.5 w-3.5" /> Toyfair Participant
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ===== PHOTO GALLERY ===== */}
+      {biz.photos && biz.photos.length > 0 && (
+        <section
+          className="relative z-10 px-6 py-16"
+          style={{ borderTop: `1px solid ${surfaceBorder}` }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <ScrollReveal variant="fadeUp">
+              <div className="mb-10 text-center">
+                <p className="mb-2 text-sm font-semibold tracking-[0.2em] uppercase" style={{ color: isDark ? accent : primary }}>
+                  {biz.slug === "lusso" ? "Our Collection" : "Gallery"}
+                </p>
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold md:text-3xl">
+                  {biz.slug === "lusso" ? "Pieces Worth Wearing" : "See It for Yourself"}
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            {/* ── LUSSO luxury boutique grid ── */}
+            {biz.slug === "lusso" ? (
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+                {biz.photos.map((photo, i) => (
+                  <ScrollReveal key={photo} variant="fadeUp" delay={i * 50} className="w-full">
+                    {/* padding-bottom trick: ensures height = 133% of width (3:4 ratio) regardless of wrapper */}
+                    <div
+                      className="group w-full overflow-hidden"
+                      style={{
+                        borderRadius: "1.25rem",
+                        border: `1px solid ${accent}20`,
+                        boxShadow: `0 4px 24px rgba(0,0,0,0.4)`,
+                        position: "relative",
+                        paddingBottom: "133.33%",
+                      }}
+                    >
+                      <Image
+                        src={photo}
+                        alt={`LUSSO jewelry collection piece ${i + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        style={{ position: "absolute", inset: 0 }}
+                      />
+                      {/* Gold shimmer overlay on hover */}
+                      <div
+                        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        style={{ background: `linear-gradient(160deg, ${accent}22 0%, transparent 60%)` }}
+                      />
+                      {/* Bottom gradient */}
+                      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            ) : (
+              /* ── Standard masonry grid for other businesses ── */
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                {biz.photos.map((photo, i) => (
+                  <ScrollReveal
+                    key={photo}
+                    variant="fadeUp"
+                    delay={i * 60}
+                    className={i === 0 ? "col-span-2 w-full" : "w-full"}
+                  >
+                    <div
+                      className="group w-full overflow-hidden rounded-2xl"
+                      style={{ position: "relative", paddingBottom: i === 0 ? "56.25%" : "100%" }}
+                    >
+                      <Image
+                        src={photo}
+                        alt={`${biz.name} photo ${i + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        style={{ position: "absolute", inset: 0 }}
+                      />
+                      <div
+                        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        style={{ background: `linear-gradient(135deg, ${primary}30, transparent)` }}
+                      />
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ===== BRANCHES SECTION (AIRPND / RFG) ===== */}
+      {biz.branches && biz.branches.length > 0 && (
+        <section
+          className="relative z-10 px-6 py-16"
+          style={{ borderTop: `1px solid ${surfaceBorder}` }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <ScrollReveal variant="fadeUp">
+              <div className="mb-10 text-center">
+                <p className="mb-3 text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: isDark ? accent : primary }}>
+                  {biz.slug === "airpnd" ? "Our Locations" : "Our Branches"}
+                </p>
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold md:text-3xl">
+                  {biz.slug === "airpnd" ? "Available Properties" : "Nationwide Branches"}
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {biz.branches.map((branch, i) => (
+                <ScrollReveal key={branch.name} variant="fadeUp" delay={i * 100}>
+                  <div
+                    className="rounded-2xl p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    style={{ backgroundColor: cardBg, border: `1px solid ${surfaceBorder}` }}
+                  >
+                    <div className="mb-3 flex items-center gap-2">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: `${primary}15` }}>
+                        <MapPin className="h-4 w-4" style={{ color: isDark ? accent : primary }} />
+                      </div>
+                      <h3 className="text-sm font-bold leading-tight">{branch.name}</h3>
+                    </div>
+
+                    <p className="mb-3 text-xs leading-relaxed" style={{ color: textSecondary }}>{branch.address}</p>
+
+                    {branch.auctionSchedule && (
+                      <div className="mb-3 flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium" style={{ backgroundColor: `${primary}10`, color: isDark ? accent : primary }}>
+                        <Clock className="h-3.5 w-3.5 shrink-0" />
+                        {branch.auctionSchedule}
+                      </div>
+                    )}
+
+                    {branch.waze && (
+                      <div className="flex items-center gap-1.5 text-xs" style={{ color: textTertiary }}>
+                        <Navigation className="h-3 w-3 shrink-0" />
+                        Waze: {branch.waze}
+                      </div>
+                    )}
+
+                    {branch.details && branch.details.length > 0 && (
+                      <ul className="mt-3 space-y-1">
+                        {branch.details.map((detail) => (
+                          <li key={detail} className="flex items-center gap-1.5 text-xs" style={{ color: textSecondary }}>
+                            <CheckCircle2 className="h-3.5 w-3.5 shrink-0" style={{ color: isDark ? accent : primary }} />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ===== HOW TO PURCHASE ===== */}
+      {biz.purchaseMethods && biz.purchaseMethods.length > 0 && (
+        <section
+          className="relative z-10 px-6 py-16"
+          style={{
+            backgroundColor: isDark ? "rgba(10,22,40,0.4)" : "rgba(245,243,238,0.7)",
+            borderTop: `1px solid ${surfaceBorder}`,
+            borderBottom: `1px solid ${surfaceBorder}`,
+          }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <ScrollReveal variant="fadeUp">
+              <div className="mb-10 text-center">
+                <p className="mb-3 text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: isDark ? accent : primary }}>
+                  How to Purchase
+                </p>
+                <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold md:text-3xl">
+                  Ways to Buy From Us
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {biz.purchaseMethods.map((method, i) => {
+                const iconMap: Record<string, typeof ShoppingBag> = {
+                  "live-selling": Tv,
+                  "store-visit": ShoppingBag,
+                  "warehouse": Warehouse,
+                  "auction": Gavel,
+                  "facebook-group": Users,
+                  "email": Mail,
+                  "online": Globe,
+                };
+                const Icon = iconMap[method.type] || ShoppingBag;
+
+                return (
+                  <ScrollReveal key={method.label} variant="fadeUp" delay={i * 80}>
+                    <div
+                      className="flex flex-col rounded-2xl p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                      style={{ backgroundColor: cardBg, border: `1px solid ${surfaceBorder}` }}
+                    >
+                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl" style={{ backgroundColor: `${primary}12` }}>
+                        <Icon className="h-5 w-5" style={{ color: isDark ? accent : primary }} />
+                      </div>
+                      <h3 className="mb-1 text-[15px] font-bold">{method.label}</h3>
+                      <p className="mb-2 text-sm font-medium" style={{ color: isDark ? accent : primary }}>{method.schedule}</p>
+                      {method.note && (
+                        <p className="mt-auto text-xs leading-relaxed" style={{ color: textTertiary }}>{method.note}</p>
+                      )}
+                      {method.link && (
+                        <a
+                          href={method.link}
+                          target={method.type === "email" ? "_self" : "_blank"}
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 hover:opacity-80"
+                          style={{ backgroundColor: `${primary}15`, color: isDark ? accent : primary, border: `1px solid ${primary}20` }}
+                        >
+                          {method.type === "email" ? "Send Email" : method.type === "facebook-group" ? "Join Group" : "Open Link"}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      )}
+                    </div>
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ===== EXTRA LINKS (e.g. Extreme Gainz form, Toyzoona FB group) ===== */}
+      {biz.extraLinks && biz.extraLinks.length > 0 && (
+        <section
+          className="relative z-10 px-6 py-12"
+          style={{ borderBottom: `1px solid ${surfaceBorder}` }}
+        >
+          <div className="mx-auto max-w-4xl text-center">
+            <ScrollReveal variant="fadeUp">
+              <p className="mb-5 text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: textTertiary }}>
+                Quick Links
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {biz.extraLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 hover:shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${primary}, ${accent})`,
+                      color: "#fff",
+                      boxShadow: `0 4px 20px ${primary}25`,
+                    }}
+                  >
+                    {link.label}
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
+
       {/* ===== SERVICES SECTION ===== */}
       <section
         className="relative z-10 py-24 px-6"
@@ -624,7 +973,7 @@ export default async function BusinessPage({
               Pring Group of Companies
             </h2>
             <p className="mx-auto mb-8 max-w-xl text-base" style={{ color: textSecondary }}>
-              {biz.name} is one of 16+ businesses under the Pring Group — a
+              {biz.name} is one of 18+ businesses under the Pring Group — a
               family-owned conglomerate building a legacy across the Philippines.
             </p>
             <Link

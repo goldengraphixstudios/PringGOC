@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -141,6 +142,7 @@ export default function HouseOfGarmentsPage() {
 
   return (
     <main className="relative overflow-hidden bg-[#0C0800]">
+      <BusinessNavArrows currentSlug="house-of-garments" />
       <style
         dangerouslySetInnerHTML={{
           __html: `

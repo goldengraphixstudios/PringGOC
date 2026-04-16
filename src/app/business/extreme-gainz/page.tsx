@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -96,17 +97,18 @@ const plans = [
 ];
 
 const equipment = [
-  { src: "/extreme-gainz/6.jpg", alt: "Full Gym Floor — State-of-the-Art Equipment", span: true },
-  { src: "/extreme-gainz/2.jpg", alt: "Power Rack & Cable Machine" },
-  { src: "/extreme-gainz/4.jpg", alt: "Leg Press & Incline Bench" },
-  { src: "/extreme-gainz/3.jpg", alt: "BUILDFIT Premium Machines" },
-  { src: "/extreme-gainz/5.jpg", alt: "Cardio — Spin Bike Station" },
-  { src: "/extreme-gainz/1.jpg", alt: "Cable Station & Free Weights" },
+  { src: "/extreme-gainz/gym-1.jpg", alt: "Full Gym Floor — State-of-the-Art Equipment", span: true },
+  { src: "/extreme-gainz/gym-2.jpg", alt: "Power Rack & Cable Machine" },
+  { src: "/extreme-gainz/gym-3.jpg", alt: "Leg Press & Incline Bench" },
+  { src: "/extreme-gainz/gym-4.jpg", alt: "BUILDFIT Premium Machines" },
+  { src: "/extreme-gainz/gym-5.jpg", alt: "Cardio — Spin Bike Station" },
+  { src: "/extreme-gainz/gym-6.jpg", alt: "Cable Station & Free Weights" },
 ];
 
 export default function ExtremeGainzPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
+      <BusinessNavArrows currentSlug="extreme-gainz" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -196,7 +198,7 @@ export default function ExtremeGainzPage() {
         <div className="hero-zoom absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bp("/extreme-gainz/hero.jpg")}
+            src={bp("/extreme-gainz/gym-1.jpg")}
             alt="Extreme Gainz Gym"
             className="h-full w-full object-cover"
           />
@@ -407,7 +409,7 @@ export default function ExtremeGainzPage() {
               <div className="relative aspect-[3/4] max-h-[600px] overflow-hidden rounded-2xl border border-white/[0.06]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={bp("/extreme-gainz/3.jpg")}
+                  src={bp("/extreme-gainz/gym-3.jpg")}
                   alt="BUILDFIT Equipment"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -567,7 +569,7 @@ export default function ExtremeGainzPage() {
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bp("/extreme-gainz/motivation.jpg")}
+            src={bp("/extreme-gainz/gym-7.jpg")}
             alt="Gym atmosphere"
             className="h-full w-full object-cover opacity-30"
           />
@@ -784,7 +786,7 @@ export default function ExtremeGainzPage() {
               <div className="relative aspect-[4/5] max-h-[500px] overflow-hidden rounded-2xl border border-white/[0.06]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={bp("/extreme-gainz/workout.jpg")}
+                  src={bp("/extreme-gainz/gym-8.jpg")}
                   alt="Training at Extreme Gainz"
                   className="h-full w-full object-cover"
                 />

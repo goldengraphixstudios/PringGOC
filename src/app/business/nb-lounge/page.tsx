@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -58,17 +59,18 @@ const reasons = [
 ];
 
 const galleryImages = [
-  { src: "/nb-lounge/interior.jpg", alt: "Cafe interior", span: "col-span-2 row-span-2" },
-  { src: "/nb-lounge/coffee.jpg", alt: "Specialty coffee", span: "" },
-  { src: "/nb-lounge/shelf.jpg", alt: "Book shelves", span: "" },
-  { src: "/nb-lounge/study.jpg", alt: "Study space", span: "col-span-2" },
-  { src: "/nb-lounge/nook.jpg", alt: "Reading nook", span: "" },
-  { src: "/nb-lounge/reading.jpg", alt: "Reading at NB Lounge", span: "" },
+  { src: "/nb-lounge/place-AJG76181.jpg", alt: "The Lounge", span: "col-span-2 row-span-2" },
+  { src: "/nb-lounge/drink-1.jpg", alt: "Specialty Drinks", span: "" },
+  { src: "/nb-lounge/books.jpg", alt: "Book Shelves", span: "" },
+  { src: "/nb-lounge/place-AJG76051.jpg", alt: "Reading Space", span: "col-span-2" },
+  { src: "/nb-lounge/drink-2.jpg", alt: "Refreshments", span: "" },
+  { src: "/nb-lounge/drink-3.jpg", alt: "Coffee Selection", span: "" },
 ];
 
 export default function NBLoungePage() {
   return (
     <main className="relative overflow-hidden bg-[#F8F4EE]">
+      <BusinessNavArrows currentSlug="nb-lounge" />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
@@ -250,7 +252,7 @@ export default function NBLoungePage() {
       <section className="relative flex min-h-screen items-end px-6 pb-24 pt-20 lg:items-center lg:pb-0">
         {/* Full background image */}
         <div className="absolute inset-0 z-0">
-          <Image src="/nb-lounge/hero.jpg" alt="NB Lounge cafe bookstore" fill priority
+          <Image src="/nb-lounge/place-AJG76181.jpg" alt="NB Lounge cafe bookstore" fill priority
             className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1C1410]/80 via-[#1C1410]/40 to-[#1C1410]/20 lg:bg-gradient-to-r lg:from-[#1C1410]/80 lg:via-[#1C1410]/50 lg:to-transparent" />
         </div>
@@ -370,7 +372,7 @@ export default function NBLoungePage() {
             <ScrollReveal>
               <div className="group relative overflow-hidden rounded-3xl bg-[#1C1410]">
                 <div className="relative h-64 overflow-hidden sm:h-80">
-                  <Image src="/nb-lounge/coffee.jpg" alt="NB Lounge coffee" fill
+                  <Image src="/nb-lounge/drink-1.jpg" alt="NB Lounge coffee" fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1C1410] to-transparent" />
                 </div>
@@ -425,7 +427,7 @@ export default function NBLoungePage() {
           ATMOSPHERIC FULL-BLEED — Quote overlay
       ═══════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-[55vh] items-center justify-center overflow-hidden">
-        <Image src="/nb-lounge/interior.jpg" alt="NB Lounge interior" fill className="object-cover" sizes="100vw" />
+        <Image src="/nb-lounge/place-AJG76051.jpg" alt="NB Lounge interior" fill className="object-cover" sizes="100vw" />
         <div className="absolute inset-0 bg-[#1C1410]/65" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#8B6D4B]/10 to-transparent"
           style={{ animation: "breathe 9s ease-in-out infinite" }} />

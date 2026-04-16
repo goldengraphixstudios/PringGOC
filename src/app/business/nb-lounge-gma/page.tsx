@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -101,6 +102,7 @@ const filmstrip = [
 export default function NBLoungeGMAPage() {
   return (
     <main className="relative overflow-hidden bg-[#F4F4EC]">
+      <BusinessNavArrows currentSlug="nb-lounge-gma" />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }

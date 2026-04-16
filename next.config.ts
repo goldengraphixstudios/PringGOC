@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/PringGOC";
+const isProd = process.env.NODE_ENV === "production";
+const basePath = isProd ? (process.env.NEXT_PUBLIC_BASE_PATH || "/PringGOC") : "";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -8,7 +9,7 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
   turbopack: {
-    root: ".",
+    root: __dirname,
   },
 };
 

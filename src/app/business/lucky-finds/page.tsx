@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import { bp } from "@/lib/basePath";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   ArrowLeft,
   Facebook,
@@ -141,6 +142,7 @@ const gallery = [
 export default function LuckyFindsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FFFAFA] text-[#1C1917]">
+      <BusinessNavArrows currentSlug="lucky-finds" />
       <style
         dangerouslySetInnerHTML={{
           __html: `

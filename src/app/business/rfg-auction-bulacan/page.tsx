@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
 import {
   Gavel,
   Package,
@@ -104,6 +105,7 @@ export default function RFGAuctionBulacanPage() {
 
   return (
     <main className="relative overflow-hidden bg-[#0A0A0A]">
+      <BusinessNavArrows currentSlug="rfg-auction-bulacan" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
