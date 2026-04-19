@@ -30,7 +30,7 @@ export default function WelcomePopup() {
       onClick={dismiss}
     >
       <div
-        className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl"
+        className="relative w-full max-w-[30rem] overflow-hidden rounded-[28px] bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
         style={{
           animation: "popupReveal 0.45s cubic-bezier(0.16,1,0.3,1) both",
@@ -55,7 +55,7 @@ export default function WelcomePopup() {
           <X className="h-4 w-4" />
         </button>
 
-        <div className="px-8 pb-10 pt-8 text-center">
+        <div className="px-9 pb-11 pt-9 text-center">
           {/* Logo */}
           <div className="mb-5 flex justify-center">
             <div className="relative">
@@ -66,8 +66,8 @@ export default function WelcomePopup() {
               <Image
                 src="/logos/pring-group.png"
                 alt="Pring Group of Companies"
-                width={72}
-                height={72}
+                width={78}
+                height={78}
                 className="relative rounded-2xl shadow-md"
               />
             </div>
@@ -91,7 +91,7 @@ export default function WelcomePopup() {
           </p>
 
           {/* Stats row */}
-          <div className="mb-6 flex items-center justify-center gap-6 rounded-2xl border border-black/[0.04] bg-[#FDFCFA] px-6 py-4">
+          <div className="mb-7 flex items-center justify-center gap-7 rounded-2xl border border-black/[0.04] bg-[#FDFCFA] px-7 py-4.5">
             {[
               { icon: Building2, value: "18+", label: "Businesses" },
               { icon: MapPin, value: "6+", label: "Locations" },
@@ -106,7 +106,7 @@ export default function WelcomePopup() {
             ))}
           </div>
 
-          <p className="mb-7 text-sm leading-[1.7] text-[#1B3A5C]/60">
+          <p className="mb-8 text-[15px] leading-[1.75] text-[#1B3A5C]/60">
             A family-owned conglomerate spanning auction houses, bookstores, cafés,
             fitness gyms, real estate, logistics, fashion, and more — all across
             the Philippines.
@@ -115,7 +115,7 @@ export default function WelcomePopup() {
           {/* CTA */}
           <button
             onClick={dismiss}
-            className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0A1628] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-[#1B3A5C] hover:shadow-xl active:scale-[0.98]"
+            className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0A1628] px-6 py-4 text-[15px] font-semibold text-white shadow-lg transition-all duration-200 hover:bg-[#1B3A5C] hover:shadow-xl active:scale-[0.98]"
           >
             Explore Our Businesses
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />

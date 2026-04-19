@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -143,6 +144,29 @@ export default function HouseOfGarmentsPage() {
   return (
     <main className="relative overflow-hidden bg-[#0C0800]">
       <BusinessNavArrows currentSlug="house-of-garments" />
+      <BusinessPopup config={{
+        storageKey: "popup-house-of-garments",
+        delay: 2100,
+        headerBg: "linear-gradient(135deg, #0A0400 0%, #2A1400 50%, #6B4818 100%)",
+        headerIcon: "🍳",
+        modalBg: "#1A0C04",
+        eyebrow: "DIRECT SUPPLIER",
+        eyebrowColor: "#F0C048",
+        title: "Premium essentials, better value.",
+        titleColor: "#F5EBD4",
+        body: "Browse quality cookware and household products sourced directly from China without middleman markup.",
+        bodyColor: "rgba(245,235,212,0.48)",
+        primaryCTA: "View Product Categories",
+        primaryHref: "#products",
+        ctaBg: "#F0C048",
+        ctaColor: "#1A0C04",
+        secondaryCTA: "Follow Live Selling",
+        secondaryColor: "rgba(240,192,72,0.45)",
+        badge: "100% Quality",
+        badgeBg: "rgba(240,192,72,0.2)",
+        badgeColor: "#F0C048",
+        logoSrc: "/logos/house-of-garments.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `

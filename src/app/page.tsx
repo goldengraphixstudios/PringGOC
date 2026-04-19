@@ -25,10 +25,10 @@ import {
 import ScrollReveal from "@/components/ScrollReveal";
 import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
-import PhilippinesMap from "@/components/PhilippinesMap";
 import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
 import FloatingChat from "@/components/FloatingChat";
+import { GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
 
 // Businesses visible in the main grid (exclude sub-branch pages)
 const BRANCH_SLUGS = ["rfg-auction-bulacan", "rfg-auction-davao"];
@@ -317,7 +317,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           ABOUT / OUR STORY
       ═══════════════════════════════════════════ */}
-      <section id="about" className="relative z-10 px-6 py-14 md:py-20">
+      <section id="about" className="relative z-10 px-4 py-10 md:py-14">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[...Array(5)].map((_, i) => (
             <div key={`ap-${i}`} className="absolute rounded-full bg-gold-500"
@@ -325,7 +325,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-7xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-6 text-center">
               <span className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] text-gold-500 uppercase">
@@ -337,7 +337,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <ScrollReveal variant="fadeRight" delay={100}>
               <div>
                 <p className="mb-4 text-base leading-[1.9] text-navy-700/70">
@@ -392,7 +392,30 @@ export default function Home() {
             </ScrollReveal>
 
             <ScrollReveal variant="fadeLeft" delay={200}>
-              <PhilippinesMap />
+              <div className="mx-auto w-full max-w-[420px]">
+                <div className="relative overflow-hidden rounded-[2rem] border border-black/[0.06] bg-white shadow-2xl shadow-navy-900/[0.08]">
+                  <div className="h-1.5 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
+                  <Image
+                    src="/founder/founders.png"
+                    alt="Jocelyn Pring and Victorio Pring"
+                    width={1200}
+                    height={1200}
+                    className="h-auto w-full object-cover"
+                    style={{ maxHeight: "520px", objectPosition: "50% 40%" }}
+                  />
+                </div>
+                <div className="mt-5 text-center">
+                  <p className="text-[11px] font-semibold tracking-[0.18em] text-gold-500 uppercase">
+                    Meet the Founders
+                  </p>
+                  <p className="mt-2 font-[family-name:var(--font-heading)] text-xl font-semibold text-navy-900">
+                    Jocelyn Pring, CEO
+                  </p>
+                  <p className="mt-1 text-sm text-navy-700/60">
+                    Victorio Pring, COO
+                  </p>
+                </div>
+              </div>
             </ScrollReveal>
           </div>
         </div>
@@ -597,7 +620,7 @@ export default function Home() {
             <div className="overflow-hidden rounded-3xl border border-black/[0.05] bg-white shadow-xl shadow-navy-900/[0.04]">
               <div className="h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
               <form
-                action={`https://formsubmit.co/official.pringgroupofcompany@gmail.com`}
+                action={`https://formsubmit.co/${GROUP_EMAIL}`}
                 method="POST"
                 className="grid gap-5 px-8 py-10 sm:grid-cols-2 md:px-12"
               >
@@ -673,7 +696,7 @@ export default function Home() {
                 <div className="sm:col-span-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-2 text-[11px] text-navy-700/40">
                     <Mail className="h-3.5 w-3.5" />
-                    Sent to: official.pringgroupofcompany@gmail.com
+                    Sent to: {GROUP_EMAIL}
                   </div>
                   <button
                     type="submit"
@@ -718,8 +741,8 @@ export default function Home() {
                 <div className="overflow-hidden rounded-2xl border border-black/[0.04] bg-warm-50">
                   <div
                     className="calendly-inline-widget"
-                    data-url="https://calendly.com/official-pringgroupofcompany/1hr?primary_color=003b5c"
-                    style={{ minWidth: "320px", height: "700px" }}
+                    data-url="https://calendly.com/official-pringgroupofcompany/1hr?primary_color=003b5c&hide_event_type_details=1&hide_gdpr_banner=1"
+                    style={{ minWidth: "320px", height: "500px" }}
                   />
                 </div>
 
@@ -770,13 +793,13 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                  <a href="https://www.facebook.com/RFGauctionhouse" target="_blank" rel="noopener noreferrer"
+                  <Link href={GROUP_INQUIRY_PATH}
                     className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-navy-900/10 transition-all duration-200 hover:bg-navy-700 hover:shadow-xl active:scale-[0.98]">
-                    <Facebook className="h-4 w-4" />
-                    Follow Us on Facebook
+                    <Package className="h-4 w-4" />
+                    Start an Official Inquiry
                     <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </a>
-                  <a href="mailto:official.pringgroupofcompany@gmail.com"
+                  </Link>
+                  <a href={`mailto:${GROUP_EMAIL}`}
                     className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-navy-800/15 px-8 py-3.5 text-sm font-semibold text-navy-700 transition-all duration-200 hover:border-navy-800/25 hover:bg-navy-800/[0.04] hover:text-navy-900 active:scale-[0.98]">
                     <Package className="h-4 w-4" />
                     Email Us

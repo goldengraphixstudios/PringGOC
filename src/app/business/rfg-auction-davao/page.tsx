@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   Gavel,
   Package,
@@ -107,6 +108,30 @@ export default function RFGAuctionDavaoPage() {
   return (
     <main className="relative overflow-hidden bg-[#09090B]">
       <BusinessNavArrows currentSlug="rfg-auction-davao" />
+      <BusinessPopup config={{
+        storageKey: "popup-rfg-auction-davao",
+        delay: 2000,
+        headerBg: "linear-gradient(135deg, #080800 0%, #201E00 50%, #909018 100%)",
+        headerIcon: "📍",
+        modalBg: "#101000",
+        eyebrow: "DAVAO AUCTION",
+        eyebrowColor: "#C8C818",
+        title: "Davao bidders, this one\u2019s for you.",
+        titleColor: "#F5F0D0",
+        body: "See the next Friday auction details and get ready for imported surplus finds at the Davao branch.",
+        bodyColor: "rgba(245,240,208,0.48)",
+        primaryCTA: "View Davao Schedule",
+        primaryHref: "#schedule",
+        ctaBg: "#909018",
+        ctaColor: "#101000",
+        secondaryCTA: "Follow Branch Page",
+        secondaryColor: "rgba(200,200,24,0.45)",
+        badge: "Every Friday",
+        badgeBg: "rgba(144,144,24,0.25)",
+        badgeColor: "#C8C818",
+        accentLine: "#909018",
+        logoSrc: "/logos/rfg-auction-davao.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -295,7 +320,7 @@ export default function RFGAuctionDavaoPage() {
                 ))}
               </div>
               <div className="text-sm text-white/40">
-                <span className="font-semibold text-[#FACC15]">3,800+</span> happy customers
+                Growing community of happy customers
               </div>
             </div>
           </div>
@@ -512,7 +537,7 @@ export default function RFGAuctionDavaoPage() {
               <Facebook size={22} /> Follow RFG Auction Davao <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5" />
             </a>
             <div className="mt-8 flex items-center justify-center gap-6 text-[11px] text-white/30">
-              <span className="flex items-center gap-1.5"><Users size={12} /> 3,800+ followers</span>
+              <span className="flex items-center gap-1.5"><Users size={12} /> Active Facebook updates</span>
               <span className="flex items-center gap-1.5"><TrendingUp size={12} /> Growing daily</span>
             </div>
           </ScrollReveal>

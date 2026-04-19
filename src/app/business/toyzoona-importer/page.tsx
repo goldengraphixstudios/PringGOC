@@ -1,57 +1,82 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { bp } from "@/lib/basePath";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Facebook,
-  Tv,
-  Trophy,
-  Package,
-  Truck,
-  ShoppingBag,
-  Warehouse,
-  Users,
-  Star,
-  Zap,
-  ChevronRight,
-  Play,
-  CheckCircle2,
-  Clock,
-  Sparkles,
-  Globe,
+  ArrowLeft, ArrowRight, Facebook, Tv, Trophy, Package,
+  Truck, ShoppingBag, Warehouse, Users, Star, Zap,
+  CheckCircle2, Clock, Sparkles, Globe, Youtube, Tag, Crown,
 } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 
-// ─── BRAND TOKENS ─────────────────────────────────────────────────────────────
+/* ── BRAND COLORS ───────────────────────────────────────────────────────── */
 const C = {
-  red: "#E8350A",
-  orange: "#FF6B35",
-  yellow: "#FFD700",
-  navy: "#1A1A2E",
-  navyDeep: "#0F0F1A",
-  navyMid: "#16213E",
-  navyCard: "rgba(26,26,46,0.85)",
-  whitePure: "#FFFFFF",
-  whiteOff: "rgba(255,255,255,0.92)",
-  whiteDim: "rgba(255,255,255,0.60)",
-  whiteGhost: "rgba(255,255,255,0.12)",
-  whiteGhostDark: "rgba(255,255,255,0.06)",
-  goldGlow: "rgba(255,215,0,0.18)",
-  redGlow: "rgba(232,53,10,0.22)",
-  orangeGlow: "rgba(255,107,53,0.18)",
+  blue:    "#1E90FF",
+  red:     "#E8350A",
+  orange:  "#FF6500",
+  yellow:  "#FFD700",
+  green:   "#00C853",
+  purple:  "#AA00FF",
+  cyan:    "#00C8D8",
+  black:   "#111111",
+  white:   "#FFFFFF",
+  darkBg:  "#0D0D1A",
+  cardBg:  "#16162A",
 };
+const RAINBOW = [C.blue, C.red, C.yellow, C.green, C.purple, C.orange, C.cyan];
 
-const FACEBOOK_GROUP = "https://www.facebook.com/groups/642834551000763";
+const FACEBOOK_GROUP  = "https://www.facebook.com/groups/642834551000763";
+const YOUTUBE_CHANNEL = "https://www.youtube.com/@toyzoonaimporter";
+const YOUTUBE_VIDEO_ID = "eAGbGMUIzhY";
 
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-const toys = [
-  { src: "/toyzoona-importer/toys-1.jpg", label: "UK Imports" },
-  { src: "/toyzoona-importer/toys-2.jpg", label: "China Imports" },
-  { src: "/toyzoona-importer/toys-3.jpg", label: "Per Kilo" },
-  { src: "/toyzoona-importer/toys-4.jpg", label: "All Ages" },
+const FB_VIDEO_1 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2064629281014506%2F&show_text=0&width=560";
+const FB_VIDEO_2 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FToyzoonaLaguna%2Fvideos%2F7153440271404393%2F&show_text=0&width=560";
+
+/* ── BRANDS ─────────────────────────────────────────────────────────────── */
+const BRANDS = [
+  { name: "Barbie",       color: C.red,    slug: "barbie"       },
+  { name: "LEGO",         color: C.yellow, slug: "lego"         },
+  { name: "Bluey",        color: C.blue,   slug: "bluey"        },
+  { name: "Disney",       color: C.purple, slug: "disney"       },
+  { name: "Blippi",       color: C.orange, slug: "blippi"       },
+  { name: "Cocomelon",    color: C.red,    slug: "cocomelon"    },
+  { name: "Fisher-Price", color: C.green,  slug: "fisher-price" },
+  { name: "VTech",        color: C.cyan,   slug: "vtech"        },
+  { name: "Nerf",         color: C.orange, slug: "nerf"         },
+  { name: "Hot Wheels",   color: C.red,    slug: "hot-wheels"   },
+  { name: "Little Tikes", color: C.green,  slug: "little-tikes" },
+  { name: "Paw Patrol",   color: C.blue,   slug: "paw-patrol"   },
+  { name: "Peppa Pig",    color: C.red,    slug: "peppa-pig"    },
+  { name: "Lamaze",       color: C.yellow, slug: "lamaze"       },
+  { name: "Chicco",       color: C.blue,   slug: "chicco"       },
+  { name: "Marvel",       color: C.red,    slug: "marvel"       },
+];
+
+/* ── GALLERY ─────────────────────────────────────────────────────────────── */
+const GALLERY_GROUPS = [
+  ["/toyzoona-importer/new-1.jpg",  "/toyzoona-importer/new-2.jpg",  "/toyzoona-importer/new-3.jpg",  "/toyzoona-importer/new-4.jpg"],
+  ["/toyzoona-importer/new-5.jpg",  "/toyzoona-importer/new-6.jpg",  "/toyzoona-importer/new-7.jpg",  "/toyzoona-importer/new-8.jpg"],
+  ["/toyzoona-importer/new-9.jpg",  "/toyzoona-importer/new-10.jpg", "/toyzoona-importer/new-11.jpg", "/toyzoona-importer/new-12.jpg"],
+  ["/toyzoona-importer/new-13.jpg", "/toyzoona-importer/new-14.jpg", "/toyzoona-importer/new-15.jpg", "/toyzoona-importer/new-16.jpg"],
+];
+
+const howToBuy = [
+  { icon: ShoppingBag, title: "Saturday Auction",  badge: "Every Sat",    desc: "Join our live auction every Saturday at 10:00 AM. Bid per kilogram at competitive prices.", color: C.yellow, step: "01" },
+  { icon: Tv,          title: "Live Selling",       badge: "Mon–Sat",      desc: "Watch and shop live on Facebook! Mon–Sat, 9AM–6:30PM (some sessions go until midnight).",  color: C.orange, step: "02" },
+  { icon: Warehouse,   title: "Warehouse Visit",    badge: "Mon–Sat",      desc: "Visit us in Cabuyao, Laguna. Browse and pick toys by the kilo. Open 9AM–6:30PM.",          color: C.red,    step: "03" },
+  { icon: Facebook,    title: "Facebook Group",     badge: "24/7 Updates", desc: "Get exclusive deals, live alerts, and member-only promos in our private FB group.",        color: C.blue,   step: "04", link: FACEBOOK_GROUP },
+];
+
+const reasons = [
+  { icon: Trophy,  title: "Pioneer in the South",     desc: "First in Southern Luzon to sell toys by the kilogram — blazing a trail no one else had.", color: C.yellow },
+  { icon: Tv,      title: "TV-Verified Credibility",   desc: "Featured on national television — our story and mission reached Filipino viewers nationwide.", color: C.blue   },
+  { icon: Globe,   title: "Nationwide Delivery",       desc: "From Cabuyao to Cagayan de Oro — we ship anywhere in the Philippines.", color: C.green  },
+  { icon: Package, title: "Direct UK & China Imports", desc: "Straight from source — no middlemen, unbeatable prices, max value per kilo.", color: C.orange },
+  { icon: Star,    title: "Toyfair Presence",          desc: "Represented at major toyfairs, showcasing per-kilo toys to the biggest events nationwide.", color: C.purple },
+  { icon: Users,   title: "Thriving Community",        desc: "Join parents, resellers & toy lovers in our exclusive Facebook group with live deals.", color: C.cyan   },
 ];
 
 const tvPhotos = [
@@ -63,891 +88,633 @@ const tvPhotos = [
 ];
 
 const toyfairPhotos = [
-  { src: "/toyzoona-importer/toyfair-1.jpg" },
-  { src: "/toyzoona-importer/toyfair-2.jpg" },
-  { src: "/toyzoona-importer/toyfair-3.jpg" },
-  { src: "/toyzoona-importer/toyfair-4.jpg" },
+  "/toyzoona-importer/toyfair-1.jpg",
+  "/toyzoona-importer/toyfair-2.jpg",
+  "/toyzoona-importer/toyfair-3.jpg",
+  "/toyzoona-importer/toyfair-4.jpg",
 ];
 
-const stats = [
-  { value: "1st", label: "in the South", sub: "toys sold per kilo" },
-  { value: "TV5", label: "Featured", sub: "national television" },
-  { value: "2+", label: "Toyfairs", sub: "participated nationwide" },
-  { value: "Ship", label: "Nationwide", sub: "anywhere in PH" },
-];
+/* ── GALLERY COMPONENT ───────────────────────────────────────────────────── */
+function ToyGallery() {
+  const [group, setGroup] = useState(0);
+  const [phase, setPhase] = useState<"in"|"out">("in");
 
-const howToBuy = [
-  {
-    icon: ShoppingBag,
-    title: "Saturday Auction",
-    badge: "Every Sat",
-    desc: "Join our live auction every Saturday at 10:00 AM. Bid per kilogram at competitive prices.",
-    color: C.yellow,
-    step: "01",
-  },
-  {
-    icon: Tv,
-    title: "Live Selling",
-    badge: "Mon–Sat",
-    desc: "Watch and shop live on Facebook! Mon–Sat, 9AM–6:30PM (some sessions go until midnight).",
-    color: C.orange,
-    step: "02",
-  },
-  {
-    icon: Warehouse,
-    title: "Warehouse Visit",
-    badge: "Mon–Sat",
-    desc: "Visit us in Cabuyao, Laguna. Browse and pick toys by the kilo. Open 9AM–6:30PM.",
-    color: C.red,
-    step: "03",
-  },
-  {
-    icon: Facebook,
-    title: "Facebook Group",
-    badge: "24/7 Updates",
-    desc: "Get exclusive deals, live alerts, and member-only promos in our private FB group.",
-    color: "#1877F2",
-    step: "04",
-    link: FACEBOOK_GROUP,
-  },
-];
+  useEffect(() => {
+    const t = setInterval(() => {
+      setPhase("out");
+      setTimeout(() => { setGroup(g => (g + 1) % GALLERY_GROUPS.length); setPhase("in"); }, 350);
+    }, 3500);
+    return () => clearInterval(t);
+  }, []);
 
-const reasons = [
-  { icon: Trophy, title: "Pioneer in the South", desc: "We were the FIRST in Southern Luzon to introduce toys sold per kilogram — blazing a trail no one else had." },
-  { icon: Tv, title: "TV-Verified Credibility", desc: "Featured on national television — our story, our mission, and our toys have been broadcast to millions of Filipinos." },
-  { icon: Globe, title: "Nationwide Delivery", desc: "From Cabuyao to Cagayan de Oro — we ship anywhere in the Philippines. Your kids get the toys they deserve." },
-  { icon: Package, title: "Direct UK & China Imports", desc: "We source directly from UK and China suppliers — no middlemen, unbeatable prices, maximum value per kilo." },
-  { icon: Star, title: "Toyfair Presence", desc: "Proudly represented at major toyfairs nationwide, bringing our per-kilo concept to the biggest toy events in the country." },
-  { icon: Users, title: "Thriving Community", desc: "Join thousands of parents, resellers, and toy lovers in our exclusive Facebook group with live deals and flash sales." },
-];
+  const imgs = GALLERY_GROUPS[group];
+  const colors  = [C.blue, C.red, C.yellow, C.green];
+  const shadows  = [C.red, C.yellow, C.blue, C.red];
 
-// ─── COMPONENT ────────────────────────────────────────────────────────────────
+  return (
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+        {imgs.map((src, i) => (
+          <div key={`${group}-${i}`} style={{
+            borderRadius: 20, overflow: "hidden",
+            border: `4px solid ${colors[i]}`, boxShadow: `6px 6px 0 ${shadows[i]}`,
+            transform: `rotate(${i % 2 === 0 ? -1.2 : 1.2}deg)`,
+            opacity: phase === "out" ? 0 : 1,
+            transition: `opacity 0.35s ease, transform 0.38s cubic-bezier(.34,1.3,.64,1)`,
+            transitionDelay: `${i * 60}ms`,
+          }}>
+            <img src={bp(src)} alt={`Toy ${i + 1}`} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
+        {GALLERY_GROUPS.map((_, i) => (
+          <button key={i} onClick={() => setGroup(i)} style={{
+            width: i === group ? 32 : 12, height: 12, borderRadius: 99,
+            border: `2px solid ${C.black}`, background: i === group ? C.yellow : C.blue,
+            boxShadow: i === group ? `2px 2px 0 ${C.black}` : "none",
+            cursor: "pointer", transition: "all .3s ease",
+          }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── PAGE ────────────────────────────────────────────────────────────────── */
 export default function ToyZoonaImporterPage() {
   return (
-    <main
-      style={{
-        backgroundColor: C.navyDeep,
-        color: C.whitePure,
-        fontFamily: "'Inter', 'Segoe UI', system-ui, sans-serif",
-        overflowX: "hidden",
-      }}
-    >
+    <main style={{ background: C.darkBg, color: C.white, overflowX: "hidden", fontFamily: "'Nunito','Inter',system-ui,sans-serif" }}>
       <BusinessNavArrows currentSlug="toyzoona-importer" />
-      {/* ── AMBIENT GLOWS ───────────────────────────────────────────────────── */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div
-          style={{
-            position: "absolute", top: "-15%", left: "-10%",
-            width: 800, height: 800, borderRadius: "50%",
-            background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute", bottom: "10%", right: "-15%",
-            width: 700, height: 700, borderRadius: "50%",
-            background: `radial-gradient(circle, ${C.goldGlow} 0%, transparent 70%)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute", top: "50%", left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 600, height: 600, borderRadius: "50%",
-            background: `radial-gradient(circle, ${C.orangeGlow} 0%, transparent 70%)`,
-          }}
-        />
-      </div>
+      <BusinessPopup config={{
+        storageKey: "popup-toyzoona-importer",
+        delay: 1800,
+        headerBg: "linear-gradient(135deg, #9C0A00 0%, #C91800 50%, #E8350A 100%)",
+        headerIcon: "🧸",
+        modalBg: "#FFFFFF",
+        eyebrow: "EXCLUSIVE TOY DROPS",
+        eyebrowColor: "#C91800",
+        title: "Want first access to toy deals?",
+        titleColor: "#1A0000",
+        body: "Join the Toyzoona Facebook group for live selling alerts, kilo deals, restock updates, and member-only promos.",
+        bodyColor: "#666666",
+        primaryCTA: "Join Facebook Group",
+        primaryHref: "https://www.facebook.com/groups/642834551000763",
+        primaryExternal: true,
+        ctaBg: "#E8350A",
+        ctaColor: "#FFFFFF",
+        secondaryCTA: "Watch Live Content",
+        secondaryColor: "#999999",
+        badge: "AS SEEN ON TV",
+        badgeBg: "rgba(232,53,10,0.1)",
+        badgeColor: "#C91800",
+        logoSrc: "/logos/toyzoona-importer-logo-transparent.png",
+      }} />
 
-      {/* ── NAV BACK ────────────────────────────────────────────────────────── */}
-      <nav
-        style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-          backgroundColor: "rgba(15,15,26,0.85)",
-          backdropFilter: "blur(16px)",
-          borderBottom: `1px solid ${C.whiteGhostDark}`,
-        }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link
-            href="/business"
-            style={{
-              display: "flex", alignItems: "center", gap: 8,
-              color: C.whiteDim, textDecoration: "none", fontSize: 14,
-              transition: "color 200ms",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = C.whitePure)}
-            onMouseLeave={(e) => (e.currentTarget.style.color = C.whiteDim)}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
+        .tz-font { font-family: 'Fredoka One', cursive; letter-spacing: 0.01em; }
+        .tz-body { font-family: 'Nunito', system-ui, sans-serif; }
+
+        @keyframes tzFloat    { 0%,100%{transform:translateY(0)rotate(-2deg)}50%{transform:translateY(-20px)rotate(2deg)} }
+        @keyframes tzSpin     { to{transform:rotate(360deg)} }
+        @keyframes tzSpinRev  { to{transform:rotate(-360deg)} }
+        @keyframes tzPulse    { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,.55)}50%{box-shadow:0 0 0 22px rgba(255,215,0,0)} }
+        @keyframes tzBounce   { 0%,100%{transform:translateY(0)}40%{transform:translateY(-18px)}70%{transform:translateY(-6px)} }
+        @keyframes tzReveal   { from{opacity:0;transform:translateY(36px)scale(.93)}to{opacity:1;transform:translateY(0)scale(1)} }
+        @keyframes tzWiggle   { 0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)} }
+        @keyframes tzGlow     { 0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.55;transform:scale(1.08)} }
+        @keyframes tzShine    {
+          0%   { background-position: -200% center }
+          100% { background-position:  200% center }
+        }
+        @keyframes tzMarquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        @keyframes tzMarqueeR { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+        @keyframes tzFadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes tzHeroLogo {
+          0%,100% { transform: translateY(0) scale(1); }
+          50%     { transform: translateY(-14px) scale(1.02); }
+        }
+
+        .tz-hero-stagger > * { opacity:0; animation:tzReveal .7s cubic-bezier(.34,1.56,.64,1) forwards; }
+        .tz-hero-stagger > *:nth-child(1){animation-delay:.08s}
+        .tz-hero-stagger > *:nth-child(2){animation-delay:.20s}
+        .tz-hero-stagger > *:nth-child(3){animation-delay:.32s}
+        .tz-hero-stagger > *:nth-child(4){animation-delay:.44s}
+        .tz-hero-stagger > *:nth-child(5){animation-delay:.56s}
+        .tz-hero-stagger > *:nth-child(6){animation-delay:.68s}
+
+        .tz-card { transition:transform .32s cubic-bezier(.34,1.56,.64,1),box-shadow .32s ease; }
+        .tz-card:hover { transform:translateY(-10px) scale(1.02); }
+        .tz-btn  { transition:transform .28s cubic-bezier(.34,1.56,.64,1); cursor:pointer; }
+        .tz-btn:hover  { transform:translateY(-4px) scale(1.04); }
+        .tz-btn:active { transform:translateY(0) scale(.98); }
+        .tz-pulse { animation:tzPulse 2.5s ease-in-out infinite; }
+
+        .tz-shine {
+          background: linear-gradient(90deg,#FFD700 0%,#FF6500 22%,#E8350A 44%,#AA00FF 66%,#1E90FF 88%,#FFD700 100%);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: tzShine 4s linear infinite;
+        }
+
+        .tz-polka {
+          background-image: radial-gradient(circle,rgba(255,255,255,.05) 2px,transparent 2px);
+          background-size: 28px 28px;
+          pointer-events: none;
+        }
+
+        .tz-marquee-track { display:flex; width:max-content; animation:tzMarquee 180s linear infinite; }
+        .tz-marquee-track:hover { animation-play-state:paused; }
+
+        .tz-rainbow-border {
+          background: linear-gradient(${C.darkBg}, ${C.darkBg}) padding-box,
+                      linear-gradient(135deg,#E8350A,#FF6500,#FFD700,#00C853,#1E90FF,#AA00FF) border-box;
+          border: 4px solid transparent;
+        }
+
+        @media(max-width:768px){
+          .tz-grid-2{grid-template-columns:1fr !important}
+          .tz-grid-3{grid-template-columns:1fr 1fr !important}
+          .tz-grid-4{grid-template-columns:1fr 1fr !important}
+          .tz-hide-mobile{display:none !important}
+        }
+      `}} />
+
+      {/* ══ NAV ══════════════════════════════════════════════════════════════ */}
+      <nav style={{
+        position:"fixed",top:0,left:0,right:0,zIndex:50,
+        background:"rgba(13,13,26,0.94)",backdropFilter:"blur(16px)",
+        borderBottom:`3px solid ${C.yellow}`,
+      }}>
+        <div style={{ maxWidth:1280,margin:"0 auto",padding:"0 24px",height:64,display:"flex",alignItems:"center",justifyContent:"space-between" }}>
+          <Link href="/" style={{ display:"flex",alignItems:"center",gap:8,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:14,fontWeight:700,transition:"color .2s" }}
+            onMouseEnter={e=>(e.currentTarget as HTMLElement).style.color=C.white}
+            onMouseLeave={e=>(e.currentTarget as HTMLElement).style.color="rgba(255,255,255,.5)"}
           >
-            <ArrowLeft size={16} />
-            <span>All Businesses</span>
+            <ArrowLeft size={16}/><span className="tz-body">All Businesses</span>
           </Link>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <img
-              src={bp("/logos/toyzoona-importer.jpg")}
-              alt="Toyzoona Importer"
-              style={{ height: 36, width: 36, objectFit: "contain", borderRadius: 8 }}
-            />
-            <span style={{ fontWeight: 700, fontSize: 15, color: C.whitePure }}>Toyzoona Importer</span>
+          <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+            <img src={bp("/logos/toyzoona-importer-logo-transparent.png")} alt="Toyzoona Importer"
+              style={{ height:40,objectFit:"contain" }} />
           </div>
 
-          <a
-            href={FACEBOOK_GROUP}
-            target="_blank"
-            rel="noopener noreferrer"
+          <a href={FACEBOOK_GROUP} target="_blank" rel="noopener noreferrer" className="tz-btn"
             style={{
-              display: "flex", alignItems: "center", gap: 6,
-              backgroundColor: C.red, color: C.whitePure,
-              textDecoration: "none", borderRadius: 8,
-              padding: "8px 16px", fontSize: 13, fontWeight: 700,
-              transition: "background-color 200ms",
+              display:"flex",alignItems:"center",gap:6,
+              background:C.red,color:C.white,textDecoration:"none",
+              borderRadius:12,padding:"8px 16px",fontSize:13,fontWeight:800,
+              border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = C.orange)}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.red)}
           >
-            <Facebook size={14} />
-            <span>Join Group</span>
+            <Facebook size={14}/><span className="tz-body">Join Group</span>
           </a>
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 1 — HERO
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: "relative", zIndex: 1,
-          minHeight: "100vh",
-          display: "flex", alignItems: "center",
-          paddingTop: 100, paddingBottom: 80,
-        }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+      {/* ══ HERO — centered logo focal point ═════════════════════════════════ */}
+      <section style={{ position:"relative",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:64,overflow:"hidden" }}>
+        {/* BG gradient */}
+        <div style={{
+          position:"absolute",inset:0,zIndex:0,
+          background:`radial-gradient(ellipse at 50% 40%, rgba(30,144,255,.18) 0%, rgba(170,0,255,.10) 40%, rgba(13,13,26,1) 75%)`,
+        }}/>
+        <div className="tz-polka" style={{ position:"absolute",inset:0,zIndex:0 }}/>
 
-            {/* LEFT — Copy */}
-            <div>
-              {/* TV Badge — prominently placed */}
-              <ScrollReveal variant="fadeDown" delay={0}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 28 }}>
-                  <span
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 8,
-                      backgroundColor: C.yellow, color: C.navy,
-                      fontWeight: 800, fontSize: 13, padding: "8px 16px",
-                      borderRadius: 40, letterSpacing: "0.05em",
-                      boxShadow: `0 0 24px ${C.goldGlow}`,
-                    }}
-                  >
-                    <Tv size={15} />
-                    AS SEEN ON NATIONAL TV · TV5
-                  </span>
-                  <span
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 6,
-                      backgroundColor: C.whiteGhost, color: C.whitePure,
-                      fontWeight: 700, fontSize: 13, padding: "8px 14px",
-                      borderRadius: 40, letterSpacing: "0.04em",
-                      border: `1px solid ${C.whiteGhostDark}`,
-                    }}
-                  >
-                    <Trophy size={13} style={{ color: C.yellow }} />
-                    TOYFAIR PARTICIPANT
-                  </span>
-                  <span
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 6,
-                      backgroundColor: "rgba(34,197,94,0.15)", color: "#4ADE80",
-                      fontWeight: 700, fontSize: 13, padding: "8px 14px",
-                      borderRadius: 40, letterSpacing: "0.04em",
-                      border: "1px solid rgba(34,197,94,0.25)",
-                    }}
-                  >
-                    <Truck size={13} />
-                    SHIPS NATIONWIDE
-                  </span>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={100}>
-                <h1
-                  style={{
-                    fontSize: "clamp(42px, 5vw, 72px)",
-                    fontWeight: 900,
-                    lineHeight: 1.05,
-                    marginBottom: 24,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  <span style={{ display: "block", color: C.whitePure }}>The First</span>
-                  <span
-                    style={{
-                      display: "block",
-                      background: `linear-gradient(135deg, ${C.red} 0%, ${C.orange} 50%, ${C.yellow} 100%)`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    Toys Per Kilo
-                  </span>
-                  <span style={{ display: "block", color: C.whitePure }}>in the South.</span>
-                </h1>
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={200}>
-                <p
-                  style={{
-                    fontSize: 18, lineHeight: 1.7,
-                    color: C.whiteDim,
-                    marginBottom: 36, maxWidth: 480,
-                  }}
-                >
-                  Toyzoona Importer brings you <strong style={{ color: C.whiteOff }}>high-quality UK & China imported toys</strong> — sold by the kilogram at unbeatable prices. Trusted by thousands. Featured on TV5. Delivering joy nationwide.
-                </p>
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={300}>
-                <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                  <a
-                    href={FACEBOOK_GROUP}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 10,
-                      background: `linear-gradient(135deg, ${C.red}, ${C.orange})`,
-                      color: C.whitePure, textDecoration: "none",
-                      padding: "16px 32px", borderRadius: 12,
-                      fontWeight: 800, fontSize: 16,
-                      boxShadow: `0 8px 32px ${C.redGlow}`,
-                      transition: "transform 200ms, box-shadow 200ms",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 12px 40px rgba(232,53,10,0.4)`;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px ${C.redGlow}`;
-                    }}
-                  >
-                    <Facebook size={18} />
-                    Join Facebook Group
-                    <ArrowRight size={16} />
-                  </a>
-                  <a
-                    href="#how-to-buy"
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 10,
-                      backgroundColor: C.whiteGhost,
-                      color: C.whitePure, textDecoration: "none",
-                      padding: "16px 28px", borderRadius: 12,
-                      fontWeight: 700, fontSize: 15,
-                      border: `1px solid ${C.whiteGhostDark}`,
-                      transition: "background-color 200ms",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.18)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.whiteGhost)}
-                  >
-                    How to Buy
-                    <ChevronRight size={16} />
-                  </a>
-                </div>
-              </ScrollReveal>
-
-              {/* Quick trust signals */}
-              <ScrollReveal variant="fadeUp" delay={400}>
-                <div style={{ display: "flex", gap: 24, marginTop: 40, flexWrap: "wrap" }}>
-                  {[
-                    { icon: CheckCircle2, text: "Direct Importer" },
-                    { icon: CheckCircle2, text: "Sold Per Kilo" },
-                    { icon: CheckCircle2, text: "Safe & Quality Toys" },
-                  ].map(({ icon: Icon, text }) => (
-                    <div key={text} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <Icon size={16} style={{ color: C.yellow }} />
-                      <span style={{ fontSize: 14, color: C.whiteDim, fontWeight: 500 }}>{text}</span>
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* RIGHT — Hero Visual Collage */}
-            <ScrollReveal variant="fadeLeft" delay={200}>
-              <div style={{ position: "relative" }}>
-                {/* Main large image */}
-                <div
-                  style={{
-                    borderRadius: 20, overflow: "hidden",
-                    border: `2px solid ${C.whiteGhostDark}`,
-                    boxShadow: `0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px ${C.whiteGhostDark}`,
-                  }}
-                >
-                  <img
-                    src={bp("/toyzoona-importer/toys-1.jpg")}
-                    alt="Toyzoona toys per kilo"
-                    style={{ width: "100%", height: 420, objectFit: "cover", display: "block" }}
-                  />
-                  {/* TV badge overlay */}
-                  <div
-                    style={{
-                      position: "absolute", top: 20, right: 20,
-                      display: "flex", alignItems: "center", gap: 8,
-                      backgroundColor: C.yellow, color: C.navy,
-                      fontWeight: 900, fontSize: 13, padding: "10px 16px",
-                      borderRadius: 40, letterSpacing: "0.04em",
-                      boxShadow: `0 4px 20px rgba(0,0,0,0.4)`,
-                    }}
-                  >
-                    <Tv size={14} />
-                    TV5 FEATURED
-                  </div>
-                </div>
-
-                {/* Floating stats card */}
-                <div
-                  style={{
-                    position: "absolute", bottom: -24, left: -24,
-                    backgroundColor: C.navyMid,
-                    border: `1px solid ${C.whiteGhostDark}`,
-                    borderRadius: 16, padding: "18px 24px",
-                    boxShadow: "0 16px 40px rgba(0,0,0,0.5)",
-                    display: "flex", gap: 24,
-                  }}
-                >
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: 26, fontWeight: 900, color: C.yellow }}>1st</div>
-                    <div style={{ fontSize: 11, color: C.whiteDim, fontWeight: 600 }}>IN THE SOUTH</div>
-                  </div>
-                  <div style={{ width: 1, backgroundColor: C.whiteGhostDark }} />
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: 26, fontWeight: 900, color: C.orange }}>TV5</div>
-                    <div style={{ fontSize: 11, color: C.whiteDim, fontWeight: 600 }}>NATIONAL TV</div>
-                  </div>
-                  <div style={{ width: 1, backgroundColor: C.whiteGhostDark }} />
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: 26, fontWeight: 900, color: C.red }}>PH</div>
-                    <div style={{ fontSize: 11, color: C.whiteDim, fontWeight: 600 }}>SHIPS NATIONWIDE</div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
+        {/* Glowing rings behind logo */}
+        <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-55%)",zIndex:0,pointerEvents:"none" }}>
+          <div style={{ width:500,height:500,borderRadius:"50%",border:`2px dashed rgba(255,215,0,.15)`,animation:"tzSpin 40s linear infinite" }}/>
+          <div style={{ position:"absolute",inset:40,borderRadius:"50%",border:`2px dotted rgba(30,144,255,.12)`,animation:"tzSpinRev 28s linear infinite" }}/>
+          <div style={{ position:"absolute",inset:80,borderRadius:"50%",background:`radial-gradient(circle,rgba(255,215,0,.12) 0%,transparent 70%)`,animation:"tzGlow 5s ease-in-out infinite" }}/>
         </div>
-      </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 2 — STATS BAR
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: "relative", zIndex: 1,
-          borderTop: `1px solid ${C.whiteGhostDark}`,
-          borderBottom: `1px solid ${C.whiteGhostDark}`,
-          background: `linear-gradient(90deg, ${C.navyMid}, rgba(26,26,46,0.6), ${C.navyMid})`,
-          padding: "32px 0",
-        }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0 }}>
-            {stats.map((s, i) => (
-              <div
-                key={i}
+        {/* Floating stars */}
+        {[
+          {top:"12%",left:"6%", c:C.yellow,s:24,d:"0s"},
+          {top:"20%",left:"18%",c:C.red,   s:14,d:"1.2s"},
+          {top:"8%", right:"7%",c:C.cyan,  s:20,d:"0.5s"},
+          {top:"32%",right:"4%",c:C.green, s:16,d:"1.8s"},
+          {bottom:"25%",left:"4%",  c:C.purple,s:18,d:"2.1s"},
+          {bottom:"18%",right:"10%",c:C.orange,s:22,d:"0.9s"},
+          {top:"55%",left:"10%",c:C.blue,  s:12,d:"1.5s"},
+          {top:"45%",right:"12%",c:C.yellow,s:16,d:"2.5s"},
+        ].map((p,i)=>(
+          <div key={i} style={{
+            position:"absolute",zIndex:1,
+            top:(p as any).top,left:(p as any).left,right:(p as any).right,bottom:(p as any).bottom,
+            animation:`tzFloat ${5+i*.7}s ease-in-out infinite ${p.d}`,
+            pointerEvents:"none",
+          }}>
+            <Star size={p.s} fill={p.c} style={{color:p.c,filter:"drop-shadow(0 2px 8px rgba(0,0,0,.6))",opacity:.7}}/>
+          </div>
+        ))}
+
+        {/* Content — centered stack */}
+        <div style={{ position:"relative",zIndex:2,textAlign:"center",padding:"80px 24px 100px",maxWidth:900,margin:"0 auto" }}
+          className="tz-hero-stagger"
+        >
+          {/* Badges row */}
+          <div style={{ display:"flex",flexWrap:"wrap",gap:10,justifyContent:"center",marginBottom:36 }}>
+            {[
+              {icon:Tv,        label:"AS SEEN ON TV5",       bg:C.yellow, tc:C.black },
+              {icon:Truck,     label:"SHIPS NATIONWIDE",     bg:C.green,  tc:C.black },
+              {icon:Trophy,    label:"TOYFAIR PARTICIPANT",  bg:C.purple, tc:C.white },
+              {icon:Package,   label:"DIRECT IMPORTER",      bg:C.blue,   tc:C.white },
+            ].map(({icon:Icon,label,bg,tc},i)=>(
+              <span key={i} style={{
+                display:"inline-flex",alignItems:"center",gap:6,
+                background:bg,color:tc,fontWeight:900,fontSize:12,padding:"8px 16px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+              }} className="tz-body"><Icon size={13}/>{label}</span>
+            ))}
+          </div>
+
+          {/* Logo — big, centered, animated */}
+          <div style={{ display:"flex",justifyContent:"center",marginBottom:32 }}>
+            <div style={{ position:"relative",display:"inline-block" }}>
+              {/* Glow blob */}
+              <div style={{
+                position:"absolute",inset:-24,
+                background:`radial-gradient(circle,rgba(255,215,0,.25) 0%,transparent 70%)`,
+                borderRadius:"50%",animation:"tzGlow 4s ease-in-out infinite",
+              }}/>
+              <img
+                src={bp("/logos/toyzoona-importer-logo-transparent.png")}
+                alt="Toyzoona Importer"
                 style={{
-                  textAlign: "center", padding: "8px 16px",
-                  borderRight: i < stats.length - 1 ? `1px solid ${C.whiteGhostDark}` : "none",
+                  height:200,objectFit:"contain",position:"relative",
+                  filter:"drop-shadow(0 8px 32px rgba(255,215,0,.35))",
+                  animation:"tzHeroLogo 5s ease-in-out infinite",
                 }}
-              >
-                <div
-                  style={{
-                    fontSize: 36, fontWeight: 900, lineHeight: 1,
-                    background: `linear-gradient(135deg, ${C.red}, ${C.yellow})`,
-                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: C.whiteOff, marginTop: 4 }}>{s.label}</div>
-                <div style={{ fontSize: 11, color: C.whiteDim, marginTop: 2 }}>{s.sub}</div>
+              />
+            </div>
+          </div>
+
+          {/* Headline */}
+          <h1 className="tz-font" style={{ fontSize:"clamp(48px,7vw,96px)",lineHeight:1,marginBottom:16 }}>
+            <span className="tz-shine">Toys Per Kilo</span>
+          </h1>
+          <h2 className="tz-font" style={{
+            fontSize:"clamp(22px,3.5vw,42px)",
+            color:C.white,marginBottom:20,fontWeight:400,
+          }}>
+            Supplier in the Philippines since 2021
+          </h2>
+
+          {/* Sub */}
+          <p className="tz-body" style={{
+            fontSize:18,lineHeight:1.7,color:"rgba(255,255,255,.65)",
+            maxWidth:560,margin:"0 auto 36px",fontWeight:600,
+          }}>
+            Direct importer of <strong style={{color:C.yellow}}>UK & China toys</strong> sold
+            by the kilogram — featured on <strong style={{color:C.yellow}}>TV5</strong>, shipping
+            nationwide. Bringing joy to every Filipino family!
+          </p>
+
+          {/* CTAs */}
+          <div style={{ display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",marginBottom:40 }}>
+            <a href={FACEBOOK_GROUP} target="_blank" rel="noopener noreferrer"
+              className="tz-btn tz-pulse"
+              style={{
+                display:"inline-flex",alignItems:"center",gap:10,
+                background:C.red,color:C.white,textDecoration:"none",
+                padding:"16px 36px",borderRadius:18,fontWeight:900,
+                border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+              }}
+            >
+              <Facebook size={20}/>
+              <span className="tz-font" style={{fontSize:20}}>Join Facebook Group</span>
+              <ArrowRight size={18}/>
+            </a>
+            <a href="#videos" className="tz-btn"
+              style={{
+                display:"inline-flex",alignItems:"center",gap:10,
+                background:C.yellow,color:C.black,textDecoration:"none",
+                padding:"16px 28px",borderRadius:18,fontWeight:900,
+                border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+              }}
+            >
+              <Youtube size={20}/>
+              <span className="tz-font" style={{fontSize:20}}>Watch Videos</span>
+            </a>
+          </div>
+
+          {/* Trust micro row */}
+          <div style={{ display:"flex",gap:24,justifyContent:"center",flexWrap:"wrap" }}>
+            {[
+              {icon:CheckCircle2,text:"Direct Importer",c:C.green },
+              {icon:CheckCircle2,text:"Sold Per Kilo",  c:C.yellow},
+              {icon:CheckCircle2,text:"Safe & Quality", c:C.cyan  },
+              {icon:CheckCircle2,text:"Ships Nationwide",c:C.blue },
+            ].map(({icon:Icon,text,c})=>(
+              <div key={text} style={{display:"flex",alignItems:"center",gap:7}}>
+                <Icon size={16} style={{color:c}}/>
+                <span className="tz-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",fontWeight:700}}>{text}</span>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Zigzag bottom */}
+        <div style={{position:"absolute",bottom:0,left:0,right:0,overflow:"hidden",lineHeight:0}}>
+          <svg viewBox="0 0 1440 56" style={{width:"100%",display:"block"}} preserveAspectRatio="none">
+            <polyline
+              points="0,56 30,18 60,56 90,18 120,56 150,18 180,56 210,18 240,56 270,18 300,56 330,18 360,56 390,18 420,56 450,18 480,56 510,18 540,56 570,18 600,56 630,18 660,56 690,18 720,56 750,18 780,56 810,18 840,56 870,18 900,56 930,18 960,56 990,18 1020,56 1050,18 1080,56 1110,18 1140,56 1170,18 1200,56 1230,18 1260,56 1290,18 1320,56 1350,18 1380,56 1410,18 1440,56 1440,0 0,0"
+              fill={C.darkBg}
+            />
+          </svg>
+        </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 3 — TV5 SHOWCASE (HERO FEATURE)
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ position: "relative", zIndex: 1, padding: "100px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-
-          {/* Section header */}
-          <ScrollReveal variant="fadeUp">
-            <div style={{ textAlign: "center", marginBottom: 64 }}>
-              <div
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  backgroundColor: C.yellow, color: C.navy,
-                  fontWeight: 800, fontSize: 12, padding: "8px 18px",
-                  borderRadius: 40, letterSpacing: "0.08em",
-                  marginBottom: 20,
-                }}
-              >
-                <Tv size={13} />
-                AS SEEN ON NATIONAL TELEVISION
-              </div>
-              <h2
-                style={{
-                  fontSize: "clamp(32px, 4vw, 54px)",
-                  fontWeight: 900, lineHeight: 1.1,
-                  letterSpacing: "-0.02em", marginBottom: 16,
-                }}
-              >
-                TV5 Showcase
-              </h2>
-              <p style={{ fontSize: 17, color: C.whiteDim, maxWidth: 540, margin: "0 auto" }}>
-                Toyzoona Importer was featured on <strong style={{ color: C.yellow }}>national television on TV5</strong> — bringing the unique toys-per-kilo concept to millions of Filipino viewers.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* TV Photos Grid — featured layout */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            {/* Main feature — large left */}
-            <ScrollReveal variant="fadeRight" delay={0} className="w-full">
-              <div
-                style={{
-                  position: "relative", borderRadius: 20, overflow: "hidden",
-                  border: `2px solid rgba(255,215,0,0.3)`,
-                  boxShadow: `0 0 60px rgba(255,215,0,0.12), 0 24px 60px rgba(0,0,0,0.5)`,
-                }}
-              >
-                <img
-                  src={bp("/toyzoona-importer/tv-5.jpg")}
-                  alt="Toyzoona on TV5"
-                  style={{ width: "100%", height: 460, objectFit: "cover", display: "block" }}
-                />
-                <div
-                  style={{
-                    position: "absolute", inset: 0,
-                    background: "linear-gradient(to top, rgba(15,15,26,0.85) 0%, transparent 50%)",
-                  }}
-                />
-                <div style={{ position: "absolute", bottom: 24, left: 24, right: 24 }}>
-                  <div
-                    style={{
-                      display: "inline-flex", alignItems: "center", gap: 6,
-                      backgroundColor: C.yellow, color: C.navy,
-                      fontWeight: 800, fontSize: 12, padding: "6px 14px",
-                      borderRadius: 40, marginBottom: 10, letterSpacing: "0.06em",
-                    }}
-                  >
-                    <Tv size={11} />
-                    TV5 · NATIONAL TV
-                  </div>
-                  <p style={{ fontSize: 18, fontWeight: 700, color: C.whitePure, margin: 0 }}>
-                    Featured: Toys Per Kilo Revolution
-                  </p>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>
-                    National broadcast spotlight on Toyzoona Importer
-                  </p>
-                </div>
+      {/* ══ STATS RIBBON ═════════════════════════════════════════════════════ */}
+      <section style={{background:C.black,borderTop:`3px solid ${C.yellow}`,borderBottom:`3px solid ${C.yellow}`}}>
+        <div style={{maxWidth:1280,margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)"}} className="tz-grid-4">
+          {[
+            {val:"1st",  label:"in the South",      sub:"toys per kilo",bg:C.red,    tc:C.white},
+            {val:"TV5",  label:"Featured On",        sub:"national TV",  bg:C.yellow, tc:C.black},
+            {val:"2+",   label:"Toyfairs",           sub:"participated", bg:C.blue,   tc:C.white},
+            {val:"PH",   label:"Ships Nationwide",   sub:"door to door", bg:C.green,  tc:C.black},
+          ].map((s,i)=>(
+            <ScrollReveal key={i} delay={i*80}>
+              <div className="tz-card" style={{
+                background:s.bg,padding:"28px 16px",textAlign:"center",
+                borderRight:i<3?`3px solid ${C.black}`:"none",
+              }}>
+                <div className="tz-font" style={{fontSize:46,lineHeight:1,color:s.tc}}>{s.val}</div>
+                <div className="tz-body" style={{fontSize:13,fontWeight:900,color:s.tc,marginTop:6,textTransform:"uppercase",letterSpacing:"0.05em"}}>{s.label}</div>
+                <div className="tz-body" style={{fontSize:11,color:s.tc,opacity:.65,marginTop:2}}>{s.sub}</div>
               </div>
             </ScrollReveal>
+          ))}
+        </div>
+      </section>
 
-            {/* Right column — 2x2 grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {tvPhotos.slice(0, 4).map((photo, i) => (
-                <ScrollReveal key={i} variant="fadeLeft" delay={i * 80} className="w-full">
-                  <div
-                    style={{
-                      position: "relative", borderRadius: 14, overflow: "hidden",
-                      border: `1px solid ${C.whiteGhostDark}`,
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                    }}
-                  >
+      {/* ══ BRANDS MARQUEE ═══════════════════════════════════════════════════ */}
+      <section style={{padding:"80px 0",background:C.cardBg,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:0,left:0,right:0,height:4,display:"flex"}}>
+          {RAINBOW.map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+        <div style={{position:"absolute",bottom:0,left:0,right:0,height:4,display:"flex"}}>
+          {[...RAINBOW].reverse().map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+
+        <ScrollReveal>
+          <div style={{textAlign:"center",marginBottom:40,padding:"0 24px"}}>
+            <div style={{
+              display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+              background:C.orange,color:C.black,fontWeight:900,fontSize:12,padding:"8px 20px",
+              borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+            }} className="tz-body"><Sparkles size={14}/> TOY BRANDS</div>
+            <h2 className="tz-font" style={{fontSize:"clamp(28px,4vw,48px)",marginBottom:10}}>
+              <span style={{color:C.white}}>Explore Our </span>
+              <span style={{color:C.yellow}}>Toy Brands</span>
+            </h2>
+            <p className="tz-body" style={{color:"rgba(255,255,255,.55)",fontSize:16,maxWidth:600,margin:"0 auto",fontWeight:600}}>
+              Discover top toy brands available at Toyzoona Importer — perfect for resellers, parents, collectors, and live selling business.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* Marquee — row 1 left, row 2 right */}
+        {[false, true].map((reverse, rowIdx) => (
+          <div key={rowIdx} style={{overflow:"hidden",marginBottom:rowIdx===0?16:0}}>
+            <div style={{
+              display:"flex",width:"max-content",
+              animation:`${reverse?"tzMarqueeR":"tzMarquee"} ${180+rowIdx*20}s linear infinite`,
+            }}>
+              {/* Double the brands so the loop is seamless */}
+              {[...BRANDS, ...BRANDS].map((b, i) => (
+                <div key={i} style={{
+                  display:"inline-flex",alignItems:"center",gap:12,
+                  margin:"0 10px",padding:"12px 22px",
+                  borderRadius:20,border:`3px solid ${b.color}`,
+                  background:`${b.color}18`,
+                  boxShadow:`4px 4px 0 ${C.black}`,
+                  flexShrink:0,
+                }}>
+                  {/* Logo image with white pill background */}
+                  <div style={{
+                    width:52,height:36,borderRadius:10,
+                    background:C.white,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`2px solid ${C.black}`,boxShadow:`2px 2px 0 ${C.black}`,
+                    overflow:"hidden",padding:4,flexShrink:0,
+                  }}>
                     <img
-                      src={bp(photo.src)}
-                      alt={photo.caption}
-                      style={{ width: "100%", height: 215, objectFit: "cover", display: "block" }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute", inset: 0,
-                        background: "linear-gradient(to top, rgba(15,15,26,0.8) 0%, transparent 55%)",
+                      src={bp(`/brand-logos/${b.slug}.png`)}
+                      alt={b.name}
+                      style={{maxWidth:"100%",maxHeight:"100%",objectFit:"contain",display:"block"}}
+                      onError={(e)=>{
+                        const el = e.currentTarget;
+                        el.style.display="none";
+                        const parent = el.parentElement;
+                        if(parent&&!parent.querySelector(".tz-fb")){
+                          const span=document.createElement("span");
+                          span.className="tz-fb";
+                          span.style.cssText=`font-size:14px;font-weight:900;color:${b.color};font-family:'Fredoka One',cursive`;
+                          span.textContent=b.name[0];
+                          parent.appendChild(span);
+                        }
                       }}
                     />
-                    <div style={{ position: "absolute", bottom: 12, left: 12, right: 12 }}>
-                      <span
-                        style={{
-                          display: "inline-flex", alignItems: "center", gap: 4,
-                          backgroundColor: "rgba(255,215,0,0.9)", color: C.navy,
-                          fontWeight: 800, fontSize: 10, padding: "4px 10px",
-                          borderRadius: 40, letterSpacing: "0.06em",
-                        }}
-                      >
-                        <Tv size={9} />
-                        TV5
-                      </span>
-                      <p style={{ fontSize: 11, color: "rgba(255,255,255,0.8)", margin: "6px 0 0" }}>
-                        {photo.caption}
-                      </p>
-                    </div>
                   </div>
-                </ScrollReveal>
+                  <span className="tz-font" style={{fontSize:18,color:C.white,whiteSpace:"nowrap"}}>{b.name}</span>
+                </div>
               ))}
             </div>
           </div>
+        ))}
+      </section>
 
-          {/* TV Call-to-action strip */}
-          <ScrollReveal variant="fadeUp" delay={200}>
-            <div
-              style={{
-                marginTop: 40,
-                background: `linear-gradient(135deg, rgba(255,215,0,0.1), rgba(232,53,10,0.1))`,
-                border: `1px solid rgba(255,215,0,0.2)`,
-                borderRadius: 16, padding: "24px 32px",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                flexWrap: "wrap", gap: 16,
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <div
-                  style={{
-                    width: 48, height: 48, borderRadius: "50%",
-                    backgroundColor: C.yellow, display: "flex", alignItems: "center", justifyContent: "center",
-                  }}
-                >
-                  <Tv size={22} color={C.navy} />
+      {/* ══ VIDEOS ═══════════════════════════════════════════════════════════ */}
+      <section id="videos" style={{padding:"96px 24px",background:C.darkBg,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:0,left:0,right:0,height:5,display:"flex"}}>
+          {RAINBOW.map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+        <div className="tz-polka" style={{position:"absolute",inset:0}}/>
+
+        <div style={{position:"relative",maxWidth:1280,margin:"0 auto"}}>
+          {/* Two Facebook videos side by side */}
+          <ScrollReveal>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:24}} className="tz-grid-2">
+              {[
+                {src:FB_VIDEO_1, border:C.blue},
+                {src:FB_VIDEO_2, border:C.red},
+              ].map((v,i)=>(
+                <div key={i} style={{
+                  borderRadius:20,overflow:"hidden",
+                  border:`5px solid ${v.border}`,boxShadow:`7px 7px 0 ${C.black}`,
+                  aspectRatio:"16/9",position:"relative",
+                  background:C.cardBg,
+                }}>
+                  <iframe
+                    src={v.src}
+                    style={{width:"100%",height:"100%",border:"none",display:"block"}}
+                    scrolling="no"
+                    frameBorder="0"
+                    allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"
+                    allowFullScreen
+                  />
                 </div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: 16, color: C.whitePure }}>
-                    Seen on National TV — Trusted by Millions
-                  </div>
-                  <div style={{ fontSize: 13, color: C.whiteDim }}>
-                    TV5 featured Toyzoona Importer's unique per-kilo toy concept, validating us as a pioneer.
-                  </div>
-                </div>
-              </div>
-              <a
-                href={FACEBOOK_GROUP}
-                target="_blank"
-                rel="noopener noreferrer"
+              ))}
+            </div>
+          </ScrollReveal>
+
+          {/* YouTube video underneath */}
+          <ScrollReveal delay={100}>
+            <div style={{
+              borderRadius:24,overflow:"hidden",
+              border:`5px solid ${C.yellow}`,boxShadow:`8px 8px 0 ${C.black}`,
+              aspectRatio:"16/9",position:"relative",
+            }}>
+              <iframe
+                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
+                title="Toyzoona Importer — Toys Per Kilo"
+                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                allowFullScreen
+                style={{width:"100%",height:"100%",border:"none",display:"block"}}
+              />
+            </div>
+          </ScrollReveal>
+
+          {/* Channel links strip */}
+          <ScrollReveal delay={200}>
+            <div style={{
+              marginTop:40,padding:"20px 28px",
+              background:C.yellow,borderRadius:18,
+              border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+              display:"flex",gap:16,flexWrap:"wrap",alignItems:"center",justifyContent:"center",
+            }}>
+              <a href={YOUTUBE_CHANNEL} target="_blank" rel="noopener noreferrer" className="tz-btn"
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  backgroundColor: C.yellow, color: C.navy,
-                  textDecoration: "none", padding: "12px 24px",
-                  borderRadius: 10, fontWeight: 800, fontSize: 14,
-                  flexShrink: 0, transition: "transform 200ms",
+                  display:"inline-flex",alignItems:"center",gap:8,
+                  background:"#FF0000",color:C.white,textDecoration:"none",
+                  padding:"10px 22px",borderRadius:12,fontWeight:900,
+                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
               >
-                <Facebook size={15} />
-                Join Our Group
+                <Youtube size={18}/><span className="tz-font" style={{fontSize:16}}>YouTube Channel</span>
+              </a>
+              <a href={FACEBOOK_GROUP} target="_blank" rel="noopener noreferrer" className="tz-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:8,
+                  background:"#1877F2",color:C.white,textDecoration:"none",
+                  padding:"10px 22px",borderRadius:12,fontWeight:900,
+                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                }}
+              >
+                <Facebook size={18}/><span className="tz-font" style={{fontSize:16}}>Facebook Group</span>
               </a>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 4 — PRODUCT GALLERY (TOYS PER KILO)
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: "relative", zIndex: 1,
-          padding: "100px 0",
-          background: `linear-gradient(180deg, transparent, rgba(26,26,46,0.4), transparent)`,
-        }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-
-          <ScrollReveal variant="fadeUp">
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 56, flexWrap: "wrap", gap: 24 }}>
-              <div>
-                <div
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 6,
-                    backgroundColor: `${C.red}22`, color: C.orange,
-                    fontWeight: 700, fontSize: 12, padding: "6px 14px",
-                    borderRadius: 40, letterSpacing: "0.07em", marginBottom: 16,
-                    border: `1px solid ${C.red}33`,
-                  }}
-                >
-                  <Package size={11} />
-                  OUR PRODUCTS
-                </div>
-                <h2
-                  style={{
-                    fontSize: "clamp(28px, 3.5vw, 46px)",
-                    fontWeight: 900, lineHeight: 1.1,
-                    letterSpacing: "-0.02em", margin: 0,
-                  }}
-                >
-                  Toys By The Kilo —<br />
-                  <span
-                    style={{
-                      background: `linear-gradient(135deg, ${C.orange}, ${C.yellow})`,
-                      WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    Direct from UK & China
-                  </span>
-                </h2>
-              </div>
-              <p style={{ fontSize: 16, color: C.whiteDim, maxWidth: 360, lineHeight: 1.6 }}>
-                No overpriced retail markup. Get premium imported toys at wholesale pricing — sold by the kilo for maximum value.
-              </p>
+      {/* ══ TV5 SHOWCASE ═════════════════════════════════════════════════════ */}
+      <section style={{padding:"96px 24px",background:C.cardBg,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"relative",maxWidth:1280,margin:"0 auto"}}>
+          <ScrollReveal>
+            <div style={{textAlign:"center",marginBottom:52}}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.yellow,color:C.black,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tz-body"><Tv size={14}/> AS SEEN ON NATIONAL TV</div>
+              <h2 className="tz-font" style={{fontSize:"clamp(30px,4vw,52px)"}}>
+                <span style={{color:C.white}}>TV5 </span><span style={{color:C.yellow}}>Showcase</span>
+              </h2>
             </div>
           </ScrollReveal>
 
-          {/* Toy photo grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-            {toys.map((toy, i) => (
-              <ScrollReveal key={i} variant="fadeUp" delay={i * 80} className="w-full">
-                <div
-                  style={{
-                    position: "relative", borderRadius: 16, overflow: "hidden",
-                    border: `1px solid ${C.whiteGhostDark}`,
-                    cursor: "pointer",
-                    transition: "transform 250ms, box-shadow 250ms",
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-6px) scale(1.01)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = `0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px ${C.orange}44`;
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0) scale(1)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.4)";
-                  }}
-                >
-                  <img
-                    src={bp(toy.src)}
-                    alt={toy.label}
-                    style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute", inset: 0,
-                      background: "linear-gradient(to top, rgba(15,15,26,0.9) 0%, transparent 55%)",
-                    }}
-                  />
-                  <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        backgroundColor: `${C.orange}CC`, color: C.whitePure,
-                        fontWeight: 800, fontSize: 12, padding: "5px 12px",
-                        borderRadius: 40, letterSpacing: "0.05em",
-                      }}
-                    >
-                      {toy.label}
-                    </span>
-                  </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}} className="tz-grid-2">
+            <ScrollReveal variant="fadeRight">
+              <div style={{position:"relative",borderRadius:22,overflow:"hidden",border:`5px solid ${C.yellow}`,boxShadow:`8px 8px 0 ${C.black}`}}>
+                <img src={bp("/toyzoona-importer/tv-5.jpg")} alt="Toyzoona on TV5" style={{width:"100%",height:440,objectFit:"cover",display:"block"}}/>
+                <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(13,13,26,.85) 0%,transparent 50%)"}}/>
+                <div style={{position:"absolute",top:16,left:16}}>
+                  <span style={{display:"inline-flex",alignItems:"center",gap:6,background:C.yellow,color:C.black,fontWeight:900,fontSize:11,padding:"5px 12px",borderRadius:40,border:`2px solid ${C.black}`}} className="tz-body"><Tv size={10}/> TV5 · NATIONAL TV</span>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
+                <div style={{position:"absolute",bottom:22,left:22}}>
+                  <p className="tz-font" style={{fontSize:22,color:C.white,margin:0}}>Featured: Toys Per Kilo Revolution</p>
+                  <p className="tz-body" style={{fontSize:13,color:"rgba(255,255,255,.7)",marginTop:4}}>National broadcast spotlight on Toyzoona Importer</p>
+                </div>
+              </div>
+            </ScrollReveal>
 
-          {/* Per-kilo proposition strip */}
-          <ScrollReveal variant="fadeUp" delay={200}>
-            <div
-              style={{
-                marginTop: 48, padding: "36px",
-                background: `linear-gradient(135deg, ${C.red}15, ${C.orange}10, ${C.yellow}08)`,
-                border: `1px solid ${C.red}25`,
-                borderRadius: 20,
-                display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32, textAlign: "center",
-              }}
-            >
-              {[
-                { icon: Package, label: "Sold Per Kilo", desc: "Buy as much or as little as you want — priced by weight for ultimate value", color: C.red },
-                { icon: ShoppingBag, label: "UK & China Direct", desc: "Imported directly — no middlemen, better prices, exclusive toy collections", color: C.orange },
-                { icon: Truck, label: "Ships Nationwide", desc: "Delivered to your doorstep anywhere in the Philippines — fast and reliable", color: C.yellow },
-              ].map(({ icon: Icon, label, desc, color }, i) => (
-                <div key={i}>
-                  <div
-                    style={{
-                      width: 52, height: 52, borderRadius: "50%",
-                      backgroundColor: `${color}20`, border: `1px solid ${color}30`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      margin: "0 auto 14px",
-                    }}
-                  >
-                    <Icon size={22} style={{ color }} />
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+              {tvPhotos.slice(0,4).map((p,i)=>(
+                <ScrollReveal key={i} delay={i*80}>
+                  <div style={{position:"relative",borderRadius:16,overflow:"hidden",border:`4px solid ${RAINBOW[i]}`,boxShadow:`5px 5px 0 ${C.black}`}}>
+                    <img src={bp(p.src)} alt={p.caption} style={{width:"100%",height:200,objectFit:"cover",display:"block"}}/>
+                    <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(13,13,26,.8) 0%,transparent 55%)"}}/>
+                    <div style={{position:"absolute",bottom:10,left:10}}>
+                      <span style={{display:"inline-flex",alignItems:"center",gap:4,background:C.yellow,color:C.black,fontWeight:900,fontSize:9,padding:"3px 8px",borderRadius:40}} className="tz-body"><Tv size={8}/> TV5</span>
+                    </div>
                   </div>
-                  <div style={{ fontWeight: 800, fontSize: 16, color: C.whitePure, marginBottom: 8 }}>{label}</div>
-                  <div style={{ fontSize: 13, color: C.whiteDim, lineHeight: 1.6 }}>{desc}</div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 5 — TOYFAIR CREDIBILITY
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ position: "relative", zIndex: 1, padding: "100px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
-
-            {/* LEFT — Copy */}
-            <ScrollReveal variant="fadeRight">
-              <div>
-                <div
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 6,
-                    backgroundColor: "rgba(139,92,246,0.15)", color: "#A78BFA",
-                    fontWeight: 700, fontSize: 12, padding: "6px 14px",
-                    borderRadius: 40, letterSpacing: "0.07em", marginBottom: 20,
-                    border: "1px solid rgba(139,92,246,0.25)",
-                  }}
-                >
-                  <Trophy size={11} />
-                  TOYFAIR PARTICIPANT
-                </div>
-                <h2
-                  style={{
-                    fontSize: "clamp(28px, 3vw, 44px)",
-                    fontWeight: 900, lineHeight: 1.15,
-                    letterSpacing: "-0.02em", marginBottom: 20,
-                  }}
-                >
-                  Proudly Representing <br />
-                  <span
-                    style={{
-                      background: `linear-gradient(135deg, ${C.red}, ${C.orange})`,
-                      WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    at Major Toyfairs
-                  </span>
-                </h2>
-                <p style={{ fontSize: 16, color: C.whiteDim, lineHeight: 1.7, marginBottom: 28 }}>
-                  Toyzoona Importer actively participates in the biggest toy industry events in the Philippines — showcasing our per-kilo concept to thousands of toy enthusiasts, resellers, and families.
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  {[
-                    "Pioneer per-kilo toy concept at national events",
-                    "Connecting directly with resellers & wholesalers",
-                    "Showcasing UK & China imported collections",
-                    "Building the biggest toy buyer community in the South",
-                  ].map((point, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                      <CheckCircle2 size={16} style={{ color: C.yellow, marginTop: 2, flexShrink: 0 }} />
-                      <span style={{ fontSize: 14, color: C.whiteDim, lineHeight: 1.5 }}>{point}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* RIGHT — Photo grid */}
-            <ScrollReveal variant="fadeLeft">
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                {toyfairPhotos.map((photo, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      borderRadius: 14, overflow: "hidden",
-                      border: `1px solid ${C.whiteGhostDark}`,
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                      transform: i % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                    }}
-                  >
-                    <img
-                      src={bp(photo.src)}
-                      alt={`Toyfair ${i + 1}`}
-                      style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 6 — WHY TOYZOONA
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: "relative", zIndex: 1,
-          padding: "100px 0",
-          backgroundColor: `${C.navyMid}80`,
-          borderTop: `1px solid ${C.whiteGhostDark}`,
-          borderBottom: `1px solid ${C.whiteGhostDark}`,
-        }}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <ScrollReveal variant="fadeUp">
-            <div style={{ textAlign: "center", marginBottom: 64 }}>
-              <div
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 6,
-                  backgroundColor: `${C.orange}20`, color: C.orange,
-                  fontWeight: 700, fontSize: 12, padding: "6px 14px",
-                  borderRadius: 40, letterSpacing: "0.07em", marginBottom: 16,
-                  border: `1px solid ${C.orange}33`,
-                }}
-              >
-                <Sparkles size={11} />
-                WHY CHOOSE US
-              </div>
-              <h2
-                style={{
-                  fontSize: "clamp(28px, 3.5vw, 46px)",
-                  fontWeight: 900, lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Why Toyzoona Importer?
+      {/* ══ GALLERY ══════════════════════════════════════════════════════════ */}
+      <section style={{padding:"96px 24px",background:C.darkBg,position:"relative"}}>
+        <div style={{position:"absolute",top:0,left:0,right:0,height:5,display:"flex"}}>
+          {RAINBOW.map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+        <div className="tz-polka" style={{position:"absolute",inset:0}}/>
+        <div style={{position:"relative",maxWidth:1280,margin:"0 auto"}}>
+          <ScrollReveal>
+            <div style={{textAlign:"center",marginBottom:48}}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.purple,color:C.white,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tz-body"><Sparkles size={14}/> TOY GALLERY</div>
+              <h2 className="tz-font" style={{fontSize:"clamp(30px,4vw,52px)"}}>
+                <span style={{color:C.white}}>Peek at Our </span><span style={{color:C.cyan}}>Toy Collection!</span>
               </h2>
             </div>
           </ScrollReveal>
+          <ToyGallery/>
+        </div>
+      </section>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-            {reasons.map(({ icon: Icon, title, desc }, i) => (
-              <ScrollReveal key={i} variant="fadeUp" delay={i * 80} className="w-full">
-                <div
-                  style={{
-                    backgroundColor: C.navyCard,
-                    border: `1px solid ${C.whiteGhostDark}`,
-                    borderRadius: 16, padding: "28px 24px",
-                    transition: "transform 250ms, border-color 250ms",
-                    height: "100%",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                    (e.currentTarget as HTMLElement).style.borderColor = `${C.orange}40`;
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLElement).style.borderColor = C.whiteGhostDark;
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 48, height: 48, borderRadius: 12,
-                      background: `linear-gradient(135deg, ${C.red}30, ${C.orange}20)`,
-                      border: `1px solid ${C.red}30`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      marginBottom: 16,
-                    }}
-                  >
-                    <Icon size={22} style={{ color: C.orange }} />
+      {/* ══ WHY TOYZOONA ═════════════════════════════════════════════════════ */}
+      <section style={{padding:"96px 24px",background:C.black}}>
+        <div style={{maxWidth:1280,margin:"0 auto"}}>
+          <ScrollReveal>
+            <div style={{textAlign:"center",marginBottom:52}}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.orange,color:C.black,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tz-body"><Zap size={14}/> WHY CHOOSE US</div>
+              <h2 className="tz-font" style={{fontSize:"clamp(30px,4vw,52px)",color:C.white}}>
+                Why <span style={{color:C.orange}}>Toyzoona</span> Importer?
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:20}} className="tz-grid-3">
+            {reasons.map(({icon:Icon,title,desc,color},i)=>(
+              <ScrollReveal key={i} delay={i*80}>
+                <div className="tz-card" style={{
+                  borderRadius:24,padding:"28px 22px",height:"100%",background:C.cardBg,
+                  border:`4px solid ${color}`,boxShadow:`6px 6px 0 ${color}40`,
+                }}>
+                  <div style={{
+                    width:56,height:56,borderRadius:16,marginBottom:16,background:color,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                  }}>
+                    <Icon size={26} style={{color:[C.black,C.white,C.black,C.black,C.white,C.black][i]}}/>
                   </div>
-                  <h3 style={{ fontWeight: 800, fontSize: 17, marginBottom: 8, color: C.whitePure }}>{title}</h3>
-                  <p style={{ fontSize: 14, color: C.whiteDim, lineHeight: 1.6, margin: 0 }}>{desc}</p>
+                  <h3 className="tz-font" style={{fontSize:20,color:C.white,marginBottom:8}}>{title}</h3>
+                  <p className="tz-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",lineHeight:1.6,margin:0}}>{desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -955,116 +722,46 @@ export default function ToyZoonaImporterPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 7 — HOW TO BUY
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section id="how-to-buy" style={{ position: "relative", zIndex: 1, padding: "100px 0" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-
-          <ScrollReveal variant="fadeUp">
-            <div style={{ textAlign: "center", marginBottom: 64 }}>
-              <div
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 6,
-                  backgroundColor: `${C.yellow}15`, color: C.yellow,
-                  fontWeight: 700, fontSize: 12, padding: "6px 14px",
-                  borderRadius: 40, letterSpacing: "0.07em", marginBottom: 16,
-                  border: `1px solid ${C.yellow}25`,
-                }}
-              >
-                <ShoppingBag size={11} />
-                HOW TO BUY
-              </div>
-              <h2
-                style={{
-                  fontSize: "clamp(28px, 3.5vw, 46px)",
-                  fontWeight: 900, lineHeight: 1.15,
-                  letterSpacing: "-0.02em", marginBottom: 16,
-                }}
-              >
-                4 Ways to Get Your Toys
+      {/* ══ HOW TO BUY ═══════════════════════════════════════════════════════ */}
+      <section id="how-to-buy" style={{padding:"96px 24px",background:C.darkBg,position:"relative",overflow:"hidden"}}>
+        <div className="tz-polka" style={{position:"absolute",inset:0}}/>
+        <div style={{position:"relative",maxWidth:1280,margin:"0 auto"}}>
+          <ScrollReveal>
+            <div style={{textAlign:"center",marginBottom:52}}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.blue,color:C.white,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tz-body"><ShoppingBag size={14}/> HOW TO BUY</div>
+              <h2 className="tz-font" style={{fontSize:"clamp(30px,4vw,52px)",color:C.white}}>
+                4 Ways to Get <span style={{color:C.blue}}>Your Toys!</span>
               </h2>
-              <p style={{ fontSize: 17, color: C.whiteDim, maxWidth: 480, margin: "0 auto" }}>
-                Choose how you want to shop — online, in-person, or at auction. We make it easy.
-              </p>
             </div>
           </ScrollReveal>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
-            {howToBuy.map((method, i) => {
-              const Icon = method.icon;
+          <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:20}} className="tz-grid-2">
+            {howToBuy.map((m,i)=>{
+              const Icon=m.icon;
               return (
-                <ScrollReveal key={i} variant="fadeUp" delay={i * 80} className="w-full">
-                  <div
-                    style={{
-                      position: "relative",
-                      backgroundColor: C.navyCard,
-                      border: `1px solid ${C.whiteGhostDark}`,
-                      borderRadius: 20, padding: "32px 28px",
-                      overflow: "hidden",
-                      transition: "transform 250ms, border-color 250ms",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                      (e.currentTarget as HTMLElement).style.borderColor = `${method.color}50`;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                      (e.currentTarget as HTMLElement).style.borderColor = C.whiteGhostDark;
-                    }}
-                  >
-                    {/* Step number background */}
-                    <div
-                      style={{
-                        position: "absolute", top: 20, right: 24,
-                        fontSize: 72, fontWeight: 900, lineHeight: 1,
-                        color: `${method.color}08`,
-                        userSelect: "none",
-                      }}
-                    >
-                      {method.step}
-                    </div>
-
-                    <div style={{ display: "flex", alignItems: "flex-start", gap: 18 }}>
-                      <div
-                        style={{
-                          width: 52, height: 52, borderRadius: 14, flexShrink: 0,
-                          background: `${method.color}20`,
-                          border: `1px solid ${method.color}30`,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}
-                      >
-                        <Icon size={24} style={{ color: method.color }} />
+                <ScrollReveal key={i} delay={i*80}>
+                  <div className="tz-card" style={{
+                    position:"relative",borderRadius:24,padding:"32px 28px",
+                    background:C.cardBg,border:`4px solid ${m.color}`,
+                    boxShadow:`7px 7px 0 ${C.black}`,overflow:"hidden",
+                  }}>
+                    <div className="tz-font" style={{position:"absolute",top:14,right:20,fontSize:80,lineHeight:1,color:`${m.color}10`,userSelect:"none"}}>{m.step}</div>
+                    <div style={{display:"flex",alignItems:"flex-start",gap:18}}>
+                      <div style={{width:58,height:58,borderRadius:16,flexShrink:0,background:m.color,display:"flex",alignItems:"center",justifyContent:"center",border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`}}>
+                        <Icon size={26} style={{color:m.color===C.yellow?C.black:C.white}}/>
                       </div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                          <h3 style={{ fontWeight: 800, fontSize: 18, margin: 0, color: C.whitePure }}>{method.title}</h3>
-                          <span
-                            style={{
-                              backgroundColor: `${method.color}25`,
-                              color: method.color,
-                              fontSize: 11, fontWeight: 700,
-                              padding: "3px 10px", borderRadius: 40,
-                              letterSpacing: "0.04em",
-                            }}
-                          >
-                            {method.badge}
-                          </span>
+                      <div style={{flex:1}}>
+                        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+                          <h3 className="tz-font" style={{fontSize:22,color:C.white,margin:0}}>{m.title}</h3>
+                          <span style={{background:`${m.color}25`,color:m.color,fontSize:11,fontWeight:900,padding:"4px 12px",borderRadius:40,border:`2px solid ${m.color}`}} className="tz-body">{m.badge}</span>
                         </div>
-                        <p style={{ fontSize: 14, color: C.whiteDim, lineHeight: 1.6, margin: 0 }}>{method.desc}</p>
-                        {method.link && (
-                          <a
-                            href={method.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              display: "inline-flex", alignItems: "center", gap: 6,
-                              color: method.color, textDecoration: "none",
-                              fontSize: 13, fontWeight: 700, marginTop: 12,
-                              transition: "gap 200ms",
-                            }}
-                          >
-                            Join the Group <ArrowRight size={13} />
+                        <p className="tz-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",lineHeight:1.6,margin:0}}>{m.desc}</p>
+                        {(m as any).link&&(
+                          <a href={(m as any).link} target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,color:m.color,textDecoration:"none",fontSize:13,fontWeight:800,marginTop:12}}>
+                            Join the Group <ArrowRight size={13}/>
                           </a>
                         )}
                       </div>
@@ -1074,28 +771,25 @@ export default function ToyZoonaImporterPage() {
               );
             })}
           </div>
-
-          {/* Schedule quick-reference */}
-          <ScrollReveal variant="fadeUp" delay={200}>
-            <div
-              style={{
-                marginTop: 40, padding: "28px 32px",
-                background: `${C.navyMid}80`,
-                border: `1px solid ${C.whiteGhostDark}`,
-                borderRadius: 16,
-                display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center",
-              }}
-            >
+          {/* Schedule strip */}
+          <ScrollReveal delay={200}>
+            <div style={{
+              marginTop:36,padding:"22px 32px",background:C.yellow,borderRadius:20,
+              border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+              display:"flex",gap:32,flexWrap:"wrap",justifyContent:"center",alignItems:"center",
+            }}>
               {[
-                { icon: Clock, label: "Live Selling", time: "Mon–Sat 9AM–6:30PM", color: C.orange },
-                { icon: Warehouse, label: "Warehouse", time: "Mon–Sat 9AM–6:30PM", color: C.red },
-                { icon: ShoppingBag, label: "Auction", time: "Every Saturday 10AM", color: C.yellow },
-              ].map(({ icon: Icon, label, time, color }, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <Icon size={16} style={{ color }} />
+                {icon:Clock,     label:"Live Selling",time:"Mon–Sat 9AM–6:30PM"},
+                {icon:Warehouse, label:"Warehouse",   time:"Mon–Sat 9AM–6:30PM"},
+                {icon:ShoppingBag,label:"Auction",    time:"Every Saturday 10AM"},
+              ].map(({icon:Icon,label,time},i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10}}>
+                  <div style={{width:40,height:40,borderRadius:12,background:C.black,display:"flex",alignItems:"center",justifyContent:"center",border:`3px solid ${C.black}`,boxShadow:`2px 2px 0 ${C.orange}`}}>
+                    <Icon size={18} style={{color:C.yellow}}/>
+                  </div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: C.whitePure }}>{label}</div>
-                    <div style={{ fontSize: 12, color: C.whiteDim }}>{time}</div>
+                    <div className="tz-font" style={{fontSize:16,color:C.black}}>{label}</div>
+                    <div className="tz-body" style={{fontSize:12,color:"#333",fontWeight:700}}>{time}</div>
                   </div>
                 </div>
               ))}
@@ -1104,178 +798,118 @@ export default function ToyZoonaImporterPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          SECTION 8 — FINAL CTA
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          position: "relative", zIndex: 1,
-          padding: "100px 0",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background flame effect */}
-        <div
-          style={{
-            position: "absolute", inset: 0,
-            background: `radial-gradient(ellipse at center, rgba(232,53,10,0.2) 0%, rgba(255,107,53,0.1) 40%, transparent 70%)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute", bottom: 0, left: "50%",
-            transform: "translateX(-50%)",
-            width: 800, height: 400,
-            background: `radial-gradient(ellipse at bottom, rgba(255,215,0,0.15) 0%, transparent 70%)`,
-          }}
-        />
+      {/* ══ TOYFAIR ══════════════════════════════════════════════════════════ */}
+      <section style={{padding:"96px 24px",background:C.cardBg}}>
+        <div style={{maxWidth:1280,margin:"0 auto"}}>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:72,alignItems:"center"}} className="tz-grid-2">
+            <ScrollReveal variant="fadeRight">
+              <div>
+                <div style={{display:"inline-flex",alignItems:"center",gap:8,marginBottom:20,background:C.purple,color:C.white,fontWeight:900,fontSize:12,padding:"8px 20px",borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`}} className="tz-body"><Trophy size={13}/> TOYFAIR PARTICIPANT</div>
+                <h2 className="tz-font" style={{fontSize:"clamp(28px,3.5vw,46px)",marginBottom:20}}>
+                  <span style={{color:C.white}}>Proudly Representing</span><br/>
+                  <span style={{color:C.purple}}>at Major Toyfairs!</span>
+                </h2>
+                <p className="tz-body" style={{fontSize:16,color:"rgba(255,255,255,.6)",lineHeight:1.7,marginBottom:28}}>
+                  Participating in the biggest toy events in the Philippines — showcasing our per-kilo concept to enthusiasts, resellers, and families nationwide.
+                </p>
+                <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                  {[
+                    {text:"Pioneer per-kilo concept at national events",c:C.yellow},
+                    {text:"Connecting directly with resellers & wholesalers",c:C.cyan},
+                    {text:"Showcasing UK & China imported toy collections",c:C.green},
+                    {text:"Building the biggest toy buyer community in the South",c:C.orange},
+                  ].map(({text,c},i)=>(
+                    <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10}}>
+                      <div style={{width:28,height:28,borderRadius:8,flexShrink:0,marginTop:1,background:c,display:"flex",alignItems:"center",justifyContent:"center",border:`2px solid ${C.black}`,boxShadow:`2px 2px 0 ${C.black}`}}>
+                        <CheckCircle2 size={14} style={{color:C.black}}/>
+                      </div>
+                      <span className="tz-body" style={{fontSize:14,color:"rgba(255,255,255,.7)",lineHeight:1.5}}>{text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal variant="fadeLeft">
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+                {toyfairPhotos.map((src,i)=>(
+                  <div key={i} className="tz-card" style={{borderRadius:18,overflow:"hidden",border:`4px solid ${RAINBOW[i]}`,boxShadow:`6px 6px 0 ${C.black}`,transform:`rotate(${i%2===0?-1.5:1.5}deg)`}}>
+                    <img src={bp(src)} alt={`Toyfair ${i+1}`} style={{width:"100%",height:180,objectFit:"cover",display:"block"}}/>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
 
-        <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 24px", position: "relative", textAlign: "center" }}>
-          <ScrollReveal variant="scale" delay={0}>
-            <div
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                backgroundColor: C.yellow, color: C.navy,
-                fontWeight: 800, fontSize: 13, padding: "8px 18px",
-                borderRadius: 40, marginBottom: 28, letterSpacing: "0.05em",
-              }}
-            >
-              <Zap size={14} />
-              JOIN THE MOVEMENT
+      {/* ══ FINAL CTA ════════════════════════════════════════════════════════ */}
+      <section style={{padding:"100px 24px",background:C.black,position:"relative",overflow:"hidden"}}>
+        <div style={{
+          position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",
+          width:"110vw",height:"110vw",
+          backgroundImage:`conic-gradient(from 0deg,${C.blue}15 0deg 8deg,transparent 8deg 16deg,${C.yellow}15 16deg 24deg,transparent 24deg 32deg,${C.red}15 32deg 40deg,transparent 40deg 48deg,${C.green}15 48deg 56deg,transparent 56deg 64deg,${C.purple}15 64deg 72deg,transparent 72deg 80deg,${C.orange}15 80deg 88deg,transparent 88deg 360deg)`,
+          animation:"tzSpin 60s linear infinite",opacity:.2,
+        }}/>
+        <div className="tz-polka" style={{position:"absolute",inset:0}}/>
+
+        <div style={{position:"relative",zIndex:1,maxWidth:800,margin:"0 auto",textAlign:"center"}}>
+          <ScrollReveal variant="scale">
+            <div style={{display:"inline-flex",alignItems:"center",gap:8,marginBottom:28,background:C.yellow,color:C.black,fontWeight:900,fontSize:13,padding:"10px 24px",borderRadius:40,border:`4px solid ${C.black}`,boxShadow:`5px 5px 0 ${C.black}`,animation:"tzBounce 2.5s ease-in-out infinite"}} className="tz-body">
+              <Zap size={16}/> JOIN THE MOVEMENT
             </div>
           </ScrollReveal>
-
-          <ScrollReveal variant="fadeUp" delay={100}>
-            <h2
-              style={{
-                fontSize: "clamp(36px, 5vw, 64px)",
-                fontWeight: 900, lineHeight: 1.05,
-                letterSpacing: "-0.025em", marginBottom: 24,
-              }}
-            >
-              Ready to Shop <br />
-              <span
-                style={{
-                  background: `linear-gradient(135deg, ${C.red} 0%, ${C.orange} 50%, ${C.yellow} 100%)`,
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Toys Per Kilo?
-              </span>
+          <ScrollReveal delay={100}>
+            <h2 className="tz-font" style={{fontSize:"clamp(40px,6vw,72px)",lineHeight:1.05,marginBottom:24}}>
+              <span style={{color:C.white}}>Ready to Shop</span><br/>
+              <span className="tz-shine" style={{fontSize:"clamp(48px,7vw,88px)"}}>Toys Per Kilo?</span>
             </h2>
           </ScrollReveal>
-
-          <ScrollReveal variant="fadeUp" delay={200}>
-            <p style={{ fontSize: 18, color: C.whiteDim, marginBottom: 44, lineHeight: 1.7 }}>
-              Join thousands of happy customers and resellers in our exclusive Facebook group. Get live updates, flash sales, and exclusive member deals — all for free.
+          <ScrollReveal delay={200}>
+            <p className="tz-body" style={{fontSize:18,color:"rgba(255,255,255,.6)",marginBottom:44,lineHeight:1.7,fontWeight:600}}>
+              Join thousands of customers and resellers in our Facebook group. Live deals, flash sales, UK &amp; China drops — all for free!
             </p>
           </ScrollReveal>
-
-          <ScrollReveal variant="fadeUp" delay={300}>
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <a
-                href={FACEBOOK_GROUP}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 12,
-                  background: `linear-gradient(135deg, ${C.red}, ${C.orange})`,
-                  color: C.whitePure, textDecoration: "none",
-                  padding: "20px 40px", borderRadius: 14,
-                  fontWeight: 900, fontSize: 18,
-                  boxShadow: `0 8px 40px rgba(232,53,10,0.4), 0 0 0 1px rgba(255,107,53,0.3)`,
-                  transition: "transform 200ms, box-shadow 200ms",
-                  letterSpacing: "-0.01em",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(-3px) scale(1.02)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 60px rgba(232,53,10,0.5), 0 0 0 1px rgba(255,107,53,0.4)`;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(0) scale(1)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 40px rgba(232,53,10,0.4), 0 0 0 1px rgba(255,107,53,0.3)`;
-                }}
+          <ScrollReveal delay={300}>
+            <div style={{display:"flex",gap:16,justifyContent:"center",flexWrap:"wrap"}}>
+              <a href={FACEBOOK_GROUP} target="_blank" rel="noopener noreferrer" className="tz-btn tz-pulse"
+                style={{display:"inline-flex",alignItems:"center",gap:12,background:C.red,color:C.white,textDecoration:"none",padding:"20px 40px",borderRadius:18,fontWeight:900,border:`5px solid ${C.black}`,boxShadow:`7px 7px 0 ${C.black}`}}
               >
-                <Facebook size={22} />
-                Join Facebook Group
-                <ArrowRight size={18} />
+                <Facebook size={24}/><span className="tz-font" style={{fontSize:22}}>Join Facebook Group</span><ArrowRight size={20}/>
               </a>
-            </div>
-          </ScrollReveal>
-
-          {/* Social proof micro-copy */}
-          <ScrollReveal variant="fadeUp" delay={400}>
-            <div
-              style={{
-                marginTop: 36, display: "flex", alignItems: "center",
-                justifyContent: "center", gap: 24, flexWrap: "wrap",
-              }}
-            >
-              {[
-                { icon: Star, text: "As Seen on TV5" },
-                { icon: Trophy, text: "Toyfair Participant" },
-                { icon: Truck, text: "Ships Nationwide" },
-                { icon: Package, text: "Direct Importer" },
-              ].map(({ icon: Icon, text }, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <Icon size={14} style={{ color: C.yellow }} />
-                  <span style={{ fontSize: 13, color: C.whiteDim, fontWeight: 600 }}>{text}</span>
-                </div>
-              ))}
+              <a href={YOUTUBE_CHANNEL} target="_blank" rel="noopener noreferrer" className="tz-btn"
+                style={{display:"inline-flex",alignItems:"center",gap:12,background:C.yellow,color:C.black,textDecoration:"none",padding:"20px 32px",borderRadius:18,fontWeight:900,border:`5px solid ${C.black}`,boxShadow:`7px 7px 0 ${C.black}`}}
+              >
+                <Youtube size={22}/><span className="tz-font" style={{fontSize:22}}>YouTube Channel</span>
+              </a>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── FOOTER STRIP ────────────────────────────────────────────────────── */}
-      <footer
-        style={{
-          position: "relative", zIndex: 1,
-          borderTop: `1px solid ${C.whiteGhostDark}`,
-          padding: "32px 24px",
-          background: C.navyDeep,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1280, margin: "0 auto",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            flexWrap: "wrap", gap: 16,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img
-              src={bp("/logos/toyzoona-importer.jpg")}
-              alt="Toyzoona Importer"
-              style={{ height: 32, width: 32, objectFit: "contain", borderRadius: 6 }}
-            />
+      {/* ══ FOOTER ═══════════════════════════════════════════════════════════ */}
+      <footer style={{background:C.darkBg,borderTop:`3px solid ${C.yellow}`,padding:"32px 24px"}}>
+        <div style={{display:"flex",height:4,marginBottom:28}}>
+          {RAINBOW.map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+        <div style={{maxWidth:1280,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:16}}>
+          <div style={{display:"flex",alignItems:"center",gap:12}}>
+              <img src={bp("/logos/toyzoona-importer-logo-transparent.png")} alt="Toyzoona Importer" style={{height:44,objectFit:"contain"}}/>
             <div>
-              <div style={{ fontWeight: 800, fontSize: 14, color: C.whitePure }}>Toyzoona Importer</div>
-              <div style={{ fontSize: 11, color: C.whiteDim }}>Part of Pring Group of Companies</div>
+              <div className="tz-font" style={{fontSize:18,color:C.white}}>Toyzoona Importer</div>
+              <div className="tz-body" style={{fontSize:11,color:"rgba(255,255,255,.4)"}}>Part of Pring Group of Companies</div>
             </div>
           </div>
-
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <a
-              href={FACEBOOK_GROUP}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: "flex", alignItems: "center", gap: 6, color: C.whiteDim, textDecoration: "none", fontSize: 13 }}
-            >
-              <Facebook size={14} />
-              Facebook Group
+          <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
+            <a href={FACEBOOK_GROUP} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>
+              <Facebook size={14}/> Facebook Group
             </a>
-            <Link
-              href="/"
-              style={{ color: C.whiteDim, textDecoration: "none", fontSize: 13 }}
-            >
-              Pring Group
-            </Link>
+            <a href={YOUTUBE_CHANNEL} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>
+              <Youtube size={14}/> YouTube
+            </a>
+            <Link href="/" style={{color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>Pring Group</Link>
           </div>
-
-          <div style={{ fontSize: 12, color: `${C.whiteDim}80` }}>
-            © 2025 Pring Group of Companies · Cabuyao, Laguna
+          <div className="tz-body" style={{fontSize:12,color:"rgba(255,255,255,.3)"}}>
+            © {new Date().getFullYear()} Pring Group of Companies · Cabuyao, Laguna
           </div>
         </div>
       </footer>

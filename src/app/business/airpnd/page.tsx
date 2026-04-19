@@ -4,7 +4,10 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import GalleryCarousel from "@/components/GalleryCarousel";
+import { businesses } from "@/data/businesses";
+import { GROUP_BUSINESS_LABEL, GROUP_EMAIL } from "@/data/site";
 import {
   ArrowLeft,
   Facebook,
@@ -18,9 +21,6 @@ import {
   ChevronDown,
   Shield,
   Sparkles,
-  BedDouble,
-  Bath,
-  Maximize,
   Clock,
   Phone,
   ExternalLink,
@@ -30,7 +30,7 @@ import {
 export const metadata: Metadata = {
   title: "AIRPND | Premium Rental Apartments — Santa Rosa, Laguna",
   description:
-    "Modern design apartments with affordable prices. Short-term and monthly rental options in prime Santa Rosa, Laguna. Fully furnished, move-in ready.",
+    "Modern furnished apartments across Santa Rosa and Cabuyao, Laguna. Secure AIRPND locations with CCTV, WiFi, and move-in ready stays.",
 };
 
 const amenities = [
@@ -44,45 +44,54 @@ const amenities = [
   { icon: Sparkles, label: "Weekly Housekeeping" },
 ];
 
-const units = [
-  {
-    name: "Studio Suite",
-    size: "25 sqm",
-    beds: "1 Bed",
-    bath: "1 Bath",
-    price: "₱1,500",
-    period: "/ night",
-  },
-  {
-    name: "One-Bedroom Deluxe",
-    size: "35 sqm",
-    beds: "1 Bed",
-    bath: "1 Bath",
-    price: "₱2,200",
-    period: "/ night",
-  },
-  {
-    name: "Two-Bedroom Premium",
-    size: "45 sqm",
-    beds: "2 Beds",
-    bath: "1 Bath",
-    price: "₱3,000",
-    period: "/ night",
-  },
-];
-
 const gallery = [
   { src: "/airpnd/macabling-1.jpg", alt: "Modern Living Room" },
   { src: "/airpnd/macabling-2.jpg", alt: "Elegant Bedroom" },
   { src: "/airpnd/macabling-3.jpg", alt: "Fully-Equipped Kitchen" },
+  { src: "/airpnd/macabling-4.jpg", alt: "Studio Layout Interior" },
   { src: "/airpnd/golden-city-1.jpg", alt: "Modern Bathroom" },
   { src: "/airpnd/golden-city-2.jpg", alt: "Interior Design" },
+  { src: "/airpnd/golden-city-3.jpg", alt: "One-Bedroom Unit" },
+  { src: "/airpnd/golden-city-4.jpg", alt: "Apartment Exterior" },
 ];
+
+const airpndBusiness = businesses.find((business) => business.slug === "airpnd");
+const locations = airpndBusiness?.branches ?? [];
+const totalUnits = locations.reduce((sum, location) => {
+  const detailWithCount = location.details?.find((detail) => /^\d+/.test(detail));
+  const count = detailWithCount ? Number(detailWithCount.match(/^\d+/)?.[0] ?? 0) : 0;
+  return sum + count;
+}, 0);
 
 export default function AirpndPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#060606] text-white">
       <BusinessNavArrows currentSlug="airpnd" />
+      <BusinessPopup config={{
+        storageKey: "popup-airpnd",
+        delay: 2800,
+        headerBg: "linear-gradient(135deg, #041208 0%, #0A2418 50%, #1A4830 100%)",
+        headerIcon: "🏠",
+        modalBg: "#0D1117",
+        eyebrow: "FIND YOUR UNIT",
+        eyebrowColor: "#4BAF78",
+        title: "Looking for a place in Laguna?",
+        titleColor: "#E8F5EE",
+        body: "Browse studio and one-bedroom units across three Laguna locations — designed for comfort, security, and convenience.",
+        bodyColor: "rgba(232,245,238,0.48)",
+        primaryCTA: "View Locations",
+        primaryHref: "#locations",
+        ctaBg: "#487860",
+        ctaColor: "#FFFFFF",
+        secondaryCTA: "Send an Inquiry",
+        secondaryColor: "rgba(75,175,120,0.5)",
+        badge: "3 Locations",
+        badgeBg: "rgba(75,175,120,0.2)",
+        badgeColor: "#4BAF78",
+        locationChips: ["Santa Rosa", "Golden City", "Cabuyao"],
+        accentLine: "#487860",
+        logoSrc: "/logos/airpnd-main.png",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -163,7 +172,7 @@ export default function AirpndPage() {
             }}
           >
             <Image
-              src="/logos/airpnd.jpg"
+              src="/logos/airpnd-main.png"
               alt="AIRPND Logo"
               width={80}
               height={80}
@@ -203,7 +212,7 @@ export default function AirpndPage() {
           >
             Modern Living,
             <br />
-            Affordable Price
+            Designed for Comfort
           </h1>
 
           {/* Decorative line */}
@@ -230,8 +239,8 @@ export default function AirpndPage() {
               animationFillMode: "forwards",
             }}
           >
-            Premium furnished apartments designed for modern living.
-            Short-term and monthly stays in the heart of Laguna.
+            Premium furnished apartments designed for modern living across
+            Santa Rosa and Cabuyao, Laguna.
           </p>
 
           {/* CTAs */}
@@ -247,10 +256,10 @@ export default function AirpndPage() {
             }}
           >
             <a
-              href="#units"
+              href="#locations"
               className="group flex cursor-pointer items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:shadow-xl hover:shadow-white/10 active:scale-[0.97]"
             >
-              Explore Units
+              Explore Locations
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </a>
             <a
@@ -476,20 +485,21 @@ export default function AirpndPage() {
                   AIRPND offers premium rental apartments in Santa Rosa,
                   Laguna &mdash; designed with modern aesthetics and equipped
                   with everything you need. Whether you&apos;re staying for a
-                  night or settling in for months, our fully furnished units
-                  deliver luxury living at an accessible price point.
+                  short stay or planning a longer move, our fully furnished
+                  spaces are built for a smoother arrival.
                 </p>
                 <p className="mb-8 text-base leading-[1.8] text-white/50">
                   Each unit is thoughtfully designed with contemporary interiors,
                   high-quality furnishings, and smart amenities that make you
-                  feel right at home &mdash; without the premium price tag.
+                  feel right at home, with security and convenience already in place.
                 </p>
 
                 {/* Key stats */}
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                   {[
-                    { value: "25–45", unit: "sqm", label: "Unit Sizes" },
-                    { value: "100%", unit: "", label: "Furnished" },
+                    { value: locations.length, unit: "", label: "Locations" },
+                    { value: totalUnits, unit: "", label: "Total Units" },
+                    { value: 2, unit: "", label: "Cities" },
                     { value: "24/7", unit: "", label: "Security" },
                   ].map((stat) => (
                     <div key={stat.label}>
@@ -511,65 +521,54 @@ export default function AirpndPage() {
         </div>
       </section>
 
-      {/* ===== UNIT TYPES ===== */}
+      {/* ===== LOCATIONS ===== */}
       <section
-        id="units"
+        id="locations"
         className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32"
       >
         <div className="mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-16 text-center">
               <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                Our Residences
+                Our Locations
               </span>
               <h2 className="font-[family-name:var(--font-cursive)] text-3xl font-light italic text-white md:text-4xl lg:text-5xl">
-                Choose Your Space
+                Find Your Space
               </h2>
             </div>
           </ScrollReveal>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {units.map((unit, i) => (
-              <ScrollReveal key={unit.name} variant="fadeUp" delay={i * 120}>
+            {locations.map((location, i) => (
+              <ScrollReveal key={location.name} variant="fadeUp" delay={i * 120}>
                 <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 hover:border-white/15 hover:bg-white/[0.04]">
                   <h3 className="mb-4 font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                    {unit.name}
+                    {location.name}
                   </h3>
                   <div className="mb-6 h-px w-full bg-white/[0.06]" />
 
-                  <div className="mb-8 grid grid-cols-2 gap-4">
-                    <div className="flex items-center gap-2 text-sm text-white/40">
-                      <Maximize className="h-4 w-4" />
-                      {unit.size}
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/40">
-                      <BedDouble className="h-4 w-4" />
-                      {unit.beds}
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/40">
-                      <Bath className="h-4 w-4" />
-                      {unit.bath}
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/40">
-                      <Clock className="h-4 w-4" />
-                      Flexible Stay
-                    </div>
+                  <div className="mb-6 flex items-start gap-2 text-sm text-white/40">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span>{location.address}</span>
                   </div>
 
-                  <div className="mb-6">
-                    <span className="font-[family-name:var(--font-cursive)] text-3xl font-bold text-white">
-                      {unit.price}
-                    </span>
-                    <span className="text-sm text-white/30">{unit.period}</span>
+                  <div className="mb-6 space-y-2">
+                    {(location.details ?? []).map((detail) => (
+                      <div
+                        key={detail}
+                        className="flex items-start gap-2 text-sm leading-relaxed text-white/35"
+                      >
+                        <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                        <span>{detail}</span>
+                      </div>
+                    ))}
                   </div>
 
                   <a
-                    href="https://www.facebook.com/modernapartment2023"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(`AIRPND inquiry - ${location.name}`)}`}
                     className="group/btn flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 py-3 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:bg-white hover:text-black"
                   >
-                    Inquire Now
+                    Inquire About This Location
                     <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                   </a>
                 </div>
@@ -579,8 +578,8 @@ export default function AirpndPage() {
 
           <ScrollReveal variant="fadeUp" delay={200}>
             <p className="mt-8 text-center text-sm text-white/25">
-              Monthly rates available &mdash; contact us for special long-term
-              pricing.
+              Email us your preferred AIRPND location and stay duration for
+              current availability.
             </p>
           </ScrollReveal>
         </div>
@@ -740,8 +739,8 @@ export default function AirpndPage() {
             </h2>
             <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <p className="mx-auto mb-10 max-w-md text-base leading-relaxed text-white/40">
-              Contact us today to schedule a viewing or book your stay.
-              Available for daily, weekly, and monthly rentals.
+              Contact us today to schedule a viewing and ask about the best
+              AIRPND location for your stay.
             </p>
           </ScrollReveal>
 
@@ -788,7 +787,7 @@ export default function AirpndPage() {
               Pring Group of Companies
             </h3>
             <p className="mx-auto mb-6 max-w-md text-sm text-white/25">
-              AIRPND is one of 16+ businesses under the Pring Group &mdash; a
+              AIRPND is one of {GROUP_BUSINESS_LABEL} businesses under the Pring Group &mdash; a
               family-owned conglomerate building a legacy across the Philippines.
             </p>
             <Link
@@ -807,7 +806,7 @@ export default function AirpndPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-3">
             <Image
-              src="/logos/airpnd.jpg"
+              src="/logos/airpnd-main.png"
               alt="AIRPND"
               width={24}
               height={24}

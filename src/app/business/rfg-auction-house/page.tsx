@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import RFGAuctionPopup from "@/components/RFGAuctionPopup";
 import {
   Gavel,
   Package,
@@ -97,12 +98,13 @@ export default function RFGAuctionHousePage() {
     { icon: <Crown size={22} />, text: "Premium Selection" },
     { icon: <BadgeCheck size={22} />, text: "Trusted Since Day 1" },
     { icon: <Zap size={22} />, text: "Unbeatable Prices" },
-    { icon: <Users size={22} />, text: "Thousands Served" },
+    { icon: <Users size={22} />, text: "Repeat Bidders" },
   ];
 
   return (
     <>
       <BusinessNavArrows currentSlug="rfg-auction-house" />
+      <RFGAuctionPopup />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -1068,33 +1070,33 @@ export default function RFGAuctionHousePage() {
           <ScrollReveal delay={0}>
             <div className="rfg-stat">
               <div className="rfg-stat-num">
-                <CountUp end={5000} suffix="+" />
+                <CountUp end={3} />
               </div>
-              <div className="rfg-stat-label">Items Sold</div>
+              <div className="rfg-stat-label">Branches</div>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <div className="rfg-stat">
               <div className="rfg-stat-num">
-                <CountUp end={70} suffix="%" />
+                <CountUp end={4} />
               </div>
-              <div className="rfg-stat-label">Avg. Savings</div>
+              <div className="rfg-stat-label">Countries Sourced</div>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <div className="rfg-stat">
               <div className="rfg-stat-num">
-                <CountUp end={2000} suffix="+" />
+                <CountUp end={10} />
               </div>
-              <div className="rfg-stat-label">Happy Bidders</div>
+              <div className="rfg-stat-label">AM Auction Start</div>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={450}>
             <div className="rfg-stat">
               <div className="rfg-stat-num">
-                <CountUp end={3} suffix="" />
+                <CountUp end={1} />
               </div>
-              <div className="rfg-stat-label">Countries Sourced</div>
+              <div className="rfg-stat-label">Auction-Only Format</div>
             </div>
           </ScrollReveal>
         </div>
@@ -1138,7 +1140,7 @@ export default function RFGAuctionHousePage() {
             </div>
           </div>
           <h2 className="rfg-section-title">
-            Trusted by Thousands
+            Trusted Auction Experience
           </h2>
           <p className="rfg-section-sub">
             We stand behind every item. Quality-checked, globally sourced, and
@@ -1215,7 +1217,7 @@ export default function RFGAuctionHousePage() {
             Your Next Great Deal Awaits
           </h2>
           <p>
-            Join thousands of smart shoppers who score premium surplus at
+            Join smart shoppers who score premium surplus at
             unbeatable prices. Follow us on Facebook for the latest auction
             schedules and exclusive drops.
           </p>

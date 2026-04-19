@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   Gavel,
   Package,
@@ -106,6 +107,29 @@ export default function RFGAuctionBulacanPage() {
   return (
     <main className="relative overflow-hidden bg-[#0A0A0A]">
       <BusinessNavArrows currentSlug="rfg-auction-bulacan" />
+      <BusinessPopup config={{
+        storageKey: "popup-rfg-auction-bulacan",
+        delay: 2000,
+        headerBg: "linear-gradient(135deg, #080200 0%, #2A0C00 50%, #904818 100%)",
+        headerIcon: "📅",
+        modalBg: "#120600",
+        eyebrow: "BULACAN AUCTION",
+        eyebrowColor: "#E87030",
+        title: "Meycauayan\u2019s Friday auction is waiting.",
+        titleColor: "#F5E8D8",
+        body: "Check branch schedule, directions, and what to expect before visiting the next live auction in Bulacan.",
+        bodyColor: "rgba(245,232,216,0.48)",
+        primaryCTA: "View Bulacan Schedule",
+        primaryHref: "#schedule",
+        ctaBg: "#904818",
+        ctaColor: "#F5E8D8",
+        secondaryCTA: "Get Directions",
+        secondaryColor: "rgba(232,112,48,0.45)",
+        badge: "Every Friday",
+        badgeBg: "rgba(144,72,24,0.3)",
+        badgeColor: "#E87030",
+        logoSrc: "/logos/rfg-auction-bulacan.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -391,7 +415,7 @@ export default function RFGAuctionBulacanPage() {
             <blockquote className="mb-6 text-xl leading-relaxed font-medium text-white/80 md:text-2xl">
               &ldquo;Sobrang sulit dito! Quality pa ng mga items na nabili namin. Lagi kaming bumabalik every auction day. Solid!&rdquo;
             </blockquote>
-            <div className="text-sm text-white/40">— Trusted by thousands of happy customers across Bulacan</div>
+            <div className="text-sm text-white/40">— Trusted by repeat bidders and walk-in buyers across Bulacan</div>
           </ScrollReveal>
         </div>
       </section>

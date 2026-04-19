@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -102,7 +103,7 @@ const reasons = [
   {
     icon: ShieldCheck,
     title: "Trusted Brand",
-    desc: "Part of the Pring Group family. Thousands of happy customers.",
+    desc: "Part of the Pring Group family, built on consistent style and trusted service.",
   },
 ];
 
@@ -122,6 +123,28 @@ export default function LussoPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#060606] text-white">
       <BusinessNavArrows currentSlug="lusso" />
+      <BusinessPopup config={{
+        storageKey: "popup-lusso",
+        delay: 2200,
+        headerBg: "linear-gradient(135deg, #0C0800 0%, #2C1C00 40%, #7A5820 70%, #C9A84C 100%)",
+        headerIcon: "💎",
+        shimmer: true,
+        modalBg: "#080808",
+        eyebrow: "LUXURY FINDS",
+        eyebrowColor: "#C9A84C",
+        title: "Affordable luxury starts here.",
+        titleColor: "#E8D5A3",
+        body: "Explore imported fashion jewelry for gifting, styling, boutique sourcing, or reseller bundles without losing the premium feel.",
+        bodyColor: "rgba(232,213,163,0.45)",
+        primaryCTA: "View Jewelry Collection",
+        primaryHref: "#collection",
+        ctaBg: "transparent",
+        ctaColor: "#C9A84C",
+        ctaBorder: "1.5px solid #C9A84C",
+        secondaryCTA: "Shop on Facebook",
+        secondaryColor: "rgba(201,168,76,0.45)",
+        logoSrc: "/logos/lusso.png",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -211,22 +234,34 @@ export default function LussoPage() {
           .gold-border {
             border-image: linear-gradient(135deg, #D4AF3730, #F0D8A830, #D4AF3730) 1;
           }
+          .lusso-fan-inner {
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease, box-shadow 0.45s ease;
+            cursor: default;
+          }
+          .lusso-fan-inner:hover {
+            transform: translateY(-22px);
+            filter: brightness(1.08);
+            box-shadow: 0 44px 80px rgba(212,175,55,0.2);
+          }
+          @keyframes heroSpotlight {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50%       { opacity: 0.75; transform: scale(1.06); }
+          }
+          @keyframes lussoArcSweep {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+          }
+          @keyframes lussoFloorGlow {
+            0%, 100% { opacity: 0.4; }
+            50%       { opacity: 0.65; }
+          }
         `,
         }}
       />
 
       {/* ===== AMBIENT BACKGROUND ===== */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#060606] via-[#0A0808] to-[#060606]" />
-        <div className="absolute top-[-10%] right-[-5%] h-[600px] w-[600px] rounded-full bg-[#D4AF37]/[0.02] blur-[150px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-[#A89060]/[0.015] blur-[120px]" />
-        <div
-          className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage: "linear-gradient(rgba(212,175,55,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.3) 1px, transparent 1px)",
-            backgroundSize: "120px 120px",
-          }}
-        />
+        <div className="absolute inset-0 bg-[#060606]" />
       </div>
 
       {/* ===== NAVIGATION ===== */}
@@ -258,21 +293,106 @@ export default function LussoPage() {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative z-10 flex min-h-[100dvh] items-center overflow-hidden px-6 pt-16">
-        {/* Floating diamond particles */}
+      <section className="relative z-10 flex min-h-[100dvh] items-center overflow-hidden px-6 pt-16" style={{ background: "#04100a" }}>
+        {/* ── Hero background — dark green velvet luxury ── */}
+        <div className="pointer-events-none absolute inset-0">
+          {/* Bokeh photo shifted to deep green */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${bp("/lusso/hero-bg.jpg")})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "hue-rotate(128deg) saturate(0.7) brightness(0.22)",
+            }}
+          />
+          {/* Deep forest-green base overlay */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(135deg, rgba(2,8,4,0.92) 0%, rgba(5,16,9,0.85) 45%, rgba(2,8,4,0.90) 100%)" }}
+          />
+          {/* Primary silk highlight — upper-left bloom (light catching velvet) */}
+          <div
+            className="absolute"
+            style={{
+              top: "-15%", left: "-8%",
+              width: "650px", height: "580px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(28,90,50,0.42) 0%, rgba(14,55,28,0.22) 42%, transparent 68%)",
+              filter: "blur(70px)",
+              animation: "heroSpotlight 9s ease-in-out infinite",
+            }}
+          />
+          {/* Secondary highlight — mid-right, where fan sits */}
+          <div
+            className="absolute"
+            style={{
+              top: "10%", right: "-8%",
+              width: "550px", height: "650px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(18,70,36,0.28) 0%, transparent 65%)",
+              filter: "blur(85px)",
+              animation: "heroSpotlight 11s ease-in-out infinite",
+              animationDelay: "3s",
+            }}
+          />
+          {/* Gold crown-light from top — LUSSO signature accent */}
+          <div
+            className="absolute"
+            style={{
+              top: 0, left: "20%", right: "20%",
+              height: "280px",
+              background: "radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.12) 0%, rgba(180,140,20,0.05) 50%, transparent 75%)",
+              filter: "blur(35px)",
+            }}
+          />
+          {/* Floor glow beneath fan */}
+          <div
+            className="absolute bottom-0 right-0"
+            style={{
+              width: "55%", height: "30%",
+              background: "radial-gradient(ellipse 65% 55% at 65% 100%, rgba(22,80,40,0.3) 0%, transparent 72%)",
+              filter: "blur(35px)",
+              animation: "lussoFloorGlow 7s ease-in-out infinite",
+            }}
+          />
+          {/* Deep vignette — richens the edges */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(ellipse 88% 78% at 50% 48%, transparent 38%, rgba(1,5,2,0.82) 100%)" }}
+          />
+          {/* Subtle green fine grid */}
+          <div
+            className="absolute inset-0"
+            style={{
+              opacity: 0.018,
+              backgroundImage: "linear-gradient(rgba(40,180,80,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(40,180,80,0.4) 1px, transparent 1px)",
+              backgroundSize: "90px 90px",
+            }}
+          />
+        </div>
+
+        {/* Floating gem particles — gold on green */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => (
+          {[
+            { top: "10%", left: "6%",  size: "h-3 w-3",     speed: 6,  delay: 0,   opacity: 0.5 },
+            { top: "30%", left: "40%", size: "h-2 w-2",     speed: 8,  delay: 1.5, opacity: 0.3 },
+            { top: "58%", left: "12%", size: "h-2.5 w-2.5", speed: 7,  delay: 0.8, opacity: 0.4 },
+            { top: "70%", left: "60%", size: "h-2 w-2",     speed: 9,  delay: 2.2, opacity: 0.28 },
+            { top: "16%", left: "72%", size: "h-3.5 w-3.5", speed: 6,  delay: 0.4, opacity: 0.45 },
+            { top: "80%", left: "28%", size: "h-2 w-2",     speed: 10, delay: 3,   opacity: 0.28 },
+          ].map((p, i) => (
             <div
               key={i}
-              className="absolute"
+              className={`absolute ${p.size}`}
               style={{
-                top: `${10 + i * 18}%`,
-                left: `${5 + i * 20}%`,
-                animation: `diamondSpin ${6 + i * 2}s ease-in-out infinite`,
-                animationDelay: `${i * 1.2}s`,
+                top: p.top, left: p.left,
+                animation: `diamondSpin ${p.speed}s ease-in-out infinite`,
+                animationDelay: `${p.delay}s`,
+                opacity: p.opacity,
               }}
             >
-              <Gem className="h-3 w-3 text-[#D4AF37]/20" />
+              <Gem className="h-full w-full text-[#D4AF37]" />
             </div>
           ))}
         </div>
@@ -383,10 +503,11 @@ export default function LussoPage() {
             </div>
           </div>
 
-          {/* Right — Hero Video */}
+          {/* Right — Fanned Jewelry Images */}
           <div
-            className="relative hidden lg:block"
+            className="hidden lg:flex items-center justify-center"
             style={{
+              marginTop: "-120px",
               opacity: 0,
               animationName: "slideInRight",
               animationDuration: "1.2s",
@@ -395,47 +516,94 @@ export default function LussoPage() {
               animationFillMode: "forwards",
             }}
           >
-            <div className="float-jewelry relative flex justify-center">
-              {/* Main video */}
-              <div className="relative overflow-hidden rounded-[2rem] border border-[#D4AF37]/10" style={{ width: "68%" }}>
-                <video
-                  src={bp("/lusso/showcase.mp4")}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  suppressHydrationWarning
-                  style={{ display: "block", width: "100%", height: "auto" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/40 via-transparent to-[#060606]/10" />
+            {/* Fan stage — fixed size, centered in column */}
+            <div className="relative" style={{ width: "560px", height: "460px" }}>
 
-                {/* Gold corner accents */}
-                <div className="absolute top-4 left-4 h-12 w-12 border-t-2 border-l-2 border-[#D4AF37]/30 rounded-tl-lg" />
-                <div className="absolute right-4 bottom-4 h-12 w-12 border-r-2 border-b-2 border-[#D4AF37]/30 rounded-br-lg" />
-              </div>
+              {/* Green floor glow */}
+              <div
+                className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2"
+                style={{
+                  width: "520px",
+                  height: "160px",
+                  background: "radial-gradient(ellipse at 50% 100%, rgba(25,100,50,0.38) 0%, rgba(12,60,28,0.14) 42%, transparent 72%)",
+                  filter: "blur(28px)",
+                  animation: "lussoFloorGlow 5s ease-in-out infinite",
+                }}
+              />
+              {/* Gold accent glow under center card */}
+              <div
+                className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2"
+                style={{
+                  width: "200px",
+                  height: "80px",
+                  background: "radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.28) 0%, transparent 70%)",
+                  filter: "blur(16px)",
+                }}
+              />
 
-              {/* Floating badge */}
-              <div className="float-reverse absolute -bottom-4 -left-4 rounded-2xl border border-[#D4AF37]/15 bg-[#0A0A0A]/90 p-4 shadow-2xl backdrop-blur-xl">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D4AF37]/10">
-                    <Crown className="h-5 w-5 text-[#D4AF37]" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white">Premium</p>
-                    <p className="text-xs text-white/40">Curated Pieces</p>
+              {/* Fan cards — outer div handles rotation, inner div handles hover */}
+              {[
+                { src: "/lusso/jewelry-7.jpg", deg: -26, z: 1, opacity: 0.68 },
+                { src: "/lusso/jewelry-2.jpg", deg: -13, z: 2, opacity: 0.86 },
+                { src: "/lusso/jewelry-1.jpg", deg:   0, z: 5, opacity: 1 },
+                { src: "/lusso/jewelry-6.jpg", deg:  13, z: 2, opacity: 0.86 },
+                { src: "/lusso/jewelry-4.jpg", deg:  26, z: 1, opacity: 0.68 },
+              ].map((card, i) => (
+                /* Outer: rotation only — no transition so hover doesn't fight it */
+                <div
+                  key={i}
+                  className="absolute bottom-0 left-1/2"
+                  style={{
+                    transformOrigin: "bottom center",
+                    transform: `translateX(-50%) rotate(${card.deg}deg)`,
+                    zIndex: card.z,
+                    opacity: card.opacity,
+                  }}
+                >
+                  {/* Inner: hover lift only — clean translateY transition */}
+                  <div className="lusso-fan-inner">
+                    {/* Gold border glow on center card */}
+                    {card.deg === 0 && (
+                      <div
+                        className="absolute -inset-[3px] rounded-[20px] pointer-events-none"
+                        style={{
+                          background: "linear-gradient(145deg, rgba(212,175,55,0.5) 0%, rgba(212,175,55,0.08) 50%, rgba(212,175,55,0.4) 100%)",
+                          zIndex: -1,
+                        }}
+                      />
+                    )}
+                    <div
+                      className="relative overflow-hidden shadow-2xl"
+                      style={{
+                        width: "220px",
+                        height: "345px",
+                        borderRadius: "18px",
+                        border: card.deg === 0
+                          ? "1px solid rgba(212,175,55,0.45)"
+                          : "1px solid rgba(212,175,55,0.12)",
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={bp(card.src)}
+                        alt="LUSSO jewelry"
+                        className="h-full w-full object-cover"
+                      />
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: "linear-gradient(to top, rgba(4,12,6,0.7) 0%, rgba(4,12,6,0.08) 45%, transparent 70%)" }}
+                      />
+                      {card.deg === 0 && (
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.09) 0%, transparent 50%)" }}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
 
-              {/* Floating star rating */}
-              <div className="float-jewelry absolute -top-3 -right-3 rounded-2xl border border-[#D4AF37]/15 bg-[#0A0A0A]/90 p-3 shadow-2xl backdrop-blur-xl" style={{ animationDelay: "2s" }}>
-                <div className="flex items-center gap-1.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
-                  ))}
-                </div>
-                <p className="mt-1 text-[10px] font-semibold text-white/50">Thousands love us</p>
-              </div>
             </div>
           </div>
         </div>
@@ -761,7 +929,7 @@ export default function LussoPage() {
               Pring Group of Companies
             </h2>
             <p className="mx-auto mb-6 max-w-xl text-base text-white/30">
-              LUSSO is one of 16+ businesses under the Pring Group — a
+              LUSSO is one of 18+ businesses under the Pring Group — a
               family-owned conglomerate building a legacy across the Philippines.
             </p>
             <Link

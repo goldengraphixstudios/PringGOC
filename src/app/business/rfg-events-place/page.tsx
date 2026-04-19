@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -112,6 +113,31 @@ export default function RFGEventsPlacePage() {
   return (
     <main className="relative overflow-hidden bg-[#0A0A0A]">
       <BusinessNavArrows currentSlug="rfg-events-place" />
+      <BusinessPopup config={{
+        storageKey: "popup-rfg-events-place",
+        delay: 2500,
+        headerBg: "linear-gradient(135deg, #1A1000 0%, #3C2800 50%, #C9A84C 100%)",
+        headerIcon: "✨",
+        shimmer: true,
+        modalBg: "#0A0A0A",
+        eyebrow: "EVENT INQUIRY",
+        eyebrowColor: "#C9A84C",
+        title: "Planning a special event soon?",
+        titleColor: "#F5F0E8",
+        body: "Ask about date availability for weddings, birthdays, corporate events, and private celebrations at RFG Events Place.",
+        bodyColor: "rgba(245,240,232,0.45)",
+        primaryCTA: "Book a Site Viewing",
+        primaryHref: "#contact",
+        ctaBg: "transparent",
+        ctaColor: "#C9A84C",
+        ctaBorder: "1.5px solid #C9A84C",
+        secondaryCTA: "See Venue Photos",
+        secondaryColor: "rgba(201,168,76,0.5)",
+        badge: "150–250 Pax",
+        badgeBg: "rgba(201,168,76,0.2)",
+        badgeColor: "#C9A84C",
+        logoSrc: "/logos/rfg-events.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `

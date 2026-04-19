@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" width="220" height="80">
+  <!-- Background pill -->
+  <rect width="220" height="80" rx="14" fill="#0A1628"/>
+
+  <!-- Truck body -->
+  <rect x="12" y="30" width="42" height="24" rx="3" fill="#C9A84C"/>
+  <rect x="54" y="26" width="20" height="28" rx="2" fill="#E8C84A"/>
+  <!-- Cab window -->
+  <rect x="56" y="29" width="15" height="12" rx="2" fill="#0A1628" opacity="0.7"/>
+  <!-- Wheels -->
+  <circle cx="22" cy="56" r="7" fill="#1A3A5C" stroke="#C9A84C" stroke-width="2.5"/>
+  <circle cx="22" cy="56" r="3" fill="#C9A84C"/>
+  <circle cx="48" cy="56" r="7" fill="#1A3A5C" stroke="#C9A84C" stroke-width="2.5"/>
+  <circle cx="48" cy="56" r="3" fill="#C9A84C"/>
+  <circle cx="68" cy="56" r="7" fill="#1A3A5C" stroke="#C9A84C" stroke-width="2.5"/>
+  <circle cx="68" cy="56" r="3" fill="#C9A84C"/>
+  <!-- Exhaust pipe -->
+  <rect x="70" y="20" width="4" height="14" rx="2" fill="#C9A84C"/>
+  <!-- Speed lines -->
+  <line x1="8" y1="38" x2="2" y2="38" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <line x1="8" y1="44" x2="4" y2="44" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <line x1="8" y1="50" x2="6" y2="50" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" opacity="0.2"/>
+
+  <!-- Text: PRING -->
+  <text x="84" y="36" font-family="Arial Black, sans-serif" font-weight="900" font-size="19" fill="#E8C84A" letter-spacing="2">PRING</text>
+  <!-- Text: TRUCKING -->
+  <text x="84" y="56" font-family="Arial Black, sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" letter-spacing="3">TRUCKING</text>
+  <!-- Tagline -->
+  <text x="84" y="70" font-family="Arial, sans-serif" font-weight="400" font-size="7" fill="#C9A84C" letter-spacing="1" opacity="0.8">RELIABLE · ON TIME · EVERY TIME</text>
+
+  <!-- Gold accent line -->
+  <line x1="84" y1="40" x2="210" y2="40" stroke="#C9A84C" stroke-width="0.8" opacity="0.3"/>
+</svg>

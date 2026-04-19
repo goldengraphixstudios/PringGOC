@@ -1,855 +1,750 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import Image from "@/components/Img";
-import ScrollReveal from "@/components/ScrollReveal";
-import CountUp from "@/components/CountUp";
-import BusinessNavArrows from "@/components/BusinessNavArrows";
-import {
-  ArrowLeft,
-  Facebook,
-  MapPin,
-  Star,
-  Heart,
-  ShoppingCart,
-  Package,
-  Gift,
-  ChevronRight,
-  Tag,
-  Truck,
-  BadgeCheck,
-  PartyPopper,
-  Scale,
-  Puzzle,
-  Blocks,
-  Gamepad2,
-  Smile,
-  ThumbsUp,
-  CheckCircle2,
-  Quote,
-  Zap,
-  Trophy,
-  Clock,
-  Sparkles,
-  Rocket,
-} from "lucide-react";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Toy Landia — More Toys, More Savings, More Fun | Cabuyao",
-  description:
-    "Brand new toys sold per kilogram. Mas marami kang maiuuwi, mas sulit ang presyo, at mas masaya ang bawat shopping experience! Toy Landia, Cabuyao.",
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { bp } from "@/lib/basePath";
+import {
+  ArrowLeft, ArrowRight, Facebook, Gift, Heart,
+  Package, PartyPopper, Scale, ShoppingBag, ShoppingCart,
+  Sparkles, Star, Truck, Zap, CheckCircle2, Clock,
+  MapPin, Store, BadgeCheck,
+} from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
+
+/* ── COLORS ───────────────────────────────────────────────────────────────── */
+const C = {
+  red:    "#F01800",
+  yellow: "#FFD800",
+  dark:   "#1A0000",
+  black:  "#111111",
+  white:  "#FFFFFF",
+  cream:  "#FFF8EE",
+  bg:     "#0F0000",
 };
 
-/* ───── color tokens (v1 Claymorphism) ─────
-   red     #F01800  (primary, hero, sections)
-   yellow  #FFD800  (highlight, accent, fun)
-   white   #FFFFFF  (cards, light bg)
-──────────────────────────────────────────── */
+const FACEBOOK = "https://www.facebook.com/officialtoylandia";
 
-export default function ToyLandiaPage() {
-  const services = [
-    {
-      icon: Scale,
-      title: "Toys Per Kilo",
-      desc: "Our signature! Pick brand new toys and pay by weight — the more you grab, the bigger your savings.",
-      img: "/toy-landia/toy-1.jpg",
-      badge: "Best Seller",
-      accent: "#F01800",
-    },
-    {
-      icon: Gift,
-      title: "Brand New Toys",
-      desc: "100% factory-sealed. Action figures, dolls, puzzles, building blocks — all legit and ready to play.",
-      img: "/toy-landia/toy-2.jpg",
-      badge: "100% New",
-      accent: "#FFD800",
-    },
-    {
-      icon: PartyPopper,
-      title: "Party Supplies",
-      desc: "Kiddie party coming? We've got giveaway packs, party favors, and themed toy bundles to make it epic.",
-      img: "/toy-landia/toy-3.jpg",
-      badge: "Popular",
-      accent: "#F01800",
-    },
-    {
-      icon: Package,
-      title: "Bulk Toy Orders",
-      desc: "Events, reselling, charities — order in bulk and get wholesale pricing that can't be beat.",
-      img: "/toy-landia/toy-4.jpg",
-      badge: "Wholesale",
-      accent: "#FFD800",
-    },
-  ];
+/* ── GALLERY IMAGES ──────────────────────────────────────────────────────── */
+const GALLERY_GROUPS = [
+  ["/toy-landia/toy-1.jpg", "/toy-landia/toy-2.jpg", "/toy-landia/toy-3.jpg", "/toy-landia/toy-4.jpg"],
+  ["/toy-landia/toy-5.jpg", "/toy-landia/toy-6.jpg", "/toy-landia/toy-7.jpg", "/toy-landia/toy-8.jpg"],
+];
 
-  const highlights = [
-    { icon: Scale, title: "Per Kilo Pricing", desc: "Unique weigh-and-pay model. More toys = more savings.", color: "#F01800" },
-    { icon: BadgeCheck, title: "All Brand New", desc: "Zero pre-owned items. Every toy is sealed and factory-fresh.", color: "#FFD800" },
-    { icon: Tag, title: "Sulit na Sulit", desc: "Best toy deals in Cabuyao — your kids get more for less.", color: "#F01800" },
-    { icon: Puzzle, title: "Wide Variety", desc: "Action figures, dolls, vehicles, blocks, educational — all ages.", color: "#FFD800" },
-    { icon: Truck, title: "Bulk Ready", desc: "Wholesale orders for events, charities, schools, and resellers.", color: "#F01800" },
-    { icon: Smile, title: "Fun Shopping", desc: "Every visit is a treasure hunt. Kids love picking their own!", color: "#FFD800" },
-  ];
+const FEATURES = [
+  { icon: Scale,       title: "Sold Per Kilo",          desc: "Pick more, pay less per piece — the most exciting way to shop for toys in the Philippines.", color: C.yellow, tc: C.black },
+  { icon: BadgeCheck,  title: "Brand New from China",   desc: "Every toy is brand-new, direct imported — safe, quality, and fun for kids of all ages.",     color: C.red,    tc: C.white },
+  { icon: ShoppingCart,title: "Walk-In or Live Selling",desc: "Come visit in Cabuyao or shop live on Facebook Mon–Sat. Both options are easy and exciting.",    color: C.dark,   tc: C.white },
+  { icon: Truck,       title: "Ships Nationwide",       desc: "Can't visit? Order online and we'll deliver right to your door anywhere in the Philippines.",   color: C.yellow, tc: C.black },
+];
 
-  const steps = [
-    { num: "01", title: "Visit or Follow", desc: "Come to our Cabuyao store or follow our Facebook for new drops and flash deals.", icon: MapPin },
-    { num: "02", title: "Pick Your Toys", desc: "Browse thousands of brand new toys. Grab everything your kids love — no limits!", icon: ShoppingCart },
-    { num: "03", title: "Weigh & Pay", desc: "Put your picks on the scale. Pay per kilo — the heavier the haul, the better the deal.", icon: Scale },
-    { num: "04", title: "Play & Enjoy", desc: "Take home bags of brand new toys. Pure happiness for kids, pure savings for parents!", icon: Heart },
-  ];
+const STEPS = [
+  { n: "01", icon: Facebook,     title: "Follow or Walk In",     desc: "Catch our Facebook live or drop by the store in Cabuyao — see what's freshly stocked.",         color: C.red    },
+  { n: "02", icon: ShoppingBag,  title: "Fill Your Basket",      desc: "Dolls, action figures, blocks, party toys — grab everything that catches your eye.",              color: C.yellow },
+  { n: "03", icon: Scale,        title: "Weigh Your Haul",       desc: "Simple per-kilo pricing means bigger baskets = more savings. No complicated markups.",           color: C.red    },
+  { n: "04", icon: Gift,         title: "Take Home More Fun",    desc: "Perfect for party giveaways, reseller packs, or just making kids (and parents) very happy.",      color: C.yellow },
+];
 
-  const stats = [
-    { value: 1000, suffix: "+", label: "Toy Varieties", icon: Blocks },
-    { value: 100, suffix: "%", label: "Brand New", icon: BadgeCheck },
-    { value: 4, suffix: "", label: "Service Types", icon: ShoppingCart },
-    { value: 5, suffix: "K+", label: "Happy Families", icon: Heart },
-  ];
+const WHO = [
+  { icon: Heart,        title: "Budget Parents",        desc: "Stretch every peso further with bulk-friendly per-kilo pricing.",     color: C.red    },
+  { icon: PartyPopper,  title: "Party Planners",        desc: "Build colorful gift bags for birthdays and school celebrations.",      color: C.yellow },
+  { icon: Package,      title: "Resellers & Bulk",      desc: "Already structured for volume — source your whole stock in one stop.", color: C.red    },
+  { icon: Sparkles,     title: "Everyday Toy Lovers",   desc: "Every visit feels like a toy hunt. Browsing here is half the fun.",    color: C.yellow },
+];
+
+/* ── ROTATING GALLERY ────────────────────────────────────────────────────── */
+function ToyGallery() {
+  const [group, setGroup] = useState(0);
+  const [phase, setPhase] = useState<"in" | "out">("in");
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setPhase("out");
+      setTimeout(() => { setGroup(g => (g + 1) % GALLERY_GROUPS.length); setPhase("in"); }, 350);
+    }, 3800);
+    return () => clearInterval(t);
+  }, []);
+
+  const imgs = GALLERY_GROUPS[group];
+  const borders = [C.red, C.yellow, C.red, C.yellow];
+  const shadows = [C.yellow, C.red, C.yellow, C.red];
 
   return (
-    <main className="relative overflow-hidden bg-white">
-      <BusinessNavArrows currentSlug="toy-landia" />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Comic+Neue:wght@300;400;700&display=swap');
-
-@keyframes tlBounce {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-16px); }
-  45% { transform: translateY(-5px); }
-  65% { transform: translateY(-10px); }
-}
-@keyframes tlReveal {
-  from { opacity: 0; transform: translateY(28px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes tlWiggle {
-  0%, 100% { transform: rotate(0deg); }
-  20% { transform: rotate(-5deg); }
-  40% { transform: rotate(5deg); }
-  60% { transform: rotate(-3deg); }
-  80% { transform: rotate(3deg); }
-}
-@keyframes tlFloat {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-14px) rotate(2deg); }
-}
-@keyframes tlPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(240,24,0,0.35); }
-  50% { box-shadow: 0 0 0 16px rgba(240,24,0,0); }
-}
-@keyframes tlGlow {
-  0%, 100% { box-shadow: 0 8px 32px rgba(240,24,0,0.12); }
-  50% { box-shadow: 0 14px 48px rgba(240,24,0,0.25); }
-}
-@keyframes tlLogoFloat {
-  0%, 100% { transform: translateY(0) scale(1) rotate(-1.5deg); }
-  50% { transform: translateY(-16px) scale(1.025) rotate(1.5deg); }
-}
-@keyframes tlSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes tlPop {
-  0% { transform: scale(0); opacity: 0; }
-  60% { transform: scale(1.2); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.tl-hero-stagger > * {
-  opacity: 0;
-  animation: tlReveal 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
-}
-.tl-hero-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-.tl-hero-stagger > *:nth-child(2) { animation-delay: 0.25s; }
-.tl-hero-stagger > *:nth-child(3) { animation-delay: 0.4s; }
-.tl-hero-stagger > *:nth-child(4) { animation-delay: 0.55s; }
-.tl-hero-stagger > *:nth-child(5) { animation-delay: 0.7s; }
-.tl-hero-stagger > *:nth-child(6) { animation-delay: 0.85s; }
-
-.tl-card {
-  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  border: 3px solid rgba(240,24,0,0.08);
-  box-shadow: 6px 6px 0px rgba(240,24,0,0.06), 0 2px 16px rgba(0,0,0,0.04);
-}
-.tl-card:hover {
-  transform: translateY(-12px) rotate(-0.5deg);
-  box-shadow: 8px 8px 0px rgba(240,24,0,0.10), 0 24px 60px rgba(240,24,0,0.08);
-}
-.tl-card:hover .tl-card-icon {
-  animation: tlWiggle 0.5s ease-in-out;
-}
-.tl-card:hover .tl-card-img {
-  transform: scale(1.08);
-}
-.tl-card:hover .tl-card-badge {
-  transform: scale(1.12) rotate(-3deg);
-}
-
-.tl-highlight {
-  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: 5px 5px 0px rgba(240,24,0,0.05), 0 2px 12px rgba(0,0,0,0.04);
-}
-.tl-highlight:hover {
-  transform: translateY(-8px);
-  box-shadow: 7px 7px 0px rgba(240,24,0,0.08), 0 18px 45px rgba(0,0,0,0.06);
-}
-.tl-highlight:hover .tl-highlight-icon {
-  animation: tlBounce 0.6s ease-out;
-  transform: scale(1.1);
-}
-
-.tl-btn {
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  cursor: pointer;
-}
-.tl-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-}
-.tl-btn-pulse { animation: tlPulse 2.5s ease-in-out infinite; }
-
-.tl-step {
-  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: 4px 4px 0px rgba(240,24,0,0.04), 0 2px 8px rgba(0,0,0,0.03);
-}
-.tl-step:hover {
-  transform: translateX(8px);
-  box-shadow: 6px 6px 0px rgba(240,24,0,0.07), 0 8px 24px rgba(0,0,0,0.05);
-}
-.tl-step:hover .tl-step-num {
-  transform: scale(1.15);
-}
-.tl-step:hover .tl-step-bar {
-  width: 50px;
-}
-
-.tl-gallery-item {
-  transition: all 0.45s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: 5px 5px 0px rgba(240,24,0,0.04), 0 2px 12px rgba(0,0,0,0.03);
-}
-.tl-gallery-item:hover {
-  transform: scale(1.05) rotate(-1deg);
-  box-shadow: 7px 7px 0px rgba(240,24,0,0.07), 0 16px 40px rgba(0,0,0,0.06);
-}
-.tl-gallery-item:hover .tl-gallery-label {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.font-display { font-family: 'Baloo 2', cursive, system-ui; }
-.font-body { font-family: 'Comic Neue', cursive, system-ui, sans-serif; }
-
-@media (prefers-reduced-motion: reduce) {
-  .tl-hero-stagger > * { opacity: 1; animation: none; }
-  .tl-btn-pulse { animation: none; }
-  .tl-card:hover .tl-card-icon { animation: none; }
-  .tl-highlight:hover .tl-highlight-icon { animation: none; }
-}
-`,
-        }}
-      />
-
-      {/* ═══ NAV ═══ */}
-      <nav className="fixed top-0 right-0 left-0 z-50 border-b-[3px] border-[#F01800]/10 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link
-            href="/"
-            className="flex cursor-pointer items-center gap-2 text-sm font-medium text-[#180000]/40 transition-colors hover:text-[#F01800]"
-          >
-            <ArrowLeft size={16} />
-            <span className="font-body hidden font-bold sm:inline">Back to Pring Group</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logos/toy-landia.jpg"
-              alt="Toy Landia"
-              width={40}
-              height={40}
-              className="rounded-xl border-[3px] border-[#F01800]/15"
-            />
-            <div className="hidden sm:block">
-              <div className="font-display text-sm font-bold text-[#180000]">Toy Landia</div>
-              <div className="font-body text-[10px] font-extrabold tracking-wider text-[#F01800] uppercase">Cabuyao</div>
-            </div>
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14 }}>
+        {imgs.map((src, i) => (
+          <div key={`${group}-${i}`} style={{
+            borderRadius: 20, overflow: "hidden",
+            border: `4px solid ${borders[i]}`,
+            boxShadow: `6px 6px 0 ${shadows[i]}`,
+            transform: `rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)`,
+            opacity: phase === "out" ? 0 : 1,
+            transition: `opacity 0.35s ease, transform 0.4s cubic-bezier(.34,1.3,.64,1)`,
+            transitionDelay: `${i * 55}ms`,
+          }}>
+            <img src={bp(src)} alt={`Toy ${i + 1}`} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
           </div>
-          <a
-            href="https://www.facebook.com/officialtoylandia"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tl-btn inline-flex items-center gap-2 rounded-xl border-[3px] border-[#F01800] bg-[#F01800] px-4 py-2 text-sm font-bold text-white shadow-md shadow-[#F01800]/20"
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 18 }}>
+        {GALLERY_GROUPS.map((_, i) => (
+          <button key={i} onClick={() => setGroup(i)} style={{
+            width: i === group ? 32 : 12, height: 12, borderRadius: 99,
+            border: `2px solid ${C.black}`, background: i === group ? C.red : C.yellow,
+            boxShadow: i === group ? `2px 2px 0 ${C.black}` : "none",
+            cursor: "pointer", transition: "all .3s ease",
+          }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── PAGE ─────────────────────────────────────────────────────────────────── */
+export default function ToyLandiaPage() {
+  return (
+    <main style={{ background: C.bg, color: C.white, overflowX: "hidden", fontFamily: "'Nunito','Inter',system-ui,sans-serif" }}>
+      <BusinessNavArrows currentSlug="toy-landia" />
+      <BusinessPopup config={{
+        storageKey: "popup-toy-landia",
+        delay: 1500,
+        headerBg: "linear-gradient(135deg, #500000 0%, #900000 50%, #F01800 100%)",
+        headerIcon: "🎁",
+        modalBg: "#0F0000",
+        eyebrow: "TOY HUNT TIME",
+        eyebrowColor: "#FFD800",
+        title: "More toys, more savings, more fun.",
+        titleColor: "#FFD800",
+        body: "Shop brand-new toys per kilo for gifts, giveaways, party packs, and reseller bundles in one colorful toy haul.",
+        bodyColor: "rgba(255,216,0,0.5)",
+        primaryCTA: "Browse Toy Picks",
+        primaryHref: "#gallery",
+        ctaBg: "#FFD800",
+        ctaColor: "#1A0000",
+        secondaryCTA: "See Gallery",
+        secondaryColor: "rgba(255,216,0,0.4)",
+        badge: "Per Kilo",
+        badgeBg: "rgba(255,216,0,0.15)",
+        badgeColor: "#FFD800",
+        accentLine: "#FFD800",
+        logoSrc: "/logos/toy-landia.jpg",
+      }} />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+        .tl-font  { font-family: 'Fredoka One', cursive; letter-spacing: 0.01em; }
+        .tl-body  { font-family: 'Nunito', system-ui, sans-serif; }
+
+        @keyframes tlFloat   { 0%,100%{transform:translateY(0)rotate(-2deg)}50%{transform:translateY(-18px)rotate(2deg)} }
+        @keyframes tlSpin    { to{transform:rotate(360deg)} }
+        @keyframes tlSpinR   { to{transform:rotate(-360deg)} }
+        @keyframes tlBounce  { 0%,100%{transform:translateY(0)}40%{transform:translateY(-16px)}70%{transform:translateY(-5px)} }
+        @keyframes tlReveal  { from{opacity:0;transform:translateY(32px)scale(.94)}to{opacity:1;transform:translateY(0)scale(1)} }
+        @keyframes tlPulse   { 0%,100%{box-shadow:0 0 0 0 rgba(240,24,0,.5)}50%{box-shadow:0 0 0 20px rgba(240,24,0,0)} }
+        @keyframes tlShine   { 0%{background-position:-200% center}100%{background-position:200% center} }
+        @keyframes tlMarquee { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+        @keyframes tlGlow    { 0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.6;transform:scale(1.07)} }
+        @keyframes tlHeroBob { 0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(2deg)} }
+        @keyframes tlStagger { from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)} }
+        @keyframes tlZigPulse{ 0%,100%{stroke-dashoffset:0}50%{stroke-dashoffset:40} }
+
+        .tl-stagger > * { opacity:0; animation:tlStagger .65s cubic-bezier(.34,1.56,.64,1) forwards; }
+        .tl-stagger > *:nth-child(1){animation-delay:.05s}
+        .tl-stagger > *:nth-child(2){animation-delay:.18s}
+        .tl-stagger > *:nth-child(3){animation-delay:.30s}
+        .tl-stagger > *:nth-child(4){animation-delay:.42s}
+        .tl-stagger > *:nth-child(5){animation-delay:.54s}
+        .tl-stagger > *:nth-child(6){animation-delay:.66s}
+
+        .tl-card { transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease; }
+        .tl-card:hover { transform:translateY(-8px) scale(1.02); }
+        .tl-btn  { transition:transform .28s cubic-bezier(.34,1.56,.64,1); cursor:pointer; }
+        .tl-btn:hover  { transform:translateY(-4px) scale(1.04); }
+        .tl-btn:active { transform:scale(.97); }
+        .tl-pulse { animation:tlPulse 2.4s ease-in-out infinite; }
+
+        .tl-shine {
+          background: linear-gradient(90deg,${C.yellow} 0%,${C.white} 30%,${C.yellow} 60%,${C.red} 80%,${C.yellow} 100%);
+          background-size:200% auto;
+          -webkit-background-clip:text;
+          -webkit-text-fill-color:transparent;
+          background-clip:text;
+          animation:tlShine 5s linear infinite;
+        }
+
+        .tl-polka {
+          background-image:radial-gradient(circle,rgba(255,255,255,.04) 2px,transparent 2px);
+          background-size:26px 26px;
+          pointer-events:none;
+        }
+
+        @media(max-width:768px){
+          .tl-grid-2{grid-template-columns:1fr !important}
+          .tl-grid-4{grid-template-columns:1fr 1fr !important}
+        }
+      `}} />
+
+      {/* ══ NAV ══════════════════════════════════════════════════════════════ */}
+      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:50,background:"rgba(15,0,0,0.94)",backdropFilter:"blur(16px)",borderBottom:`3px solid ${C.red}` }}>
+        <div style={{ maxWidth:1280,margin:"0 auto",padding:"0 24px",height:64,display:"flex",alignItems:"center",justifyContent:"space-between" }}>
+          <Link href="/" style={{ display:"flex",alignItems:"center",gap:8,color:"rgba(255,255,255,.45)",textDecoration:"none",fontSize:14,fontWeight:700,transition:"color .2s" }}
+            onMouseEnter={e=>(e.currentTarget as HTMLElement).style.color=C.white}
+            onMouseLeave={e=>(e.currentTarget as HTMLElement).style.color="rgba(255,255,255,.45)"}
           >
-            <Facebook size={16} />
-            <span className="font-body hidden font-bold sm:inline">Follow Us</span>
+            <ArrowLeft size={16}/><span className="tl-body">All Businesses</span>
+          </Link>
+
+          <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+            <img src={bp("/logos/toy-landia.jpg")} alt="Toy Landia"
+              style={{ height:38,width:38,objectFit:"contain",borderRadius:10,border:`2px solid ${C.yellow}`,boxShadow:`2px 2px 0 ${C.black}` }} />
+            <span className="tl-font" style={{ fontSize:20,color:C.yellow,letterSpacing:"0.02em" }}>Toy Landia</span>
+          </div>
+
+          <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" className="tl-btn"
+            style={{
+              display:"flex",alignItems:"center",gap:6,
+              background:C.red,color:C.white,textDecoration:"none",
+              borderRadius:12,padding:"8px 18px",fontSize:13,fontWeight:800,
+              border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+            }}
+          >
+            <Facebook size={14}/><span className="tl-body">Follow Us</span>
           </a>
         </div>
       </nav>
 
-      {/* ═══ HERO — Red gradient ═══ */}
-      <section className="relative overflow-hidden pt-16">
-        {/* Red gradient hero bg */}
-        <div className="absolute top-16 right-0 left-0 h-[70vh] overflow-hidden bg-gradient-to-br from-[#F01800] via-[#D01400] to-[#900000]">
-          {/* Subtle diagonal stripes */}
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(255,255,255,0.4) 20px, rgba(255,255,255,0.4) 40px)",
-            }}
-          />
-          {/* Floating decorative elements */}
-          <div className="pointer-events-none absolute top-12 left-[7%] flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFD800]/15" style={{ animation: "tlFloat 6s ease-in-out infinite" }}>
-            <Star size={24} className="text-[#FFD800]/70" />
-          </div>
-          <div className="pointer-events-none absolute top-16 right-[10%] flex h-12 w-12 items-center justify-center rounded-full bg-white/10" style={{ animation: "tlFloat 7s ease-in-out infinite 1.2s" }}>
-            <Rocket size={20} className="text-white/50" />
-          </div>
-          <div className="pointer-events-none absolute bottom-24 left-[12%] flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFD800]/15" style={{ animation: "tlFloat 7s ease-in-out infinite 2s" }}>
-            <Blocks size={20} className="text-[#FFD800]/60" />
-          </div>
-          <div className="pointer-events-none absolute right-[22%] bottom-16 flex h-10 w-10 items-center justify-center rounded-full bg-white/8" style={{ animation: "tlFloat 5.5s ease-in-out infinite 0.8s" }}>
-            <Gift size={18} className="text-white/40" />
-          </div>
+      {/* ══ HERO ═════════════════════════════════════════════════════════════ */}
+      <section style={{ position:"relative",minHeight:"100vh",display:"flex",alignItems:"center",paddingTop:64,overflow:"hidden" }}>
+        {/* Starburst BG */}
+        <div style={{
+          position:"absolute",inset:0,zIndex:0,
+          backgroundImage:`conic-gradient(from 0deg at 50% 50%, ${C.red} 0deg 6deg, ${C.bg} 6deg 12deg, ${C.red} 12deg 18deg, ${C.bg} 18deg 24deg, ${C.red} 24deg 30deg, ${C.bg} 30deg 360deg)`,
+          opacity:0.07,
+        }}/>
+        <div style={{
+          position:"absolute",inset:0,zIndex:0,
+          background:`radial-gradient(ellipse at 35% 45%, rgba(240,24,0,.22) 0%, rgba(255,216,0,.08) 40%, rgba(15,0,0,1) 72%)`,
+        }}/>
+        <div className="tl-polka" style={{ position:"absolute",inset:0,zIndex:0 }}/>
+
+        {/* Spinning rings */}
+        <div style={{ position:"absolute",top:"48%",left:"60%",transform:"translate(-50%,-50%)",zIndex:0,pointerEvents:"none" }}>
+          <div style={{ width:600,height:600,borderRadius:"50%",border:`2px dashed rgba(240,24,0,.12)`,animation:"tlSpin 50s linear infinite" }}/>
+          <div style={{ position:"absolute",inset:60,borderRadius:"50%",border:`2px dotted rgba(255,216,0,.1)`,animation:"tlSpinR 32s linear infinite" }}/>
         </div>
 
-        {/* Red wavy transition to white */}
-        <div className="absolute top-[calc(70vh+16px-40px)] right-0 left-0">
-          <svg viewBox="0 0 1440 100" className="w-full" preserveAspectRatio="none">
-            <path d="M0,50 C180,90 360,10 540,50 C720,90 900,10 1080,50 C1260,90 1380,60 1440,50 L1440,0 L0,0 Z" fill="#900000" />
-          </svg>
-        </div>
+        {/* Floating stars */}
+        {[
+          {top:"15%",left:"5%", c:C.yellow,s:28,d:"0s"},
+          {top:"25%",left:"20%",c:C.red,   s:16,d:"1.1s"},
+          {top:"10%",right:"8%",c:C.yellow,s:22,d:"0.4s"},
+          {top:"35%",right:"5%",c:C.red,   s:18,d:"1.7s"},
+          {bottom:"20%",left:"3%",  c:C.yellow,s:20,d:"2s"},
+          {bottom:"30%",right:"12%",c:C.red,   s:14,d:"0.8s"},
+        ].map((p,i)=>(
+          <div key={i} style={{
+            position:"absolute",zIndex:1,
+            top:(p as any).top,left:(p as any).left,right:(p as any).right,bottom:(p as any).bottom,
+            animation:`tlFloat ${5.5+i*.6}s ease-in-out infinite ${p.d}`,pointerEvents:"none",
+          }}>
+            <Star size={p.s} fill={p.c} style={{color:p.c,filter:"drop-shadow(0 2px 8px rgba(0,0,0,.5))",opacity:.65}}/>
+          </div>
+        ))}
 
-        <div className="relative mx-auto grid min-h-[92vh] max-w-7xl items-center gap-8 px-6 md:grid-cols-[1fr_auto] md:px-12">
-          {/* Content left */}
-          <div className="tl-hero-stagger py-16 md:py-10">
-            {/* Pill */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border-[3px] border-white/15 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
-              <Zap size={14} className="text-[#FFD800]" />
-              <span className="font-display text-xs font-bold tracking-wider text-white uppercase">
-                Toys Sold Per Kilo!
-              </span>
+        {/* Layout: left text + right image */}
+        <div style={{ position:"relative",zIndex:2,maxWidth:1280,margin:"0 auto",padding:"60px 32px 100px",width:"100%",display:"grid",gridTemplateColumns:"1fr 1fr",gap:56,alignItems:"center" }} className="tl-grid-2">
+
+          {/* Left — text */}
+          <div className="tl-stagger">
+            {/* Eyebrow badges */}
+            <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:28 }}>
+              {[
+                {label:"Toys Per Kilo",     bg:C.yellow,tc:C.black},
+                {label:"Brand New from China", bg:"rgba(255,255,255,.1)",tc:C.white,b:"rgba(255,255,255,.2)"},
+                {label:"Ships Nationwide",  bg:C.red,   tc:C.white},
+              ].map(({label,bg,tc,b})=>(
+                <span key={label} style={{
+                  display:"inline-block",padding:"7px 16px",borderRadius:40,
+                  background:bg,color:tc,fontWeight:900,fontSize:12,
+                  border:`2px solid ${b||C.black}`,boxShadow:b?undefined:`3px 3px 0 ${C.black}`,
+                }} className="tl-body">{label}</span>
+              ))}
             </div>
 
             {/* Headline */}
-            <h1 className="font-display mb-5 text-5xl leading-[1.02] font-extrabold tracking-tight text-white md:text-[5.5rem]">
-              More Toys.
-              <br />
-              <span className="text-[#FFD800]">More Savings.</span>
-              <br />
-              <span className="relative inline-block">
-                More Fun!
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 240 14" fill="none">
-                  <path d="M3 10 C60 2, 130 14, 237 5" stroke="#FFD800" strokeWidth="5" strokeLinecap="round" />
-                </svg>
-              </span>
+            <h1 className="tl-font" style={{ fontSize:"clamp(44px,6.5vw,88px)",lineHeight:0.98,marginBottom:20 }}>
+              <span style={{ color:C.white }}>More Toys.</span><br/>
+              <span className="tl-shine">More Fun.</span><br/>
+              <span style={{ color:C.white }}>More </span>
+              <span style={{ color:C.yellow }}>Savings.</span>
             </h1>
 
-            {/* Sub */}
-            <p className="font-body mb-24 max-w-md text-lg leading-relaxed font-bold text-white/75">
-              Brand new toys at sulit prices! Weigh your picks on the scale
-              and take home bags of happiness for the kids.
+            <p className="tl-body" style={{ fontSize:17,lineHeight:1.75,color:"rgba(255,255,255,.65)",maxWidth:480,marginBottom:36,fontWeight:600 }}>
+              Brand-new toys from China, sold <strong style={{color:C.yellow}}>per kilogram</strong> — the most exciting toy shopping experience in Cabuyao. Perfect for families, resellers, and party planners.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="https://www.facebook.com/officialtoylandia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tl-btn tl-btn-pulse inline-flex items-center gap-2.5 rounded-2xl border-[3px] border-[#FFD800] bg-[#FFD800] px-8 py-4 text-base font-extrabold text-[#180000] shadow-lg shadow-[#FFD800]/25"
+            <div style={{ display:"flex",gap:14,flexWrap:"wrap",marginBottom:40 }}>
+              <a href={FACEBOOK} target="_blank" rel="noopener noreferrer"
+                className="tl-btn tl-pulse"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:10,
+                  background:C.red,color:C.white,textDecoration:"none",
+                  padding:"16px 32px",borderRadius:18,fontWeight:900,
+                  border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+                }}
               >
-                <Facebook size={20} />
-                <span className="font-display">Shop on Facebook</span>
+                <Facebook size={20}/>
+                <span className="tl-font" style={{fontSize:20}}>Shop on Facebook</span>
+                <ArrowRight size={18}/>
               </a>
-              <a
-                href="#services"
-                className="tl-btn inline-flex items-center gap-2 rounded-2xl border-[3px] border-[#F01800]/40 bg-[#F01800]/15 px-6 py-3.5 font-bold text-white shadow-md"
+              <a href="#gallery"
+                className="tl-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:10,
+                  background:C.yellow,color:C.black,textDecoration:"none",
+                  padding:"16px 24px",borderRadius:18,fontWeight:900,
+                  border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+                }}
               >
-                <span className="font-body text-base">See Our Toys</span>
-                <ChevronRight size={16} />
+                <Sparkles size={18}/>
+                <span className="tl-font" style={{fontSize:18}}>See Gallery</span>
               </a>
             </div>
 
-            {/* Trust signals */}
-            <div className="mt-10 flex flex-wrap items-center gap-5">
+            {/* Trust row */}
+            <div style={{ display:"flex",gap:20,flexWrap:"wrap" }}>
               {[
-                { icon: BadgeCheck, label: "100% Brand New", color: "#FFD800" },
-                { icon: Scale, label: "Per Kilo Pricing", color: "#FFD800" },
-                { icon: ThumbsUp, label: "5K+ Happy Families", color: "#FFD800" },
-              ].map((t, i) => (
-                <div key={i} className="flex items-center gap-1.5">
-                  <t.icon size={15} style={{ color: t.color }} />
-                  <span className="font-body text-xs font-bold text-white/60">{t.label}</span>
+                {icon:CheckCircle2,text:"Direct China Import",c:C.yellow},
+                {icon:CheckCircle2,text:"100% Brand New",     c:C.red   },
+                {icon:CheckCircle2,text:"Open Mon–Sat",       c:C.yellow},
+              ].map(({icon:Icon,text,c})=>(
+                <div key={text} style={{display:"flex",alignItems:"center",gap:7}}>
+                  <Icon size={15} style={{color:c}}/>
+                  <span className="tl-body" style={{fontSize:13,color:"rgba(255,255,255,.55)",fontWeight:700}}>{text}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Logo right */}
-          <div className="hidden md:flex md:items-start md:justify-center md:pt-28">
-            <div className="relative">
-              {/* Glow */}
-              <div className="absolute -inset-8 rounded-full bg-[#F01800]/15 blur-3xl" style={{ animation: "tlGlow 4s ease-in-out infinite" }} />
-              {/* Dashed ring */}
-              <div className="absolute -inset-6 rounded-[2rem] border-4 border-dashed border-white/15" style={{ animation: "tlSpin 40s linear infinite" }} />
-              {/* Corner decorations */}
-              <div className="absolute -top-7 -left-7 flex h-13 w-13 items-center justify-center rounded-2xl border-[3px] border-[#FFD800] bg-white shadow-lg" style={{ animation: "tlFloat 4.5s ease-in-out infinite" }}>
-                <Blocks size={22} className="text-[#F01800]" />
+          {/* Right — hero image mosaic */}
+          <div style={{ position:"relative" }}>
+            {/* Big hero */}
+            <div style={{
+              borderRadius:28,overflow:"hidden",
+              border:`5px solid ${C.yellow}`,boxShadow:`10px 10px 0 ${C.black}`,
+              marginBottom:14,
+            }}>
+              <img src={bp("/toy-landia/hero.jpg")} alt="Toy Landia store" style={{ width:"100%",height:340,objectFit:"cover",display:"block" }}/>
+            </div>
+            {/* Two smaller thumbnails */}
+            <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:14 }}>
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.red}`,boxShadow:`6px 6px 0 ${C.black}`,transform:"rotate(-1.5deg)" }}>
+                <img src={bp("/toy-landia/toys.jpg")} alt="Toy selection" style={{ width:"100%",height:160,objectFit:"cover",display:"block" }}/>
               </div>
-              <div className="absolute -right-6 -bottom-6 flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-[#F01800] bg-white shadow-lg" style={{ animation: "tlFloat 5.5s ease-in-out infinite 1.5s" }}>
-                <Gamepad2 size={20} className="text-[#F01800]" />
-              </div>
-              <div className="absolute -top-4 right-3 flex h-9 w-9 items-center justify-center rounded-lg border-2 border-[#FFD800] bg-white shadow-md" style={{ animation: "tlFloat 6s ease-in-out infinite 2.5s" }}>
-                <Puzzle size={16} className="text-[#FFD800]" />
-              </div>
-              {/* Logo */}
-              <Image
-                src="/logos/toy-landia.jpg"
-                alt="Toy Landia Logo"
-                width={250}
-                height={250}
-                className="relative rounded-3xl border-4 border-white shadow-2xl"
-                style={{ animation: "tlLogoFloat 6s ease-in-out infinite" }}
-              />
-              {/* Star burst */}
-              <div className="absolute -top-2 left-1/2" style={{ animation: "tlPop 2.5s ease-in-out infinite" }}>
-                <Star size={22} className="fill-[#FFD800] text-[#FFD800] drop-shadow-sm" />
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.yellow}`,boxShadow:`6px 6px 0 ${C.black}`,transform:"rotate(1.5deg)" }}>
+                <img src={bp("/toy-landia/party.jpg")} alt="Party toys" style={{ width:"100%",height:160,objectFit:"cover",display:"block" }}/>
               </div>
             </div>
+
+            {/* Floating badge */}
+            <div style={{
+              position:"absolute",top:-20,right:-12,
+              background:C.yellow,color:C.black,
+              padding:"10px 18px",borderRadius:16,
+              border:`4px solid ${C.black}`,boxShadow:`5px 5px 0 ${C.black}`,
+              fontWeight:900,fontSize:13,
+              animation:"tlBounce 3s ease-in-out infinite",
+              zIndex:3,
+            }} className="tl-body">
+              🎉 Resellers Welcome!
+            </div>
+            <div style={{
+              position:"absolute",bottom:10,left:-16,
+              background:C.red,color:C.white,
+              padding:"10px 18px",borderRadius:16,
+              border:`4px solid ${C.black}`,boxShadow:`5px 5px 0 ${C.black}`,
+              fontWeight:900,fontSize:13,
+              animation:"tlFloat 4s ease-in-out infinite 1s",
+              zIndex:3,
+            }} className="tl-body">
+              ⚖️ Sold Per Kilo
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom wave */}
+        <div style={{ position:"absolute",bottom:0,left:0,right:0,overflow:"hidden",lineHeight:0 }}>
+          <svg viewBox="0 0 1440 60" style={{width:"100%",display:"block"}} preserveAspectRatio="none">
+            <polyline points="0,60 40,20 80,60 120,20 160,60 200,20 240,60 280,20 320,60 360,20 400,60 440,20 480,60 520,20 560,60 600,20 640,60 680,20 720,60 760,20 800,60 840,20 880,60 920,20 960,60 1000,20 1040,60 1080,20 1120,60 1160,20 1200,60 1240,20 1280,60 1320,20 1360,60 1400,20 1440,60 1440,0 0,0" fill={C.bg}/>
+          </svg>
+        </div>
+      </section>
+
+      {/* ══ TICKER RIBBON ════════════════════════════════════════════════════ */}
+      <div style={{ background:C.yellow,borderTop:`3px solid ${C.black}`,borderBottom:`3px solid ${C.black}`,overflow:"hidden",padding:"12px 0" }}>
+        <div style={{ display:"flex",width:"max-content",animation:"tlMarquee 200s linear infinite" }}>
+          {[...Array(6)].map((_,set)=>
+            ["🎁 Brand New Toys", "⚖️ Per Kilo Pricing", "🚚 Ships Nationwide", "🎪 Live Selling Mon–Sat", "🏷️ Bulk Buyer Friendly", "🎉 Walk-In Cabuyao"].map((item,i)=>(
+              <span key={`${set}-${i}`} className="tl-font" style={{ fontSize:18,color:C.black,whiteSpace:"nowrap",padding:"0 36px" }}>{item}</span>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* ══ STATS ════════════════════════════════════════════════════════════ */}
+      <section style={{ background:C.black,borderBottom:`3px solid ${C.red}` }}>
+        <div style={{ maxWidth:1280,margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)" }} className="tl-grid-4">
+          {[
+            {val:"Per Kilo", label:"Pricing Model",  sub:"fill the basket",bg:C.red,   tc:C.white},
+            {val:"China",    label:"Direct Import",  sub:"brand-new toys", bg:C.yellow,tc:C.black},
+            {val:"Mon–Sat",  label:"Live Selling",   sub:"9AM – 6:30PM",   bg:C.dark,  tc:C.yellow},
+            {val:"PH",       label:"Ships To",       sub:"door to door",   bg:C.red,   tc:C.white},
+          ].map((s,i)=>(
+            <ScrollReveal key={i} delay={i*80}>
+              <div style={{
+                background:s.bg,padding:"28px 16px",textAlign:"center",
+                borderRight:i<3?`3px solid ${C.black}`:"none",
+              }}>
+                <div className="tl-font" style={{fontSize:42,lineHeight:1,color:s.tc}}>{s.val}</div>
+                <div className="tl-body" style={{fontSize:12,fontWeight:900,color:s.tc,marginTop:6,textTransform:"uppercase",letterSpacing:"0.05em"}}>{s.label}</div>
+                <div className="tl-body" style={{fontSize:11,color:s.tc,opacity:.6,marginTop:2}}>{s.sub}</div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ══ FEATURES ═════════════════════════════════════════════════════════ */}
+      <section style={{ padding:"88px 32px",background:"#120000",position:"relative",overflow:"hidden" }}>
+        <div className="tl-polka" style={{position:"absolute",inset:0}}/>
+        <div style={{ position:"absolute",top:0,left:0,right:0,height:4,display:"flex" }}>
+          {[C.red,C.yellow,C.red,C.yellow,C.red,C.yellow,C.red,C.yellow].map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
+        </div>
+
+        <div style={{ position:"relative",maxWidth:1280,margin:"0 auto" }}>
+          <ScrollReveal>
+            <div style={{ textAlign:"center",marginBottom:52 }}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.red,color:C.white,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tl-body"><Zap size={14}/> WHY TOY LANDIA</div>
+              <h2 className="tl-font" style={{fontSize:"clamp(28px,4vw,54px)"}}>
+                <span style={{color:C.white}}>The Toy Shopping </span>
+                <span style={{color:C.yellow}}>You Deserve</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:20 }} className="tl-grid-4">
+            {FEATURES.map(({icon:Icon,title,desc,color,tc},i)=>(
+              <ScrollReveal key={i} delay={i*90}>
+                <div className="tl-card" style={{
+                  borderRadius:24,padding:"28px 22px",height:"100%",
+                  background:color,
+                  border:`4px solid ${C.black}`,boxShadow:`7px 7px 0 ${C.black}`,
+                  transform:`rotate(${i%2===0?-0.8:0.8}deg)`,
+                }}>
+                  <div style={{
+                    width:52,height:52,borderRadius:14,marginBottom:18,
+                    background:color===C.yellow?"rgba(0,0,0,.12)":"rgba(255,255,255,.15)",
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                  }}>
+                    <Icon size={24} style={{color:tc}}/>
+                  </div>
+                  <h3 className="tl-font" style={{fontSize:22,color:tc,marginBottom:10}}>{title}</h3>
+                  <p className="tl-body" style={{fontSize:14,color:tc,opacity:.75,lineHeight:1.6,margin:0}}>{desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ STATS — Yellow Ribbon ═══ */}
-      <section className="relative z-10 overflow-hidden bg-[#FFD800]">
-        {/* Red/yellow alternating top accent */}
-        <div className="flex h-1.5">
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
+      {/* ══ GALLERY ══════════════════════════════════════════════════════════ */}
+      <section id="gallery" style={{ padding:"88px 32px",background:C.bg,position:"relative" }}>
+        <div style={{ position:"absolute",top:0,left:0,right:0,height:5,display:"flex" }}>
+          {[C.yellow,C.red,C.yellow,C.red,C.yellow,C.red].map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
         </div>
-        <div className="mx-auto grid max-w-5xl grid-cols-2 md:grid-cols-4">
-          {stats.map((s, i) => {
-            const iconBg = i % 2 === 0 ? "#F01800" : "#FFFFFF";
-            const iconColor = i % 2 === 0 ? "#FFFFFF" : "#F01800";
-            const iconBorder = i % 2 === 0 ? "rgba(255,255,255,0.3)" : "rgba(240,24,0,0.2)";
-            return (
-              <ScrollReveal key={i} delay={i * 100}>
-                <div className="group flex flex-col items-center gap-1.5 px-6 py-9 text-center">
-                  <div
-                    className="mb-1 flex h-12 w-12 items-center justify-center rounded-2xl border-[3px] transition-transform group-hover:scale-110"
-                    style={{ background: iconBg, borderColor: iconBorder }}
-                  >
-                    <s.icon size={22} style={{ color: iconColor }} />
-                  </div>
-                  <div className="font-display text-3xl font-extrabold text-[#180000] md:text-4xl">
-                    <CountUp end={s.value} suffix={s.suffix} />
-                  </div>
-                  <div className="font-body text-[10px] font-extrabold tracking-wider text-[#180000]/50 uppercase">{s.label}</div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
-        {/* Bottom accent */}
-        <div className="flex h-1.5">
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
+        <div className="tl-polka" style={{position:"absolute",inset:0}}/>
+
+        <div style={{ position:"relative",maxWidth:1280,margin:"0 auto" }}>
+          <ScrollReveal>
+            <div style={{ textAlign:"center",marginBottom:48 }}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.yellow,color:C.black,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tl-body"><Sparkles size={14}/> TOY GALLERY</div>
+              <h2 className="tl-font" style={{fontSize:"clamp(28px,4vw,52px)"}}>
+                <span style={{color:C.white}}>See Our </span>
+                <span style={{color:C.red}}>Toy Collection!</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          {/* Hero mosaic */}
+          <ScrollReveal delay={80}>
+            <div style={{ display:"grid",gridTemplateColumns:"2fr 1fr 1fr",gridTemplateRows:"280px 280px",gap:14,marginBottom:14 }}>
+              <div style={{ gridRow:"1 / 3",borderRadius:24,overflow:"hidden",border:`5px solid ${C.red}`,boxShadow:`8px 8px 0 ${C.black}` }}>
+                <img src={bp("/toy-landia/hero.jpg")} alt="Toy Landia" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.yellow}`,boxShadow:`6px 6px 0 ${C.black}` }}>
+                <img src={bp("/toy-landia/tl-1.jpg")} alt="Toy Landia toys" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.red}`,boxShadow:`6px 6px 0 ${C.black}` }}>
+                <img src={bp("/toy-landia/tl-2.jpg")} alt="Toy Landia toys" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.yellow}`,boxShadow:`6px 6px 0 ${C.black}` }}>
+                <img src={bp("/toy-landia/tl-3.jpg")} alt="Toy Landia toys" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+              <div style={{ borderRadius:20,overflow:"hidden",border:`4px solid ${C.red}`,boxShadow:`6px 6px 0 ${C.black}` }}>
+                <img src={bp("/toy-landia/tl-4.jpg")} alt="Toy Landia toys" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Rotating grid */}
+          <ScrollReveal delay={120}>
+            <ToyGallery/>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══ SERVICES ═══ */}
-      <section id="services" className="relative py-24 md:py-32">
-        {/* Subtle dot pattern */}
-        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "radial-gradient(circle, #F01800 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-
-        <div className="relative mx-auto max-w-7xl px-6 md:px-12">
+      {/* ══ HOW IT WORKS ═════════════════════════════════════════════════════ */}
+      <section style={{ padding:"88px 32px",background:"#120000",position:"relative",overflow:"hidden" }}>
+        <div className="tl-polka" style={{position:"absolute",inset:0}}/>
+        <div style={{ position:"relative",maxWidth:1280,margin:"0 auto" }}>
           <ScrollReveal>
-            <div className="mb-16 text-center">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border-[3px] border-[#F01800]/15 bg-[#F01800]/[0.06] px-4 py-1.5">
-                <ShoppingCart size={14} className="text-[#F01800]" />
-                <span className="font-display text-xs font-bold tracking-wider text-[#F01800] uppercase">What We Offer</span>
-              </div>
-              <h2 className="font-display mb-4 text-3xl font-extrabold text-[#180000] md:text-5xl">
-                Toys Galore at <span className="text-[#F01800]">Sulit</span> Prices!
+            <div style={{ textAlign:"center",marginBottom:52 }}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.red,color:C.white,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tl-body"><ShoppingCart size={14}/> HOW IT WORKS</div>
+              <h2 className="tl-font" style={{fontSize:"clamp(28px,4vw,52px)",color:C.white}}>
+                4 Easy Steps to{" "}<span style={{color:C.yellow}}>More Toys!</span>
               </h2>
-              <p className="font-body mx-auto max-w-2xl text-base font-bold text-[#180000]/42">
-                From single picks to mega bundles — every toy is brand new and priced to make you smile.
+            </div>
+          </ScrollReveal>
+
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:20 }} className="tl-grid-4">
+            {STEPS.map(({n,icon:Icon,title,desc,color},i)=>(
+              <ScrollReveal key={i} delay={i*80}>
+                <div style={{
+                  position:"relative",borderRadius:24,padding:"32px 24px",
+                  background:color===C.red?"rgba(240,24,0,.12)":"rgba(255,216,0,.08)",
+                  border:`4px solid ${color}`,boxShadow:`7px 7px 0 ${C.black}`,
+                  height:"100%",
+                }}>
+                  <div className="tl-font" style={{position:"absolute",top:12,right:18,fontSize:72,lineHeight:1,color:`${color}18`,userSelect:"none"}}>{n}</div>
+                  <div style={{
+                    width:54,height:54,borderRadius:15,marginBottom:18,background:color,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                  }}>
+                    <Icon size={24} style={{color:color===C.yellow?C.black:C.white}}/>
+                  </div>
+                  <div className="tl-body" style={{fontSize:11,fontWeight:900,color,textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Step {n}</div>
+                  <h3 className="tl-font" style={{fontSize:21,color:C.white,marginBottom:10}}>{title}</h3>
+                  <p className="tl-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",lineHeight:1.65,margin:0}}>{desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Hours strip */}
+          <ScrollReveal delay={200}>
+            <div style={{
+              marginTop:36,padding:"22px 32px",background:C.yellow,borderRadius:20,
+              border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+              display:"flex",gap:32,flexWrap:"wrap",justifyContent:"center",alignItems:"center",
+            }}>
+              {[
+                {icon:Clock,    label:"Live Selling",  time:"Mon–Sat 9:00 AM – 6:30 PM"},
+                {icon:Store,    label:"Walk-In Store", time:"Mon–Sat 9:00 AM – 6:30 PM"},
+                {icon:MapPin,   label:"Location",      time:"Cabuyao, Laguna"},
+              ].map(({icon:Icon,label,time},i)=>(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:12}}>
+                  <div style={{width:42,height:42,borderRadius:12,background:C.black,display:"flex",alignItems:"center",justifyContent:"center",border:`3px solid ${C.black}`,boxShadow:`2px 2px 0 ${C.red}`}}>
+                    <Icon size={18} style={{color:C.yellow}}/>
+                  </div>
+                  <div>
+                    <div className="tl-font" style={{fontSize:16,color:C.black}}>{label}</div>
+                    <div className="tl-body" style={{fontSize:12,color:"#444",fontWeight:700}}>{time}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ══ WHO IT'S FOR ═════════════════════════════════════════════════════ */}
+      <section style={{ padding:"88px 32px",background:C.bg,position:"relative" }}>
+        <div style={{ maxWidth:1280,margin:"0 auto" }}>
+          <ScrollReveal>
+            <div style={{ textAlign:"center",marginBottom:52 }}>
+              <div style={{
+                display:"inline-flex",alignItems:"center",gap:8,marginBottom:14,
+                background:C.yellow,color:C.black,fontWeight:900,fontSize:12,padding:"8px 20px",
+                borderRadius:40,border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+              }} className="tl-body"><Heart size={14}/> PERFECT FOR</div>
+              <h2 className="tl-font" style={{fontSize:"clamp(28px,4vw,52px)",color:C.white}}>
+                <span style={{color:C.white}}>More Than </span>
+                <span style={{color:C.red}}>Just a Toy Store</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:20 }} className="tl-grid-4">
+            {WHO.map(({icon:Icon,title,desc,color},i)=>(
+              <ScrollReveal key={i} delay={i*80}>
+                <div className="tl-card" style={{
+                  borderRadius:24,padding:"32px 24px",height:"100%",
+                  background:"#1a0000",
+                  border:`4px solid ${color}`,boxShadow:`7px 7px 0 ${color}55`,
+                }}>
+                  <div style={{
+                    width:56,height:56,borderRadius:16,marginBottom:18,background:color,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                  }}>
+                    <Icon size={26} style={{color:color===C.yellow?C.black:C.white}}/>
+                  </div>
+                  <h3 className="tl-font" style={{fontSize:22,color:C.white,marginBottom:10}}>{title}</h3>
+                  <p className="tl-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",lineHeight:1.65,margin:0}}>{desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ SHOWCASE — big toys.jpg full bleed ═══════════════════════════════ */}
+      <section style={{ position:"relative",overflow:"hidden",height:480 }}>
+        <img src={bp("/toy-landia/toys.jpg")} alt="Toy Landia collection" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+        <div style={{ position:"absolute",inset:0,background:"linear-gradient(to right,rgba(15,0,0,.9) 0%,rgba(15,0,0,.4) 60%,transparent 100%)" }}/>
+        <div style={{ position:"absolute",inset:0,display:"flex",alignItems:"center",padding:"0 64px" }}>
+          <ScrollReveal variant="fadeRight">
+            <div>
+              <div className="tl-font" style={{fontSize:"clamp(36px,5vw,70px)",color:C.white,lineHeight:1}}>
+                Hundreds of Toys.<br/>
+                <span style={{color:C.yellow}}>One Amazing Price.</span>
+              </div>
+              <p className="tl-body" style={{fontSize:18,color:"rgba(255,255,255,.7)",marginTop:16,fontWeight:600,maxWidth:500}}>
+                Walk in, fill your basket, weigh it — that's all there is to it. Toy Landia makes buying more toys easier and more affordable than ever.
               </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {services.map((svc, i) => (
-              <ScrollReveal key={i} delay={i * 120} variant="fadeUp">
-                <div className="tl-card group overflow-hidden rounded-3xl bg-white">
-                  {/* Image */}
-                  <div className="relative h-56 overflow-hidden">
-                    <Image src={svc.img} alt={svc.title} fill className="tl-card-img object-cover transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
-                    {/* Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span
-                        className="tl-card-badge font-display inline-block rounded-xl border-[3px] px-3 py-1 text-[11px] font-bold tracking-wider uppercase shadow-md transition-transform duration-300"
-                        style={{
-                          background: svc.accent,
-                          borderColor: svc.accent,
-                          color: svc.accent === "#FFD800" ? "#180000" : "#FFFFFF",
-                        }}
-                      >
-                        {svc.badge}
-                      </span>
-                    </div>
-                    {/* Icon bubble */}
-                    <div className="absolute bottom-4 left-4">
-                      <div className="tl-card-icon flex h-12 w-12 items-center justify-center rounded-2xl border-[3px] bg-white shadow-lg" style={{ borderColor: svc.accent + "30" }}>
-                        <svc.icon size={22} style={{ color: svc.accent === "#FFD800" ? "#F01800" : svc.accent }} />
-                      </div>
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="font-display mb-2 text-xl font-extrabold text-[#180000]">{svc.title}</h3>
-                    <p className="font-body text-sm leading-relaxed font-bold text-[#180000]/42">{svc.desc}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ RED WAVE ═══ */}
-      <div className="relative h-20 overflow-hidden">
-        <svg viewBox="0 0 1440 80" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,40 C240,75 480,5 720,40 C960,75 1200,5 1440,40 L1440,80 L0,80 Z" fill="#F01800" />
-        </svg>
-      </div>
-
-      {/* ═══ WHY CHOOSE US — Red section ═══ */}
-      <section className="relative overflow-hidden bg-[#F01800] py-20 md:py-24">
-        {/* Diagonal stripes */}
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(255,255,255,0.5) 20px, rgba(255,255,255,0.5) 40px)" }} />
-
-        <div className="relative mx-auto max-w-7xl px-6 md:px-12">
-          <ScrollReveal>
-            <div className="mb-14 text-center">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border-[3px] border-white/20 bg-white/10 px-4 py-1.5">
-                <Trophy size={14} className="text-[#FFD800]" />
-                <span className="font-display text-xs font-bold tracking-wider text-white uppercase">Why Toy Landia</span>
-              </div>
-              <h2 className="font-display mb-4 text-3xl font-extrabold text-white md:text-5xl">
-                The <span className="text-[#FFD800]">Toy Landia</span> Experience!
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {highlights.map((item, i) => (
-              <ScrollReveal key={i} delay={i * 80} variant="scale">
-                <div className="tl-highlight rounded-3xl border-[3px] border-white/10 bg-white p-6">
-                  <div
-                    className="tl-highlight-icon mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
-                    style={{ background: item.color + "12", border: `3px solid ${item.color}25` }}
-                  >
-                    <item.icon size={24} style={{ color: item.color === "#FFD800" ? "#F01800" : item.color }} />
-                  </div>
-                  <h3 className="font-display mb-2 text-lg font-extrabold text-[#180000]">{item.title}</h3>
-                  <p className="font-body text-sm leading-relaxed font-bold text-[#180000]/42">{item.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ RED → WHITE WAVE ═══ */}
-      <div className="relative h-20 overflow-hidden bg-[#F01800]">
-        <svg viewBox="0 0 1440 80" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,30 C360,70 720,0 1080,50 C1300,70 1400,40 1440,30 L1440,80 L0,80 Z" fill="white" />
-        </svg>
-      </div>
-
-      {/* ═══ HOW IT WORKS ═══ */}
-      <section className="relative py-24 md:py-32">
-        <div className="relative mx-auto max-w-7xl px-6 md:px-12">
-          <ScrollReveal>
-            <div className="mb-14 text-center">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border-[3px] border-[#FFD800]/30 bg-[#FFD800]/[0.08] px-4 py-1.5">
-                <Clock size={14} className="text-[#F01800]" />
-                <span className="font-display text-xs font-bold tracking-wider text-[#F01800] uppercase">How It Works</span>
-              </div>
-              <h2 className="font-display mb-4 text-3xl font-extrabold text-[#180000] md:text-5xl">
-                Four Steps to <span className="text-[#F01800]">Toy Heaven!</span>
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="mx-auto max-w-3xl space-y-4">
-            {steps.map((step, i) => {
-              const stepColors = ["#F01800", "#FFD800", "#F01800", "#FFD800"];
-              const c = stepColors[i];
-              return (
-                <ScrollReveal key={i} delay={i * 120} variant="fadeLeft">
-                  <div className="tl-step group flex items-start gap-5 rounded-3xl border-[3px] border-[#F01800]/8 bg-white px-6 py-6 md:px-8">
-                    <div className="flex flex-col items-center">
-                      <span className="tl-step-num font-display text-4xl font-extrabold transition-all duration-300 md:text-5xl" style={{ color: c + "30" }}>
-                        {step.num}
-                      </span>
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="mb-1.5 flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border-[2px]" style={{ background: c + "10", borderColor: c + "20" }}>
-                          <step.icon size={18} style={{ color: c === "#FFD800" ? "#F01800" : c }} />
-                        </div>
-                        <h3 className="font-display text-lg font-extrabold text-[#180000]">{step.title}</h3>
-                      </div>
-                      <p className="font-body text-sm leading-relaxed font-bold text-[#180000]/40">{step.desc}</p>
-                      <div className="tl-step-bar mt-3 h-1 w-8 rounded-full transition-all duration-400" style={{ background: c === "#FFD800" ? "#F01800" : c }} />
-                    </div>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ YELLOW WAVE into GALLERY ═══ */}
-      <div className="relative h-16 overflow-hidden">
-        <svg viewBox="0 0 1440 60" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,30 C240,55 480,5 720,30 C960,55 1200,5 1440,30 L1440,60 L0,60 Z" fill="#FFF9E0" />
-        </svg>
-      </div>
-
-      {/* ═══ GALLERY ═══ */}
-      <section className="relative bg-[#FFF9E0] py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <ScrollReveal>
-            <div className="mb-14 text-center">
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border-[3px] border-[#FFD800]/30 bg-[#FFD800]/[0.12] px-4 py-1.5">
-                <Sparkles size={14} className="text-[#F01800]" />
-                <span className="font-display text-xs font-bold tracking-wider text-[#F01800] uppercase">Gallery</span>
-              </div>
-              <h2 className="font-display mb-4 text-3xl font-extrabold text-[#180000] md:text-5xl">
-                Peek Inside <span className="text-[#F01800]">Toy Landia!</span>
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {[
-              { src: "/toy-landia/toy-1.jpg", alt: "Toy Collection", span: "md:col-span-2 md:row-span-2", border: "#F01800" },
-              { src: "/toy-landia/toy-2.jpg", alt: "Toys Per Kilo", span: "", border: "#FFD800" },
-              { src: "/toy-landia/toy-3.jpg", alt: "Happy Kids", span: "", border: "#F01800" },
-              { src: "/toy-landia/toy-4.jpg", alt: "Party Supplies", span: "", border: "#FFD800" },
-              { src: "/toy-landia/toy-5.jpg", alt: "Building Blocks", span: "", border: "#F01800" },
-            ].map((img, i) => (
-              <ScrollReveal key={i} delay={i * 100} variant="scale">
-                <div
-                  className={`tl-gallery-item group relative overflow-hidden rounded-3xl border-[3px] bg-white ${img.span}`}
-                  style={{ minHeight: img.span ? "420px" : "210px", borderColor: img.border + "25" }}
-                >
-                  <Image src={img.src} alt={img.alt} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#F01800]/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="tl-gallery-label absolute bottom-0 left-0 w-full translate-y-full p-4 opacity-0 transition-all duration-300">
-                    <span className="font-display text-sm font-extrabold text-white">{img.alt}</span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ YELLOW WAVE into TESTIMONIAL ═══ */}
-      <div className="relative h-16 overflow-hidden bg-[#FFF9E0]">
-        <svg viewBox="0 0 1440 60" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,20 C360,55 720,0 1080,40 C1300,55 1400,30 1440,20 L1440,60 L0,60 Z" fill="#FFD800" />
-        </svg>
-      </div>
-
-      {/* ═══ TESTIMONIAL — Yellow section ═══ */}
-      <section className="relative overflow-hidden bg-[#FFD800] py-20 md:py-24">
-        {/* Red/yellow alternating accent bars */}
-        <div className="absolute top-0 right-0 left-0 flex h-1.5">
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-6 md:px-12">
-          <ScrollReveal>
-            <div className="mx-auto max-w-3xl text-center">
-              <Quote size={44} className="mx-auto mb-6 text-[#F01800]/25" />
-              <blockquote className="font-display mb-6 text-2xl leading-relaxed font-bold text-[#180000]/80 italic md:text-3xl">
-                &ldquo;My kids went crazy! They picked all the toys they
-                wanted and we paid per kilo. Sobrang sulit — we&apos;ll
-                definitely be back every month!&rdquo;
-              </blockquote>
-              <div className="flex items-center justify-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-[#F01800]/20 bg-[#F01800]/10">
-                  <Heart size={18} className="text-[#F01800]" />
-                </div>
-                <div className="text-left">
-                  <div className="font-display text-sm font-bold text-[#180000]/80">Happy Nanay</div>
-                  <div className="font-body text-xs font-bold text-[#180000]/40">Regular Customer, Cabuyao</div>
-                </div>
-              </div>
-              <div className="mt-5 flex items-center justify-center gap-1">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} size={20} className="fill-[#F01800] text-[#F01800]" />
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Bottom accent */}
-        <div className="absolute right-0 bottom-0 left-0 flex h-1.5">
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-        </div>
-      </section>
-
-      {/* ═══ YELLOW → WHITE WAVE ═══ */}
-      <div className="relative h-16 overflow-hidden bg-[#FFD800]">
-        <svg viewBox="0 0 1440 60" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,25 C360,55 720,5 1080,35 C1300,50 1400,30 1440,25 L1440,60 L0,60 Z" fill="#FFFFFF" />
-        </svg>
-      </div>
-
-      {/* ═══ LOCATION ═══ */}
-      <section className="relative py-24 md:py-28">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <ScrollReveal>
-            <div className="overflow-hidden rounded-[2rem] border-[3px] border-[#F01800]/12 bg-white" style={{ boxShadow: "8px 8px 0px rgba(240,24,0,0.05), 0 4px 24px rgba(0,0,0,0.06)" }}>
-              <div className="grid md:grid-cols-2">
-                <div className="relative min-h-[280px] md:min-h-[380px]">
-                  <Image src="/toy-landia/toy-6.jpg" alt="Toy Landia Store" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/50 md:to-white/80" />
-                </div>
-                <div className="flex flex-col justify-center px-8 py-10 md:px-12">
-                  <div className="mb-4 flex items-center gap-2">
-                    <MapPin size={18} className="text-[#F01800]" />
-                    <span className="font-display text-xs font-bold tracking-wider text-[#F01800] uppercase">Visit Our Store</span>
-                  </div>
-                  <h3 className="font-display mb-3 text-2xl font-extrabold text-[#180000] md:text-3xl">Toy Landia</h3>
-                  <p className="font-body mb-4 text-sm leading-relaxed font-bold text-[#180000]/42">
-                    Cabuyao, Laguna. Walk in and discover the most sulit toy shopping in town. New drops every week!
-                  </p>
-                  <div className="mb-6 space-y-2.5">
-                    {[
-                      { label: "Walk-in shopping welcome" },
-                      { label: "Bulk orders available" },
-                      { label: "New toy drops weekly" },
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm">
-                        <CheckCircle2 size={15} className="text-[#F01800]" />
-                        <span className="font-body font-bold text-[#180000]/55">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <a
-                    href="https://www.facebook.com/officialtoylandia"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="tl-btn inline-flex w-fit items-center gap-2 rounded-2xl border-[3px] border-[#F01800] bg-[#F01800] px-6 py-3 font-bold text-white shadow-md shadow-[#F01800]/15"
-                  >
-                    <Facebook size={16} />
-                    <span className="font-display text-sm">Message on Facebook</span>
-                  </a>
-                </div>
-              </div>
+              <a href={FACEBOOK} target="_blank" rel="noopener noreferrer"
+                className="tl-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:10,marginTop:28,
+                  background:C.yellow,color:C.black,textDecoration:"none",
+                  padding:"14px 28px",borderRadius:16,fontWeight:900,
+                  border:`4px solid ${C.black}`,boxShadow:`6px 6px 0 ${C.black}`,
+                }}
+              >
+                <Facebook size={18}/><span className="tl-font" style={{fontSize:18}}>Shop Now</span>
+              </a>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══ RED WAVE into CTA ═══ */}
-      <div className="relative h-20 overflow-hidden">
-        <svg viewBox="0 0 1440 80" className="absolute bottom-0 w-full" preserveAspectRatio="none">
-          <path d="M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,80 L0,80 Z" fill="#F01800" />
-        </svg>
-      </div>
+      {/* ══ FINAL CTA ════════════════════════════════════════════════════════ */}
+      <section style={{ padding:"100px 32px",background:C.red,position:"relative",overflow:"hidden" }}>
+        {/* Starburst */}
+        <div style={{
+          position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",
+          width:"120vw",height:"120vw",
+          backgroundImage:`conic-gradient(from 0deg,rgba(255,216,0,.18) 0deg 8deg,transparent 8deg 16deg,rgba(255,216,0,.18) 16deg 24deg,transparent 24deg 32deg,rgba(255,216,0,.18) 32deg 40deg,transparent 40deg 48deg,rgba(255,216,0,.18) 48deg 56deg,transparent 56deg 64deg,rgba(255,216,0,.18) 64deg 72deg,transparent 72deg 80deg,rgba(255,216,0,.18) 80deg 88deg,transparent 88deg 360deg)`,
+          animation:"tlSpin 60s linear infinite",opacity:.5,
+          pointerEvents:"none",
+        }}/>
+        <div style={{ position:"absolute",inset:0,opacity:.1, backgroundImage:"radial-gradient(circle,#fff 1px,transparent 1px)",backgroundSize:"24px 24px" }}/>
 
-      {/* ═══ FINAL CTA ═══ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#F01800] via-[#D01400] to-[#900000] py-28 md:py-36">
-        {/* Diagonal stripes */}
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(255,255,255,0.4) 20px, rgba(255,255,255,0.4) 40px)" }} />
-        {/* Floating shapes */}
-        <div className="pointer-events-none absolute top-[14%] left-[7%] flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFD800]/12" style={{ animation: "tlFloat 6s ease-in-out infinite" }}>
-          <Gift size={28} className="text-[#FFD800]/60" />
-        </div>
-        <div className="pointer-events-none absolute right-[8%] bottom-[14%] flex h-14 w-14 items-center justify-center rounded-full bg-[#FFD800]/12" style={{ animation: "tlFloat 5s ease-in-out infinite 2s" }}>
-          <Star size={22} className="text-[#FFD800]/60" />
-        </div>
-        <div className="pointer-events-none absolute top-[50%] right-[25%] flex h-10 w-10 items-center justify-center rounded-lg bg-white/8" style={{ animation: "tlFloat 7s ease-in-out infinite 1s" }}>
-          <Rocket size={18} className="text-white/40" />
-        </div>
-
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
+        <div style={{ position:"relative",zIndex:1,maxWidth:800,margin:"0 auto",textAlign:"center" }}>
           <ScrollReveal variant="scale">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border-[3px] border-white/15 bg-white/8 px-5 py-2 backdrop-blur-sm">
-              <PartyPopper size={15} className="text-[#FFD800]" />
-              <span className="font-display text-xs font-bold tracking-wider text-[#FFD800] uppercase">Start Your Toy Hunt!</span>
+            <div style={{
+              display:"inline-flex",alignItems:"center",gap:8,marginBottom:28,
+              background:C.yellow,color:C.black,fontWeight:900,fontSize:14,padding:"10px 24px",
+              borderRadius:40,border:`4px solid ${C.black}`,boxShadow:`5px 5px 0 ${C.black}`,
+              animation:"tlBounce 2.5s ease-in-out infinite",
+            }} className="tl-body">
+              <Zap size={16}/> JOIN THE FUN
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
-            <h2 className="font-display mb-6 text-4xl font-extrabold text-white md:text-6xl">
-              Ready for the Most
-              <br />
-              <span className="text-[#FFD800]">Sulit Toys?</span>
+            <h2 className="tl-font" style={{fontSize:"clamp(44px,7vw,88px)",lineHeight:1,marginBottom:24,color:C.white}}>
+              Ready for Your<br/>
+              <span style={{color:C.yellow}}>Toy Haul?</span>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <p className="font-body mx-auto mb-10 max-w-xl text-lg font-bold text-white/70">
-              Follow us on Facebook for fresh arrivals, flash deals, and exclusive promos.
-              More toys, more savings, more fun — that&apos;s Toy Landia!
+            <p className="tl-body" style={{fontSize:18,color:"rgba(255,255,255,.75)",marginBottom:44,lineHeight:1.7,fontWeight:600}}>
+              Visit us in Cabuyao or follow our Facebook page for live selling, new arrivals, and exclusive deals on toys sold per kilogram.
             </p>
           </ScrollReveal>
 
           <ScrollReveal delay={300}>
-            <a
-              href="https://www.facebook.com/officialtoylandia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tl-btn tl-btn-pulse inline-flex items-center gap-3 rounded-2xl border-[3px] border-[#FFD800] bg-[#FFD800] px-10 py-5 text-lg font-extrabold text-[#180000] shadow-xl shadow-[#FFD800]/20"
-            >
-              <Facebook size={22} />
-              <span className="font-display">Follow Toy Landia</span>
-            </a>
-            <div className="font-body mt-5 text-xs font-bold text-white/35">
-              Be the first to know about new toy drops and mega deals!
+            <div style={{ display:"flex",gap:16,justifyContent:"center",flexWrap:"wrap" }}>
+              <a href={FACEBOOK} target="_blank" rel="noopener noreferrer"
+                className="tl-btn tl-pulse"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:12,
+                  background:C.black,color:C.white,textDecoration:"none",
+                  padding:"20px 40px",borderRadius:18,fontWeight:900,
+                  border:`5px solid ${C.black}`,boxShadow:`7px 7px 0 ${C.yellow}`,
+                }}
+              >
+                <Facebook size={22}/><span className="tl-font" style={{fontSize:22}}>Follow Toy Landia</span><ArrowRight size={20}/>
+              </a>
+              <Link href="/"
+                className="tl-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:12,
+                  background:"rgba(255,255,255,.12)",color:C.white,textDecoration:"none",
+                  padding:"20px 32px",borderRadius:18,fontWeight:900,
+                  border:`5px solid rgba(255,255,255,.3)`,backdropFilter:"blur(12px)",
+                }}
+              >
+                <Store size={20}/><span className="tl-font" style={{fontSize:20}}>Pring Group</span>
+              </Link>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══ FOOTER ═══ */}
-      <footer className="bg-white py-10">
-        {/* Red/yellow alternating accent line */}
-        <div className="mb-8 flex h-1">
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
-          <div className="flex-1 bg-[#F01800]" />
-          <div className="flex-1 bg-[#FFD800]" />
+      {/* ══ FOOTER ═══════════════════════════════════════════════════════════ */}
+      <footer style={{ background:C.bg,borderTop:`3px solid ${C.red}`,padding:"32px 32px" }}>
+        <div style={{ display:"flex",height:4,marginBottom:28 }}>
+          {[C.red,C.yellow,C.red,C.yellow,C.red,C.yellow,C.red,C.yellow].map((c,i)=><div key={i} style={{flex:1,background:c}}/>)}
         </div>
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-6 md:flex-row md:justify-between md:px-12">
-          <div className="flex items-center gap-3">
-            <Image src="/logos/toy-landia.jpg" alt="Toy Landia" width={36} height={36} className="rounded-xl border-[3px] border-[#F01800]/10" />
-            <span className="font-display text-sm font-bold text-[#180000]">Toy Landia</span>
+        <div style={{ maxWidth:1280,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:16 }}>
+          <div style={{ display:"flex",alignItems:"center",gap:12 }}>
+            <img src={bp("/logos/toy-landia.jpg")} alt="Toy Landia" style={{height:44,width:44,objectFit:"contain",borderRadius:10,border:`2px solid ${C.yellow}`}}/>
+            <div>
+              <div className="tl-font" style={{fontSize:20,color:C.yellow}}>Toy Landia</div>
+              <div className="tl-body" style={{fontSize:11,color:"rgba(255,255,255,.35)"}}>Part of Pring Group of Companies</div>
+            </div>
           </div>
-          <p className="font-body text-center text-xs font-bold text-[#180000]/30 md:text-right">
-            Cabuyao, Laguna<br />
-            &copy; {new Date().getFullYear()} Toy Landia &middot; A Pring Group Company
-          </p>
+
+          <div style={{ display:"flex",gap:20,flexWrap:"wrap" }}>
+            <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.45)",textDecoration:"none",fontSize:13,fontWeight:700}}>
+              <Facebook size={14}/> Facebook
+            </a>
+            <Link href="/" style={{color:"rgba(255,255,255,.45)",textDecoration:"none",fontSize:13,fontWeight:700}}>Pring Group</Link>
+          </div>
+
+          <div className="tl-body" style={{fontSize:12,color:"rgba(255,255,255,.25)"}}>
+            © {new Date().getFullYear()} Pring Group of Companies · Cabuyao, Laguna
+          </div>
         </div>
       </footer>
     </main>

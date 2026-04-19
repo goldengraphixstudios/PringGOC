@@ -1,10 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { X, MessageCircle } from "lucide-react";
-
-// Default: opens the PGC Facebook page chat
-const FB_PAGE_URL = "https://www.facebook.com/RFGauctionhouse";
+import { GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
 
 export default function FloatingChat() {
   const [open, setOpen] = useState(false);
@@ -63,18 +62,16 @@ export default function FloatingChat() {
               </p>
             </div>
 
-            <a
-              href={FB_PAGE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={GROUP_INQUIRY_PATH}
               className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0A1628] px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#1B3A5C] active:scale-[0.98]"
             >
               <MessageCircle className="h-4 w-4" />
-              Message Us on Facebook
-            </a>
+              Start an Official Inquiry
+            </Link>
 
             <a
-              href="mailto:official.pringgroupofcompany@gmail.com"
+              href={`mailto:${GROUP_EMAIL}`}
               className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/[0.08] bg-transparent px-4 py-2.5 text-sm font-medium text-[#1B3A5C]/70 transition-all duration-200 hover:border-black/15 hover:bg-[#F8F6F1] hover:text-[#0A1628]"
             >
               Send us an Email

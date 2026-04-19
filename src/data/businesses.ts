@@ -163,7 +163,7 @@ export const businesses: Business[] = [
     description:
       "The first in the South to offer high-quality imported toys sold by the kilogram, bringing fun, excitement, and creativity to children of all ages. We specialize in importing top-tier toys from the UK and China. A trusted supplier featured on national television and a proud participant in major toyfairs across the Philippines.",
     facebook: "https://www.facebook.com/groups/642834551000763",
-    logo: "/logos/toyzoona-importer.jpg",
+    logo: "/logos/toyzoona-importer-logo-transparent.png",
     colors: ["#E8350A", "#FF6B35", "#FFD700", "#1A1A2E", "#16213E"],
     category: "Toys & Kids",
     tagline: "First in the South. As Seen on National TV.",
@@ -223,16 +223,16 @@ export const businesses: Business[] = [
     name: "Toys for Less",
     location: "Cabuyao, Laguna",
     description:
-      "Your go-to toy store for affordable, high-quality UK toys — with every item priced at no more than ₱200! We offer a wide selection of fun, safe, and engaging toys for children of all ages. Open for wholesalers and resellers. Because playtime should be enjoyable without breaking the bank.",
+      "Your go-to toy store for affordable, high-quality UK toys — with every item priced at no more than ₱280. We offer a wide selection of fun, safe, and engaging toys for children of all ages. Open for wholesalers and resellers. Because playtime should be enjoyable without breaking the bank.",
     facebook: "https://www.facebook.com/ToyssforLess",
     logo: "/logos/toys-for-less.jpg",
     colors: ["#F06018", "#F0D800", "#0060A8", "#181818"],
     category: "Toys & Kids",
-    tagline: "Nothing Above ₱200",
+    tagline: "Nothing Above ₱280",
     shipsNationwide: true,
-    services: ["UK Imported Toys", "Affordable Toys (under ₱200)", "Wholesale Supply", "Retail Sales", "Live Selling"],
+    services: ["UK Imported Toys", "Affordable Toys (up to ₱280)", "Wholesale Supply", "Retail Sales", "Live Selling"],
     highlights: [
-      "Every item priced ₱200 and below",
+      "Every item priced ₱280 and below",
       "UK-imported quality toys",
       "Supplier since 2024",
       "Open for wholesalers and resellers",
@@ -331,7 +331,6 @@ export const businesses: Business[] = [
     ],
     theme: "dark",
     heroStyle: "split",
-    heroVideo: "/lusso/showcase.mp4",
     purchaseMethods: [
       {
         type: "live-selling",
@@ -369,7 +368,7 @@ export const businesses: Business[] = [
     description:
       "Reliable truck rental services with nearly 10 units available for hire, ready to assist with all your hauling and transport needs. Whether you're moving goods, transporting materials, or need a dependable vehicle for any logistics task, we have a variety of trucks to suit your requirements. Well-maintained vehicles, professional service, safe and timely deliveries.",
     facebook: "https://www.facebook.com/RFGauctionhouse",
-    logo: "/logos/pring-trucking.jpg",
+    logo: "/logos/pring-trucking.svg",
     colors: ["#1A3A5C", "#2B5A8C", "#C9A84C", "#E8C84A", "#0A1628"],
     category: "Logistics & Transport",
     tagline: "Reliable Hauling. On Time, Every Time.",
@@ -412,7 +411,7 @@ export const businesses: Business[] = [
     logo: "/logos/airpnd-main.png",
     colors: ["#487860", "#303030", "#181818", "#C0C0C0", "#D8D8D8"],
     category: "Real Estate",
-    tagline: "Modern Living, Affordable Price",
+    tagline: "Modern Living, Designed for Comfort",
     services: ["Studio-Type Units", "One-Bedroom Units", "Short & Monthly Stays", "Fully Furnished Units", "24/7 CCTV Security"],
     highlights: [
       "100% security with 24/7 CCTV surveillance",

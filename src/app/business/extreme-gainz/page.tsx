@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
+import { businesses } from "@/data/businesses";
+import { GROUP_BUSINESS_LABEL } from "@/data/site";
 import {
   ArrowLeft,
   Facebook,
@@ -26,16 +29,22 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Extreme Gainz Fitness Gym | Your Gains Start Here — San Pablo, Laguna",
+  title: "Extreme Gainz Fitness Gym | Your Gains Start Here — Laguna & Cavite",
   description:
-    "From beginners to pros. State-of-the-art BUILDFIT equipment, personal training, and a supportive community. San Pablo, Laguna's premier fitness destination.",
+    "Train with Extreme Gainz across Laguna and Cavite. Inquire for branch schedules, membership details, and the best location for your fitness goals.",
 };
 
+const extremeGainzBusiness = businesses.find((business) => business.slug === "extreme-gainz");
+const branches = extremeGainzBusiness?.branches ?? [];
+const featuredBranches = branches.filter(
+  (branch) => branch.name === "San Pablo, Laguna" || branch.name === "Tanza, Cavite",
+);
+
 const stats = [
-  { value: "30+", label: "Machines", icon: Dumbbell },
-  { value: "5+", label: "Programs", icon: Target },
-  { value: "6", label: "Days / Week", icon: Calendar },
-  { value: "100%", label: "Results", icon: Flame },
+  { value: branches.length, label: "Branches", icon: MapPin },
+  { value: 2, label: "Provinces", icon: Target },
+  { value: 7, label: "Days / Week", icon: Calendar },
+  { value: 1, label: "Inquiry Form", icon: Phone },
 ];
 
 const programs = [
@@ -109,6 +118,30 @@ export default function ExtremeGainzPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
       <BusinessNavArrows currentSlug="extreme-gainz" />
+      <BusinessPopup config={{
+        storageKey: "popup-extreme-gainz",
+        delay: 1700,
+        headerBg: "linear-gradient(135deg, #080400 0%, #2C0E00 30%, #6C2400 65%, #F0C030 100%)",
+        headerIcon: "🔥",
+        modalBg: "#080808",
+        eyebrow: "YOUR GAINS START HERE",
+        eyebrowColor: "#F0C030",
+        title: "Find your nearest Extreme Gainz branch.",
+        titleColor: "#F0C030",
+        body: "Choose the branch closest to you and inquire about gym access, classes, coaching, or membership details.",
+        bodyColor: "rgba(255,255,255,0.48)",
+        primaryCTA: "Select a Branch",
+        primaryHref: "#branches",
+        ctaBg: "#F0C030",
+        ctaColor: "#080808",
+        secondaryCTA: "Open Inquiry Form",
+        secondaryColor: "rgba(240,192,48,0.45)",
+        badge: "8 BRANCHES",
+        badgeBg: "rgba(240,192,48,0.2)",
+        badgeColor: "#F0C030",
+        accentLine: "#F0C030",
+        logoSrc: "/logos/extreme-gainz.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -262,7 +295,7 @@ export default function ExtremeGainzPage() {
           >
             <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#F0C030]/20 bg-[#F0C030]/[0.06] px-5 py-1.5 text-[11px] font-bold tracking-[0.2em] text-[#F0C030] uppercase">
               <MapPin className="h-3 w-3" />
-              San Pablo, Laguna
+              Laguna & Cavite
             </span>
           </div>
 
@@ -322,8 +355,9 @@ export default function ExtremeGainzPage() {
               animationFillMode: "forwards",
             }}
           >
-            From beginners to pros — state-of-the-art equipment, expert
-            trainers, and a community that pushes you to be your best.
+            From beginners to pros — train with Extreme Gainz across multiple
+            branches in Laguna and Cavite, backed by serious equipment and a
+            community built for consistency.
           </p>
 
           {/* CTAs */}
@@ -708,74 +742,83 @@ export default function ExtremeGainzPage() {
         </div>
       </section>
 
-      {/* ===== LOCATION & HOURS ===== */}
+      {/* ===== FEATURED BRANCHES ===== */}
       <section className="relative border-t border-white/[0.04] bg-[#050505] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal variant="fadeRight">
               <div>
                 <span className="mb-4 inline-block font-[family-name:var(--font-display)] text-sm font-bold tracking-[0.2em] text-[#F0C030]/60 uppercase">
-                  Find Us
+                  Branches
                 </span>
                 <h2 className="mb-6 font-[family-name:var(--font-display)] text-4xl font-bold text-white uppercase md:text-5xl">
-                  Location &{" "}
-                  <span className="fire-text">Hours</span>
+                  One Brand,
+                  <br />
+                  Multiple <span className="fire-text">Locations</span>
                 </h2>
                 <div className="mb-8 h-[2px] w-20 bg-gradient-to-r from-[#F0C030] to-[#FF8C00]" />
+                <p className="mb-8 max-w-xl text-sm leading-relaxed text-white/45">
+                  Keeping everything in one Extreme Gainz page makes the brand
+                  easier to browse. These featured branches surface the exact
+                  location details users usually ask for first.
+                </p>
 
-                <div className="mb-8 space-y-6">
-                  {/* Address */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0C030]/10">
-                      <MapPin className="h-5 w-5 text-[#F0C030]" />
+                <div className="mb-6 grid gap-4">
+                  {featuredBranches.map((branch) => (
+                    <div
+                      key={branch.name}
+                      className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5"
+                    >
+                      <div className="mb-3 flex items-start justify-between gap-3">
+                        <div>
+                          <h4 className="font-[family-name:var(--font-display)] text-lg font-bold tracking-wide text-white uppercase">
+                            EXG {branch.name.split(",")[0]}
+                          </h4>
+                          <p className="mt-2 text-sm leading-relaxed text-white/40">
+                            {branch.address}
+                          </p>
+                        </div>
+                        <span className="rounded-full border border-[#F0C030]/20 bg-[#F0C030]/10 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-[#F0C030] uppercase">
+                          Branch
+                        </span>
+                      </div>
+
+                      <div className="space-y-2">
+                        {(branch.details?.length
+                          ? branch.details
+                          : ["Message us for current schedule and class updates."]).map((detail) => (
+                          <div
+                            key={detail}
+                            className="flex items-start gap-2 text-sm text-white/35"
+                          >
+                            <Flame className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#F0C030]/60" />
+                            <span>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="mb-1 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white uppercase">
-                        Address
-                      </h4>
-                      <p className="text-sm text-white/40">
-                        San Pablo City, Laguna
-                        <br />
-                        Philippines
-                      </p>
-                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0C030]/10">
+                    <Phone className="h-5 w-5 text-[#F0C030]" />
                   </div>
-
-                  {/* Hours */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0C030]/10">
-                      <Clock className="h-5 w-5 text-[#F0C030]" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white uppercase">
-                        Operating Hours
-                      </h4>
-                      <p className="text-sm text-white/40">
-                        Monday &ndash; Saturday: 5:00 AM &ndash; 10:00 PM
-                        <br />
-                        Sunday: 6:00 AM &ndash; 8:00 PM
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Contact */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0C030]/10">
-                      <Phone className="h-5 w-5 text-[#F0C030]" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white uppercase">
-                        Contact
-                      </h4>
-                      <a
-                        href="https://www.facebook.com/profile.php?id=61586473550426"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-[#F0C030]/60 transition-colors hover:text-[#F0C030]"
-                      >
-                        Message us on Facebook
-                      </a>
-                    </div>
+                  <div>
+                    <h4 className="mb-1 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white uppercase">
+                      Contact
+                    </h4>
+                    <p className="mb-2 text-sm text-white/35">
+                      Also available in {branches.length - featuredBranches.length} more branches across Laguna and Cavite.
+                    </p>
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61586473550426"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[#F0C030]/60 transition-colors hover:text-[#F0C030]"
+                    >
+                      Message us on Facebook
+                    </a>
                   </div>
                 </div>
               </div>
@@ -885,7 +928,7 @@ export default function ExtremeGainzPage() {
               Pring Group of Companies
             </h3>
             <p className="mx-auto mb-5 max-w-md text-sm text-white/20">
-              Extreme Gainz is one of 16+ businesses under the Pring Group
+              Extreme Gainz is one of {GROUP_BUSINESS_LABEL} businesses under the Pring Group
               &mdash; a family-owned conglomerate across the Philippines.
             </p>
             <Link

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -103,6 +104,30 @@ export default function NBLoungeGMAPage() {
   return (
     <main className="relative overflow-hidden bg-[#F4F4EC]">
       <BusinessNavArrows currentSlug="nb-lounge-gma" />
+      <BusinessPopup config={{
+        storageKey: "popup-nb-lounge-gma",
+        delay: 2400,
+        headerBg: "linear-gradient(135deg, #0A0602 0%, #1A0E06 50%, #3C2010 100%)",
+        headerIcon: "📍",
+        modalBg: "#1C140C",
+        eyebrow: "GMA CAVITE BRANCH",
+        eyebrowColor: "#C9A84C",
+        title: "Books and coffee now in GMA Cavite.",
+        titleColor: "#F5EBD4",
+        body: "Drop by for drinks, meals, relaxing seats, and affordable books in one welcoming neighborhood space.",
+        bodyColor: "rgba(245,235,212,0.48)",
+        primaryCTA: "Get Branch Directions",
+        primaryHref: "#location",
+        ctaBg: "#C9A84C",
+        ctaColor: "#1C140C",
+        secondaryCTA: "Explore the Space",
+        secondaryColor: "rgba(201,168,76,0.5)",
+        badge: "GMA, Cavite",
+        badgeBg: "rgba(201,168,76,0.2)",
+        badgeColor: "#C9A84C",
+        accentLine: "#C9A84C",
+        logoSrc: "/logos/nb-lounge-gma.jpg",
+      }} />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
@@ -622,7 +647,7 @@ export default function NBLoungeGMAPage() {
       {/* ───── FOOTER ───── */}
       <footer className="border-t border-[#1A1E18]/5 bg-[#F4F4EC] px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-[#6B706A] sm:flex-row">
-          <span>&copy; 2025 NB Lounge GMA Cavite. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} NB Lounge GMA Cavite. All rights reserved.</span>
           <a href="https://www.facebook.com/people/NB-Lounge-GMA-Cavite/61582687594838/" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors hover:text-[#5B7553]">
             <Facebook className="h-4 w-4" /> NB Lounge GMA Cavite

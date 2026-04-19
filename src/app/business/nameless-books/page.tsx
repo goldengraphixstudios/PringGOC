@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -100,6 +101,27 @@ export default function NamelessBooksPage() {
   return (
     <main className="relative overflow-hidden bg-[#FAF7F1]">
       <BusinessNavArrows currentSlug="nameless-books" />
+      <BusinessPopup config={{
+        storageKey: "popup-nameless-books",
+        delay: 2000,
+        headerBg: "linear-gradient(135deg, #2C1408 0%, #5C2C10 50%, #C97848 100%)",
+        headerIcon: "📚",
+        modalBg: "#F5EAD8",
+        eyebrow: "BOOKS PER KILO",
+        eyebrowColor: "#8B5A30",
+        title: "Start your next book haul.",
+        titleColor: "#2A1408",
+        body: "Discover affordable surplus and secondhand books for personal reading, collecting, school use, or reseller inventory.",
+        bodyColor: "#8B6A50",
+        primaryCTA: "Explore Book Deals",
+        primaryHref: "#shop",
+        ctaBg: "#6B4020",
+        ctaColor: "#F5EAD8",
+        secondaryCTA: "Visit Warehouse",
+        secondaryColor: "#A07850",
+        accentLine: "#C97848",
+        logoSrc: "/logos/nameless-books.jpg",
+      }} />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
@@ -812,7 +834,7 @@ export default function NamelessBooksPage() {
       {/* ───── FOOTER ───── */}
       <footer className="border-t border-[#0F172A]/5 bg-[#FAF7F1] px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-[#78716C] sm:flex-row">
-          <span>&copy; 2025 Nameless Books. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Nameless Books. All rights reserved.</span>
           <a href="https://www.facebook.com/Nameless.books" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors hover:text-[#C2724A]">
             <Facebook className="h-4 w-4" /> Nameless.books

@@ -4,6 +4,7 @@ import Image from "@/components/Img";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -112,6 +113,28 @@ export default function UnicsCollectionPage() {
   return (
     <main className="relative overflow-hidden" style={{ background: "#FFFAFA" }}>
       <BusinessNavArrows currentSlug="unics-collection" />
+      <BusinessPopup config={{
+        storageKey: "popup-unics-collection",
+        delay: 1800,
+        headerBg: "linear-gradient(135deg, #600020 0%, #A02040 50%, #E84868 100%)",
+        headerIcon: "🛍️",
+        livePulse: true,
+        modalBg: "#FFFFFF",
+        eyebrow: "DAILY LIVE SELLING",
+        eyebrowColor: "#C03048",
+        title: "Catch today\u2019s best home finds.",
+        titleColor: "#1A0610",
+        body: "Tune in for cookware, decor, and practical home essentials imported directly from China and presented live every day.",
+        bodyColor: "#666666",
+        primaryCTA: "Watch Live Selling",
+        primaryHref: "https://www.facebook.com/people/Unics-Collection/100086783301845/",
+        primaryExternal: true,
+        ctaBg: "#C03048",
+        ctaColor: "#FFFFFF",
+        secondaryCTA: "Visit Warehouse",
+        secondaryColor: "#999999",
+        logoSrc: "/logos/unics-collection.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `

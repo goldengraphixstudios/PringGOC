@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -115,8 +116,8 @@ const reasons = [
   },
   {
     icon: ThumbsUp,
-    title: "Trusted by Thousands",
-    desc: "Thousands of happy customers and 5-star reviews. We take care of our Lucky family.",
+    title: "Trusted Service",
+    desc: "Repeat customers and reliable service keep our Lucky family growing.",
   },
   {
     icon: Truck,
@@ -143,6 +144,29 @@ export default function LuckyFindsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FFFAFA] text-[#1C1917]">
       <BusinessNavArrows currentSlug="lucky-finds" />
+      <BusinessPopup config={{
+        storageKey: "popup-lucky-finds",
+        delay: 2000,
+        headerBg: "linear-gradient(135deg, #7C0000 0%, #C00000 50%, #F01818 100%)",
+        headerIcon: "⚡",
+        modalBg: "#FFFFFF",
+        eyebrow: "HOME DEAL ALERT",
+        eyebrowColor: "#C00000",
+        title: "Fresh home finds are waiting.",
+        titleColor: "#1A0000",
+        body: "Shop cookware, curtains, and home essentials direct from the supplier through live selling or warehouse visit.",
+        bodyColor: "#666666",
+        primaryCTA: "See Live Schedule",
+        primaryHref: "#schedule",
+        ctaBg: "#D83030",
+        ctaColor: "#FFFFFF",
+        secondaryCTA: "Browse Product Categories",
+        secondaryColor: "#999999",
+        badge: "Mon · Wed · Fri",
+        badgeBg: "rgba(192,0,0,0.1)",
+        badgeColor: "#C00000",
+        logoSrc: "/logos/lucky-finds.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -756,7 +780,7 @@ export default function LuckyFindsPage() {
               Pring Group of Companies
             </h2>
             <p className="mx-auto mb-6 max-w-xl text-base text-[#78716C]">
-              Lucky Finds is one of 16+ businesses under the Pring Group — a
+              Lucky Finds is one of 18+ businesses under the Pring Group — a
               family-owned conglomerate building a legacy across the Philippines.
             </p>
             <Link

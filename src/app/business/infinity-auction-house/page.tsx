@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -118,7 +119,7 @@ const reasons = [
   {
     icon: ThumbsUp,
     title: "Top-Rated Service",
-    desc: "Thousands of 5-star reviews. We treat every customer like family.",
+    desc: "Consistent customer trust and thoughtful service. We treat every customer like family.",
   },
   {
     icon: Truck,
@@ -128,12 +129,12 @@ const reasons = [
   {
     icon: ShieldCheck,
     title: "Trusted Seller",
-    desc: "Verified and trusted by thousands of Filipino online shoppers.",
+    desc: "Verified seller with a growing base of repeat Filipino online shoppers.",
   },
   {
     icon: Users,
     title: "Growing Community",
-    desc: "Join 10,000+ happy buyers in our growing Facebook family.",
+    desc: "Join our growing Facebook community for product drops and live updates.",
   },
 ];
 
@@ -150,6 +151,27 @@ export default function InfinityAuctionHousePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFBFF] text-[#0F172A]">
       <BusinessNavArrows currentSlug="infinity-auction-house" />
+      <BusinessPopup config={{
+        storageKey: "popup-infinity-auction-house",
+        delay: 2000,
+        headerBg: "linear-gradient(135deg, #04041A 0%, #0C0C38 50%, #181878 100%)",
+        headerIcon: "🔨",
+        modalBg: "#08081C",
+        eyebrow: "AUCTION ACCESS",
+        eyebrowColor: "#8888D0",
+        title: "Ready to bid on rare home finds?",
+        titleColor: "#F0F0FF",
+        body: "Join the Infinity auction journey for cookware, decor, and household goods sourced from Japan and China.",
+        bodyColor: "rgba(240,240,255,0.48)",
+        primaryCTA: "Enter Auction Page",
+        primaryHref: "#auction",
+        ctaBg: "#C00030",
+        ctaColor: "#FFFFFF",
+        secondaryCTA: "Learn How It Works",
+        secondaryColor: "rgba(136,136,208,0.5)",
+        accentLine: "#C00030",
+        logoSrc: "/logos/infinity-auction.jpg",
+      }} />
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -411,7 +433,7 @@ export default function InfinityAuctionHousePage() {
                   ))}
                 </div>
                 <p className="text-xs text-[#64748B]">
-                  Trusted by <span className="font-semibold text-[#0F172A]">10,000+</span> buyers
+                  Trusted by repeat buyers and resellers
                 </p>
               </div>
             </div>
@@ -473,7 +495,7 @@ export default function InfinityAuctionHousePage() {
                 Best Price
               </p>
               <p className="text-xl font-bold text-[#0F172A]">
-                Up to 70% Off
+                Deep Auction Savings
               </p>
             </div>
           </div>
@@ -710,7 +732,7 @@ export default function InfinityAuctionHousePage() {
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-lg text-[#64748B]">
                 We&apos;re not just another online seller. Here&apos;s why
-                thousands trust Infinity Auction House.
+                buyers keep coming back to Infinity Auction House.
               </p>
             </div>
           </ScrollReveal>
@@ -838,7 +860,7 @@ export default function InfinityAuctionHousePage() {
               Pring Group of Companies
             </h2>
             <p className="mx-auto mb-6 max-w-xl text-base text-[#64748B]">
-              Infinity Auction House is one of 16+ businesses under the Pring
+              Infinity Auction House is one of 18+ businesses under the Pring
               Group — a family-owned conglomerate building a legacy across the
               Philippines.
             </p>

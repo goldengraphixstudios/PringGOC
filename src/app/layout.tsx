@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Jost, Cormorant_Garamond, Oswald } from "next/font/google";
 import Script from "next/script";
+import { GROUP_BUSINESS_LABEL } from "@/data/site";
 import "./globals.css";
 
 const bodoni = Bodoni_Moda({
@@ -33,7 +34,7 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Pring Group of Companies | Family-Owned Business Conglomerate",
   description:
-    "Pring Group of Companies is a family-owned business conglomerate with 16+ thriving businesses across retail, food & beverage, real estate, events, fitness, and more.",
+    `Pring Group of Companies is a family-owned business conglomerate with ${GROUP_BUSINESS_LABEL} thriving businesses across retail, food & beverage, real estate, events, fitness, and more.`,
 };
 
 export default function RootLayout({

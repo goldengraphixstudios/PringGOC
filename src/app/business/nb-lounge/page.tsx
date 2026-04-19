@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
+import BusinessPopup from "@/components/BusinessPopup";
 import {
   ArrowLeft,
   Facebook,
@@ -71,6 +72,27 @@ export default function NBLoungePage() {
   return (
     <main className="relative overflow-hidden bg-[#F8F4EE]">
       <BusinessNavArrows currentSlug="nb-lounge" />
+      <BusinessPopup config={{
+        storageKey: "popup-nb-lounge",
+        delay: 2500,
+        headerBg: "linear-gradient(135deg, #0A0602 0%, #1C1008 50%, #4C2C14 100%)",
+        headerIcon: "☕",
+        modalBg: "#1C140C",
+        eyebrow: "READ. SIP. RELAX.",
+        eyebrowColor: "#C9A84C",
+        title: "Coffee, comfort, and great reads.",
+        titleColor: "#F5EBD4",
+        body: "Visit South Luzon\u2019s books-per-kilo cafe bookstore for coffee, meals, lounge time, and your next favorite book.",
+        bodyColor: "rgba(245,235,212,0.48)",
+        primaryCTA: "Plan Your Visit",
+        primaryHref: "#visit",
+        ctaBg: "#C9A84C",
+        ctaColor: "#1C140C",
+        secondaryCTA: "See Menu and Books",
+        secondaryColor: "rgba(201,168,76,0.5)",
+        accentLine: "#C9A84C",
+        logoSrc: "/logos/nb-lounge.jpg",
+      }} />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
@@ -658,7 +680,7 @@ export default function NBLoungePage() {
       {/* ───── FOOTER ───── */}
       <footer className="border-t border-[#1C1410]/5 bg-[#F8F4EE] px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-[#8C7E72] sm:flex-row">
-          <span>&copy; 2025 NB Lounge. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} NB Lounge. All rights reserved.</span>
           <a href="https://www.facebook.com/nblounge2023" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors hover:text-[#8B6D4B]">
             <Facebook className="h-4 w-4" /> nblounge2023
