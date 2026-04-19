@@ -36,9 +36,6 @@ export const metadata: Metadata = {
 
 const extremeGainzBusiness = businesses.find((business) => business.slug === "extreme-gainz");
 const branches = extremeGainzBusiness?.branches ?? [];
-const featuredBranches = branches.filter(
-  (branch) => branch.name === "San Pablo, Laguna" || branch.name === "Tanza, Cavite",
-);
 
 const stats = [
   { value: branches.length, label: "Branches", icon: MapPin },
@@ -70,40 +67,6 @@ const programs = [
   },
 ];
 
-const plans = [
-  {
-    name: "DAY PASS",
-    price: "₱100",
-    period: "/ session",
-    features: ["Full gym access", "All equipment", "No commitment"],
-    popular: false,
-  },
-  {
-    name: "MONTHLY",
-    price: "₱800",
-    period: "/ month",
-    features: [
-      "Unlimited gym access",
-      "All equipment & classes",
-      "Free fitness assessment",
-      "Locker access",
-    ],
-    popular: true,
-  },
-  {
-    name: "ANNUAL",
-    price: "₱6,000",
-    period: "/ year",
-    features: [
-      "Everything in Monthly",
-      "2 free PT sessions",
-      "Priority class booking",
-      "Guest passes (2/mo)",
-      "Save ₱3,600+",
-    ],
-    popular: false,
-  },
-];
 
 const equipment = [
   { src: "/extreme-gainz/gym-1.jpg", alt: "Full Gym Floor — State-of-the-Art Equipment", span: true },
@@ -373,11 +336,11 @@ export default function ExtremeGainzPage() {
             }}
           >
             <a
-              href="#plans"
+              href="#branches"
               className="fire-gradient-bg group flex cursor-pointer items-center gap-2 rounded-full px-8 py-4 text-sm font-bold tracking-wide text-black uppercase shadow-lg shadow-[#F0C030]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#F0C030]/30 active:scale-[0.97]"
             >
-              <Flame className="h-4 w-4" />
-              Start Your Journey
+              <MapPin className="h-4 w-4" />
+              Find a Branch
             </a>
             <a
               href="#equipment"
@@ -644,200 +607,70 @@ export default function ExtremeGainzPage() {
         </div>
       </section>
 
-      {/* ===== MEMBERSHIP PLANS ===== */}
-      <section
-        id="plans"
-        className="relative px-6 py-24 md:py-32"
-      >
+      {/* ===== BRANCHES ===== */}
+      <section id="branches" className="relative border-t border-white/[0.04] bg-[#050505] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-16 text-center">
               <span className="mb-4 inline-block font-[family-name:var(--font-display)] text-sm font-bold tracking-[0.2em] text-[#F0C030]/60 uppercase">
-                Membership
+                {branches.length} Locations
               </span>
               <h2 className="font-[family-name:var(--font-display)] text-4xl font-bold text-white uppercase md:text-5xl">
-                Choose Your{" "}
-                <span className="fire-text">Plan</span>
+                Find Your{" "}
+                <span className="fire-text">Branch</span>
               </h2>
+              <div className="mx-auto mt-6 h-[2px] w-20 bg-gradient-to-r from-transparent via-[#F0C030] to-transparent" />
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {plans.map((plan, i) => (
-              <ScrollReveal key={plan.name} variant="fadeUp" delay={i * 120}>
-                <div
-                  className={`group relative h-full rounded-2xl border p-8 transition-all duration-500 ${
-                    plan.popular
-                      ? "fire-border border-[#F0C030]/30 bg-[#F0C030]/[0.04]"
-                      : "border-white/[0.06] bg-white/[0.02] hover:border-white/15"
-                  }`}
-                >
-                  {/* Popular badge */}
-                  {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="fire-gradient-bg rounded-full px-4 py-1 text-[10px] font-bold tracking-[0.15em] text-black uppercase shadow-lg shadow-[#F0C030]/20">
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Plan name */}
-                  <h3 className="mb-6 font-[family-name:var(--font-display)] text-lg font-bold tracking-[0.15em] text-white/60 uppercase">
-                    {plan.name}
-                  </h3>
-
-                  {/* Price */}
-                  <div className="mb-6">
-                    <span
-                      className={`font-[family-name:var(--font-display)] text-5xl font-bold ${
-                        plan.popular ? "fire-text" : "text-white"
-                      }`}
-                    >
-                      {plan.price}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {branches.map((branch, i) => (
+              <ScrollReveal key={branch.name} variant="fadeUp" delay={i * 70}>
+                <div className="group h-full rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 transition-all duration-300 hover:border-[#F0C030]/25 hover:bg-white/[0.04]">
+                  {/* Branch number + name */}
+                  <div className="mb-3 flex items-start justify-between gap-2">
+                    <span className="fire-text font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.15em] uppercase">
+                      EXG {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-sm text-white/30">
-                      {plan.period}
-                    </span>
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-[#F0C030]/40 mt-0.5" />
                   </div>
-
-                  <div className="mb-8 h-px w-full bg-white/[0.06]" />
-
-                  {/* Features */}
-                  <ul className="mb-8 space-y-3">
-                    {plan.features.map((feat) => (
-                      <li
-                        key={feat}
-                        className="flex items-center gap-3 text-sm text-white/50"
-                      >
-                        <Flame
-                          className={`h-3.5 w-3.5 shrink-0 ${
-                            plan.popular
-                              ? "text-[#F0C030]"
-                              : "text-white/20"
-                          }`}
-                        />
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <a
-                    href="https://www.facebook.com/profile.php?id=61586473550426"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold tracking-wide uppercase transition-all duration-300 ${
-                      plan.popular
-                        ? "fire-gradient-bg text-black shadow-lg shadow-[#F0C030]/20 hover:shadow-xl hover:shadow-[#F0C030]/30"
-                        : "border border-white/15 text-white/60 hover:border-[#F0C030]/30 hover:bg-[#F0C030]/10 hover:text-[#F0C030]"
-                    }`}
-                  >
-                    Join Now
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
+                  <h4 className="mb-2 font-[family-name:var(--font-display)] text-base font-bold tracking-wide text-white uppercase">
+                    {branch.name}
+                  </h4>
+                  <div className="mb-3 h-px w-full bg-white/[0.05]" />
+                  <p className="text-xs leading-relaxed text-white/35">
+                    {branch.address}
+                  </p>
+                  {/* Fire accent bottom line on hover */}
+                  <div className="mt-4 h-[1.5px] w-0 bg-gradient-to-r from-[#F0C030] to-[#FF8C00] transition-all duration-500 group-hover:w-full" />
                 </div>
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ===== FEATURED BRANCHES ===== */}
-      <section className="relative border-t border-white/[0.04] bg-[#050505] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <ScrollReveal variant="fadeRight">
-              <div>
-                <span className="mb-4 inline-block font-[family-name:var(--font-display)] text-sm font-bold tracking-[0.2em] text-[#F0C030]/60 uppercase">
-                  Branches
-                </span>
-                <h2 className="mb-6 font-[family-name:var(--font-display)] text-4xl font-bold text-white uppercase md:text-5xl">
-                  One Brand,
-                  <br />
-                  Multiple <span className="fire-text">Locations</span>
-                </h2>
-                <div className="mb-8 h-[2px] w-20 bg-gradient-to-r from-[#F0C030] to-[#FF8C00]" />
-                <p className="mb-8 max-w-xl text-sm leading-relaxed text-white/45">
-                  Keeping everything in one Extreme Gainz page makes the brand
-                  easier to browse. These featured branches surface the exact
-                  location details users usually ask for first.
-                </p>
-
-                <div className="mb-6 grid gap-4">
-                  {featuredBranches.map((branch) => (
-                    <div
-                      key={branch.name}
-                      className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5"
-                    >
-                      <div className="mb-3 flex items-start justify-between gap-3">
-                        <div>
-                          <h4 className="font-[family-name:var(--font-display)] text-lg font-bold tracking-wide text-white uppercase">
-                            EXG {branch.name.split(",")[0]}
-                          </h4>
-                          <p className="mt-2 text-sm leading-relaxed text-white/40">
-                            {branch.address}
-                          </p>
-                        </div>
-                        <span className="rounded-full border border-[#F0C030]/20 bg-[#F0C030]/10 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-[#F0C030] uppercase">
-                          Branch
-                        </span>
-                      </div>
-
-                      <div className="space-y-2">
-                        {(branch.details?.length
-                          ? branch.details
-                          : ["Message us for current schedule and class updates."]).map((detail) => (
-                          <div
-                            key={detail}
-                            className="flex items-start gap-2 text-sm text-white/35"
-                          >
-                            <Flame className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#F0C030]/60" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0C030]/10">
-                    <Phone className="h-5 w-5 text-[#F0C030]" />
-                  </div>
-                  <div>
-                    <h4 className="mb-1 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white uppercase">
-                      Contact
-                    </h4>
-                    <p className="mb-2 text-sm text-white/35">
-                      Also available in {branches.length - featuredBranches.length} more branches across Laguna and Cavite.
-                    </p>
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61586473550426"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-[#F0C030]/60 transition-colors hover:text-[#F0C030]"
-                    >
-                      Message us on Facebook
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Gym photo */}
-            <ScrollReveal variant="fadeLeft" delay={150}>
-              <div className="relative aspect-[4/5] max-h-[500px] overflow-hidden rounded-2xl border border-white/[0.06]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={bp("/extreme-gainz/gym-8.jpg")}
-                  alt="Training at Extreme Gainz"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 h-1 w-2/3 bg-gradient-to-r from-[#F0C030] via-[#FF8C00] to-transparent" />
-              </div>
-            </ScrollReveal>
-          </div>
+          {/* Inquire CTA */}
+          <ScrollReveal variant="fadeUp" delay={200}>
+            <div className="mt-14 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
+              <a
+                href="https://www.facebook.com/profile.php?id=61586473550426"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fire-gradient-bg flex cursor-pointer items-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold tracking-wide text-black uppercase shadow-lg shadow-[#F0C030]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#F0C030]/30"
+              >
+                <Phone className="h-4 w-4" />
+                Inquire on Facebook
+              </a>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfi18lhUo0KSjcFDeVH81tmy7C4iiLqt9rksS0gRcSfUdKNHg/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex cursor-pointer items-center gap-2 rounded-full border border-white/15 px-8 py-3.5 text-sm font-bold tracking-wide text-white/60 uppercase transition-all duration-300 hover:border-[#F0C030]/30 hover:text-[#F0C030]"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Membership Inquiry Form
+              </a>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
