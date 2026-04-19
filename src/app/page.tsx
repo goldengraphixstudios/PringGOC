@@ -27,7 +27,6 @@ import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
 import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
-import FloatingChat from "@/components/FloatingChat";
 import { GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
 
 // Businesses visible in the main grid (exclude sub-branch pages)
@@ -62,7 +61,6 @@ export default function Home() {
     <main className="relative overflow-hidden">
       <LoadingScreen />
       <WelcomePopup />
-      <FloatingChat />
 
       {/* ═══ Page-wide animations ═══ */}
       <style
