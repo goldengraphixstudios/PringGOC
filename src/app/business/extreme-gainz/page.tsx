@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import BranchMapToggle from "@/components/BranchMapToggle";
 import { businesses } from "@/data/businesses";
 import { GROUP_BUSINESS_LABEL } from "@/data/site";
 import {
@@ -623,26 +624,27 @@ export default function ExtremeGainzPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {branches.map((branch, i) => (
               <ScrollReveal key={branch.name} variant="fadeUp" delay={i * 70}>
-                <div className="group h-full rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 transition-all duration-300 hover:border-[#F0C030]/25 hover:bg-white/[0.04]">
+                <div className="group h-full min-h-[320px] rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-[#F0C030]/25 hover:bg-white/[0.04] md:p-7">
                   {/* Branch number + name */}
-                  <div className="mb-3 flex items-start justify-between gap-2">
+                  <div className="mb-4 flex items-start justify-between gap-3">
                     <span className="fire-text font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.15em] uppercase">
                       EXG {String(i + 1).padStart(2, "0")}
                     </span>
                     <MapPin className="h-3.5 w-3.5 shrink-0 text-[#F0C030]/40 mt-0.5" />
                   </div>
-                  <h4 className="mb-2 font-[family-name:var(--font-display)] text-base font-bold tracking-wide text-white uppercase">
+                  <h4 className="mb-3 font-[family-name:var(--font-display)] text-lg font-bold tracking-wide text-white uppercase">
                     {branch.name}
                   </h4>
-                  <div className="mb-3 h-px w-full bg-white/[0.05]" />
-                  <p className="text-xs leading-relaxed text-white/35">
+                  <div className="mb-4 h-px w-full bg-white/[0.05]" />
+                  <p className="text-sm leading-relaxed text-white/35">
                     {branch.address}
                   </p>
+                  <BranchMapToggle branchName={branch.name} query={branch.googleMapsQuery} />
                   {/* Fire accent bottom line on hover */}
-                  <div className="mt-4 h-[1.5px] w-0 bg-gradient-to-r from-[#F0C030] to-[#FF8C00] transition-all duration-500 group-hover:w-full" />
+                  <div className="mt-5 h-[1.5px] w-0 bg-gradient-to-r from-[#F0C030] to-[#FF8C00] transition-all duration-500 group-hover:w-full" />
                 </div>
               </ScrollReveal>
             ))}

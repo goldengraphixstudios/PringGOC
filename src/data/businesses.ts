@@ -10,6 +10,7 @@ export interface Branch {
   name: string;
   address: string;
   waze?: string;
+  googleMapsQuery?: string;
   auctionSchedule?: string;
   details?: string[];
 }
@@ -765,41 +766,50 @@ export const businesses: Business[] = [
       {
         name: "Salawag",
         address: "Wincorp Building, Molino-Paliparan Rd., Brgy. Salawag, Dasmariñas City, Cavite",
+        googleMapsQuery: "Wincorp Building, Molino-Paliparan Rd., Brgy. Salawag, Dasmariñas City, Cavite",
         details: [],
       },
       {
         name: "Paliparan",
         address: "Rijo Bldg 4th Floor, Blk 4 Lot 4,5,6,7 Mabuhay City Commercial, Paliparan 3, Dasmariñas City, Cavite",
+        googleMapsQuery:
+          "Rijo Bldg 4th Floor, Blk 4 Lot 4,5,6,7 Mabuhay City Commercial, Paliparan 3, Dasmariñas City, Cavite",
         details: [],
       },
       {
         name: "Cabuyao",
         address: "Unit 203 & 204 Sala Business Center Building, Brgy. Sala, Cabuyao City, Laguna",
+        googleMapsQuery: "Unit 203 & 204 Sala Business Center Building, Brgy. Sala, Cabuyao City, Laguna",
         details: [],
       },
       {
         name: "Calamba",
         address: "B2 L1 2nd Floor, St. Christopher 1, Paciano, Calamba City, Laguna",
+        googleMapsQuery: "B2 L1 2nd Floor, St. Christopher 1, Paciano, Calamba City, Laguna",
         details: [],
       },
       {
         name: "San Pablo",
         address: "Purok 2, Sitio Gitna, Maharlika Hwy, Brgy. San Ignacio, San Pablo City, Laguna",
+        googleMapsQuery: "Purok 2, Sitio Gitna, Maharlika Hwy, Brgy. San Ignacio, San Pablo City, Laguna",
         details: [],
       },
       {
         name: "Tanza Cavite",
         address: "Tiffany's Place #9057, Antero Soriano Highway, Daang Amaya 3, Tanza, Cavite",
+        googleMapsQuery: "Tiffany's Place #9057, Antero Soriano Highway, Daang Amaya 3, Tanza, Cavite",
         details: [],
       },
       {
         name: "San Pedro",
         address: "3rd Floor, Promenade Bldg., Pacita 1, Phase 1A, San Pedro, Laguna",
+        googleMapsQuery: "3rd Floor, Promenade Bldg., Pacita 1, Phase 1A, San Pedro, Laguna",
         details: [],
       },
       {
         name: "Dasma Bayan",
         address: "2nd Floor, Don P. Campos Avenue, Brgy. San Jose, Dasmariñas City, Cavite",
+        googleMapsQuery: "2nd Floor, Don P. Campos Avenue, Brgy. San Jose, Dasmariñas City, Cavite",
         details: [],
       },
     ],
