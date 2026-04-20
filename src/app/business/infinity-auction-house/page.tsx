@@ -139,12 +139,12 @@ const reasons = [
 ];
 
 const gallery = [
-  { src: "/infinity-auction-house/hero.jpg", alt: "Product Collection", span: true },
-  { src: "/infinity-auction-house/products.jpg", alt: "Brand New Products" },
-  { src: "/infinity-auction-house/deals.jpg", alt: "Amazing Deals" },
-  { src: "/infinity-auction-house/customer.jpg", alt: "Happy Customer" },
-  { src: "/infinity-auction-house/store.jpg", alt: "Our Store" },
-  { src: "/infinity-auction-house/unboxing.jpg", alt: "Unboxing Experience" },
+  { src: "/infinity-auction-house/rfg-warehouse.jpg",    alt: "Auction Warehouse",    span: true },
+  { src: "/infinity-auction-house/rfg-electronics.jpg",  alt: "Electronics" },
+  { src: "/infinity-auction-house/rfg-furniture.jpg",    alt: "Furniture & Home" },
+  { src: "/infinity-auction-house/rfg-items-elec-1.jpg", alt: "Gadgets & Devices" },
+  { src: "/infinity-auction-house/rfg-items-toys.jpg",   alt: "Toys & More" },
+  { src: "/infinity-auction-house/rfg-crowd.jpg",        alt: "Live Auction Event",   span: true },
 ];
 
 export default function InfinityAuctionHousePage() {
@@ -455,7 +455,7 @@ export default function InfinityAuctionHousePage() {
             <div className="float-slow relative overflow-hidden rounded-3xl shadow-2xl shadow-[#1E3A8A]/10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={bp("/infinity-auction-house/hero.jpg")}
+                src={bp("/infinity-auction-house/rfg-import.jpg")}
                 alt="Infinity Auction House Products"
                 className="h-[500px] w-full object-cover"
               />

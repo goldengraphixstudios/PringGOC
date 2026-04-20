@@ -132,12 +132,12 @@ const reasons = [
 ];
 
 const gallery = [
-  { src: "/lucky-finds/hero.jpg", alt: "Premium Kitchen Collection", span: true },
-  { src: "/lucky-finds/cookware.jpg", alt: "Cookware Sets" },
-  { src: "/lucky-finds/utensils.jpg", alt: "Kitchen Utensils" },
-  { src: "/lucky-finds/cooking.jpg", alt: "Cooking in Style" },
-  { src: "/lucky-finds/tableware.jpg", alt: "Beautiful Tableware" },
-  { src: "/lucky-finds/kitchen.jpg", alt: "Dream Kitchen Setup", span: true },
+  { src: "/lucky-finds/unic-1.jpg",  alt: "Kitchen Collection",   span: true },
+  { src: "/lucky-finds/unic-3.jpg",  alt: "Cookware Sets" },
+  { src: "/lucky-finds/unic-4.jpg",  alt: "Kitchen Essentials" },
+  { src: "/lucky-finds/unic-5.jpg",  alt: "Home Products" },
+  { src: "/lucky-finds/unic-6.jpg",  alt: "Quality Finds" },
+  { src: "/lucky-finds/unic-2.jpg",  alt: "Premium Items",        span: true },
 ];
 
 export default function LuckyFindsPage() {
@@ -435,7 +435,7 @@ export default function LuckyFindsPage() {
             <div className="float-soft relative overflow-hidden rounded-3xl shadow-2xl shadow-[#DC2626]/[0.08]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={bp("/lucky-finds/hero.jpg")}
+                src={bp("/lucky-finds/unic-7.jpg")}
                 alt="Lucky Finds Kitchenware Collection"
                 className="h-[480px] w-full object-cover"
               />
