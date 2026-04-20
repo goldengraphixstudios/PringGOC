@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import GallerySlider from "@/components/GallerySlider";
 import {
   ArrowLeft,
   Facebook,
@@ -32,23 +33,23 @@ export const metadata: Metadata = {
 
 const collections = [
   {
-    name: "Necklaces",
-    desc: "Statement pieces that command attention",
+    name: "Moonlight Set",
+    desc: "A silver moon-themed trio with matching earrings and pendant.",
     image: "/lusso/jewelry-3.jpg",
   },
   {
-    name: "Rings",
-    desc: "Elegant bands for every occasion",
+    name: "Golden Arc Set",
+    desc: "A bold gold-toned set with a geometric statement finish.",
     image: "/lusso/jewelry-5.jpg",
   },
   {
-    name: "Earrings",
-    desc: "From subtle studs to dramatic drops",
+    name: "Heart Set",
+    desc: "A romantic matching set built around heart-shaped details.",
     image: "/lusso/jewelry-2.jpg",
   },
   {
-    name: "Bracelets",
-    desc: "Wrap your wrist in luxury",
+    name: "Crystal Drop Set",
+    desc: "Bright crystal pieces designed to catch the light instantly.",
     image: "/lusso/jewelry-8.jpg",
   },
 ];
@@ -137,11 +138,13 @@ export default function LussoPage() {
         body: "Explore imported fashion jewelry for gifting, styling, boutique sourcing, or reseller bundles without losing the premium feel.",
         bodyColor: "rgba(232,213,163,0.45)",
         primaryCTA: "View Jewelry Collection",
-        primaryHref: "#collection",
+        primaryHref: "#collections",
         ctaBg: "transparent",
         ctaColor: "#C9A84C",
         ctaBorder: "1.5px solid #C9A84C",
         secondaryCTA: "Shop on Facebook",
+        secondaryHref: "https://www.facebook.com/vintagehubs",
+        secondaryExternal: true,
         secondaryColor: "rgba(201,168,76,0.45)",
         logoSrc: "/logos/lusso.png",
       }} />
@@ -738,6 +741,58 @@ export default function LussoPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== JEWELRY GALLERY ===== */}
+      <section id="gallery" className="relative z-10 border-t border-[#D4AF37]/[0.06] py-28 px-6">
+        <div className="mx-auto max-w-4xl">
+          <ScrollReveal variant="fadeUp">
+            <div className="mb-14 text-center">
+              <span className="mb-3 inline-block text-[10px] font-bold tracking-[0.4em] text-[#D4AF37]/50 uppercase">
+                Up Close &amp; Personal
+              </span>
+              <h2 className="font-[family-name:var(--font-cursive)] text-4xl font-bold md:text-5xl">
+                Jewelry <span className="gold-text-static">Gallery</span>
+              </h2>
+              <p className="mt-4 text-sm text-white/30 max-w-md mx-auto leading-relaxed">
+                Every piece tells a story. Browse our curated shots and find your next obsession.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal variant="fadeUp" delay={150}>
+            <GallerySlider
+              accentColor="#D4AF37"
+              slides={[
+                { src: "/lusso/gallery-earrings.jpg",   alt: "Earrings",               caption: "LUSSO Collection" },
+                { src: "/lusso/gallery-earrings-2.jpg", alt: "Drop Earrings",           caption: "LUSSO Collection" },
+                { src: "/lusso/gallery-necklace.jpg",   alt: "Necklace",               caption: "LUSSO Collection" },
+                { src: "/lusso/gallery-ring.jpg",       alt: "Ring",                   caption: "LUSSO Collection" },
+                { src: "/lusso/gallery-wrist.jpg",      alt: "Wrist & Hand Jewelry",   caption: "LUSSO Collection" },
+                { src: "/lusso/jewelry-1.jpg",          alt: "Fashion Set",            caption: "LUSSO Collection" },
+                { src: "/lusso/jewelry-3.jpg",          alt: "Moonlight Set",          caption: "LUSSO Collection" },
+                { src: "/lusso/jewelry-5.jpg",          alt: "Golden Arc Set",         caption: "LUSSO Collection" },
+                { src: "/lusso/jewelry-8.jpg",          alt: "Crystal Drop Set",       caption: "LUSSO Collection" },
+                { src: "/lusso/jewelry-11.jpg",         alt: "Premium Pieces",         caption: "LUSSO Collection" },
+              ]}
+            />
+          </ScrollReveal>
+
+          <ScrollReveal variant="fadeUp" delay={300}>
+            <div className="mt-12 text-center">
+              <a
+                href="https://www.facebook.com/vintagehubs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-[#D4AF37]/20 px-7 py-3.5 text-sm font-semibold tracking-wide text-[#D4AF37]/80 transition-all duration-300 hover:border-[#D4AF37]/40 hover:text-[#D4AF37] hover:bg-[#D4AF37]/[0.04]"
+              >
+                <Facebook className="h-4 w-4" />
+                See More on Facebook
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
