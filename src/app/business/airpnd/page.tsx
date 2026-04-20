@@ -570,42 +570,59 @@ export default function AirpndPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {locations.map((location, i) => (
-              <ScrollReveal key={location.name} variant="fadeUp" delay={i * 120}>
-                <div className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 hover:border-white/15 hover:bg-white/[0.04]">
-                  <h3 className="mb-4 font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                    {location.name}
-                  </h3>
-                  <div className="mb-6 h-px w-full bg-white/[0.06]" />
+          <div className="space-y-10">
+            {locations.map((location, i) => {
+              const key = location.name.toLowerCase().includes("golden")
+                ? "goldenCity"
+                : location.name.toLowerCase().includes("macabling")
+                ? "macabling"
+                : "mamatid";
+              const slides = locationGalleries[key as keyof typeof locationGalleries];
+              return (
+                <ScrollReveal key={location.name} variant="fadeUp" delay={i * 120}>
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    {/* Gallery slider */}
+                    <GallerySlider
+                      accentColor="#ffffff"
+                      objectFit="contain"
+                      slideBg="#0a0a0a"
+                      slides={slides}
+                    />
 
-                  <div className="mb-6 flex items-start gap-2 text-sm text-white/40">
-                    <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{location.address}</span>
-                  </div>
-
-                  <div className="mb-6 space-y-2">
-                    {(location.details ?? []).map((detail) => (
-                      <div
-                        key={detail}
-                        className="flex items-start gap-2 text-sm leading-relaxed text-white/35"
-                      >
-                        <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
-                        <span>{detail}</span>
+                    {/* Card info below slider */}
+                    <div className="p-8">
+                      <h3 className="mb-1 font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
+                        {location.name}
+                      </h3>
+                      <div className="mb-5 flex items-center gap-2 text-sm text-white/40">
+                        <MapPin className="h-3.5 w-3.5 shrink-0" />
+                        <span>{location.address}</span>
                       </div>
-                    ))}
-                  </div>
 
-                  <a
-                    href={`mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(`AIRPND inquiry - ${location.name}`)}`}
-                    className="group/btn flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 py-3 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:bg-white hover:text-black"
-                  >
-                    Inquire About This Location
-                    <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-                  </a>
-                </div>
-              </ScrollReveal>
-            ))}
+                      <div className="mb-6 flex flex-wrap gap-x-6 gap-y-2">
+                        {(location.details ?? []).map((detail) => (
+                          <div
+                            key={detail}
+                            className="flex items-center gap-2 text-sm text-white/35"
+                          >
+                            <Sparkles className="h-3.5 w-3.5 shrink-0 text-white/30" />
+                            <span>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <a
+                        href={`mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(`AIRPND inquiry - ${location.name}`)}`}
+                        className="group/btn inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 px-6 py-2.5 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:bg-white hover:text-black"
+                      >
+                        Inquire About This Location
+                        <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+                      </a>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
           </div>
 
           <ScrollReveal variant="fadeUp" delay={200}>
@@ -660,96 +677,6 @@ export default function AirpndPage() {
         </div>
       </section>
 
-      {/* ===== GALLERY BY LOCATION ===== */}
-      <section id="gallery" className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-4xl">
-          <ScrollReveal variant="fadeUp">
-            <div className="mb-20 text-center">
-              <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                Find Your Space
-              </span>
-              <h2 className="font-[family-name:var(--font-cursive)] text-3xl font-light italic text-white md:text-4xl lg:text-5xl">
-                Browse Our Locations
-              </h2>
-              <p className="mt-4 text-sm text-white/30 max-w-md mx-auto leading-relaxed">
-                Tour each AIRPND location through our photo galleries — see the spaces, layouts, and amenities up close.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* ── Golden City ── */}
-          <ScrollReveal variant="fadeUp" delay={80}>
-            <div className="mb-20">
-              <div className="mb-6 flex items-center gap-4">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                  <MapPin className="h-4 w-4 text-white/40" />
-                </div>
-                <div>
-                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                    Golden City
-                  </h3>
-                  <p className="text-xs text-white/30 tracking-wide">Santa Rosa, Laguna</p>
-                </div>
-                <div className="flex-1 h-px bg-white/[0.06]" />
-              </div>
-              <GallerySlider
-                accentColor="#ffffff"
-                objectFit="contain"
-                slideBg="#0a0a0a"
-                slides={locationGalleries.goldenCity}
-              />
-            </div>
-          </ScrollReveal>
-
-          {/* ── Macabling ── */}
-          <ScrollReveal variant="fadeUp" delay={100}>
-            <div className="mb-20">
-              <div className="mb-6 flex items-center gap-4">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                  <MapPin className="h-4 w-4 text-white/40" />
-                </div>
-                <div>
-                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                    Macabling
-                  </h3>
-                  <p className="text-xs text-white/30 tracking-wide">Santa Rosa, Laguna</p>
-                </div>
-                <div className="flex-1 h-px bg-white/[0.06]" />
-              </div>
-              <GallerySlider
-                accentColor="#ffffff"
-                objectFit="contain"
-                slideBg="#0a0a0a"
-                slides={locationGalleries.macabling}
-              />
-            </div>
-          </ScrollReveal>
-
-          {/* ── Mamatid ── */}
-          <ScrollReveal variant="fadeUp" delay={120}>
-            <div>
-              <div className="mb-6 flex items-center gap-4">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                  <MapPin className="h-4 w-4 text-white/40" />
-                </div>
-                <div>
-                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                    Mamatid
-                  </h3>
-                  <p className="text-xs text-white/30 tracking-wide">Cabuyao, Laguna</p>
-                </div>
-                <div className="flex-1 h-px bg-white/[0.06]" />
-              </div>
-              <GallerySlider
-                accentColor="#ffffff"
-                objectFit="contain"
-                slideBg="#0a0a0a"
-                slides={locationGalleries.mamatid}
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
       {/* ===== LOCATION ===== */}
       <section className="relative border-t border-white/[0.06] px-6 py-24 md:py-32">
