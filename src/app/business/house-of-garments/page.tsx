@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import HouseOfGarmentsShowcase from "@/components/HouseOfGarmentsShowcase";
 import {
   ArrowLeft,
   Facebook,
@@ -50,31 +51,74 @@ export default function HouseOfGarmentsPage() {
   const collections = [
     {
       icon: CookingPot,
-      title: "Cookware & Pots",
-      desc: "Durable pots, pans, and woks for everyday cooking — quality construction that distributes heat evenly and lasts for years.",
-      img: "/house-of-garments/hog-unic-cookware.jpg",
-      badge: "Best Seller",
+      title: "Gold Teaspoon Set",
+      desc: "Polished gold teaspoons presented as a compact 6-piece set — ideal for coffee corners, dessert service, or everyday table styling.",
+      img: "/house-of-garments/hog-1.jpg",
+      badge: "6 PCS SET",
     },
     {
       icon: UtensilsCrossed,
-      title: "Plates & Bowls",
-      desc: "Elegant tableware sets for the whole family. Sturdy everyday pieces to premium dining sets — beautiful and practical.",
+      title: "Gold Dining Spoon Set",
+      desc: "A matching 6-piece spoon set with a brighter plated finish — made for serving, dining, and giving your tableware a more premium look.",
       img: "/house-of-garments/hog-3.jpg",
-      badge: "New Stock",
+      badge: "TABLEWARE",
     },
     {
       icon: ShoppingBag,
-      title: "Kitchen Essentials",
-      desc: "From utensils to storage containers, cutting boards to kitchen gadgets — everything you need to run a complete kitchen.",
-      img: "/house-of-garments/hog-unic-kitchen.jpg",
-      badge: "Must-Have",
+      title: "Silicone Utensil Set",
+      desc: "A 6-piece silicone utensil bundle with wood handles for daily cooking — practical, display-ready, and easy to mix into modern kitchens.",
+      img: "/house-of-garments/hog-6.jpg",
+      badge: "COOKING TOOLS",
     },
     {
       icon: Boxes,
-      title: "Bundle Deals",
-      desc: "Get more for less with our curated household bundles. Perfect for new homes, resellers, or anyone stocking up on quality essentials.",
-      img: "/house-of-garments/hog-6.jpg",
-      badge: "Best Value",
+      title: "7-Piece Water Pitcher Set",
+      desc: "A full Tuscan glass pitcher set with matching glasses — a polished bundle for hosting, gifting, or upgrading kitchen essentials in one buy.",
+      img: "/house-of-garments/hog-8.jpg",
+      badge: "7 PCS BUNDLE",
+    },
+  ];
+
+  const showcaseImages = [
+    {
+      src: "/house-of-garments/hog-10.jpg",
+      title: "Ceramic Pot Set",
+      subtitle: "Featured cookware piece for premium kitchen setups.",
+    },
+    {
+      src: "/house-of-garments/hog-11.jpg",
+      title: "Classic Kettle",
+      subtitle: "Clean countertop piece for modern and minimalist kitchens.",
+    },
+    {
+      src: "/house-of-garments/hog-8.jpg",
+      title: "Tuscan Water Pitcher Set",
+      subtitle: "7-piece glass pitcher bundle with matching drinkware.",
+    },
+    {
+      src: "/house-of-garments/hog-6.jpg",
+      title: "Silicone Utensil Set",
+      subtitle: "6-piece cooking set with mixed essential tools.",
+    },
+    {
+      src: "/house-of-garments/hog-7.jpg",
+      title: "Silicone Ladle Set",
+      subtitle: "4-piece pink utensil set for serving and everyday prep.",
+    },
+    {
+      src: "/house-of-garments/hog-3.jpg",
+      title: "Gold Spoon Set",
+      subtitle: "Warm-toned 6-piece spoon set for table service.",
+    },
+    {
+      src: "/house-of-garments/hog-2.jpg",
+      title: "Gold Knife Set",
+      subtitle: "Matching 6-piece knife set with polished finish.",
+    },
+    {
+      src: "/house-of-garments/hog-1.jpg",
+      title: "Gold Teaspoon Set",
+      subtitle: "Compact 6-piece teaspoon set for coffee and dessert use.",
     },
   ];
 
@@ -383,7 +427,7 @@ export default function HouseOfGarmentsPage() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/house-of-garments/hog-unic-cooking.jpg"
+            src="/house-of-garments/hog-10.jpg"
             alt="House of Garments Kitchen Collection"
             fill
             className="object-cover"
@@ -665,7 +709,7 @@ export default function HouseOfGarmentsPage() {
                       src={col.img}
                       alt={col.title}
                       fill
-                      className="hog-card-img object-cover transition-transform duration-700"
+                      className="hog-card-img object-contain bg-[#1A1206] p-4 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#110E04] via-[#110E04]/30 to-transparent" />
                     {/* Badge */}
@@ -848,65 +892,9 @@ export default function HouseOfGarmentsPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-            {[
-              { src: "/house-of-garments/hog-unic-essentials.jpg", alt: "Kitchen Essentials",   span: "md:col-span-2 md:row-span-2" },
-              { src: "/house-of-garments/hog-4.jpg",               alt: "Quality Finds",         span: "" },
-              { src: "/house-of-garments/hog-unic-kitchen.jpg",    alt: "Kitchen Collection",    span: "" },
-              { src: "/house-of-garments/hog-5.jpg",               alt: "Household Items",       span: "" },
-              { src: "/house-of-garments/hog-9.jpg",               alt: "New Arrivals",          span: "" },
-            ].map((img, i) => (
-              <ScrollReveal key={i} delay={i * 100} variant="scale">
-                <div
-                  className={`hog-gallery-item group relative overflow-hidden rounded-xl ${img.span}`}
-                  style={{ minHeight: img.span ? "400px" : "200px" }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C0800]/80 via-transparent to-transparent" />
-                  <div className="hog-gallery-overlay absolute inset-0 flex items-end justify-start p-4 opacity-0 transition-opacity duration-300">
-                    <span className="font-display text-sm font-semibold text-white">
-                      {img.alt}
-                    </span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* Second row */}
-          <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-            {[
-              { src: "/house-of-garments/hog-2.jpg",               alt: "Premium Collection" },
-              { src: "/house-of-garments/hog-unic-live-selling.jpg", alt: "Live Selling" },
-              { src: "/house-of-garments/hog-7.jpg",               alt: "Household Finds" },
-              { src: "/house-of-garments/hog-8.jpg",               alt: "Daily Essentials" },
-            ].map((img, i) => (
-              <ScrollReveal key={i} delay={i * 80} variant="scale">
-                <div
-                  className="hog-gallery-item group relative overflow-hidden rounded-xl"
-                  style={{ minHeight: "180px" }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C0800]/80 via-transparent to-transparent" />
-                  <div className="hog-gallery-overlay absolute inset-0 flex items-end justify-start p-4 opacity-0 transition-opacity duration-300">
-                    <span className="font-display text-sm font-semibold text-white">
-                      {img.alt}
-                    </span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal delay={80}>
+            <HouseOfGarmentsShowcase images={showcaseImages} />
+          </ScrollReveal>
         </div>
       </section>
 

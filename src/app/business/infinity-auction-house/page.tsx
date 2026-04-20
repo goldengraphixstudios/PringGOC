@@ -6,6 +6,7 @@ import CountUp from "@/components/CountUp";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import InfinityGalleryCarousel from "@/components/InfinityGalleryCarousel";
 import {
   ArrowLeft,
   Facebook,
@@ -139,12 +140,46 @@ const reasons = [
 ];
 
 const gallery = [
-  { src: "/infinity-auction-house/rfg-warehouse.jpg",    alt: "Auction Warehouse",    span: true },
-  { src: "/infinity-auction-house/rfg-electronics.jpg",  alt: "Electronics" },
-  { src: "/infinity-auction-house/rfg-furniture.jpg",    alt: "Furniture & Home" },
-  { src: "/infinity-auction-house/rfg-items-elec-1.jpg", alt: "Gadgets & Devices" },
-  { src: "/infinity-auction-house/rfg-items-toys.jpg",   alt: "Toys & More" },
-  { src: "/infinity-auction-house/rfg-crowd.jpg",        alt: "Live Auction Event",   span: true },
+  {
+    src: "/infinity-auction-house/red-marble-casserole.jpg",
+    title: "Red Marble Casserole",
+    subtitle: "A bold cookware highlight for premium home and kitchen buyers.",
+  },
+  {
+    src: "/infinity-auction-house/granite-stockpot.jpg",
+    title: "Granite Stockpot",
+    subtitle: "Deep-capacity cookware for practical everyday kitchen bundles.",
+  },
+  {
+    src: "/infinity-auction-house/ceramic-casserole.jpg",
+    title: "Ceramic Casserole",
+    subtitle: "Clean, modern casserole styling for curated home finds.",
+  },
+  {
+    src: "/infinity-auction-house/mint-utensil-set.jpg",
+    title: "Mint Utensil Set",
+    subtitle: "A fresh, giftable kitchen set with natural-wood handles.",
+  },
+  {
+    src: "/infinity-auction-house/retro-kettle.jpg",
+    title: "Retro Kettle",
+    subtitle: "Statement countertop cookware with a refined classic finish.",
+  },
+  {
+    src: "/infinity-auction-house/smokey-water-pitcher-set.jpg",
+    title: "Smokey Water Pitcher Set",
+    subtitle: "Glass pitcher bundles suited for stylish household resale picks.",
+  },
+  {
+    src: "/infinity-auction-house/purple-water-pitcher-set.jpg",
+    title: "Purple Water Pitcher Set",
+    subtitle: "Decor-forward drinkware for buyers who want standout table pieces.",
+  },
+  {
+    src: "/infinity-auction-house/gold-dining-spoon-set.jpg",
+    title: "Gold Dining Spoon Set",
+    subtitle: "A polished dining detail for elegant home and gifting selections.",
+  },
 ];
 
 export default function InfinityAuctionHousePage() {
@@ -451,41 +486,17 @@ export default function InfinityAuctionHousePage() {
               animationFillMode: "forwards",
             }}
           >
-            {/* Main product image */}
-            <div className="float-slow relative overflow-hidden rounded-3xl shadow-2xl shadow-[#1E3A8A]/10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={bp("/infinity-auction-house/rfg-import.jpg")}
-                alt="Infinity Auction House Products"
-                className="h-[500px] w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A8A]/20 to-transparent" />
-
-              {/* Floating badge */}
-              <div className="absolute right-4 bottom-4 rounded-2xl border border-white/20 bg-white/90 px-4 py-3 shadow-lg backdrop-blur-md">
-                <p className="text-[10px] font-bold tracking-wider text-[#DC2626] uppercase">
-                  New Arrivals Daily
-                </p>
-                <p className="text-lg font-bold text-[#0F172A]">
-                  1,000+ Items
-                </p>
-              </div>
-            </div>
-
-            {/* Floating secondary card */}
-            <div className="float-reverse absolute -bottom-6 -left-8 rounded-2xl border border-[#1E3A8A]/10 bg-white p-4 shadow-xl">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#DC2626]/10">
-                  <ShieldCheck className="h-5 w-5 text-[#DC2626]" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-[#0F172A]">
-                    Verified Seller
-                  </p>
-                  <p className="text-xs text-[#64748B]">
-                    100% Authentic Items
-                  </p>
-                </div>
+            <div className="float-slow relative mx-auto w-full max-w-[400px] overflow-hidden rounded-[36px] border border-white/70 bg-white p-3 shadow-2xl shadow-[#1E3A8A]/10 xl:max-w-[440px]">
+              <div className="relative aspect-[9/16] overflow-hidden rounded-[24px] bg-[#020617]">
+                <iframe
+                  src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1301664835221273%2F&show_text=false&width=267&t=0"
+                  title="Infinity Auction House featured reel"
+                  className="absolute inset-0 h-full w-full"
+                  style={{ border: "none", overflow: "hidden" }}
+                  scrolling="no"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                />
               </div>
             </div>
 
@@ -687,33 +698,9 @@ export default function InfinityAuctionHousePage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((img, i) => (
-              <ScrollReveal
-                key={img.alt}
-                variant="scale"
-                delay={i * 100}
-                className={img.span ? "sm:col-span-2 lg:col-span-2" : ""}
-              >
-                <div
-                  className={`group relative overflow-hidden rounded-2xl ${
-                    img.span ? "h-[320px]" : "h-[260px]"
-                  }`}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={bp(img.src)}
-                    alt={img.alt}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="absolute bottom-0 left-0 translate-y-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    <p className="text-sm font-bold text-white">{img.alt}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal variant="fadeUp" delay={100}>
+            <InfinityGalleryCarousel images={gallery} />
+          </ScrollReveal>
         </div>
       </section>
 

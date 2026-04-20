@@ -57,9 +57,9 @@ export default function RFGAuctionHousePage() {
 
   const categories = [
     { name: "Furniture", img: "/rfg-auction-house/items-bed-1.jpg", tag: "Top Seller" },
-    { name: "Electronics", img: "/rfg-auction-house/items-electronics-65580.jpg", tag: "Hot Lots" },
-    { name: "Premium Goods", img: "/rfg-auction-house/items-kitchen-1.jpg", tag: "Imported" },
-    { name: "Wholesale", img: "/rfg-auction-house/items-toys-1.jpg", tag: "Bulk Deals" },
+    { name: "Tea Sets", img: "/rfg-auction-house/items-electronics-65580.jpg", tag: "Hot Lots" },
+    { name: "Kitchenware", img: "/rfg-auction-house/items-kitchen-1.jpg", tag: "Imported" },
+    { name: "Plush Toys", img: "/rfg-auction-house/items-toys-1.jpg", tag: "Bulk Deals" },
   ];
 
   const steps = [
@@ -71,9 +71,9 @@ export default function RFGAuctionHousePage() {
   const galleryImages = [
     { src: "/rfg-auction-house/items-bed-1.jpg", alt: "Auction scene" },
     { src: "/rfg-auction-house/items-bed-2.jpg", alt: "Quality furniture" },
-    { src: "/rfg-auction-house/items-electronics-65580.jpg", alt: "Electronics" },
-    { src: "/rfg-auction-house/items-kitchen-1.jpg", alt: "Auction crowd" },
-    { src: "/rfg-auction-house/items-toys-1.jpg", alt: "Premium goods" },
+    { src: "/rfg-auction-house/items-electronics-65580.jpg", alt: "Tea sets" },
+    { src: "/rfg-auction-house/items-kitchen-1.jpg", alt: "Imported kitchenware" },
+    { src: "/rfg-auction-house/items-toys-1.jpg", alt: "Plush toys" },
     { src: "/rfg-auction-house/items-toys-2.jpg", alt: "Great deals" },
     { src: "/rfg-auction-house/items-bed-1.jpg", alt: "Global imports" },
     { src: "/rfg-auction-house/items-bed-2.jpg", alt: "Warehouse" },
@@ -1040,7 +1040,7 @@ export default function RFGAuctionHousePage() {
           </h2>
           <p className="rfg-section-sub">
             Quality-checked surplus across every category. From elegant furniture
-            to cutting-edge electronics.
+            to tea sets, kitchenware, and toy finds.
           </p>
         </ScrollReveal>
         <div className="rfg-categories-row">

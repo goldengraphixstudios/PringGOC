@@ -40,6 +40,8 @@ export interface BusinessPopupConfig {
 
   /** secondary / skip */
   secondaryCTA?: string;
+  secondaryHref?: string;
+  secondaryExternal?: boolean;
   secondaryColor?: string;
 
   /** badge pill */
@@ -306,14 +308,38 @@ export default function BusinessPopup({ config }: Props) {
             </a>
           )}
 
-          {/* Skip */}
-          <button
-            onClick={dismiss}
-            className="mt-3.5 w-full cursor-pointer text-center text-[11.5px] underline underline-offset-2 transition-opacity hover:opacity-80"
-            style={{ color: config.secondaryColor ?? config.bodyColor }}
-          >
-            {config.secondaryCTA ?? "Skip for now"}
-          </button>
+          {/* Secondary CTA / Skip */}
+          {config.secondaryHref ? (
+            config.secondaryExternal ? (
+              <a
+                href={config.secondaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={dismiss}
+                className="mt-3.5 block w-full cursor-pointer text-center text-[11.5px] underline underline-offset-2 transition-opacity hover:opacity-80"
+                style={{ color: config.secondaryColor ?? config.bodyColor }}
+              >
+                {config.secondaryCTA ?? "Skip for now"}
+              </a>
+            ) : (
+              <a
+                href={config.secondaryHref}
+                onClick={dismiss}
+                className="mt-3.5 block w-full cursor-pointer text-center text-[11.5px] underline underline-offset-2 transition-opacity hover:opacity-80"
+                style={{ color: config.secondaryColor ?? config.bodyColor }}
+              >
+                {config.secondaryCTA ?? "Skip for now"}
+              </a>
+            )
+          ) : (
+            <button
+              onClick={dismiss}
+              className="mt-3.5 w-full cursor-pointer text-center text-[11.5px] underline underline-offset-2 transition-opacity hover:opacity-80"
+              style={{ color: config.secondaryColor ?? config.bodyColor }}
+            >
+              {config.secondaryCTA ?? "Skip for now"}
+            </button>
+          )}
         </div>
 
         {/* Optional bottom accent line */}

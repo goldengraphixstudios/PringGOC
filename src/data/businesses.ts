@@ -473,6 +473,11 @@ export const businesses: Business[] = [
       "/airpnd/golden-city-1.jpg",
       "/airpnd/golden-city-2.jpg",
       "/airpnd/golden-city-3.jpg",
+      "/airpnd/golden-city-4.jpg",
+      "/airpnd/mamatid-1.jpg",
+      "/airpnd/mamatid-2.jpg",
+      "/airpnd/mamatid-3.jpg",
+      "/airpnd/mamatid-4.jpg",
     ],
   },
 
