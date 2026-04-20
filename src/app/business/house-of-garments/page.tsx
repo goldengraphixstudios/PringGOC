@@ -48,28 +48,28 @@ export default function HouseOfGarmentsPage() {
       icon: Globe,
       title: "European Clothing",
       desc: "Premium imported garments straight from Europe — timeless cuts, superior fabrics, and authentic labels at unbeatable prices.",
-      img: "/house-of-garments/european.jpg",
+      img: "/house-of-garments/hog-3.jpg",
       badge: "Imported",
     },
     {
       icon: ShoppingBag,
       title: "Retail Sales",
       desc: "Browse and pick your favorite pieces one by one. Every visit is a new treasure hunt of European fashion finds.",
-      img: "/house-of-garments/retail.jpg",
+      img: "/house-of-garments/hog-4.jpg",
       badge: "Walk-In",
     },
     {
       icon: Package,
       title: "Bundle Deals",
       desc: "Get more for less with our curated bundles. Perfect for resellers or anyone who loves a good wardrobe refresh.",
-      img: "/house-of-garments/bundle.jpg",
+      img: "/house-of-garments/hog-5.jpg",
       badge: "Best Value",
     },
     {
       icon: Palette,
       title: "Fashion Accessories",
       desc: "Complete your look with imported accessories — bags, belts, scarves, and more to elevate any outfit.",
-      img: "/house-of-garments/fashion.jpg",
+      img: "/house-of-garments/hog-6.jpg",
       badge: "Trending",
     },
   ];
@@ -374,7 +374,7 @@ export default function HouseOfGarmentsPage() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/house-of-garments/hero.jpg"
+            src="/house-of-garments/hog-2.jpg"
             alt="House of Garments Collection"
             fill
             className="object-cover"
@@ -746,11 +746,11 @@ export default function HouseOfGarmentsPage() {
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
             {[
-              { src: "/house-of-garments/hero.jpg", alt: "Premium Collection", span: "md:col-span-2 md:row-span-2" },
-              { src: "/house-of-garments/european.jpg", alt: "European Imports", span: "" },
-              { src: "/house-of-garments/collection.jpg", alt: "Latest Arrivals", span: "" },
-              { src: "/house-of-garments/fashion.jpg", alt: "Fashion Accessories", span: "" },
-              { src: "/house-of-garments/bundle.jpg", alt: "Bundle Deals", span: "" },
+              { src: "/house-of-garments/hog-2.jpg",  alt: "Premium Collection",    span: "md:col-span-2 md:row-span-2" },
+              { src: "/house-of-garments/hog-7.jpg",  alt: "European Imports",      span: "" },
+              { src: "/house-of-garments/hog-8.jpg",  alt: "Latest Arrivals",       span: "" },
+              { src: "/house-of-garments/hog-9.jpg",  alt: "Fashion Accessories",   span: "" },
+              { src: "/house-of-garments/hog-10.jpg", alt: "Bundle Deals",          span: "" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
@@ -829,7 +829,7 @@ export default function HouseOfGarmentsPage() {
                 {/* Image side */}
                 <div className="relative min-h-[280px] md:min-h-[380px]">
                   <Image
-                    src="/house-of-garments/retail.jpg"
+                    src="/house-of-garments/hog-4.jpg"
                     alt="House of Garments Store"
                     fill
                     className="object-cover"
