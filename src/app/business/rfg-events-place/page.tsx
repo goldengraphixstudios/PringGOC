@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import GallerySlider from "@/components/GallerySlider";
 import {
   ArrowLeft,
   Facebook,
@@ -45,13 +46,13 @@ export default function RFGEventsPlacePage() {
       icon: Heart,
       title: "Weddings",
       desc: "Celebrate your love story in an elegant, fully air-conditioned venue with gold-accented decor and up to 250 guests.",
-      img: "/rfg-events-place/event-xmas-473571.jpg",
+      img: "/rfg-events-place/wedding.jpg",
     },
     {
       icon: Utensils,
       title: "Corporate Events",
       desc: "Seminars, product launches, and company dinners — professional setup with full AV support.",
-      img: "/rfg-events-place/venue-3.jpg",
+      img: "/rfg-events-place/venue-10.jpg",
     },
     {
       icon: PartyPopper,
@@ -132,6 +133,7 @@ export default function RFGEventsPlacePage() {
         ctaColor: "#C9A84C",
         ctaBorder: "1.5px solid #C9A84C",
         secondaryCTA: "See Venue Photos",
+        secondaryHref: "#gallery",
         secondaryColor: "rgba(201,168,76,0.5)",
         badge: "150–250 Pax",
         badgeBg: "rgba(201,168,76,0.2)",
@@ -675,9 +677,9 @@ export default function RFGEventsPlacePage() {
         </div>
       </section>
 
-      {/* ═══ GALLERY MOSAIC ═══ */}
-      <section className="relative py-24 md:py-28">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
+      {/* ═══ GALLERY SLIDER ═══ */}
+      <section id="gallery" className="relative py-24 md:py-28">
+        <div className="mx-auto max-w-5xl px-6 md:px-12">
           <ScrollReveal>
             <div className="mb-14 text-center">
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/15 bg-[#C9A84C]/[0.05] px-4 py-1.5">
@@ -690,38 +692,29 @@ export default function RFGEventsPlacePage() {
                 Moments That{" "}
                 <span className="ev-shimmer-text">Shine</span>
               </h2>
+              <p className="mx-auto max-w-lg text-sm text-white/35">
+                Browse through our venue highlights — use the arrows or thumbnails to explore.
+              </p>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-            {[
-              { src: "/rfg-events-place/venue-1.jpg", alt: "Grand Ballroom", span: "md:col-span-2 md:row-span-2" },
-              { src: "/rfg-events-place/event-xmas-473571.jpg", alt: "Wedding Setup", span: "" },
-              { src: "/rfg-events-place/venue-3.jpg", alt: "Corporate Event", span: "" },
-              { src: "/rfg-events-place/event-christening-473360.jpg", alt: "Dining Setup", span: "" },
-              { src: "/rfg-events-place/event-birthday-500909.jpg", alt: "Celebration", span: "" },
-            ].map((img, i) => (
-              <ScrollReveal key={i} delay={i * 100} variant="scale">
-                <div
-                  className={`ev-gallery-item group relative overflow-hidden rounded-xl ${img.span}`}
-                  style={{ minHeight: img.span ? "380px" : "200px" }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-transparent to-transparent" />
-                  <div className="ev-gallery-overlay absolute inset-0 flex items-end justify-start p-4 opacity-0 transition-opacity duration-300">
-                    <span className="font-display text-sm font-semibold text-white">
-                      {img.alt}
-                    </span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal variant="fadeUp" delay={100}>
+            <GallerySlider
+              accentColor="#C9A84C"
+              slides={[
+                { src: "/rfg-events-place/venue-1.jpg",               alt: "Grand Ballroom" },
+                { src: "/rfg-events-place/wedding.jpg",                alt: "Wedding Reception" },
+                { src: "/rfg-events-place/event-xmas-473571.jpg",      alt: "Christmas Party Setup" },
+                { src: "/rfg-events-place/venue-10.jpg",               alt: "Corporate Event" },
+                { src: "/rfg-events-place/dining.jpg",                 alt: "Dining Setup" },
+                { src: "/rfg-events-place/event-birthday-500909.jpg",  alt: "Birthday Celebration" },
+                { src: "/rfg-events-place/event-christening-473360.jpg", alt: "Christening Event" },
+                { src: "/rfg-events-place/venue-2.jpg",                alt: "Venue Interior" },
+                { src: "/rfg-events-place/venue-3.jpg",                alt: "Venue Entrance" },
+                { src: "/rfg-events-place/venue-4.jpg",                alt: "Venue Setup" },
+              ]}
+            />
+          </ScrollReveal>
         </div>
       </section>
 
