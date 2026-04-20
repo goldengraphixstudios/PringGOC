@@ -764,6 +764,8 @@ export default function LussoPage() {
           <ScrollReveal variant="fadeUp" delay={150}>
             <GallerySlider
               accentColor="#D4AF37"
+              objectFit="contain"
+              slideBg="#0a0a0a"
               slides={[
                 { src: "/lusso/gallery-earrings.jpg",   alt: "Earrings",               caption: "LUSSO Collection" },
                 { src: "/lusso/gallery-earrings-2.jpg", alt: "Drop Earrings",           caption: "LUSSO Collection" },

@@ -13,11 +13,15 @@ interface GallerySlide {
 interface GallerySliderProps {
   slides: GallerySlide[];
   accentColor?: string;
+  objectFit?: "cover" | "contain";
+  slideBg?: string;
 }
 
 export default function GallerySlider({
   slides,
   accentColor = "#C9A84C",
+  objectFit = "cover",
+  slideBg = "#000",
 }: GallerySliderProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -98,7 +102,7 @@ export default function GallerySlider({
 
       <div className="relative w-full select-none">
         {/* ── Main slide area ── */}
-        <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "16/9" }}>
+        <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "16/9", background: slideBg }}>
           {/* Exiting slide */}
           {animating && (
             <div className={`absolute inset-0 ${exitClass}`}>
@@ -106,7 +110,8 @@ export default function GallerySlider({
               <img
                 src={bp(slides[current].src)}
                 alt={slides[current].alt}
-                className="h-full w-full object-cover"
+                className="h-full w-full"
+                style={{ objectFit }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             </div>
@@ -124,7 +129,8 @@ export default function GallerySlider({
                   : (current - 1 + slides.length) % slides.length
                 ) : current].src)}
               alt={slides[current].alt}
-              className="h-full w-full object-cover"
+              className="h-full w-full"
+              style={{ objectFit }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
