@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
+import GallerySlider from "@/components/GallerySlider";
 import {
   ArrowLeft,
   Facebook,
@@ -39,21 +40,21 @@ const pillars = [
   {
     title: "The Books",
     desc: "Thousands of titles across every genre — fiction, romance, self-help, children's, textbooks — all priced by the kilo at ₱99/kg.",
-    image: "/nb-lounge-gma/bookshelf.jpg",
+    image: "/nb-lounge-gma/gma-place-9.jpg",
     icon: BookOpen,
     tags: ["Fiction", "Romance", "Sci-Fi", "Self-Help", "Children's"],
   },
   {
     title: "The Cafe",
     desc: "Handcrafted espresso, lattes, cold brews, frappes, and specialty drinks. Paired perfectly with your next great read.",
-    image: "/nb-lounge-gma/coffee-art.jpg",
+    image: "/nb-lounge-gma/drinks-2.jpg",
     icon: Coffee,
     tags: ["Espresso", "Latte Art", "Cold Brew", "Frappe", "Matcha"],
   },
   {
     title: "The Space",
     desc: "Plush seating, ambient lighting, free Wi-Fi, and cozy nooks. Designed for readers, students, and remote workers alike.",
-    image: "/nb-lounge-gma/cozy.jpg",
+    image: "/nb-lounge-gma/gma-place-1.jpg",
     icon: Armchair,
     tags: ["Cozy Seats", "Wi-Fi", "Study Area", "Reading Nooks", "AC"],
   },
@@ -63,19 +64,19 @@ const zigzag = [
   {
     title: "Books By The Kilo",
     desc: "Browse our shelves and pick as many books as you like. They're weighed and priced at just ₱99 per kilo — making reading affordable for everyone.",
-    image: "/nb-lounge-gma/books-coffee.jpg",
+    image: "/nb-lounge-gma/gma-place-10.jpg",
     icon: Weight,
   },
   {
     title: "A Space To Stay",
     desc: "NB Lounge isn't just a store — it's a destination. Stay for hours with your coffee and books. We're open 10 AM to 10 PM every day.",
-    image: "/nb-lounge-gma/studying.jpg",
+    image: "/nb-lounge-gma/gma-place-4.jpg",
     icon: Lamp,
   },
   {
     title: "Community Hub",
     desc: "From students cramming for exams to friends catching up over coffee and books — NB Lounge GMA is where Cavite's readers gather.",
-    image: "/nb-lounge-gma/reading-cafe.jpg",
+    image: "/nb-lounge-gma/gma-place-5.jpg",
     icon: Users,
   },
 ];
@@ -90,14 +91,41 @@ const reasons = [
 ];
 
 const filmstrip = [
-  { src: "/nb-lounge-gma/hero.jpg", alt: "NB Lounge GMA interior" },
-  { src: "/nb-lounge-gma/bookshelf.jpg", alt: "Book shelves" },
-  { src: "/nb-lounge-gma/coffee-art.jpg", alt: "Latte art" },
-  { src: "/nb-lounge-gma/cozy.jpg", alt: "Cozy seating" },
-  { src: "/nb-lounge-gma/studying.jpg", alt: "Study space" },
-  { src: "/nb-lounge-gma/interior2.jpg", alt: "Cafe atmosphere" },
-  { src: "/nb-lounge-gma/books-coffee.jpg", alt: "Books and coffee" },
-  { src: "/nb-lounge-gma/reading-cafe.jpg", alt: "Reading at NB Lounge" },
+  { src: "/nb-lounge-gma/gma-place-6.jpg",  alt: "NB Lounge GMA interior" },
+  { src: "/nb-lounge-gma/gma-place-7.jpg",  alt: "Books & shelves" },
+  { src: "/nb-lounge-gma/gma-place-8.jpg",  alt: "Cozy seating area" },
+  { src: "/nb-lounge-gma/gma-place-9.jpg",  alt: "Book collection" },
+  { src: "/nb-lounge-gma/gma-place-1.jpg",  alt: "The space" },
+  { src: "/nb-lounge-gma/drinks-3.jpg",     alt: "Specialty drinks" },
+  { src: "/nb-lounge-gma/drinks-4.jpg",     alt: "Cafe beverages" },
+  { src: "/nb-lounge-gma/food-1.jpg",       alt: "Menu items" },
+  { src: "/nb-lounge-gma/food-4.jpg",       alt: "NB Lounge food" },
+  { src: "/nb-lounge-gma/gma-place-3.jpg",  alt: "Reading nook" },
+];
+
+const gallerySlides = [
+  { src: "/nb-lounge-gma/gma-place-6.jpg",  alt: "The Space",           caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-7.jpg",  alt: "Books Collection",    caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-8.jpg",  alt: "Reading Area",        caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-9.jpg",  alt: "Book Shelves",        caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-10.jpg", alt: "Books Per Kilo",      caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-1.jpg",  alt: "Lounge Interior",     caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-2.jpg",  alt: "Cafe Ambiance",       caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-3.jpg",  alt: "Cozy Corner",         caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-4.jpg",  alt: "Study Spot",          caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/gma-place-5.jpg",  alt: "Community Space",     caption: "NB Lounge GMA" },
+  { src: "/nb-lounge-gma/drinks-1.jpg",     alt: "Specialty Drinks",    caption: "The Cafe" },
+  { src: "/nb-lounge-gma/drinks-2.jpg",     alt: "Crafted Beverages",   caption: "The Cafe" },
+  { src: "/nb-lounge-gma/drinks-3.jpg",     alt: "Coffee Art",          caption: "The Cafe" },
+  { src: "/nb-lounge-gma/drinks-4.jpg",     alt: "Cold Brews",          caption: "The Cafe" },
+  { src: "/nb-lounge-gma/drinks-5.jpg",     alt: "Cafe Drinks",         caption: "The Cafe" },
+  { src: "/nb-lounge-gma/drinks-6.jpg",     alt: "Beverages",           caption: "The Cafe" },
+  { src: "/nb-lounge-gma/food-1.jpg",       alt: "Food Menu",           caption: "The Menu" },
+  { src: "/nb-lounge-gma/food-2.jpg",       alt: "Plated Dishes",       caption: "The Menu" },
+  { src: "/nb-lounge-gma/food-3.jpg",       alt: "NB Lounge Meals",     caption: "The Menu" },
+  { src: "/nb-lounge-gma/food-5.jpg",       alt: "Delicious Bites",     caption: "The Menu" },
+  { src: "/nb-lounge-gma/food-7.jpg",       alt: "Cafe Food",           caption: "The Menu" },
+  { src: "/nb-lounge-gma/food-9.jpg",       alt: "Snacks & More",       caption: "The Menu" },
 ];
 
 export default function NBLoungeGMAPage() {
@@ -298,7 +326,7 @@ export default function NBLoungeGMAPage() {
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#1A1E18] px-6 pt-20 pb-12">
         {/* Bg image faded */}
         <div className="pointer-events-none absolute inset-0 z-0">
-          <Image src="/nb-lounge-gma/hero.jpg" alt="NB Lounge GMA" fill priority
+          <Image src="/nb-lounge-gma/gma-place-6.jpg" alt="NB Lounge GMA" fill priority
             className="object-cover opacity-[0.12]" sizes="100vw" />
         </div>
         {/* Ambient orbs */}
@@ -354,7 +382,7 @@ export default function NBLoungeGMAPage() {
           <div className="relative mx-auto mb-10 max-w-2xl overflow-hidden rounded-2xl shadow-2xl"
             style={{ animation: "fadeInUp 0.9s ease both 1.15s" }}>
             <div className="aspect-[16/9] relative">
-              <Image src="/nb-lounge-gma/hero.jpg" alt="NB Lounge GMA Cavite interior" fill
+              <Image src="/nb-lounge-gma/gma-place-6.jpg" alt="NB Lounge GMA Cavite interior" fill
                 className="object-cover" sizes="(max-width: 768px) 100vw, 672px" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1E18]/40 to-transparent" />
             </div>
@@ -466,7 +494,7 @@ export default function NBLoungeGMAPage() {
           ATMOSPHERIC QUOTE — Full bleed
       ═══════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-[50vh] items-center justify-center overflow-hidden">
-        <Image src="/nb-lounge-gma/interior2.jpg" alt="Cafe atmosphere" fill className="object-cover" sizes="100vw" />
+        <Image src="/nb-lounge-gma/gma-place-7.jpg" alt="Cafe atmosphere" fill className="object-cover" sizes="100vw" />
         <div className="absolute inset-0 bg-[#1A1E18]/60" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#5B7553]/10 to-transparent"
           style={{ animation: "breathe 9s ease-in-out infinite" }} />
@@ -541,6 +569,31 @@ export default function NBLoungeGMAPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          INTERACTIVE GALLERY — Left / Right Slider
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="px-6 py-20 md:py-28 bg-[#F4F4EC]">
+        <div className="mx-auto max-w-4xl">
+          <ScrollReveal>
+            <div className="mb-12 text-center">
+              <p className="mb-3 font-[family-name:var(--font-cursive)] text-lg text-[#5B7553] italic">Browse the vibe</p>
+              <h2 className="font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight text-[#1A1E18] uppercase sm:text-5xl">
+                Photo Gallery
+              </h2>
+              <p className="mt-3 text-sm text-[#6B706A] max-w-md mx-auto">
+                The space, the drinks, the food — see it all in one place. Use the arrows or thumbnails to explore.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <GallerySlider
+              accentColor="#5B7553"
+              slides={gallerySlides}
+            />
+          </ScrollReveal>
         </div>
       </section>
 

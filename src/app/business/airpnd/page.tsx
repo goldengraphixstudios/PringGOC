@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
-import GalleryCarousel from "@/components/GalleryCarousel";
+import GallerySlider from "@/components/GallerySlider";
 import { businesses } from "@/data/businesses";
 import { GROUP_BUSINESS_LABEL, GROUP_EMAIL } from "@/data/site";
 import {
@@ -44,16 +44,46 @@ const amenities = [
   { icon: Sparkles, label: "Weekly Housekeeping" },
 ];
 
-const gallery = [
-  { src: "/airpnd/macabling-1.jpg", alt: "Modern Living Room" },
-  { src: "/airpnd/macabling-2.jpg", alt: "Elegant Bedroom" },
-  { src: "/airpnd/macabling-3.jpg", alt: "Fully-Equipped Kitchen" },
-  { src: "/airpnd/macabling-4.jpg", alt: "Studio Layout Interior" },
-  { src: "/airpnd/golden-city-1.jpg", alt: "Modern Bathroom" },
-  { src: "/airpnd/golden-city-2.jpg", alt: "Interior Design" },
-  { src: "/airpnd/golden-city-3.jpg", alt: "One-Bedroom Unit" },
-  { src: "/airpnd/golden-city-4.jpg", alt: "Apartment Exterior" },
-];
+const locationGalleries = {
+  goldenCity: [
+    { src: "/airpnd/golden-city-1.jpg",  alt: "Golden City — Living Area" },
+    { src: "/airpnd/golden-city-2.jpg",  alt: "Golden City — Interior" },
+    { src: "/airpnd/golden-city-3.jpg",  alt: "Golden City — Bedroom" },
+    { src: "/airpnd/golden-city-4.jpg",  alt: "Golden City — Unit View" },
+    { src: "/airpnd/golden-city-5.png",  alt: "Golden City — Space" },
+    { src: "/airpnd/golden-city-6.png",  alt: "Golden City — Common Area" },
+    { src: "/airpnd/golden-city-7.png",  alt: "Golden City — Amenities" },
+    { src: "/airpnd/golden-city-8.jpg",  alt: "Golden City — Unit Interior" },
+    { src: "/airpnd/golden-city-9.jpg",  alt: "Golden City — Room Detail" },
+    { src: "/airpnd/golden-city-10.jpg", alt: "Golden City — Full View" },
+    { src: "/airpnd/golden-city-11.jpg", alt: "Golden City — Studio" },
+  ],
+  macabling: [
+    { src: "/airpnd/macabling-1.jpg",  alt: "Macabling — Living Room" },
+    { src: "/airpnd/macabling-2.jpg",  alt: "Macabling — Bedroom" },
+    { src: "/airpnd/macabling-3.jpg",  alt: "Macabling — Kitchen" },
+    { src: "/airpnd/macabling-4.jpg",  alt: "Macabling — Studio Layout" },
+    { src: "/airpnd/macabling-5.jpg",  alt: "Macabling — Unit View" },
+    { src: "/airpnd/macabling-6.jpg",  alt: "Macabling — Space" },
+    { src: "/airpnd/macabling-7.jpg",  alt: "Macabling — Interior" },
+    { src: "/airpnd/macabling-8.jpg",  alt: "Macabling — Room Detail" },
+    { src: "/airpnd/macabling-9.jpg",  alt: "Macabling — Full Unit" },
+    { src: "/airpnd/macabling-10.jpg", alt: "Macabling — Common Area" },
+  ],
+  mamatid: [
+    { src: "/airpnd/mamatid-1.jpg",  alt: "Mamatid — Garden Walkway" },
+    { src: "/airpnd/mamatid-2.jpg",  alt: "Mamatid — Exterior Corridor" },
+    { src: "/airpnd/mamatid-3.jpg",  alt: "Mamatid — Bathroom" },
+    { src: "/airpnd/mamatid-4.jpg",  alt: "Mamatid — Studio Unit" },
+    { src: "/airpnd/mamatid-5.jpg",  alt: "Mamatid — Space" },
+    { src: "/airpnd/mamatid-6.jpg",  alt: "Mamatid — Interior" },
+    { src: "/airpnd/mamatid-7.jpg",  alt: "Mamatid — Room View" },
+    { src: "/airpnd/mamatid-8.jpg",  alt: "Mamatid — Living Area" },
+    { src: "/airpnd/mamatid-9.jpg",  alt: "Mamatid — Detail" },
+    { src: "/airpnd/mamatid-10.jpg", alt: "Mamatid — Unit Layout" },
+    { src: "/airpnd/mamatid-11.jpg", alt: "Mamatid — Full View" },
+  ],
+};
 
 const airpndBusiness = businesses.find((business) => business.slug === "airpnd");
 const locations = airpndBusiness?.branches ?? [];
@@ -84,11 +114,13 @@ export default function AirpndPage() {
         ctaBg: "#487860",
         ctaColor: "#FFFFFF",
         secondaryCTA: "Send an Inquiry",
+        secondaryHref: "https://www.facebook.com/modernapartment2023",
+        secondaryExternal: true,
         secondaryColor: "rgba(75,175,120,0.5)",
         badge: "3 Locations",
         badgeBg: "rgba(75,175,120,0.2)",
         badgeColor: "#4BAF78",
-        locationChips: ["Santa Rosa", "Golden City", "Cabuyao"],
+        locationChips: ["Macabling", "Golden City", "Mamatid"],
         accentLine: "#487860",
         logoSrc: "/logos/airpnd-main.png",
       }} />
@@ -628,21 +660,94 @@ export default function AirpndPage() {
         </div>
       </section>
 
-      {/* ===== GALLERY ===== */}
-      <section className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-6xl">
+      {/* ===== GALLERY BY LOCATION ===== */}
+      <section id="gallery" className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-4xl">
           <ScrollReveal variant="fadeUp">
-            <div className="mb-16 text-center">
+            <div className="mb-20 text-center">
               <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                Gallery
+                Find Your Space
               </span>
               <h2 className="font-[family-name:var(--font-cursive)] text-3xl font-light italic text-white md:text-4xl lg:text-5xl">
-                A Glimpse Inside
+                Browse Our Locations
               </h2>
+              <p className="mt-4 text-sm text-white/30 max-w-md mx-auto leading-relaxed">
+                Tour each AIRPND location through our photo galleries — see the spaces, layouts, and amenities up close.
+              </p>
             </div>
           </ScrollReveal>
 
-          <GalleryCarousel images={gallery} />
+          {/* ── Golden City ── */}
+          <ScrollReveal variant="fadeUp" delay={80}>
+            <div className="mb-20">
+              <div className="mb-6 flex items-center gap-4">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
+                  <MapPin className="h-4 w-4 text-white/40" />
+                </div>
+                <div>
+                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
+                    Golden City
+                  </h3>
+                  <p className="text-xs text-white/30 tracking-wide">Santa Rosa, Laguna</p>
+                </div>
+                <div className="flex-1 h-px bg-white/[0.06]" />
+              </div>
+              <GallerySlider
+                accentColor="#ffffff"
+                objectFit="contain"
+                slideBg="#0a0a0a"
+                slides={locationGalleries.goldenCity}
+              />
+            </div>
+          </ScrollReveal>
+
+          {/* ── Macabling ── */}
+          <ScrollReveal variant="fadeUp" delay={100}>
+            <div className="mb-20">
+              <div className="mb-6 flex items-center gap-4">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
+                  <MapPin className="h-4 w-4 text-white/40" />
+                </div>
+                <div>
+                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
+                    Macabling
+                  </h3>
+                  <p className="text-xs text-white/30 tracking-wide">Santa Rosa, Laguna</p>
+                </div>
+                <div className="flex-1 h-px bg-white/[0.06]" />
+              </div>
+              <GallerySlider
+                accentColor="#ffffff"
+                objectFit="contain"
+                slideBg="#0a0a0a"
+                slides={locationGalleries.macabling}
+              />
+            </div>
+          </ScrollReveal>
+
+          {/* ── Mamatid ── */}
+          <ScrollReveal variant="fadeUp" delay={120}>
+            <div>
+              <div className="mb-6 flex items-center gap-4">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
+                  <MapPin className="h-4 w-4 text-white/40" />
+                </div>
+                <div>
+                  <h3 className="font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
+                    Mamatid
+                  </h3>
+                  <p className="text-xs text-white/30 tracking-wide">Cabuyao, Laguna</p>
+                </div>
+                <div className="flex-1 h-px bg-white/[0.06]" />
+              </div>
+              <GallerySlider
+                accentColor="#ffffff"
+                objectFit="contain"
+                slideBg="#0a0a0a"
+                slides={locationGalleries.mamatid}
+              />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
