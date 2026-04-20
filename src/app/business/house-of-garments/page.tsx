@@ -15,7 +15,6 @@ import {
   Star,
   Heart,
   ShoppingBag,
-  Shirt,
   Package,
   Globe,
   ChevronRight,
@@ -23,7 +22,6 @@ import {
   Tag,
   Truck,
   BadgeCheck,
-  Scissors,
   Layers,
   Quote,
   Flame,
@@ -31,113 +29,119 @@ import {
   Eye,
   Gift,
   CheckCircle2,
-  Palette,
   Award,
+  UtensilsCrossed,
+  CookingPot,
+  Boxes,
+  Banknote,
+  MessageCircle,
+  Phone,
+  Tv2,
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title:
-    "The House of Garments PH — European Quality, Philippine Prices | Cabuyao",
+    "The House of Garments PH — Quality Kitchenware & Household Finds | Cabuyao",
   description:
-    "High-quality European items at affordable prices. Retail and bundle sales. The House of Garments PH, Cabuyao.",
+    "Premium cookware, plates, bowls, and household essentials at affordable prices. Live selling on Facebook. The House of Garments PH, Cabuyao, Laguna.",
 };
 
 export default function HouseOfGarmentsPage() {
   const collections = [
     {
-      icon: Globe,
-      title: "European Clothing",
-      desc: "Premium imported garments straight from Europe — timeless cuts, superior fabrics, and authentic labels at unbeatable prices.",
+      icon: CookingPot,
+      title: "Cookware & Pots",
+      desc: "Durable pots, pans, and woks for everyday cooking — quality construction that distributes heat evenly and lasts for years.",
+      img: "/house-of-garments/hog-unic-cookware.jpg",
+      badge: "Best Seller",
+    },
+    {
+      icon: UtensilsCrossed,
+      title: "Plates & Bowls",
+      desc: "Elegant tableware sets for the whole family. Sturdy everyday pieces to premium dining sets — beautiful and practical.",
       img: "/house-of-garments/hog-3.jpg",
-      badge: "Imported",
+      badge: "New Stock",
     },
     {
       icon: ShoppingBag,
-      title: "Retail Sales",
-      desc: "Browse and pick your favorite pieces one by one. Every visit is a new treasure hunt of European fashion finds.",
-      img: "/house-of-garments/hog-5.jpg",
-      badge: "Walk-In",
+      title: "Kitchen Essentials",
+      desc: "From utensils to storage containers, cutting boards to kitchen gadgets — everything you need to run a complete kitchen.",
+      img: "/house-of-garments/hog-unic-kitchen.jpg",
+      badge: "Must-Have",
     },
     {
-      icon: Package,
+      icon: Boxes,
       title: "Bundle Deals",
-      desc: "Get more for less with our curated bundles. Perfect for resellers or anyone who loves a good wardrobe refresh.",
+      desc: "Get more for less with our curated household bundles. Perfect for new homes, resellers, or anyone stocking up on quality essentials.",
       img: "/house-of-garments/hog-6.jpg",
       badge: "Best Value",
-    },
-    {
-      icon: Palette,
-      title: "Fashion Accessories",
-      desc: "Complete your look with imported accessories — bags, belts, scarves, and more to elevate any outfit.",
-      img: "/house-of-garments/hog-7.jpg",
-      badge: "Trending",
     },
   ];
 
   const whyUs = [
     {
       icon: Globe,
-      title: "Authentic European",
-      desc: "Directly sourced from Europe — genuine labels, premium fabrics, original quality.",
+      title: "Quality Imports",
+      desc: "Directly sourced premium cookware and household items — genuine quality at prices you won't find in department stores.",
     },
     {
       icon: Tag,
       title: "Affordable Prices",
-      desc: "Luxury doesn't have to break the bank. European fashion at Philippine-friendly prices.",
+      desc: "No middleman markup. We bring quality household essentials straight to you at Philippine-friendly prices.",
     },
     {
       icon: Layers,
       title: "Retail & Bundle",
-      desc: "Buy a single piece or grab bundles for reselling — flexible options for every buyer.",
+      desc: "Buy a single piece or grab bundles for your home or reselling — flexible options for every buyer.",
     },
     {
       icon: BadgeCheck,
       title: "Quality Guaranteed",
-      desc: "Every item is hand-picked and inspected. We stand behind the quality of our garments.",
+      desc: "Every item is hand-picked and inspected. We stand behind the quality and durability of our products.",
     },
     {
       icon: TrendingUp,
-      title: "Trendy Selections",
-      desc: "Constantly refreshed inventory with the latest European styles and timeless classics.",
+      title: "Fresh Stock",
+      desc: "Constantly refreshed inventory with new arrivals. Tune in to our morning live sales for the latest finds.",
     },
     {
       icon: Truck,
-      title: "Wholesale Supply",
-      desc: "Bulk orders welcome for resellers across the Philippines. Build your brand with our stock.",
+      title: "Multiple Delivery",
+      desc: "Ship via Shopee Checkout (J&T / SPX), Lalamove, TokTok, or Bus Shipping — we'll get it to you.",
     },
   ];
 
   const steps = [
     {
       num: "01",
-      title: "Follow Our Page",
-      desc: "Stay updated on new arrivals, flash deals, and exclusive drops by following us on Facebook.",
-      icon: Facebook,
+      title: "Watch Our Live Selling",
+      desc: "Tune in to our Morning Live on Facebook — we showcase items one by one at Retail and Bundle prices. Follow our page to get notified.",
+      icon: Tv2,
     },
     {
       num: "02",
-      title: "Browse Collections",
-      desc: "Visit our store in Cabuyao or check our Facebook page for the latest European arrivals.",
-      icon: Eye,
+      title: "Comment MINE + Item Code",
+      desc: "See something you love? Comment \"MINE\" followed by the item code to claim it. First valid comment wins the item.",
+      icon: MessageCircle,
     },
     {
       num: "03",
-      title: "Pick Your Style",
-      desc: "Choose retail pieces or grab a bundle. Every item is European quality at Philippine prices.",
-      icon: Shirt,
+      title: "Provide Your Details",
+      desc: "New miners must send: Full Name, Complete Address, and Contact Number. We'll confirm your order via Facebook Messenger.",
+      icon: Users,
     },
     {
       num: "04",
-      title: "Look & Feel Premium",
-      desc: "Wear authentic European fashion that turns heads without emptying your wallet.",
-      icon: Crown,
+      title: "Pay & We Ship",
+      desc: "Settle via GCash or BDO — no COD. Choose your delivery: Shopee Checkout (J&T/SPX), Lalamove, TokTok, or Bus Shipping.",
+      icon: Banknote,
     },
   ];
 
   const stats = [
-    { value: 500, suffix: "+", label: "European Items", icon: Shirt },
-    { value: 4, suffix: "", label: "Service Categories", icon: ShoppingBag },
-    { value: 100, suffix: "%", label: "Authentic Imports", icon: Globe },
+    { value: 500, suffix: "+", label: "Quality Items", icon: CookingPot },
+    { value: 4, suffix: "", label: "Product Categories", icon: ShoppingBag },
+    { value: 100, suffix: "%", label: "Quality Guaranteed", icon: BadgeCheck },
     { value: 1, suffix: "", label: "Cabuyao Store", icon: MapPin },
   ];
 
@@ -154,7 +158,7 @@ export default function HouseOfGarmentsPage() {
         eyebrowColor: "#F0C048",
         title: "Premium essentials, better value.",
         titleColor: "#F5EBD4",
-        body: "Browse quality cookware and household products sourced directly from China without middleman markup.",
+        body: "Browse quality cookware and household products sourced directly without middleman markup.",
         bodyColor: "rgba(245,235,212,0.48)",
         primaryCTA: "View Product Categories",
         primaryHref: "#products",
@@ -320,11 +324,16 @@ export default function HouseOfGarmentsPage() {
   background: linear-gradient(90deg, transparent, rgba(240,192,72,0.2), transparent);
 }
 
+.hog-live-badge {
+  animation: hogPulse 2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hog-hero-stagger > * { opacity: 1; animation: none; }
   .hog-shimmer { animation: none; }
   .hog-btn-pulse { animation: none; }
   .hog-card { animation: none; }
+  .hog-live-badge { animation: none; }
 }
 `,
         }}
@@ -369,13 +378,13 @@ export default function HouseOfGarmentsPage() {
         </div>
       </nav>
 
-      {/* ═══ HERO — SPLIT DIAGONAL ═══ */}
+      {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen overflow-hidden pt-16">
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/house-of-garments/hog-1.jpg"
-            alt="House of Garments Collection"
+            src="/house-of-garments/hog-unic-cooking.jpg"
+            alt="House of Garments Kitchen Collection"
             fill
             className="object-cover"
             priority
@@ -404,7 +413,7 @@ export default function HouseOfGarmentsPage() {
           }}
         />
 
-        {/* Fabric wave accent */}
+        {/* Wave accent */}
         <div
           className="pointer-events-none absolute top-[30%] left-0 h-px w-full opacity-[0.06]"
           style={{
@@ -418,27 +427,27 @@ export default function HouseOfGarmentsPage() {
           <div className="hog-hero-stagger py-24 md:py-20">
             {/* Badge */}
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F0C048]/20 bg-[#F0C048]/[0.06] px-4 py-1.5">
-              <Crown size={13} className="text-[#F0C048]" />
+              <Flame size={13} className="text-[#F0C048]" />
               <span className="font-body text-[11px] font-bold tracking-[0.15em] text-[#F0C048] uppercase">
-                European Quality, Philippine Prices
+                Quality Finds, Everyday Prices
               </span>
             </div>
 
             {/* Headline */}
             <h1 className="font-display mb-5 text-5xl leading-[1.08] font-bold tracking-tight text-white md:text-7xl">
-              Dress in
+              Premium
               <br />
-              <span className="hog-shimmer">European</span>
+              <span className="hog-shimmer">Kitchen &amp;</span>
               <br />
-              Elegance{" "}
+              Home Finds{" "}
               <span className="italic text-[#F0C048]">for Less</span>
             </h1>
 
             {/* Subheadline */}
             <p className="font-body mb-8 max-w-lg text-lg leading-relaxed text-white/50">
-              Premium imported garments from Europe — authentic labels,
-              superior fabrics, at prices you won&apos;t believe. Retail and
-              bundle options available.
+              Cookware, plates, bowls, and household essentials — quality
+              imports at prices you won&apos;t believe. Retail and bundle
+              options via live selling on Facebook.
             </p>
 
             {/* CTAs */}
@@ -450,13 +459,13 @@ export default function HouseOfGarmentsPage() {
                 className="hog-btn hog-btn-pulse font-body inline-flex cursor-pointer items-center gap-2.5 rounded-xl bg-[#F0C048] px-7 py-3.5 text-base font-bold text-[#0C0800]"
               >
                 <Facebook size={18} />
-                Shop on Facebook
+                Watch Live Selling
               </a>
               <a
-                href="#collections"
+                href="#products"
                 className="hog-btn font-body inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3.5 text-base font-medium text-white/65 backdrop-blur-sm"
               >
-                View Collections
+                View Products
                 <ChevronRight size={16} />
               </a>
             </div>
@@ -464,27 +473,27 @@ export default function HouseOfGarmentsPage() {
             {/* Trust markers */}
             <div className="mt-10 flex flex-wrap items-center gap-6">
               <div className="flex items-center gap-2">
-                <Globe size={14} className="text-[#F0C048]/60" />
+                <CookingPot size={14} className="text-[#F0C048]/60" />
                 <span className="font-body text-xs text-white/40">
-                  European Imports
+                  Cookware &amp; Tableware
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <BadgeCheck size={14} className="text-[#F0C048]/60" />
                 <span className="font-body text-xs text-white/40">
-                  Authenticity Guaranteed
+                  Quality Guaranteed
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Tag size={14} className="text-[#F0C048]/60" />
                 <span className="font-body text-xs text-white/40">
-                  Retail & Bundle
+                  Retail &amp; Bundle
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Right: Floating Logo with decorative frame */}
+          {/* Right: Floating Logo */}
           <div className="hidden md:flex md:items-center md:justify-center">
             <div className="relative">
               {/* Ambient glow */}
@@ -501,12 +510,12 @@ export default function HouseOfGarmentsPage() {
                 className="absolute -inset-12 rounded-[2rem] border border-[#F0C048]/6"
                 style={{ animation: "hogBorderGlow 4s ease-in-out infinite 1.2s" }}
               />
-              {/* Tag decoration */}
+              {/* Kitchen icon decoration */}
               <div
                 className="absolute -top-5 -left-5 flex h-12 w-12 items-center justify-center rounded-xl border border-[#F0C048]/15 bg-[#0C0800]/80 backdrop-blur-sm"
                 style={{ animation: "hogTagSwing 4s ease-in-out infinite" }}
               >
-                <Shirt size={18} className="text-[#F0C048]" />
+                <CookingPot size={18} className="text-[#F0C048]" />
               </div>
               {/* Logo */}
               <Image
@@ -560,8 +569,63 @@ export default function HouseOfGarmentsPage() {
         </div>
       </section>
 
-      {/* ═══ COLLECTIONS ═══ */}
-      <section id="collections" className="relative py-24 md:py-32">
+      {/* ═══ LIVE SELLING BANNER ═══ */}
+      <section className="relative overflow-hidden py-14 md:py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F0C048]/[0.04] via-transparent to-[#D4A030]/[0.02]" />
+        <div className="mx-auto max-w-5xl px-6 md:px-12">
+          <ScrollReveal>
+            <div className="rounded-3xl border border-[#F0C048]/15 bg-[#110E04] px-8 py-10 md:px-14">
+              <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
+                {/* Left */}
+                <div className="flex-1">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="hog-live-badge inline-flex items-center gap-1.5 rounded-full bg-red-600/90 px-3 py-1 text-[11px] font-bold tracking-wider text-white uppercase">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                      Live Selling
+                    </span>
+                    <span className="font-body text-xs text-white/35">Morning Live on Facebook</span>
+                  </div>
+                  <h2 className="font-display mb-3 text-2xl font-bold text-white md:text-3xl">
+                    How to Claim During{" "}
+                    <span className="hog-shimmer">Live Selling</span>
+                  </h2>
+                  <p className="font-body mb-0 text-sm leading-relaxed text-white/40">
+                    Comment <span className="font-bold text-[#F0C048]">MINE + ITEM CODE</span> to claim your item during live. First valid comment wins. No joy miners — strict policy enforced.
+                  </p>
+                </div>
+                {/* Right: rules */}
+                <div className="space-y-3 md:min-w-[260px]">
+                  {[
+                    "Comment MINE + Item Code to claim",
+                    "New miners: send Full Name, Address & Contact No.",
+                    "Payment via GCash or BDO only (No COD)",
+                    "Ships via Shopee, Lalamove, TokTok, or Bus",
+                  ].map((rule, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-[#F0C048]/70" />
+                      <span className="font-body text-sm text-white/50">{rule}</span>
+                    </div>
+                  ))}
+                  <div className="pt-2">
+                    <a
+                      href="https://www.facebook.com/houseofgarmentsph"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hog-btn font-body inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#F0C048] px-5 py-2.5 text-sm font-bold text-[#0C0800]"
+                    >
+                      <Facebook size={15} />
+                      Join Live Selling
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══ PRODUCTS ═══ */}
+      <section id="products" className="relative py-24 md:py-32">
         {/* Dot pattern */}
         <div
           className="absolute inset-0 opacity-[0.012]"
@@ -577,16 +641,16 @@ export default function HouseOfGarmentsPage() {
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#F0C048]/12 bg-[#F0C048]/[0.04] px-4 py-1.5">
                 <Gem size={13} className="text-[#F0C048]" />
                 <span className="font-body text-[11px] font-bold tracking-[0.15em] text-[#F0C048] uppercase">
-                  Our Collections
+                  Our Products
                 </span>
               </div>
               <h2 className="font-display mb-4 text-3xl font-bold text-white md:text-5xl">
                 What We{" "}
-                <span className="hog-shimmer">Offer</span>
+                <span className="hog-shimmer">Carry</span>
               </h2>
               <p className="font-body mx-auto max-w-2xl text-base text-white/35">
-                From individual retail pieces to bulk bundles — discover
-                European fashion that fits your style and budget.
+                From everyday cookware to elegant tableware — quality
+                household essentials for every home and budget.
               </p>
             </div>
           </ScrollReveal>
@@ -636,7 +700,7 @@ export default function HouseOfGarmentsPage() {
       {/* ═══ DIVIDER ═══ */}
       <div className="hog-divider mx-auto max-w-4xl" />
 
-      {/* ═══ WHY CHOOSE US — BENTO GRID ═══ */}
+      {/* ═══ WHY CHOOSE US ═══ */}
       <section className="relative py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
@@ -677,7 +741,7 @@ export default function HouseOfGarmentsPage() {
       {/* ═══ DIVIDER ═══ */}
       <div className="hog-divider mx-auto max-w-4xl" />
 
-      {/* ═══ HOW IT WORKS ═══ */}
+      {/* ═══ HOW TO ORDER ═══ */}
       <section className="relative py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
@@ -685,13 +749,16 @@ export default function HouseOfGarmentsPage() {
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#F0C048]/12 bg-[#F0C048]/[0.04] px-4 py-1.5">
                 <Flame size={13} className="text-[#F0C048]" />
                 <span className="font-body text-[11px] font-bold tracking-[0.15em] text-[#F0C048] uppercase">
-                  How It Works
+                  How to Order
                 </span>
               </div>
               <h2 className="font-display mb-4 text-3xl font-bold text-white md:text-5xl">
-                Your Path to{" "}
-                <span className="hog-shimmer">European Style</span>
+                Claim Your{" "}
+                <span className="hog-shimmer">Finds</span>
               </h2>
+              <p className="font-body mx-auto max-w-xl text-base text-white/35">
+                Our live selling format is simple — watch, claim, and we ship right to your door.
+              </p>
             </div>
           </ScrollReveal>
 
@@ -723,6 +790,43 @@ export default function HouseOfGarmentsPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Payment & Delivery Info */}
+          <ScrollReveal delay={200}>
+            <div className="mx-auto mt-10 max-w-3xl grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-[#F0C048]/[0.08] bg-[#110E04]/80 p-6">
+                <div className="mb-3 flex items-center gap-2">
+                  <Banknote size={18} className="text-[#F0C048]" />
+                  <h4 className="font-display text-base font-bold text-white">Payment Methods</h4>
+                </div>
+                <div className="space-y-1.5">
+                  {["GCash", "BDO Bank Transfer"].map((method) => (
+                    <div key={method} className="flex items-center gap-2">
+                      <CheckCircle2 size={13} className="text-[#F0C048]/60" />
+                      <span className="font-body text-sm text-white/50">{method}</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="font-body text-xs text-red-400/70 italic">✕ No COD accepted</span>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-[#F0C048]/[0.08] bg-[#110E04]/80 p-6">
+                <div className="mb-3 flex items-center gap-2">
+                  <Truck size={18} className="text-[#F0C048]" />
+                  <h4 className="font-display text-base font-bold text-white">Delivery Options</h4>
+                </div>
+                <div className="space-y-1.5">
+                  {["Shopee Checkout (J&T / SPX)", "Lalamove", "TokTok", "Bus Shipping"].map((option) => (
+                    <div key={option} className="flex items-center gap-2">
+                      <CheckCircle2 size={13} className="text-[#F0C048]/60" />
+                      <span className="font-body text-sm text-white/50">{option}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -738,7 +842,7 @@ export default function HouseOfGarmentsPage() {
                 </span>
               </div>
               <h2 className="font-display mb-4 text-3xl font-bold text-white md:text-5xl">
-                Style{" "}
+                Product{" "}
                 <span className="hog-shimmer">Showcase</span>
               </h2>
             </div>
@@ -746,16 +850,46 @@ export default function HouseOfGarmentsPage() {
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
             {[
-              { src: "/house-of-garments/hog-2.jpg",  alt: "Premium Collection",    span: "md:col-span-2 md:row-span-2" },
-              { src: "/house-of-garments/hog-4.jpg",  alt: "European Imports",      span: "" },
-              { src: "/house-of-garments/hog-8.jpg",  alt: "Latest Arrivals",       span: "" },
-              { src: "/house-of-garments/hog-9.jpg",  alt: "Fashion Accessories",   span: "" },
-              { src: "/house-of-garments/hog-10.jpg", alt: "Bundle Deals",          span: "" },
+              { src: "/house-of-garments/hog-unic-essentials.jpg", alt: "Kitchen Essentials",   span: "md:col-span-2 md:row-span-2" },
+              { src: "/house-of-garments/hog-4.jpg",               alt: "Quality Finds",         span: "" },
+              { src: "/house-of-garments/hog-unic-kitchen.jpg",    alt: "Kitchen Collection",    span: "" },
+              { src: "/house-of-garments/hog-5.jpg",               alt: "Household Items",       span: "" },
+              { src: "/house-of-garments/hog-9.jpg",               alt: "New Arrivals",          span: "" },
             ].map((img, i) => (
               <ScrollReveal key={i} delay={i * 100} variant="scale">
                 <div
                   className={`hog-gallery-item group relative overflow-hidden rounded-xl ${img.span}`}
                   style={{ minHeight: img.span ? "400px" : "200px" }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C0800]/80 via-transparent to-transparent" />
+                  <div className="hog-gallery-overlay absolute inset-0 flex items-end justify-start p-4 opacity-0 transition-opacity duration-300">
+                    <span className="font-display text-sm font-semibold text-white">
+                      {img.alt}
+                    </span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Second row */}
+          <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+            {[
+              { src: "/house-of-garments/hog-2.jpg",               alt: "Premium Collection" },
+              { src: "/house-of-garments/hog-unic-live-selling.jpg", alt: "Live Selling" },
+              { src: "/house-of-garments/hog-7.jpg",               alt: "Household Finds" },
+              { src: "/house-of-garments/hog-8.jpg",               alt: "Daily Essentials" },
+            ].map((img, i) => (
+              <ScrollReveal key={i} delay={i * 80} variant="scale">
+                <div
+                  className="hog-gallery-item group relative overflow-hidden rounded-xl"
+                  style={{ minHeight: "180px" }}
                 >
                   <Image
                     src={img.src}
@@ -789,9 +923,9 @@ export default function HouseOfGarmentsPage() {
                 className="mx-auto mb-6 text-[#F0C048]/20"
               />
               <blockquote className="font-display mb-6 text-2xl leading-relaxed font-medium text-white/75 italic md:text-3xl">
-                &ldquo;I couldn&apos;t believe the quality for the price.
-                Authentic European brands at a fraction of the cost — this
-                place is a hidden gem for fashion lovers!&rdquo;
+                &ldquo;The cookware sets are amazing quality for the price! I
+                got a full bundle during their morning live and it arrived
+                super fast. Will definitely be a regular!&rdquo;
               </blockquote>
               <div className="flex items-center justify-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#F0C048]/25 to-[#D4A030]/15">
@@ -799,10 +933,10 @@ export default function HouseOfGarmentsPage() {
                 </div>
                 <div className="text-left">
                   <div className="font-body text-sm font-semibold text-white/65">
-                    Satisfied Shopper
+                    Happy Customer
                   </div>
                   <div className="font-body text-xs text-white/30">
-                    Repeat Customer, Cabuyao
+                    Regular Buyer, Laguna
                   </div>
                 </div>
               </div>
@@ -820,7 +954,7 @@ export default function HouseOfGarmentsPage() {
         </div>
       </section>
 
-      {/* ═══ LOCATION ═══ */}
+      {/* ═══ LOCATION & CONTACT ═══ */}
       <section className="relative py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
@@ -841,49 +975,57 @@ export default function HouseOfGarmentsPage() {
                   <div className="mb-4 flex items-center gap-2">
                     <MapPin size={18} className="text-[#F0C048]" />
                     <span className="font-body text-xs font-bold tracking-wider text-[#F0C048] uppercase">
-                      Visit Our Store
+                      Find Us
                     </span>
                   </div>
                   <h3 className="font-display mb-3 text-2xl font-bold text-white md:text-3xl">
                     The House of Garments PH
                   </h3>
                   <p className="font-body mb-4 text-sm leading-relaxed text-white/40">
-                    Cabuyao, Laguna. Drop by our store for the full European
-                    fashion experience — browse, try, and discover styles you
-                    won&apos;t find anywhere else.
+                    Gatchalian Subdivision, Brgy Banay-Banay,
+                    Cabuyao, Laguna. Follow us on Facebook for
+                    morning live selling schedules and new arrivals.
                   </p>
                   <div className="mb-6 space-y-2">
                     <div className="flex items-center gap-2 text-sm text-white/45">
-                      <CheckCircle2
-                        size={14}
-                        className="text-[#F0C048]/55"
-                      />
-                      <span className="font-body">Walk-in retail shopping</span>
+                      <Phone size={14} className="text-[#F0C048]/55 flex-shrink-0" />
+                      <span className="font-body">0967 445 4591</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-white/45">
-                      <CheckCircle2
-                        size={14}
-                        className="text-[#F0C048]/55"
-                      />
-                      <span className="font-body">Bundle deals available</span>
+                      <Tv2 size={14} className="text-[#F0C048]/55 flex-shrink-0" />
+                      <span className="font-body">TikTok: @thehouseofgarments_ph</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-white/45">
-                      <CheckCircle2
-                        size={14}
-                        className="text-[#F0C048]/55"
-                      />
-                      <span className="font-body">New European arrivals weekly</span>
+                      <CheckCircle2 size={14} className="text-[#F0C048]/55 flex-shrink-0" />
+                      <span className="font-body">Morning Live Selling on Facebook</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/45">
+                      <CheckCircle2 size={14} className="text-[#F0C048]/55 flex-shrink-0" />
+                      <span className="font-body">Retail &amp; Bundle options</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/45">
+                      <CheckCircle2 size={14} className="text-[#F0C048]/55 flex-shrink-0" />
+                      <span className="font-body">New stock regularly</span>
                     </div>
                   </div>
-                  <a
-                    href="https://www.facebook.com/houseofgarmentsph"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hog-btn font-body inline-flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-[#F0C048] px-6 py-3 text-sm font-bold text-[#0C0800]"
-                  >
-                    <Facebook size={16} />
-                    Message Us on Facebook
-                  </a>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href="https://www.facebook.com/houseofgarmentsph"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hog-btn font-body inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#F0C048] px-6 py-3 text-sm font-bold text-[#0C0800]"
+                    >
+                      <Facebook size={16} />
+                      Message on Facebook
+                    </a>
+                    <a
+                      href="tel:09674454591"
+                      className="hog-btn font-body inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[#F0C048]/20 bg-[#F0C048]/[0.05] px-6 py-3 text-sm font-medium text-[#F0C048]"
+                    >
+                      <Phone size={16} />
+                      Call Us
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -924,24 +1066,24 @@ export default function HouseOfGarmentsPage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#F0C048]/18 bg-[#F0C048]/[0.05] px-5 py-2">
               <Gift size={14} className="text-[#F0C048]" />
               <span className="font-body text-xs font-bold tracking-[0.15em] text-[#F0C048] uppercase">
-                Your Wardrobe Upgrade Awaits
+                Your Home Upgrade Awaits
               </span>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
             <h2 className="font-display mb-6 text-4xl font-bold text-white md:text-6xl">
-              Ready to Wear
+              Ready to Find Your
               <br />
-              <span className="hog-shimmer">European Fashion?</span>
+              <span className="hog-shimmer">Kitchen Essentials?</span>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
             <p className="font-body mx-auto mb-10 max-w-xl text-lg text-white/40">
-              Follow us on Facebook for new arrivals, flash sales, and
-              exclusive deals. Authentic European garments at prices that
-              make luxury accessible.
+              Follow us on Facebook and join our morning live selling for the
+              best deals on cookware, tableware, and household essentials.
+              Quality finds at prices that make sense.
             </p>
           </ScrollReveal>
 
@@ -956,7 +1098,7 @@ export default function HouseOfGarmentsPage() {
               Follow Us on Facebook
             </a>
             <div className="font-body mt-5 text-xs text-white/25">
-              Shop, inquire, and stay updated on our latest European arrivals
+              Morning live selling &middot; Retail &amp; Bundle &middot; Ships nationwide
             </div>
           </ScrollReveal>
         </div>
@@ -978,7 +1120,7 @@ export default function HouseOfGarmentsPage() {
             </span>
           </div>
           <p className="font-body text-center text-xs text-white/22 md:text-right">
-            Cabuyao, Laguna
+            Gatchalian Subdivision, Brgy Banay-Banay, Cabuyao, Laguna
             <br />
             &copy; {new Date().getFullYear()} The House of Garments PH
             &middot; A Pring Group Company
