@@ -4,13 +4,24 @@ import { useEffect, useState } from "react";
 import Image from "@/components/Img";
 
 export default function LoadingScreen() {
-  const [phase, setPhase] = useState<"loading" | "reveal" | "done">("loading");
+  const [phase, setPhase] = useState<"checking" | "loading" | "reveal" | "done">("checking");
 
   useEffect(() => {
+    const sessionKey = "pgc-loading-screen-seen";
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      sessionStorage.setItem(sessionKey, "true");
       setPhase("done");
       return;
     }
+
+    if (sessionStorage.getItem(sessionKey) === "true") {
+      setPhase("done");
+      return;
+    }
+
+    sessionStorage.setItem(sessionKey, "true");
+    setPhase("loading");
 
     const revealTimer = setTimeout(() => setPhase("reveal"), 2000);
     const doneTimer = setTimeout(() => setPhase("done"), 2800);
@@ -21,7 +32,7 @@ export default function LoadingScreen() {
     };
   }, []);
 
-  if (phase === "done") return null;
+  if (phase === "checking" || phase === "done") return null;
 
   return (
     <div
