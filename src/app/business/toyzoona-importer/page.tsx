@@ -6,7 +6,7 @@ import { bp } from "@/lib/basePath";
 import {
   ArrowLeft, ArrowRight, Facebook, Tv, Trophy, Package,
   Truck, ShoppingBag, Warehouse, Users, Star, Zap,
-  CheckCircle2, Clock, Sparkles, Globe, Youtube, Tag, Crown,
+  CheckCircle2, Clock, Sparkles, Globe, Youtube, Tag, Crown, Linkedin, Music2, Newspaper,
 } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
@@ -30,6 +30,8 @@ const RAINBOW = [C.blue, C.red, C.yellow, C.green, C.purple, C.orange, C.cyan];
 
 const FACEBOOK_GROUP  = "https://www.facebook.com/groups/642834551000763";
 const YOUTUBE_CHANNEL = "https://www.youtube.com/@toyzoonaimporter";
+const LINKEDIN_URL = "https://www.linkedin.com/company/toyzoona-importer";
+const TIKTOK_URL = "https://www.tiktok.com/@toyzoonaimporter";
 const YOUTUBE_VIDEO_ID = "eAGbGMUIzhY";
 
 const FB_VIDEO_1 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2064629281014506%2F&show_text=0&width=560";
@@ -164,6 +166,7 @@ export default function ToyZoonaImporterPage() {
         ctaBg: "#E8350A",
         ctaColor: "#FFFFFF",
         secondaryCTA: "Watch Live Content",
+        secondaryHref: "#videos",
         secondaryColor: "#999999",
         badge: "AS SEEN ON TV",
         badgeBg: "rgba(232,53,10,0.1)",
@@ -361,7 +364,7 @@ export default function ToyZoonaImporterPage() {
             fontSize:"clamp(22px,3.5vw,42px)",
             color:C.white,marginBottom:20,fontWeight:400,
           }}>
-            Supplier in the Philippines since 2021
+            #1 Toys Per Kilo Supplier in the Philippines
           </h2>
 
           {/* Sub */}
@@ -537,13 +540,24 @@ export default function ToyZoonaImporterPage() {
         <div className="tz-polka" style={{position:"absolute",inset:0}}/>
 
         <div style={{position:"relative",maxWidth:1280,margin:"0 auto"}}>
-          {/* Two Facebook videos side by side */}
+          {/* Featured media row */}
           <ScrollReveal>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:24}} className="tz-grid-2">
-              {[
-                {src:FB_VIDEO_1, border:C.blue},
-                {src:FB_VIDEO_2, border:C.red},
-              ].map((v,i)=>(
+              <div style={{
+                borderRadius:20,overflow:"hidden",
+                border:`5px solid ${C.blue}`,boxShadow:`7px 7px 0 ${C.black}`,
+                aspectRatio:"16/9",position:"relative",
+                background:C.cardBg,
+              }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
+                  title="Toyzoona Importer — Toys Per Kilo"
+                  allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                  allowFullScreen
+                  style={{width:"100%",height:"100%",border:"none",display:"block"}}
+                />
+              </div>
+              {[{src:FB_VIDEO_2, border:C.red}].map((v,i)=>(
                 <div key={i} style={{
                   borderRadius:20,overflow:"hidden",
                   border:`5px solid ${v.border}`,boxShadow:`7px 7px 0 ${C.black}`,
@@ -563,7 +577,7 @@ export default function ToyZoonaImporterPage() {
             </div>
           </ScrollReveal>
 
-          {/* YouTube video underneath */}
+          {/* Facebook video underneath */}
           <ScrollReveal delay={100}>
             <div style={{
               borderRadius:24,overflow:"hidden",
@@ -571,9 +585,11 @@ export default function ToyZoonaImporterPage() {
               aspectRatio:"16/9",position:"relative",
             }}>
               <iframe
-                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
-                title="Toyzoona Importer — Toys Per Kilo"
-                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                src={FB_VIDEO_1}
+                title="Toyzoona Importer — Live Content"
+                scrolling="no"
+                frameBorder="0"
+                allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"
                 allowFullScreen
                 style={{width:"100%",height:"100%",border:"none",display:"block"}}
               />
@@ -608,6 +624,127 @@ export default function ToyZoonaImporterPage() {
               >
                 <Facebook size={18}/><span className="tz-font" style={{fontSize:16}}>Facebook Group</span>
               </a>
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="tz-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:8,
+                  background:"#0A66C2",color:C.white,textDecoration:"none",
+                  padding:"10px 22px",borderRadius:12,fontWeight:900,
+                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                }}
+              >
+                <Linkedin size={18}/><span className="tz-font" style={{fontSize:16}}>LinkedIn</span>
+              </a>
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="tz-btn"
+                style={{
+                  display:"inline-flex",alignItems:"center",gap:8,
+                  background:"#111111",color:C.white,textDecoration:"none",
+                  padding:"10px 22px",borderRadius:12,fontWeight:900,
+                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                }}
+              >
+                <Music2 size={18}/><span className="tz-font" style={{fontSize:16}}>TikTok</span>
+              </a>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={260}>
+            {/* ── Philippine Star Feature Card ── */}
+            <div style={{
+              marginTop:28,
+              borderRadius:24,
+              border:`5px solid ${C.yellow}`,
+              background:"linear-gradient(135deg,#1a1200 0%,#0d0d0d 60%,#1a1200 100%)",
+              boxShadow:`6px 6px 0 ${C.black}, 0 0 0 2px ${C.yellow}40`,
+              padding:"24px 24px 20px",
+              position:"relative",
+              overflow:"hidden",
+            }}>
+              {/* comic burst background decoration */}
+              <div style={{
+                position:"absolute",top:-30,right:-30,
+                width:160,height:160,
+                background:`radial-gradient(circle, ${C.yellow}22 0%, transparent 70%)`,
+                borderRadius:"50%",
+                pointerEvents:"none",
+              }}/>
+              <div style={{
+                position:"absolute",bottom:-20,left:-20,
+                width:120,height:120,
+                background:`radial-gradient(circle, ${C.red}18 0%, transparent 70%)`,
+                borderRadius:"50%",
+                pointerEvents:"none",
+              }}/>
+
+              {/* header row */}
+              <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:18,flexWrap:"wrap"}}>
+                <div style={{
+                  width:52,height:52,borderRadius:16,
+                  background:C.yellow,color:C.black,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
+                  flexShrink:0,
+                }}>
+                  <Newspaper size={24} />
+                </div>
+                <div style={{flex:1}}>
+                  <div className="tz-font" style={{fontSize:22,color:C.yellow,lineHeight:1.1}}>
+                    Philippine Star
+                  </div>
+                  <div className="tz-body" style={{fontSize:13,color:"rgba(255,255,255,.65)",marginTop:2}}>
+                    Toyzoona featured in the country&apos;s leading broadsheet! 🌟
+                  </div>
+                </div>
+                {/* "FEATURED!" starburst badge */}
+                <div style={{
+                  background:C.red,color:C.white,
+                  padding:"7px 16px",borderRadius:999,
+                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
+                  fontWeight:900,fontSize:12,letterSpacing:"0.12em",textTransform:"uppercase",
+                  flexShrink:0,
+                }} className="tz-body">
+                  ⭐ Featured!
+                </div>
+              </div>
+
+              {/* iframe wrapper — centred, cartoon-bordered */}
+              <div style={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center",
+              }}>
+                <div style={{
+                  borderRadius:18,
+                  border:`4px solid ${C.black}`,
+                  boxShadow:`7px 7px 0 ${C.black}, 0 0 0 2px ${C.yellow}`,
+                  overflow:"hidden",
+                  background:"#fff",
+                  maxWidth:"100%",
+                  lineHeight:0,
+                }}>
+                  <iframe
+                    src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FPhilippineSTAR%2Fposts%2Fpfbid0vDA7WywnMQrir75SeeJAMSqHE7fmWNawG82k2HSZgN4VK6BnmXwREjtNrGGZLohUl&show_text=false&width=500"
+                    width="500"
+                    height="498"
+                    style={{border:"none",overflow:"hidden",display:"block",maxWidth:"100%"}}
+                    scrolling="no"
+                    frameBorder={0}
+                    allowFullScreen
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  />
+                </div>
+              </div>
+
+              {/* bottom caption */}
+              <div style={{
+                marginTop:16,
+                display:"flex",alignItems:"center",justifyContent:"center",gap:8,
+              }}>
+                <span className="tz-body" style={{
+                  fontSize:12,color:"rgba(255,255,255,.5)",textAlign:"center",
+                }}>
+                  📰 As featured in <strong style={{color:C.yellow}}>Philippine Star</strong> — sharing the joy of collectibles nationwide!
+                </span>
+              </div>
             </div>
           </ScrollReveal>
         </div>
@@ -881,6 +1018,11 @@ export default function ToyZoonaImporterPage() {
               >
                 <Youtube size={22}/><span className="tz-font" style={{fontSize:22}}>YouTube Channel</span>
               </a>
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="tz-btn"
+                style={{display:"inline-flex",alignItems:"center",gap:12,background:C.white,color:C.black,textDecoration:"none",padding:"20px 32px",borderRadius:18,fontWeight:900,border:`5px solid ${C.black}`,boxShadow:`7px 7px 0 ${C.black}`}}
+              >
+                <Music2 size={22}/><span className="tz-font" style={{fontSize:22}}>TikTok</span>
+              </a>
             </div>
           </ScrollReveal>
         </div>
@@ -905,6 +1047,12 @@ export default function ToyZoonaImporterPage() {
             </a>
             <a href={YOUTUBE_CHANNEL} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>
               <Youtube size={14}/> YouTube
+            </a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>
+              <Linkedin size={14}/> LinkedIn
+            </a>
+            <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>
+              <Music2 size={14}/> TikTok
             </a>
             <Link href="/" style={{color:"rgba(255,255,255,.5)",textDecoration:"none",fontSize:13,fontWeight:700}}>Pring Group</Link>
           </div>
