@@ -218,6 +218,7 @@ export default function HouseOfGarmentsPage() {
         ctaBg: "#F0C048",
         ctaColor: "#1A0C04",
         secondaryCTA: "Follow Live Selling",
+        secondaryHref: "#how-to-order",
         secondaryColor: "rgba(240,192,72,0.45)",
         badge: "100% Quality",
         badgeBg: "rgba(240,192,72,0.2)",
@@ -759,7 +760,7 @@ export default function HouseOfGarmentsPage() {
       <div className="hog-divider mx-auto max-w-4xl" />
 
       {/* ═══ HOW TO ORDER ═══ */}
-      <section className="relative py-24 md:py-32">
+      <section id="how-to-order" className="relative py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
             <div className="mb-14 text-center">

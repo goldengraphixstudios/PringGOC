@@ -118,6 +118,7 @@ export default function NamelessBooksPage() {
         ctaBg: "#6B4020",
         ctaColor: "#F5EAD8",
         secondaryCTA: "Visit Warehouse",
+        secondaryHref: "#warehouse",
         secondaryColor: "#A07850",
         accentLine: "#C97848",
         logoSrc: "/logos/nameless-books.jpg",
@@ -570,7 +571,7 @@ export default function NamelessBooksPage() {
       {/* ═══════════════════════════════════════════════════════════
           BENTO COLLECTION — Asymmetric genre grid
       ═══════════════════════════════════════════════════════════ */}
-      <section className="relative px-6 py-24 md:py-32">
+      <section id="shop" className="relative px-6 py-24 md:py-32">
         <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#C2724A]/[0.03]"
           style={{ animation: "breathe 10s ease-in-out infinite 3s" }} />
 
@@ -768,7 +769,7 @@ export default function NamelessBooksPage() {
       {/* ═══════════════════════════════════════════════════════════
           DRAMATIC CTA FINALE
       ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-pan-gradient relative overflow-hidden px-6 py-28 md:py-36">
+      <section id="warehouse" className="bg-pan-gradient relative overflow-hidden px-6 py-28 md:py-36">
         {/* Animated decorative orbs */}
         <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-[#C2724A]/10 blur-3xl"
           style={{ animation: "breathe 7s ease-in-out infinite" }} />

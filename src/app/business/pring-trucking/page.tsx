@@ -133,6 +133,7 @@ export default function PringTruckingPage() {
         ctaBg: "#C9A84C",
         ctaColor: "#0A1628",
         secondaryCTA: "Email an Inquiry",
+        secondaryHref: "#contact",
         secondaryColor: "rgba(201,168,76,0.5)",
         badge: "~10 Trucks",
         badgeBg: "rgba(201,168,76,0.2)",
@@ -489,7 +490,7 @@ export default function PringTruckingPage() {
       </section>
 
       {/* ══ HOW TO BOOK ══════════════════════════════════════════════════════ */}
-      <section style={{ padding:"96px 32px",background:C.card,position:"relative",overflow:"hidden" }}>
+      <section id="contact" style={{ padding:"96px 32px",background:C.card,position:"relative",overflow:"hidden" }}>
         <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,transparent,${C.gold},transparent)`}}/>
         <div style={{ maxWidth:1280,margin:"0 auto" }}>
           <ScrollReveal>

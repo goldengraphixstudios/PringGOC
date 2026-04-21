@@ -128,7 +128,8 @@ export default function RFGEventsPlacePage() {
         body: "Ask about date availability for weddings, birthdays, corporate events, and private celebrations at RFG Events Place.",
         bodyColor: "rgba(245,240,232,0.45)",
         primaryCTA: "Book a Site Viewing",
-        primaryHref: "#contact",
+        primaryHref: "https://www.facebook.com/officialRFGeventsplace",
+        primaryExternal: true,
         ctaBg: "transparent",
         ctaColor: "#C9A84C",
         ctaBorder: "1.5px solid #C9A84C",
@@ -585,7 +586,7 @@ export default function RFGEventsPlacePage() {
       <div className="ev-divider mx-auto max-w-4xl" />
 
       {/* ═══ AMENITIES ═══ */}
-      <section className="relative py-24 md:py-28">
+      <section id="contact" className="relative py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
             <div className="mb-14 text-center">
@@ -699,10 +700,10 @@ export default function RFGEventsPlacePage() {
           </ScrollReveal>
 
           <ScrollReveal variant="fadeUp" delay={100}>
-            <GallerySlider
+              <GallerySlider
               accentColor="#C9A84C"
               slides={[
-                { src: "/rfg-events-place/venue-1.jpg",               alt: "Grand Ballroom" },
+                { src: "/rfg-events-place/venue-5.jpg",               alt: "Grand Ballroom" },
                 { src: "/rfg-events-place/wedding.jpg",                alt: "Wedding Reception" },
                 { src: "/rfg-events-place/event-xmas-473571.jpg",      alt: "Christmas Party Setup" },
                 { src: "/rfg-events-place/venue-10.jpg",               alt: "Corporate Event" },
@@ -710,7 +711,7 @@ export default function RFGEventsPlacePage() {
                 { src: "/rfg-events-place/event-birthday-500909.jpg",  alt: "Birthday Celebration" },
                 { src: "/rfg-events-place/event-christening-473360.jpg", alt: "Christening Event" },
                 { src: "/rfg-events-place/venue-2.jpg",                alt: "Venue Interior" },
-                { src: "/rfg-events-place/venue-3.jpg",                alt: "Venue Entrance" },
+                { src: "/rfg-events-place/venue-13.jpg",               alt: "Venue Entrance" },
                 { src: "/rfg-events-place/venue-4.jpg",                alt: "Venue Setup" },
               ]}
             />

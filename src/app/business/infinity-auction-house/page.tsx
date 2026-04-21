@@ -185,7 +185,7 @@ const gallery = [
 export default function InfinityAuctionHousePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFBFF] text-[#0F172A]">
-      <BusinessNavArrows currentSlug="infinity-auction-house" />
+      <BusinessNavArrows currentSlug="infinity-auction-house" theme="dark" />
       <BusinessPopup config={{
         storageKey: "popup-infinity-auction-house",
         delay: 2000,
@@ -199,10 +199,12 @@ export default function InfinityAuctionHousePage() {
         body: "Join the Infinity auction journey for cookware, decor, and household goods sourced from Japan and China.",
         bodyColor: "rgba(240,240,255,0.48)",
         primaryCTA: "Enter Auction Page",
-        primaryHref: "#auction",
+        primaryHref: "https://www.facebook.com/infinityauctionhousephofficial",
+        primaryExternal: true,
         ctaBg: "#C00030",
         ctaColor: "#FFFFFF",
         secondaryCTA: "Learn How It Works",
+        secondaryHref: "#how-it-works",
         secondaryColor: "rgba(136,136,208,0.5)",
         accentLine: "#C00030",
         logoSrc: "/logos/infinity-auction.jpg",
@@ -559,7 +561,7 @@ export default function InfinityAuctionHousePage() {
       </section>
 
       {/* ===== CATEGORIES ===== */}
-      <section className="relative z-10 py-24 px-6">
+      <section id="auction" className="relative z-10 py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-16 text-center">

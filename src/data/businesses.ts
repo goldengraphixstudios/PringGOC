@@ -845,66 +845,6 @@ export const businesses: Business[] = [
     ],
   },
 
-  // ─── 17-18. RFG BRANCHES (sub-pages, kept for deep linking) ──────────────
-  {
-    slug: "rfg-auction-bulacan",
-    name: "RFG Auction House Bulacan",
-    location: "Meycauayan, Bulacan",
-    description:
-      "RFG Auction House branch in Brgy. Camalig, Meycauayan, Bulacan. Offering quality UK and Japan surplus items at unbeatable auction prices. Auctions held every Friday starting 10:00 AM.",
-    facebook: "https://www.facebook.com/RFGauctionhousebulacan",
-    logo: "/logos/rfg-auction-bulacan.jpg",
-    colors: ["#180000", "#603018", "#481800", "#904818"],
-    category: "Retail & Auction",
-    tagline: "Bulacan's Best Surplus Destination",
-    services: ["Surplus Items", "Weekly Auction Events", "Brand New Products", "Wholesale Supply"],
-    highlights: [
-      "Strategically located in Meycauayan, Bulacan",
-      "Quality imported surplus from UK & Japan",
-      "Weekly auctions every Friday",
-      "Growing customer base in North Luzon",
-    ],
-    theme: "dark",
-    heroStyle: "split",
-    address: "001 National Rd, Brgy. Camalig, Meycauayan, Bulacan",
-    waze: "NORTHVIEW POINTE SUBDIVISION MEYCAUAYAN BULACAN",
-    purchaseMethods: [
-      {
-        type: "auction",
-        label: "Weekly Auction",
-        schedule: "Every Friday, 10:00 AM onwards",
-      },
-    ],
-  },
-  {
-    slug: "rfg-auction-davao",
-    name: "RFG Auction House Davao",
-    location: "Davao City",
-    description:
-      "RFG Auction House in Davao City — offering quality UK and Japan surplus items at unbeatable prices. Auctions held every Friday starting 10:00 AM.",
-    facebook: "https://www.facebook.com/rfgauctionhousedavao",
-    logo: "/logos/rfg-auction-davao.jpg",
-    colors: ["#181800", "#606000", "#909018", "#F0F018", "#C0C018"],
-    category: "Retail & Auction",
-    tagline: "UK & Japan Quality in Davao",
-    services: ["UK Surplus Items", "Japan Surplus Items", "Retail Sales", "Bulk Orders"],
-    highlights: [
-      "UK & Japan imported goods",
-      "Davao City location",
-      "Premium surplus quality",
-      "Affordable prices",
-    ],
-    theme: "dark",
-    heroStyle: "centered",
-    address: "6J3F+98C, Km 18 Crossing Eliong Road, Bunawan, Davao City, Davao del Sur",
-    purchaseMethods: [
-      {
-        type: "auction",
-        label: "Weekly Auction",
-        schedule: "Every Friday, 10:00 AM onwards",
-      },
-    ],
-  },
 ];
 
 export function getBusinessBySlug(slug: string): Business | undefined {

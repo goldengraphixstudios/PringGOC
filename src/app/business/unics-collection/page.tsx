@@ -132,6 +132,7 @@ export default function UnicsCollectionPage() {
         ctaBg: "#C03048",
         ctaColor: "#FFFFFF",
         secondaryCTA: "Visit Warehouse",
+        secondaryHref: "#warehouse",
         secondaryColor: "#999999",
         logoSrc: "/logos/unics-collection.jpg",
       }} />
@@ -762,7 +763,7 @@ export default function UnicsCollectionPage() {
       </section>
 
       {/* ═══ LOCATION ═══ */}
-      <section className="relative py-24 md:py-28">
+      <section id="warehouse" className="relative py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <ScrollReveal>
             <div className="overflow-hidden rounded-[2rem] border-2 border-[#CE1127]/10 bg-white shadow-xl">

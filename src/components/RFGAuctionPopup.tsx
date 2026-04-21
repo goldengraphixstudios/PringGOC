@@ -252,13 +252,14 @@ export default function RFGAuctionPopup() {
           </a>
 
           {/* Skip */}
-          <button
+          <a
+            href="#categories"
             onClick={dismiss}
-            className="mt-3 w-full cursor-pointer text-center text-[11px] underline underline-offset-2 transition-opacity hover:opacity-80"
+            className="mt-3 block w-full cursor-pointer text-center text-[11px] underline underline-offset-2 transition-opacity hover:opacity-80"
             style={{ color: "rgba(124,58,237,0.5)" }}
           >
             Explore page first
-          </button>
+          </a>
         </div>
       </div>
     </div>

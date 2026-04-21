@@ -89,6 +89,7 @@ export default function NBLoungePage() {
         ctaBg: "#C9A84C",
         ctaColor: "#1C140C",
         secondaryCTA: "See Menu and Books",
+        secondaryHref: "#menu-books",
         secondaryColor: "rgba(201,168,76,0.5)",
         accentLine: "#C9A84C",
         logoSrc: "/logos/nb-lounge.jpg",
@@ -467,7 +468,7 @@ export default function NBLoungePage() {
       {/* ═══════════════════════════════════════════════════════════
           THE SHELF — What you'll find (offering cards)
       ═══════════════════════════════════════════════════════════ */}
-      <section className="relative px-6 py-24 md:py-32">
+      <section id="menu-books" className="relative px-6 py-24 md:py-32">
         <div className="pointer-events-none absolute bottom-0 left-0 h-[350px] w-[350px] rounded-full bg-[#8B6D4B]/[0.03]"
           style={{ animation: "breathe 11s ease-in-out infinite 2s" }} />
 
@@ -614,7 +615,7 @@ export default function NBLoungePage() {
       {/* ═══════════════════════════════════════════════════════════
           CTA FINALE — Visit us
       ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-pan-warm relative overflow-hidden px-6 py-28 md:py-36">
+      <section id="visit" className="bg-pan-warm relative overflow-hidden px-6 py-28 md:py-36">
         {/* Glowing orbs */}
         <div className="pointer-events-none absolute -top-16 -right-16 h-72 w-72 rounded-full bg-[#8B6D4B]/15 blur-3xl"
           style={{ animation: "breathe 8s ease-in-out infinite" }} />

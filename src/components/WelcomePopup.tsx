@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "@/components/Img";
 import { X, ArrowRight, MapPin, Building2 } from "lucide-react";
+import { GROUP_BUSINESS_LABEL } from "@/data/site";
 
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(false);
@@ -93,7 +94,7 @@ export default function WelcomePopup() {
           {/* Stats row */}
           <div className="mb-7 flex items-center justify-center gap-7 rounded-2xl border border-black/[0.04] bg-[#FDFCFA] px-7 py-4.5">
             {[
-              { icon: Building2, value: "18+", label: "Businesses" },
+              { icon: Building2, value: GROUP_BUSINESS_LABEL, label: "Businesses" },
               { icon: MapPin, value: "6+", label: "Locations" },
             ].map(({ icon: Icon, value, label }) => (
               <div key={label} className="text-center">
@@ -113,13 +114,14 @@ export default function WelcomePopup() {
           </p>
 
           {/* CTA */}
-          <button
+          <a
+            href="#businesses"
             onClick={dismiss}
             className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0A1628] px-6 py-4 text-[15px] font-semibold text-white shadow-lg transition-all duration-200 hover:bg-[#1B3A5C] hover:shadow-xl active:scale-[0.98]"
           >
             Explore Our Businesses
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </button>
+          </a>
 
           <button
             onClick={dismiss}

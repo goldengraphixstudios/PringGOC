@@ -149,6 +149,7 @@ export default function NBLoungeGMAPage() {
         ctaBg: "#C9A84C",
         ctaColor: "#1C140C",
         secondaryCTA: "Explore the Space",
+        secondaryHref: "#space",
         secondaryColor: "rgba(201,168,76,0.5)",
         badge: "GMA, Cavite",
         badgeBg: "rgba(201,168,76,0.2)",
@@ -548,7 +549,7 @@ export default function NBLoungeGMAPage() {
       {/* ═══════════════════════════════════════════════════════════
           FILMSTRIP GALLERY — Horizontal auto-scroll
       ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-[#1A1E18] py-20 md:py-28">
+      <section id="space" className="bg-[#1A1E18] py-20 md:py-28">
         <ScrollReveal>
           <div className="mb-12 text-center px-6">
             <p className="mb-3 font-[family-name:var(--font-cursive)] text-lg text-[#8BA882] italic">A glimpse inside</p>
@@ -638,7 +639,7 @@ export default function NBLoungeGMAPage() {
       {/* ═══════════════════════════════════════════════════════════
           CTA FINALE
       ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-pan-forest relative overflow-hidden px-6 py-28 md:py-36">
+      <section id="location" className="bg-pan-forest relative overflow-hidden px-6 py-28 md:py-36">
         <div className="pointer-events-none absolute -top-16 -right-16 h-72 w-72 rounded-full bg-[#5B7553]/15 blur-3xl"
           style={{ animation: "breathe 8s ease-in-out infinite" }} />
         <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-[#5B7553]/10 blur-3xl"

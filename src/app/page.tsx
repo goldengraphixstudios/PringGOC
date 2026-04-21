@@ -27,14 +27,12 @@ import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
 import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
-import { GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
+import { GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
 
-// Businesses visible in the main grid (exclude sub-branch pages)
-const BRANCH_SLUGS = ["rfg-auction-bulacan", "rfg-auction-davao"];
-const mainBusinesses = businesses.filter((b) => !BRANCH_SLUGS.includes(b.slug));
+const mainBusinesses = businesses;
 
 const stats = [
-  { value: 18, suffix: "+", label: "Businesses", icon: Building2 },
+  { value: GROUP_BUSINESS_COUNT, suffix: "+", label: "Businesses", icon: Building2 },
   { value: 8, suffix: "+", label: "Industries", icon: TrendingUp },
   { value: 6, suffix: "+", label: "Locations", icon: MapPin },
   { value: 1, suffix: "", label: "Family", icon: Users },
@@ -256,7 +254,7 @@ export default function Home() {
             style={{ opacity: 0, animation: "heroLine 0.6s ease-out 0.55s forwards, heroReveal 0.5s ease-out 0.55s forwards" }} />
 
           <p className="mx-auto mb-10 max-w-xl text-[15px] leading-[1.8] text-navy-700/70 sm:text-base md:text-lg md:leading-[1.8]">
-            18+ businesses spanning 8+ industries. One family united by a shared
+            {GROUP_BUSINESS_LABEL} businesses spanning 8+ industries. One family united by a shared
             vision of growth and excellence across the Philippines.
           </p>
 

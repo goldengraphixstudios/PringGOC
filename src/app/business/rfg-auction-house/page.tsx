@@ -56,7 +56,7 @@ export default function RFGAuctionHousePage() {
   ];
 
   const categories = [
-    { name: "Furniture", img: "/rfg-auction-house/items-bed-1.jpg", tag: "Top Seller" },
+    { name: "Furniture", img: "/rfg-auction-house/furniture-cabinet.jpg", tag: "Top Seller" },
     { name: "Tea Sets", img: "/rfg-auction-house/items-electronics-65580.jpg", tag: "Hot Lots" },
     { name: "Kitchenware", img: "/rfg-auction-house/items-kitchen-1.jpg", tag: "Imported" },
     { name: "Plush Toys", img: "/rfg-auction-house/items-toys-1.jpg", tag: "Bulk Deals" },
@@ -70,7 +70,7 @@ export default function RFGAuctionHousePage() {
 
   const galleryImages = [
     { src: "/rfg-auction-house/items-bed-1.jpg", alt: "Auction scene" },
-    { src: "/rfg-auction-house/items-bed-2.jpg", alt: "Quality furniture" },
+    { src: "/rfg-auction-house/furniture-cabinet.jpg", alt: "Wooden cabinet furniture" },
     { src: "/rfg-auction-house/items-electronics-65580.jpg", alt: "Tea sets" },
     { src: "/rfg-auction-house/items-kitchen-1.jpg", alt: "Imported kitchenware" },
     { src: "/rfg-auction-house/items-toys-1.jpg", alt: "Plush toys" },
@@ -1160,7 +1160,7 @@ export default function RFGAuctionHousePage() {
       </section>
 
       {/* ════════ CATEGORIES ════════ */}
-      <section className="rfg-section rfg-section-surface">
+      <section id="categories" className="rfg-section rfg-section-surface">
         <ScrollReveal>
           <div style={{ textAlign: "center" }}>
             <div className="rfg-label">
@@ -1336,7 +1336,7 @@ export default function RFGAuctionHousePage() {
       </section>
 
       {/* ════════ BRANCHES ════════ */}
-      <section className="rfg-section rfg-section-surface">
+      <section id="schedule" className="rfg-section rfg-section-surface">
         <ScrollReveal>
           <div style={{ textAlign: "center" }}>
             <div className="rfg-label">

@@ -99,6 +99,7 @@ export default function ExtremeGainzPage() {
         ctaBg: "#F0C030",
         ctaColor: "#080808",
         secondaryCTA: "Open Inquiry Form",
+        secondaryHref: "#inquiry",
         secondaryColor: "rgba(240,192,48,0.45)",
         badge: "8 BRANCHES",
         badgeBg: "rgba(240,192,48,0.2)",
@@ -652,7 +653,7 @@ export default function ExtremeGainzPage() {
 
           {/* Inquire CTA */}
           <ScrollReveal variant="fadeUp" delay={200}>
-            <div className="mt-14 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
+            <div id="inquiry" className="mt-14 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
               <a
                 href="https://www.facebook.com/profile.php?id=61586473550426"
                 target="_blank"

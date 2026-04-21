@@ -123,6 +123,7 @@ export default function ToyLandiaPage() {
         ctaBg: "#FFD800",
         ctaColor: "#1A0000",
         secondaryCTA: "See Gallery",
+        secondaryHref: "#gallery",
         secondaryColor: "rgba(255,216,0,0.4)",
         badge: "Per Kilo",
         badgeBg: "rgba(255,216,0,0.15)",

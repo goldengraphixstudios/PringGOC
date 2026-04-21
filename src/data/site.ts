@@ -1,5 +1,5 @@
 export const GROUP_NAME = "Pring Group of Companies";
-export const GROUP_BUSINESS_COUNT = 18;
+export const GROUP_BUSINESS_COUNT = 16;
 export const GROUP_BUSINESS_LABEL = `${GROUP_BUSINESS_COUNT}+`;
 export const GROUP_EMAIL = "official.pringgroupofcompany@gmail.com";
 export const GROUP_INQUIRY_PATH = "/#inquire";

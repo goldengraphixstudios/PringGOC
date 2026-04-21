@@ -130,10 +130,11 @@ export default function ToysForLessPage() {
         body: "Affordable UK-imported toys for parents, resellers, schools, giveaways, and gift shopping without going over budget.",
         bodyColor: "#666666",
         primaryCTA: "Shop Affordable Toys",
-        primaryHref: "#shop",
+        primaryHref: "#services",
         ctaBg: "#0060A8",
         ctaColor: "#FFFFFF",
         secondaryCTA: "See What\u2019s New",
+        secondaryHref: "#gallery",
         secondaryColor: "#999999",
         badge: "\u20b1280 Max",
         badgeBg: "rgba(240,96,24,0.1)",
@@ -874,7 +875,7 @@ export default function ToysForLessPage() {
       </section>
 
       {/* ═══════════════════════════════ GALLERY ═══════════════════════════════ */}
-      <section className="relative py-20 md:py-24" style={{ background: "#FFD200" }}>
+      <section id="gallery" className="relative py-20 md:py-24" style={{ background: "#FFD200" }}>
         {/* Checker pattern */}
         <div className="tf-checker pointer-events-none absolute inset-0" />
         {/* Top thick border */}

@@ -143,7 +143,7 @@ const gallery = [
 export default function LuckyFindsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FFFAFA] text-[#1C1917]">
-      <BusinessNavArrows currentSlug="lucky-finds" />
+      <BusinessNavArrows currentSlug="lucky-finds" theme="dark" />
       <BusinessPopup config={{
         storageKey: "popup-lucky-finds",
         delay: 2000,
@@ -161,6 +161,7 @@ export default function LuckyFindsPage() {
         ctaBg: "#D83030",
         ctaColor: "#FFFFFF",
         secondaryCTA: "Browse Product Categories",
+        secondaryHref: "#products",
         secondaryColor: "#999999",
         badge: "Mon · Wed · Fri",
         badgeBg: "rgba(192,0,0,0.1)",
@@ -370,7 +371,7 @@ export default function LuckyFindsPage() {
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="#how-to-order"
+                href="#schedule"
                 className="inline-flex cursor-pointer items-center gap-2 rounded-full border-2 border-[#DC2626]/15 px-7 py-4 text-sm font-semibold text-[#991B1B] transition-all duration-300 hover:border-[#DC2626]/30 hover:bg-[#FEF2F2]"
               >
                 How to Order
@@ -516,7 +517,7 @@ export default function LuckyFindsPage() {
       </section>
 
       {/* ===== CATEGORIES ===== */}
-      <section className="relative z-10 py-24 px-6">
+      <section id="products" className="relative z-10 py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-16 text-center">
@@ -596,7 +597,7 @@ export default function LuckyFindsPage() {
       </section>
 
       {/* ===== HOW TO ORDER ===== */}
-      <section id="how-to-order" className="relative z-10 py-24 px-6">
+      <section id="schedule" className="relative z-10 py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal variant="fadeUp">
             <div className="mb-16 text-center">
