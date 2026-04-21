@@ -85,6 +85,8 @@ export default function ToysGallery() {
               <img
                 src={img.src}
                 alt={img.alt}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
               {/* Hover overlay */}

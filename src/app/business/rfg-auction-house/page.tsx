@@ -101,6 +101,27 @@ export default function RFGAuctionHousePage() {
     { icon: <Users size={22} />, text: "Repeat Bidders" },
   ];
 
+  const branches = [
+    {
+      label: "Main Branch",
+      name: "RFG Auction House",
+      location: "Cabuyao, Laguna",
+      href: "https://www.facebook.com/RFGauctionhouse",
+    },
+    {
+      label: "Bulacan Branch",
+      name: "RFG Auction House Bulacan",
+      location: "Meycauayan, Bulacan",
+      href: "https://www.facebook.com/RFGauctionhousebulacan",
+    },
+    {
+      label: "Davao Branch",
+      name: "RFG Auction House Davao",
+      location: "Davao City",
+      href: "https://www.facebook.com/rfgauctionhousedavao",
+    },
+  ];
+
   return (
     <>
       <BusinessNavArrows currentSlug="rfg-auction-house" />
@@ -711,6 +732,116 @@ export default function RFGAuctionHousePage() {
   pointer-events: none;
 }
 
+/* ── BRANCHES ── */
+.rfg-branches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.rfg-branch-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 280px;
+  padding: 28px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(232,101,10,0.16) 0%, transparent 38%),
+    linear-gradient(180deg, rgba(124,58,237,0.14) 0%, rgba(21,13,53,0.96) 100%);
+  border: 1px solid rgba(167,139,250,0.18);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.22);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.rfg-branch-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(232,101,10,0.48);
+  box-shadow: 0 34px 70px rgba(0,0,0,0.28);
+}
+.rfg-branch-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 45%);
+  pointer-events: none;
+}
+.rfg-branch-top,
+.rfg-branch-bottom {
+  position: relative;
+  z-index: 1;
+}
+.rfg-branch-top {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rfg-branch-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(232,101,10,0.14);
+  border: 1px solid rgba(232,101,10,0.26);
+  color: #FFD4B0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+.rfg-branch-card h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--rfg-text);
+  line-height: 1.05;
+}
+.rfg-branch-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--rfg-lavender);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.rfg-branch-location svg {
+  color: var(--rfg-orange);
+  flex-shrink: 0;
+}
+.rfg-branch-bottom {
+  margin-top: auto;
+}
+.rfg-branch-link {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--rfg-orange), var(--rfg-glow));
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.rfg-branch-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(232,101,10,0.28);
+}
+.rfg-branch-link svg:last-child {
+  opacity: 0.9;
+}
+
 /* ── CTA FINALE ── */
 .rfg-cta-finale {
   text-align: center;
@@ -856,6 +987,7 @@ export default function RFGAuctionHousePage() {
   .rfg-section { padding: 72px 20px; }
   .rfg-services-grid { grid-template-columns: 1fr; gap: 16px; }
   .rfg-categories-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rfg-branches-grid { grid-template-columns: 1fr; max-width: 620px; }
   .rfg-cat-card { aspect-ratio: 4/5; }
   .rfg-steps { flex-direction: column; gap: 40px; }
   .rfg-steps::before { display: none; }
@@ -917,7 +1049,7 @@ export default function RFGAuctionHousePage() {
       <section className="rfg-hero">
         <div className="rfg-hero-bg">
           <Image
-            src="/rfg-auction-house/items-bed-1.jpg"
+            src="/rfg-auction-house/hero-warehouse.jpg"
             alt="RFG Auction House"
             fill
             priority
@@ -1200,6 +1332,55 @@ export default function RFGAuctionHousePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ════════ BRANCHES ════════ */}
+      <section className="rfg-section rfg-section-surface">
+        <ScrollReveal>
+          <div style={{ textAlign: "center" }}>
+            <div className="rfg-label">
+              <MapPin size={14} /> Our Branches
+            </div>
+          </div>
+          <h2 className="rfg-section-title">
+            Visit the RFG Branch Nearest You
+          </h2>
+          <p className="rfg-section-sub">
+            Follow each branch page for auction schedules, latest surplus drops,
+            and branch-specific updates in Laguna, Bulacan, and Davao.
+          </p>
+        </ScrollReveal>
+        <div className="rfg-branches-grid">
+          {branches.map((branch, i) => (
+            <ScrollReveal key={branch.name} delay={i * 120}>
+              <div className="rfg-branch-card">
+                <div className="rfg-branch-top">
+                  <div className="rfg-branch-badge">
+                    <MapPin size={14} />
+                    {branch.label}
+                  </div>
+                  <h3>{branch.name}</h3>
+                  <div className="rfg-branch-location">
+                    <MapPin size={18} />
+                    <span>{branch.location}</span>
+                  </div>
+                </div>
+                <div className="rfg-branch-bottom">
+                  <Link
+                    href={branch.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rfg-branch-link"
+                  >
+                    <Facebook size={18} />
+                    Visit Facebook Page
+                    <ChevronRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 

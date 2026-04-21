@@ -552,6 +552,8 @@ export default function ToyZoonaImporterPage() {
                 <iframe
                   src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
                   title="Toyzoona Importer — Toys Per Kilo"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                   allowFullScreen
                   style={{width:"100%",height:"100%",border:"none",display:"block"}}
@@ -566,6 +568,8 @@ export default function ToyZoonaImporterPage() {
                 }}>
                   <iframe
                     src={v.src}
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     style={{width:"100%",height:"100%",border:"none",display:"block"}}
                     scrolling="no"
                     frameBorder="0"
@@ -587,6 +591,8 @@ export default function ToyZoonaImporterPage() {
               <iframe
                 src={FB_VIDEO_1}
                 title="Toyzoona Importer — Live Content"
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
                 scrolling="no"
                 frameBorder="0"
                 allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"
@@ -725,6 +731,8 @@ export default function ToyZoonaImporterPage() {
                     src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FPhilippineSTAR%2Fposts%2Fpfbid0vDA7WywnMQrir75SeeJAMSqHE7fmWNawG82k2HSZgN4VK6BnmXwREjtNrGGZLohUl&show_text=false&width=500"
                     width="500"
                     height="498"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     style={{border:"none",overflow:"hidden",display:"block",maxWidth:"100%"}}
                     scrolling="no"
                     frameBorder={0}

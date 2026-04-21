@@ -110,6 +110,8 @@ export default function GallerySlider({
               <img
                 src={bp(slides[current].src)}
                 alt={slides[current].alt}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full"
                 style={{ objectFit }}
               />
@@ -129,6 +131,8 @@ export default function GallerySlider({
                   : (current - 1 + slides.length) % slides.length
                 ) : current].src)}
               alt={slides[current].alt}
+              loading={animating ? "lazy" : "eager"}
+              decoding="async"
               className="h-full w-full"
               style={{ objectFit }}
             />
@@ -218,6 +222,8 @@ export default function GallerySlider({
               <img
                 src={bp(slide.src)}
                 alt={slide.alt}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </button>

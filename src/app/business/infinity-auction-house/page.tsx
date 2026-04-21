@@ -176,9 +176,9 @@ const gallery = [
     subtitle: "Decor-forward drinkware for buyers who want standout table pieces.",
   },
   {
-    src: "/infinity-auction-house/gold-dining-spoon-set.jpg",
-    title: "Gold Dining Spoon Set",
-    subtitle: "A polished dining detail for elegant home and gifting selections.",
+    src: "/infinity-auction-house/furniture-wardrobe.jpg",
+    title: "Furniture",
+    subtitle: "Statement storage and home furniture finds for bigger-value household buyers.",
   },
 ];
 

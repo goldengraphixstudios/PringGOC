@@ -96,6 +96,8 @@ export default function GalleryCarousel({ images }: Props) {
               <img
                 src={bp(img.src)}
                 alt={img.alt}
+                loading={isActive ? "eager" : "lazy"}
+                decoding="async"
                 style={{
                   width: "100%",
                   aspectRatio: "2/3",

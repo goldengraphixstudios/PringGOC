@@ -6,6 +6,7 @@ import CountUp from "@/components/CountUp";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
 import HouseOfGarmentsShowcase from "@/components/HouseOfGarmentsShowcase";
+import HouseOfGarmentsCarryCards from "@/components/HouseOfGarmentsCarryCards";
 import {
   ArrowLeft,
   Facebook,
@@ -50,32 +51,40 @@ export const metadata: Metadata = {
 export default function HouseOfGarmentsPage() {
   const collections = [
     {
-      icon: CookingPot,
-      title: "Gold Teaspoon Set",
-      desc: "Polished gold teaspoons presented as a compact 6-piece set — ideal for coffee corners, dessert service, or everyday table styling.",
-      img: "/house-of-garments/hog-1.jpg",
-      badge: "6 PCS SET",
+      title: "SMEG Red Casserole",
+      subtitle: "Statement cookware piece presented in a premium showroom display.",
+      src: "/house-of-garments/carry-smeg-red.jpg",
+      badge: "SHOWROOM PICK",
     },
     {
-      icon: UtensilsCrossed,
-      title: "Gold Dining Spoon Set",
-      desc: "A matching 6-piece spoon set with a brighter plated finish — made for serving, dining, and giving your tableware a more premium look.",
-      img: "/house-of-garments/hog-3.jpg",
-      badge: "TABLEWARE",
+      title: "SMEG Cream Kitchen Set",
+      subtitle: "A coordinated cream collection for polished modern kitchen setups.",
+      src: "/house-of-garments/carry-smeg-cream.jpg",
+      badge: "KITCHEN SET",
     },
     {
-      icon: ShoppingBag,
-      title: "Silicone Utensil Set",
-      desc: "A 6-piece silicone utensil bundle with wood handles for daily cooking — practical, display-ready, and easy to mix into modern kitchens.",
-      img: "/house-of-garments/hog-6.jpg",
-      badge: "COOKING TOOLS",
+      title: "Grey Cookware Bundle",
+      subtitle: "Minimal cookware collection with matching lids and wood-accent handles.",
+      src: "/house-of-garments/carry-grey-cookware.jpg",
+      badge: "COOKWARE",
     },
     {
-      icon: Boxes,
-      title: "7-Piece Water Pitcher Set",
-      desc: "A full Tuscan glass pitcher set with matching glasses — a polished bundle for hosting, gifting, or upgrading kitchen essentials in one buy.",
-      img: "/house-of-garments/hog-8.jpg",
-      badge: "7 PCS BUNDLE",
+      title: "Window Curtain Set",
+      subtitle: "Textured curtain stock for home refreshes, decor bundles, and resale.",
+      src: "/house-of-garments/carry-curtains.jpg",
+      badge: "HOME DECOR",
+    },
+    {
+      title: "Cookware Warehouse Mix",
+      subtitle: "Assorted pans, kettles, and casseroles ready for live selling and bulk buyers.",
+      src: "/house-of-garments/carry-cookware-haul.jpg",
+      badge: "WAREHOUSE STOCK",
+    },
+    {
+      title: "Orange Cookware Display",
+      subtitle: "Bright display-ready pot and pan sets for standout countertop presentation.",
+      src: "/house-of-garments/carry-orange-cookware.jpg",
+      badge: "DISPLAY SET",
     },
   ];
 
@@ -699,45 +708,9 @@ export default function HouseOfGarmentsPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {collections.map((col, i) => (
-              <ScrollReveal key={i} delay={i * 120} variant="fadeUp">
-                <div className="hog-card group overflow-hidden rounded-2xl border border-[#F0C048]/[0.06] bg-[#110E04]">
-                  {/* Image */}
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src={col.img}
-                      alt={col.title}
-                      fill
-                      className="hog-card-img object-contain bg-[#1A1206] p-4 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#110E04] via-[#110E04]/30 to-transparent" />
-                    {/* Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className="hog-card-badge font-body rounded-full border border-[#F0C048]/15 bg-[#F0C048]/[0.08] px-3 py-1 text-[10px] font-bold tracking-wider text-[#F0C048] uppercase backdrop-blur-sm transition-all duration-300">
-                        {col.badge}
-                      </span>
-                    </div>
-                    {/* Icon */}
-                    <div className="absolute bottom-4 left-4">
-                      <div className="hog-card-icon flex h-11 w-11 items-center justify-center rounded-xl border border-[#F0C048]/12 bg-[#F0C048]/[0.06] backdrop-blur-sm transition-all duration-300">
-                        <col.icon size={20} className="text-[#F0C048]" />
-                      </div>
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="font-display mb-2 text-xl font-bold text-white">
-                      {col.title}
-                    </h3>
-                    <p className="font-body text-sm leading-relaxed text-white/40">
-                      {col.desc}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal delay={120} variant="fadeUp">
+            <HouseOfGarmentsCarryCards items={collections} />
+          </ScrollReveal>
         </div>
       </section>
 

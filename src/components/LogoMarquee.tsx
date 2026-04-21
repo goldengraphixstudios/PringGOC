@@ -2,7 +2,7 @@
 
 import Image from "@/components/Img";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 interface LogoItem {
   slug: string;
@@ -25,54 +25,10 @@ export default function LogoMarquee({
   direction = "left",
   showNames = true,
 }: LogoMarqueeProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const posRef = useRef(0);
-  const pausedRef = useRef(false);
+  const [hovered, setHovered] = useState(false);
 
-  // Triple the logos for seamless looping
-  const items = [...logos, ...logos, ...logos];
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    // Get 1/3 of track width (one set of logos)
-    const getResetWidth = () => track.scrollWidth / 3;
-
-    // Initialize position for right-scrolling
-    if (direction === "right") {
-      posRef.current = -getResetWidth();
-      track.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
-    }
-
-    let animId: number;
-
-    const step = () => {
-      if (!pausedRef.current) {
-        const resetWidth = getResetWidth();
-
-        if (direction === "right") {
-          posRef.current += speed;
-          if (posRef.current >= 0) {
-            posRef.current = -resetWidth;
-          }
-        } else {
-          posRef.current -= speed;
-          if (posRef.current <= -resetWidth) {
-            posRef.current = 0;
-          }
-        }
-
-        track.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
-      }
-      animId = requestAnimationFrame(step);
-    };
-
-    animId = requestAnimationFrame(step);
-
-    return () => cancelAnimationFrame(animId);
-  }, [speed, direction]);
+  const items = [...logos, ...logos];
+  const duration = Math.max(20, logos.length * 5 / Math.max(speed, 0.25));
 
   return (
     <div
@@ -83,12 +39,30 @@ export default function LogoMarquee({
       <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-16 bg-gradient-to-r from-warm-50 to-transparent" />
       <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-16 bg-gradient-to-l from-warm-50 to-transparent" />
 
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes pgc-logo-marquee-left {
+              from { transform: translate3d(0, 0, 0); }
+              to { transform: translate3d(-50%, 0, 0); }
+            }
+            @keyframes pgc-logo-marquee-right {
+              from { transform: translate3d(-50%, 0, 0); }
+              to { transform: translate3d(0, 0, 0); }
+            }
+          `,
+        }}
+      />
+
       <div
-        ref={trackRef}
-        className="flex w-max items-center whitespace-nowrap"
-        style={{ gap: showNames ? "2rem" : "1.5rem" }}
-        onMouseEnter={() => { pausedRef.current = true; }}
-        onMouseLeave={() => { pausedRef.current = false; }}
+        className="flex w-max items-center whitespace-nowrap will-change-transform"
+        style={{
+          gap: showNames ? "2rem" : "1.5rem",
+          animation: `${direction === "right" ? "pgc-logo-marquee-right" : "pgc-logo-marquee-left"} ${duration}s linear infinite`,
+          animationPlayState: hovered ? "paused" : "running",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         {items.map((logo, i) => (
           <Link

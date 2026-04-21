@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "@/components/Img";
 import Link from "next/link";
 
@@ -17,48 +17,7 @@ export default function MarqueeBelt({
   row1: Business[];
   row2: Business[];
 }) {
-  const track1 = useRef<HTMLDivElement>(null);
-  const track2 = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(0);
-  const pos1Ref = useRef(0);
-  const pos2Ref = useRef(0);
-  const pausedRef = useRef(false);
-
   const [hovered, setHovered] = useState(false);
-
-  useEffect(() => {
-    pausedRef.current = hovered;
-  }, [hovered]);
-
-  useEffect(() => {
-    const speed = 0.5;
-
-    function tick() {
-      if (!pausedRef.current && track1.current && track2.current) {
-        const w1 = track1.current.scrollWidth / 3;
-        const w2 = track2.current.scrollWidth / 3;
-
-        pos1Ref.current -= speed;
-        pos2Ref.current += speed;
-
-        if (pos1Ref.current <= -w1) pos1Ref.current = 0;
-        if (pos2Ref.current >= 0) pos2Ref.current = -w2;
-
-        track1.current.style.transform = `translateX(${pos1Ref.current}px)`;
-        track2.current.style.transform = `translateX(${pos2Ref.current}px)`;
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    // Start row2 offset
-    if (track2.current) {
-      const w2 = track2.current.scrollWidth / 3;
-      pos2Ref.current = -w2;
-    }
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, []);
 
   const renderItems = (items: Business[], prefix: string) =>
     items.map((biz, i) => (
@@ -86,14 +45,40 @@ export default function MarqueeBelt({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes pgc-marquee-left {
+              from { transform: translate3d(0, 0, 0); }
+              to { transform: translate3d(-50%, 0, 0); }
+            }
+            @keyframes pgc-marquee-right {
+              from { transform: translate3d(-50%, 0, 0); }
+              to { transform: translate3d(0, 0, 0); }
+            }
+          `,
+        }}
+      />
       <div className="mb-3 overflow-hidden">
-        <div ref={track1} className="flex w-max items-center gap-5">
-          {renderItems([...row1, ...row1, ...row1], "r1")}
+        <div
+          className="flex w-max items-center gap-5 will-change-transform"
+          style={{
+            animation: `pgc-marquee-left ${Math.max(26, row1.length * 4.8)}s linear infinite`,
+            animationPlayState: hovered ? "paused" : "running",
+          }}
+        >
+          {renderItems([...row1, ...row1], "r1")}
         </div>
       </div>
       <div className="overflow-hidden">
-        <div ref={track2} className="flex w-max items-center gap-5">
-          {renderItems([...row2, ...row2, ...row2], "r2")}
+        <div
+          className="flex w-max items-center gap-5 will-change-transform"
+          style={{
+            animation: `pgc-marquee-right ${Math.max(28, row2.length * 5.2)}s linear infinite`,
+            animationPlayState: hovered ? "paused" : "running",
+          }}
+        >
+          {renderItems([...row2, ...row2], "r2")}
         </div>
       </div>
     </section>
