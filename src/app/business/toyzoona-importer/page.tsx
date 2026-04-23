@@ -36,7 +36,6 @@ const YOUTUBE_VIDEO_ID = "eAGbGMUIzhY";
 const YOUTUBE_VIDEO_ID_2 = "xCed6-vE4Ko";
 const FB_VIDEO_1 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2064629281014506%2F&show_text=0&width=560";
 const FB_VIDEO_2 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FToyzoonaLaguna%2Fvideos%2F7153440271404393%2F&show_text=0&width=560";
-const FB_VIDEO_3 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1601263954151179%2F&show_text=0&width=560";
 
 /* ── BRANDS ─────────────────────────────────────────────────────────────── */
 const BRANDS = [
@@ -140,6 +139,104 @@ function ToyGallery() {
           }} />
         ))}
       </div>
+    </div>
+  );
+}
+
+function PhilippineStarFeatureCard({ compact = false }: { compact?: boolean }) {
+  return (
+    <div style={{
+      height: "100%",
+      minHeight: compact ? 0 : undefined,
+      borderRadius: compact ? 20 : 24,
+      border: `5px solid ${C.yellow}`,
+      background: "linear-gradient(135deg,#1a1200 0%,#0d0d0d 60%,#1a1200 100%)",
+      boxShadow: `${compact ? "7px 7px" : "6px 6px"} 0 ${C.black}, 0 0 0 2px ${C.yellow}40`,
+      padding: compact ? "18px" : "24px 24px 20px",
+      position: "relative",
+      overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", top: -30, right: -30,
+        width: 160, height: 160,
+        background: `radial-gradient(circle, ${C.yellow}22 0%, transparent 70%)`,
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", bottom: -20, left: -20,
+        width: 120, height: 120,
+        background: `radial-gradient(circle, ${C.red}18 0%, transparent 70%)`,
+        borderRadius: "50%",
+        pointerEvents: "none",
+      }} />
+
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: compact ? 14 : 18, flexWrap: "wrap" }}>
+        <div style={{
+          width: compact ? 46 : 52, height: compact ? 46 : 52, borderRadius: 16,
+          background: C.yellow, color: C.black,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          border: `3px solid ${C.black}`, boxShadow: `4px 4px 0 ${C.black}`,
+          flexShrink: 0,
+        }}>
+          <Newspaper size={compact ? 21 : 24} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <div className="tz-font" style={{ fontSize: compact ? 19 : 22, color: C.yellow, lineHeight: 1.1 }}>
+            Philippine Star
+          </div>
+          <div className="tz-body" style={{ fontSize: compact ? 12 : 13, color: "rgba(255,255,255,.65)", marginTop: 2 }}>
+            Toyzoona featured in the country&apos;s leading broadsheet!
+          </div>
+        </div>
+        <div style={{
+          background: C.red, color: C.white,
+          padding: compact ? "6px 12px" : "7px 16px", borderRadius: 999,
+          border: `3px solid ${C.black}`, boxShadow: `3px 3px 0 ${C.black}`,
+          fontWeight: 900, fontSize: compact ? 10 : 12, letterSpacing: "0.12em", textTransform: "uppercase",
+          flexShrink: 0,
+        }} className="tz-body">
+          Featured
+        </div>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div style={{
+          borderRadius: 18,
+          border: `4px solid ${C.black}`,
+          boxShadow: `7px 7px 0 ${C.black}, 0 0 0 2px ${C.yellow}`,
+          overflow: "hidden",
+          background: "#fff",
+          maxWidth: "100%",
+          lineHeight: 0,
+        }}>
+          <iframe
+            src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FPhilippineSTAR%2Fposts%2Fpfbid0vDA7WywnMQrir75SeeJAMSqHE7fmWNawG82k2HSZgN4VK6BnmXwREjtNrGGZLohUl&show_text=false&width=500"
+            width="500"
+            height={compact ? "220" : "498"}
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            style={{ border: "none", overflow: "hidden", display: "block", maxWidth: "100%" }}
+            scrolling="no"
+            frameBorder={0}
+            allowFullScreen
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          />
+        </div>
+      </div>
+
+      {!compact && (
+        <div style={{
+          marginTop: 16,
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+        }}>
+          <span className="tz-body" style={{
+            fontSize: 12, color: "rgba(255,255,255,.5)", textAlign: "center",
+          }}>
+            As featured in <strong style={{ color: C.yellow }}>Philippine Star</strong> — sharing the joy of collectibles nationwide!
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -584,11 +681,12 @@ export default function ToyZoonaImporterPage() {
 
           {/* Added media row */}
           <ScrollReveal delay={100}>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:24}} className="tz-grid-2">
+            <div style={{display:"flex",justifyContent:"center",marginBottom:24}}>
               <div style={{
                 borderRadius:20,overflow:"hidden",
                 border:`5px solid ${C.green}`,boxShadow:`7px 7px 0 ${C.black}`,
                 aspectRatio:"16/9",position:"relative",
+                width:"100%",maxWidth:"630px",
                 background:C.cardBg,
               }}>
                 <iframe
@@ -597,24 +695,6 @@ export default function ToyZoonaImporterPage() {
                   loading="lazy"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-                  allowFullScreen
-                  style={{width:"100%",height:"100%",border:"none",display:"block"}}
-                />
-              </div>
-              <div style={{
-                borderRadius:20,overflow:"hidden",
-                border:`5px solid ${C.purple}`,boxShadow:`7px 7px 0 ${C.black}`,
-                aspectRatio:"16/9",position:"relative",
-                background:C.cardBg,
-              }}>
-                <iframe
-                  src={FB_VIDEO_3}
-                  title="Toyzoona Importer — Facebook Reel"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  scrolling="no"
-                  frameBorder="0"
-                  allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"
                   allowFullScreen
                   style={{width:"100%",height:"100%",border:"none",display:"block"}}
                 />
@@ -695,107 +775,11 @@ export default function ToyZoonaImporterPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={260}>
-            {/* ── Philippine Star Feature Card ── */}
-            <div style={{
-              marginTop:28,
-              borderRadius:24,
-              border:`5px solid ${C.yellow}`,
-              background:"linear-gradient(135deg,#1a1200 0%,#0d0d0d 60%,#1a1200 100%)",
-              boxShadow:`6px 6px 0 ${C.black}, 0 0 0 2px ${C.yellow}40`,
-              padding:"24px 24px 20px",
-              position:"relative",
-              overflow:"hidden",
-            }}>
-              {/* comic burst background decoration */}
-              <div style={{
-                position:"absolute",top:-30,right:-30,
-                width:160,height:160,
-                background:`radial-gradient(circle, ${C.yellow}22 0%, transparent 70%)`,
-                borderRadius:"50%",
-                pointerEvents:"none",
-              }}/>
-              <div style={{
-                position:"absolute",bottom:-20,left:-20,
-                width:120,height:120,
-                background:`radial-gradient(circle, ${C.red}18 0%, transparent 70%)`,
-                borderRadius:"50%",
-                pointerEvents:"none",
-              }}/>
-
-              {/* header row */}
-              <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:18,flexWrap:"wrap"}}>
-                <div style={{
-                  width:52,height:52,borderRadius:16,
-                  background:C.yellow,color:C.black,
-                  display:"flex",alignItems:"center",justifyContent:"center",
-                  border:`3px solid ${C.black}`,boxShadow:`4px 4px 0 ${C.black}`,
-                  flexShrink:0,
-                }}>
-                  <Newspaper size={24} />
-                </div>
-                <div style={{flex:1}}>
-                  <div className="tz-font" style={{fontSize:22,color:C.yellow,lineHeight:1.1}}>
-                    Philippine Star
-                  </div>
-                  <div className="tz-body" style={{fontSize:13,color:"rgba(255,255,255,.65)",marginTop:2}}>
-                    Toyzoona featured in the country&apos;s leading broadsheet! 🌟
-                  </div>
-                </div>
-                {/* "FEATURED!" starburst badge */}
-                <div style={{
-                  background:C.red,color:C.white,
-                  padding:"7px 16px",borderRadius:999,
-                  border:`3px solid ${C.black}`,boxShadow:`3px 3px 0 ${C.black}`,
-                  fontWeight:900,fontSize:12,letterSpacing:"0.12em",textTransform:"uppercase",
-                  flexShrink:0,
-                }} className="tz-body">
-                  ⭐ Featured!
-                </div>
-              </div>
-
-              {/* iframe wrapper — centred, cartoon-bordered */}
-              <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-              }}>
-                <div style={{
-                  borderRadius:18,
-                  border:`4px solid ${C.black}`,
-                  boxShadow:`7px 7px 0 ${C.black}, 0 0 0 2px ${C.yellow}`,
-                  overflow:"hidden",
-                  background:"#fff",
-                  maxWidth:"100%",
-                  lineHeight:0,
-                }}>
-                  <iframe
-                    src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FPhilippineSTAR%2Fposts%2Fpfbid0vDA7WywnMQrir75SeeJAMSqHE7fmWNawG82k2HSZgN4VK6BnmXwREjtNrGGZLohUl&show_text=false&width=500"
-                    width="500"
-                    height="498"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    style={{border:"none",overflow:"hidden",display:"block",maxWidth:"100%"}}
-                    scrolling="no"
-                    frameBorder={0}
-                    allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
-                </div>
-              </div>
-
-              {/* bottom caption */}
-              <div style={{
-                marginTop:16,
-                display:"flex",alignItems:"center",justifyContent:"center",gap:8,
-              }}>
-                <span className="tz-body" style={{
-                  fontSize:12,color:"rgba(255,255,255,.5)",textAlign:"center",
-                }}>
-                  📰 As featured in <strong style={{color:C.yellow}}>Philippine Star</strong> — sharing the joy of collectibles nationwide!
-                </span>
-              </div>
+            <div style={{marginTop:28}}>
+              <PhilippineStarFeatureCard />
             </div>
           </ScrollReveal>
+
         </div>
       </section>
 
@@ -1074,6 +1058,7 @@ export default function ToyZoonaImporterPage() {
               </a>
             </div>
           </ScrollReveal>
+
         </div>
       </section>
 
