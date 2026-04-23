@@ -33,9 +33,10 @@ const YOUTUBE_CHANNEL = "https://www.youtube.com/@toyzoonaimporter";
 const LINKEDIN_URL = "https://www.linkedin.com/company/toyzoona-importer";
 const TIKTOK_URL = "https://www.tiktok.com/@toyzoonaimporter";
 const YOUTUBE_VIDEO_ID = "eAGbGMUIzhY";
-
+const YOUTUBE_VIDEO_ID_2 = "xCed6-vE4Ko";
 const FB_VIDEO_1 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2064629281014506%2F&show_text=0&width=560";
 const FB_VIDEO_2 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FToyzoonaLaguna%2Fvideos%2F7153440271404393%2F&show_text=0&width=560";
+const FB_VIDEO_3 = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1601263954151179%2F&show_text=0&width=560";
 
 /* ── BRANDS ─────────────────────────────────────────────────────────────── */
 const BRANDS = [
@@ -581,8 +582,48 @@ export default function ToyZoonaImporterPage() {
             </div>
           </ScrollReveal>
 
-          {/* Facebook video underneath */}
+          {/* Added media row */}
           <ScrollReveal delay={100}>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:24}} className="tz-grid-2">
+              <div style={{
+                borderRadius:20,overflow:"hidden",
+                border:`5px solid ${C.green}`,boxShadow:`7px 7px 0 ${C.black}`,
+                aspectRatio:"16/9",position:"relative",
+                background:C.cardBg,
+              }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID_2}?rel=0&modestbranding=1`}
+                  title="Toyzoona Importer — Additional Showcase"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                  allowFullScreen
+                  style={{width:"100%",height:"100%",border:"none",display:"block"}}
+                />
+              </div>
+              <div style={{
+                borderRadius:20,overflow:"hidden",
+                border:`5px solid ${C.purple}`,boxShadow:`7px 7px 0 ${C.black}`,
+                aspectRatio:"16/9",position:"relative",
+                background:C.cardBg,
+              }}>
+                <iframe
+                  src={FB_VIDEO_3}
+                  title="Toyzoona Importer — Facebook Reel"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  scrolling="no"
+                  frameBorder="0"
+                  allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"
+                  allowFullScreen
+                  style={{width:"100%",height:"100%",border:"none",display:"block"}}
+                />
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Facebook video underneath */}
+          <ScrollReveal delay={160}>
             <div style={{
               borderRadius:24,overflow:"hidden",
               border:`5px solid ${C.yellow}`,boxShadow:`8px 8px 0 ${C.black}`,
@@ -603,7 +644,7 @@ export default function ToyZoonaImporterPage() {
           </ScrollReveal>
 
           {/* Channel links strip */}
-          <ScrollReveal delay={200}>
+          <ScrollReveal delay={240}>
             <div style={{
               marginTop:40,padding:"20px 28px",
               background:C.yellow,borderRadius:18,

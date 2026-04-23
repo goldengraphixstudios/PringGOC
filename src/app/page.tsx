@@ -21,13 +21,14 @@ import {
   Clock,
   Package,
   CalendarCheck,
+  Linkedin,
 } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
 import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
-import { GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH } from "@/data/site";
+import { GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH, GROUP_LINKEDIN_URL } from "@/data/site";
 
 const mainBusinesses = businesses;
 
@@ -799,6 +800,13 @@ export default function Home() {
                     className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-navy-800/15 px-8 py-3.5 text-sm font-semibold text-navy-700 transition-all duration-200 hover:border-navy-800/25 hover:bg-navy-800/[0.04] hover:text-navy-900 active:scale-[0.98]">
                     <Package className="h-4 w-4" />
                     Email Us
+                  </a>
+                  <a href={GROUP_LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#0A66C2]/20 bg-[#0A66C2]/[0.06] px-8 py-3.5 text-sm font-semibold text-[#0A4F96] transition-all duration-200 hover:border-[#0A66C2]/35 hover:bg-[#0A66C2]/[0.1] hover:text-[#063E78] active:scale-[0.98]">
+                    <Linkedin className="h-4 w-4" />
+                    LinkedIn
                   </a>
                 </div>
               </div>
