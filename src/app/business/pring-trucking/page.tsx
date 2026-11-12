@@ -599,7 +599,7 @@ export default function PringTruckingPage() {
 
           <ScrollReveal delay={180}>
             <p className="pt-body" style={{ fontSize:18,color:C.gray,marginBottom:48,lineHeight:1.75,fontWeight:500 }}>
-              Send us your requirements and we'll match you with the right truck from our fleet. Fast response, professional service, guaranteed on-time delivery.
+              Send us your requirements and we&apos;ll match you with the right truck from our fleet. Fast response, professional service, guaranteed on-time delivery.
             </p>
           </ScrollReveal>
 

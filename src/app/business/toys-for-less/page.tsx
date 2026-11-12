@@ -451,8 +451,8 @@ export default function ToysForLessPage() {
             className="pointer-events-none absolute"
             style={{
               top: c.top,
-              left: (c as any).left,
-              right: (c as any).right,
+              left: "left" in c ? c.left : undefined,
+              right: "right" in c ? c.right : undefined,
               bottom: c.bottom,
               animation: `tfFloat ${5 + i * 0.7}s ease-in-out infinite ${c.delay}`,
             }}
@@ -760,7 +760,10 @@ export default function ToysForLessPage() {
             key={i}
             className="pointer-events-none absolute"
             style={{
-              top: p.top, left: (p as any).left, right: (p as any).right, bottom: p.bottom,
+              top: p.top,
+              left: "left" in p ? p.left : undefined,
+              right: "right" in p ? p.right : undefined,
+              bottom: p.bottom,
               animation: `tfFloat ${5 + i}s ease-in-out infinite ${p.d}`,
             }}
           >

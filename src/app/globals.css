@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
-@theme inline {
+:root {
   --color-navy-950: #050D1A;
   --color-navy-900: #0A1628;
   --color-navy-800: #0F2035;
@@ -16,11 +17,10 @@
   --color-warm-200: #EFEAE0;
   --color-warm-300: #DDD5C5;
   --color-warm-400: #B5A78E;
-  --font-heading: 'Bodoni Moda', serif;
-  --font-body: 'Jost', sans-serif;
-  --font-cursive: 'Cormorant Garamond', serif;
-  --font-display: 'Oswald', sans-serif;
-
+  --font-heading: "Bodoni Moda", serif;
+  --font-body: "Jost", sans-serif;
+  --font-cursive: "Cormorant Garamond", serif;
+  --font-display: "Oswald", sans-serif;
 }
 
 /* Base Styles */

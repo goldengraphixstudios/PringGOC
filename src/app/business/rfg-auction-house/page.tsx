@@ -1026,7 +1026,7 @@ export default function RFGAuctionHousePage() {
           <Link href="/" className="rfg-nav-back">
             <ArrowLeft size={16} /> Back
           </Link>
-          <Link href="/business/rfg-auction-house" className="rfg-nav-logo">
+          <Link href="/business/rfg-auction-house" prefetch={false} className="rfg-nav-logo">
             <Image
               src="/logos/rfg-auction.jpg"
               alt="RFG Auction House"

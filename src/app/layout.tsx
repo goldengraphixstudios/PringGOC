@@ -35,6 +35,11 @@ export const metadata: Metadata = {
   title: "Pring Group of Companies | Family-Owned Business Conglomerate",
   description:
     `Pring Group of Companies is a family-owned business conglomerate with ${GROUP_BUSINESS_LABEL} thriving businesses across retail, food & beverage, real estate, events, fitness, and more.`,
+  icons: {
+    icon: "/logos/pring-group.png",
+    shortcut: "/logos/pring-group.png",
+    apple: "/logos/pring-group.png",
+  },
 };
 
 export default function RootLayout({
@@ -47,23 +52,33 @@ export default function RootLayout({
       <body className="bg-warm-50 text-navy-900 font-[family-name:var(--font-body)] antialiased">
         {children}
         <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="lazyOnload"
-        />
-        <Script
           id="tawk-to"
-          strategy="lazyOnload"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-              (function(){
-                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-                s1.async=true;
-                s1.src='https://embed.tawk.to/69e48bd06936c61c38746926/1jmic4a6n';
-                s1.charset='UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1,s0);
-              })();
+              window.Tawk_API = window.Tawk_API || {};
+              window.Tawk_API.onLoad = function(){
+                if (typeof window.Tawk_API.showWidget === "function") {
+                  window.Tawk_API.showWidget();
+                }
+              };
+              window.Tawk_LoadStart = new Date();
+              (function loadTawk(retryCount){
+                if (document.querySelector('script[data-pgc-tawk="true"]')) return;
+                var s1 = document.createElement("script");
+                var s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = "https://embed.tawk.to/69e48bd06936c61c38746926/1jmic4a6n";
+                s1.charset = "UTF-8";
+                s1.setAttribute("data-pgc-tawk", "true");
+                s1.onerror = function(){
+                  s1.remove();
+                  if (retryCount < 2) {
+                    window.setTimeout(function(){ loadTawk(retryCount + 1); }, 2500);
+                  }
+                };
+                s0.parentNode.insertBefore(s1, s0);
+              })(0);
             `,
           }}
         />

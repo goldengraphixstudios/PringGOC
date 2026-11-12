@@ -258,7 +258,7 @@ export default function NBLoungePage() {
           <Link href="/" className="flex items-center gap-2 text-sm font-medium text-[#8C7E72] transition-colors hover:text-[#1C1410]">
             <ArrowLeft className="h-4 w-4" /> Back
           </Link>
-          <Link href="/business/nb-lounge" className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/business/nb-lounge" prefetch={false} className="absolute left-1/2 -translate-x-1/2">
             <Image src="/logos/nb-lounge.jpg" alt="NB Lounge" width={44} height={44}
               className="rounded-full shadow-sm transition-transform hover:scale-110" />
           </Link>

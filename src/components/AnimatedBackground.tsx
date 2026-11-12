@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 interface Orb {
   id: number;
   x: number;
@@ -20,29 +16,30 @@ interface AnimatedBackgroundProps {
   variant?: "light" | "dark";
 }
 
+function pseudo(seed: number) {
+  const value = Math.sin(seed * 999) * 10000;
+  return value - Math.floor(value);
+}
+
 export default function AnimatedBackground({
   colors = ["#1B3A5C", "#C9A84C", "#2B5A8C"],
   orbCount = 5,
   className = "",
   variant = "light",
 }: AnimatedBackgroundProps) {
-  const [orbs, setOrbs] = useState<Orb[]>([]);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const generated: Orb[] = Array.from({ length: orbCount }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: 250 + Math.random() * 350,
-      color: colors[i % colors.length],
-      duration: 18 + Math.random() * 22,
-      delay: Math.random() * -15,
-      opacity: variant === "light" ? 0.025 + Math.random() * 0.035 : 0.03 + Math.random() * 0.06,
-    }));
-    setOrbs(generated);
-  }, [colors, orbCount, variant]);
+  const orbs: Orb[] = Array.from({ length: orbCount }, (_, i) => ({
+    id: i,
+    x: pseudo(i + 1) * 100,
+    y: pseudo(i + 11) * 100,
+    size: 250 + pseudo(i + 21) * 350,
+    color: colors[i % colors.length],
+    duration: 18 + pseudo(i + 31) * 22,
+    delay: pseudo(i + 41) * -15,
+    opacity:
+      variant === "light"
+        ? 0.025 + pseudo(i + 51) * 0.035
+        : 0.03 + pseudo(i + 51) * 0.06,
+  }));
 
   if (variant === "dark") {
     return (

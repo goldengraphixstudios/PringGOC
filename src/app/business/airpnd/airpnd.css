@@ -1,0 +1,628 @@
+/* ─────────────────────────────────────────────────────────────
+   AIRPND Rentals — page-scoped design system.
+   Everything lives under .ap so it never leaks into other pages.
+   ───────────────────────────────────────────────────────────── */
+
+/* Component layer, so Tailwind utilities on the same element still win. */
+@layer components {
+
+.ap {
+  /* Brand colours sampled from the AIRPND Rentals logo */
+  --ap-cream: #f5eae4;
+  --ap-paper: #fbf6f2;
+  --ap-sand: #ecdcd1;
+  --ap-sand-deep: #dfc8b9;
+  --ap-clay: #ab582c;
+  --ap-clay-btn: #9e4d24; /* clay darkened just enough for 4.5:1 cream text */
+  --ap-clay-deep: #7f3b19;
+  --ap-sage: #7e7a5d;
+  --ap-sage-deep: #55523b;
+  --ap-sage-ink: #3d3b2a;
+  --ap-ink: #29261f;
+  --ap-ink-soft: #57524a;
+
+  --ap-display: var(--ap-font-display), "Georgia", serif;
+  --ap-sans: var(--ap-font-sans), system-ui, sans-serif;
+
+  --ap-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  background: var(--ap-cream);
+  color: var(--ap-ink);
+  font-family: var(--ap-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.ap ::selection {
+  background: var(--ap-clay);
+  color: var(--ap-paper);
+}
+
+.ap :focus-visible {
+  outline: 2.5px solid var(--ap-clay);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ── Type ─────────────────────────────────────────────────── */
+
+.ap-display {
+  font-family: var(--ap-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  color: var(--ap-ink);
+  text-wrap: balance;
+}
+
+.ap-h1 { font-size: clamp(2.9rem, 7.2vw, 6.1rem); line-height: 0.98; }
+.ap-h2 { font-size: clamp(2.2rem, 4.6vw, 3.9rem); }
+.ap-h3 { font-size: clamp(1.6rem, 2.6vw, 2.15rem); }
+
+.ap-label {
+  font-family: var(--ap-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ap-clay-deep);
+}
+
+.ap-lede {
+  font-size: clamp(1.06rem, 1.4vw, 1.22rem);
+  line-height: 1.6;
+  color: var(--ap-ink-soft);
+  text-wrap: pretty;
+}
+
+.ap-body { color: var(--ap-ink-soft); text-wrap: pretty; }
+
+.ap-accent { color: var(--ap-clay); }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0 1.6rem;
+  border-radius: 999px;
+  font-family: var(--ap-sans);
+  font-weight: 650;
+  font-size: 15.5px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.35s var(--ap-ease), background-color 0.25s, color 0.25s, box-shadow 0.35s var(--ap-ease), border-color 0.25s;
+  white-space: nowrap;
+}
+.ap-btn:active { transform: scale(0.97); }
+
+.ap-btn-primary {
+  background: var(--ap-clay-btn);
+  color: var(--ap-paper);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 10px 24px -12px rgba(127, 59, 25, 0.7);
+}
+.ap-btn-primary:hover { background: var(--ap-clay-deep); box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 16px 30px -14px rgba(127, 59, 25, 0.85); }
+
+.ap-btn-ghost {
+  border: 1.5px solid rgba(41, 38, 31, 0.22);
+  color: var(--ap-ink);
+  background: transparent;
+}
+.ap-btn-ghost:hover { border-color: var(--ap-ink); background: rgba(41, 38, 31, 0.04); }
+
+.ap-btn-cream {
+  background: var(--ap-paper);
+  color: var(--ap-clay-deep);
+}
+.ap-btn-cream:hover { background: #fff; }
+
+.ap-btn-outline-cream {
+  border: 1.5px solid rgba(251, 246, 242, 0.45);
+  color: var(--ap-paper);
+}
+.ap-btn-outline-cream:hover { border-color: var(--ap-paper); background: rgba(251, 246, 242, 0.08); }
+
+.ap-arrow { transition: transform 0.35s var(--ap-ease); }
+@media (hover: hover) { .ap-btn:hover .ap-arrow { transform: translateX(3px); } }
+
+/* ── Paper grain (warmth without images) ──────────────────── */
+
+.ap-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.25  0 0 0 0 0.18  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ── Nav ──────────────────────────────────────────────────── */
+
+.ap-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 90;
+  transition: background-color 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+}
+.ap-nav[data-solid="true"] {
+  background: rgba(245, 234, 228, 0.95);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+.ap-navlink {
+  position: relative;
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--ap-ink-soft);
+  transition: color 0.2s;
+}
+.ap-navlink:hover { color: var(--ap-ink); }
+.ap-navlink::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ap-clay);
+  transform: translate(-50%, 4px) scale(0);
+  transition: transform 0.35s var(--ap-ease);
+}
+@media (hover: hover) { .ap-navlink:hover::after { transform: translate(-50%, 0) scale(1); } }
+
+/* Scroll progress: a line along the bottom of the nav, with the logo dot riding the tip */
+.ap-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(126, 122, 93, 0.18);
+}
+.ap-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--ap-clay);
+}
+.ap-progress-dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 999px;
+  background: var(--ap-clay);
+  box-shadow: 0 0 0 4px rgba(171, 88, 44, 0.16);
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+/* Hero photo is cut into the roofline from the logo */
+.ap-roof-photo {
+  clip-path: url(#ap-roof-clip);
+  -webkit-clip-path: url(#ap-roof-clip);
+}
+
+.ap-roof-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ap-draw 1.8s 0.35s var(--ap-ease) forwards;
+}
+@keyframes ap-draw { to { stroke-dashoffset: 0; } }
+
+.ap-sun {
+  animation: ap-sun-in 1.1s 1.5s var(--ap-ease) both, ap-bob 5.5s 2.6s ease-in-out infinite;
+}
+@keyframes ap-sun-in {
+  from { opacity: 0; transform: translateY(26px) scale(0.6); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ap-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+.ap-rise { opacity: 0; animation: ap-rise 0.95s var(--ap-ease) forwards; }
+@keyframes ap-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ap-zoom-in { animation: ap-zoom 2.2s var(--ap-ease) both; }
+@keyframes ap-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+
+/* Booking bar */
+.ap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 18px;
+  transition: background-color 0.2s;
+  min-width: 0;
+}
+.ap-field:focus-within { background: rgba(236, 220, 209, 0.65); }
+@media (hover: hover) { .ap-field:hover { background: rgba(236, 220, 209, 0.65); } }
+.ap-field-label {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ap-sage-deep);
+}
+.ap-field select,
+.ap-field input {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ap-ink);
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  cursor: pointer;
+}
+.ap-field select:focus, .ap-field input:focus { outline: none; }
+.ap-field input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.55; cursor: pointer; }
+
+/* ── Marquee ──────────────────────────────────────────────── */
+
+.ap-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.ap-marquee-track { display: flex; width: max-content; animation: ap-marquee 38s linear infinite; }
+.ap-marquee:hover .ap-marquee-track { animation-play-state: paused; }
+@keyframes ap-marquee { to { transform: translateX(-50%); } }
+
+/* ── Stays ────────────────────────────────────────────────── */
+
+.ap-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.15rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(41, 38, 31, 0.16);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ap-ink-soft);
+  cursor: pointer;
+  transition: all 0.25s var(--ap-ease);
+}
+@media (hover: hover) { .ap-chip:hover { border-color: var(--ap-ink); color: var(--ap-ink); } }
+.ap-chip[aria-pressed="true"] { background: var(--ap-ink); border-color: var(--ap-ink); color: var(--ap-paper); }
+.ap-chip-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(41, 38, 31, 0.08);
+}
+.ap-chip[aria-pressed="true"] .ap-chip-count { background: rgba(251, 246, 242, 0.18); }
+
+.ap-stay { transition: opacity 0.45s var(--ap-ease), transform 0.45s var(--ap-ease); }
+.ap-stay[data-hidden="true"] { display: none; }
+
+.ap-arch { border-radius: 999px 999px 22px 22px; }
+
+.ap-photo-btn { position: relative; overflow: hidden; cursor: zoom-in; display: block; width: 100%; }
+.ap-photo-btn img { transition: transform 1.1s var(--ap-ease); }
+@media (hover: hover) { .ap-photo-btn:hover img { transform: scale(1.05); } }
+.ap-photo-btn:active img { transform: scale(0.985); }
+
+.ap-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  background: rgba(126, 122, 93, 0.13);
+  color: var(--ap-sage-ink);
+}
+
+/* Big stay number, set like a house number */
+.ap-house-no {
+  font-family: var(--ap-display);
+  font-size: clamp(4.5rem, 9vw, 7.5rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(171, 88, 44, 0.55);
+}
+
+/* ── Lightbox ─────────────────────────────────────────────── */
+
+.ap-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: #1e1b15;
+  display: flex;
+  flex-direction: column;
+  animation: ap-fade 0.3s ease both;
+}
+@keyframes ap-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Amenity bento ────────────────────────────────────────── */
+
+.ap-tile {
+  position: relative;
+  border-radius: 22px;
+  padding: 1.15rem;
+  background: var(--ap-paper);
+  border: 1px solid rgba(126, 122, 93, 0.16);
+  transition: transform 0.5s var(--ap-ease), box-shadow 0.5s var(--ap-ease);
+  overflow: hidden;
+}
+@media (hover: hover) { .ap-tile:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(85, 82, 59, 0.55); } }
+.ap-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--ap-cream);
+  color: var(--ap-clay);
+}
+
+/* ── Map ──────────────────────────────────────────────────── */
+
+.ap-map-frame { filter: sepia(0.32) saturate(0.85) hue-rotate(-8deg) contrast(0.98); }
+
+/* ── Booking curve ────────────────────────────────────────── */
+
+.ap-step-node {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--ap-paper);
+  border: 2px solid var(--ap-clay);
+  font-family: var(--ap-display);
+  font-size: 1.35rem;
+  color: var(--ap-clay);
+}
+
+/* ── FAQ ──────────────────────────────────────────────────── */
+
+.ap-faq { border-top: 1.5px solid rgba(41, 38, 31, 0.12); }
+.ap-faq:last-child { border-bottom: 1.5px solid rgba(41, 38, 31, 0.12); }
+.ap-faq summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  font-family: var(--ap-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  line-height: 1.25;
+  color: var(--ap-ink);
+}
+.ap-faq summary::-webkit-details-marker { display: none; }
+.ap-faq-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(41, 38, 31, 0.18);
+  color: var(--ap-clay);
+  transition: transform 0.4s var(--ap-ease), background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.ap-faq[open] .ap-faq-icon { transform: rotate(45deg); background: var(--ap-clay-btn); border-color: var(--ap-clay-btn); color: var(--ap-paper); }
+.ap-faq-body { padding: 0 0 1.5rem 0; color: var(--ap-ink-soft); }
+
+/* ── Composer ─────────────────────────────────────────────── */
+
+.ap-input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.7rem 1rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(41, 38, 31, 0.16);
+  background: var(--ap-paper);
+  font: inherit;
+  font-size: 16px;
+  color: var(--ap-ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ap-input:focus { outline: none; border-color: var(--ap-clay); box-shadow: 0 0 0 4px rgba(171, 88, 44, 0.14); }
+textarea.ap-input { min-height: 92px; resize: vertical; }
+input[type="date"].ap-input { padding-inline: 0.75rem; min-width: 0; }
+input[type="date"].ap-input::-webkit-date-and-time-value { text-align: left; }
+.ap-input-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 650; color: var(--ap-ink); }
+
+.ap-seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--ap-sand);
+}
+.ap-seg button {
+  min-height: 42px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--ap-ink-soft);
+  cursor: pointer;
+  transition: all 0.25s var(--ap-ease);
+}
+.ap-seg button[aria-pressed="true"] { background: var(--ap-paper); color: var(--ap-ink); box-shadow: 0 2px 8px -3px rgba(41, 38, 31, 0.3); }
+
+.ap-bubble {
+  position: relative;
+  border-radius: 22px 22px 22px 6px;
+  background: var(--ap-paper);
+  padding: 1.1rem 1.25rem;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ap-ink);
+  white-space: pre-wrap;
+  box-shadow: 0 18px 40px -26px rgba(41, 38, 31, 0.55);
+}
+
+.ap-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  background: rgba(41, 38, 31, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ap-fade 0.25s ease both;
+}
+.ap-sheet { animation: ap-sheet 0.5s var(--ap-ease) both; }
+@keyframes ap-sheet { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+.ap-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 400;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+  padding: 0.85rem 1.3rem;
+  border-radius: 999px;
+  background: var(--ap-ink);
+  color: var(--ap-paper);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.5);
+  animation: ap-sheet 0.4s var(--ap-ease) both;
+}
+
+/* ── Reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ap *,
+  .ap *::before,
+  .ap *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .ap-rise { opacity: 1; }
+  .ap-roof-line path { stroke-dashoffset: 0; }
+  .ap-marquee-track { animation: none; }
+}
+
+
+/* ── Responsive refinements ───────────────────────────────── */
+
+@media (min-width: 640px) {
+  .ap-field { padding: 0.7rem 1.1rem; }
+  .ap-tile { border-radius: 28px; padding: 1.75rem; }
+  .ap-tile-icon { width: 52px; height: 52px; border-radius: 16px; }
+  .ap-faq-body { padding-right: 3.5rem; }
+}
+
+/* Pring Group prev/next bubbles cover content on phones; the footer carries them instead */
+@media (max-width: 1023px) {
+  .ap-bizarrows a { display: none !important; }
+}
+
+/* Vertical booking timeline on phones */
+@media (max-width: 767px) {
+  .ap-timeline { gap: 0 !important; }
+  .ap-timeline > li { position: relative; padding-bottom: 2.25rem; }
+  .ap-timeline > li:last-child { padding-bottom: 0; }
+  .ap-timeline > li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 52px;
+    bottom: 6px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(var(--ap-clay), rgba(171, 88, 44, 0.15));
+  }
+}
+
+/* Short landscape screens: give the photo viewer all the height */
+@media (max-height: 520px) {
+  .ap-lightbox-extra { display: none !important; }
+}
+
+.ap-safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px)); }
+
+
+/* ── Slideshow ────────────────────────────────────────────── */
+
+.ap-slide { opacity: 0; transition: opacity 1.1s var(--ap-ease); }
+.ap-slide img { transform: scale(1.08); transition: transform 6.5s linear; }
+.ap-slide[data-active="true"] { opacity: 1; }
+.ap-slide[data-active="true"] img { transform: scale(1); }
+
+.ap-seg-fill { width: 0; }
+.ap-seg-fill[data-state="done"] { width: 100%; }
+.ap-seg-fill[data-state="current"] { animation-name: ap-seg; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes ap-seg { from { width: 0; } to { width: 100%; } }
+
+/* Belt: small tracked caps with the house mark as separator */
+.ap-belt-mark { height: 1.15em; width: auto; opacity: 0.85; }
+.ap-belt .ap-marquee-track { animation-duration: 46s; }
+
+/* Amenity list beside the slideshow */
+.ap-amenity-list { border-top: 1px solid rgba(126, 122, 93, 0.28); }
+.ap-amenity-list > li { border-bottom: 1px solid rgba(126, 122, 93, 0.28); }
+.ap-amenity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  border-radius: 18px;
+  transition: background-color 0.35s var(--ap-ease), padding 0.35s var(--ap-ease);
+}
+@media (hover: hover) {
+  .ap-amenity:hover { background: rgba(251, 246, 242, 0.65); padding-left: 0.85rem; }
+  .ap-amenity:hover .ap-tile-icon { background: var(--ap-clay); color: var(--ap-paper); }
+}
+@media (min-width: 640px) { .ap-amenity { padding: 1.15rem 0.35rem; gap: 1.15rem; } }
+
+/* Mobile swipe gallery for each stay */
+.ap-swipe {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.ap-swipe::-webkit-scrollbar { display: none; }
+.ap-swipe > * { scroll-snap-align: center; flex: 0 0 86%; }
+
+/* Scrollspy: active nav link */
+.ap-navlink[aria-current="true"] { color: var(--ap-clay-deep); }
+.ap-navlink[aria-current="true"]::after { transform: translate(-50%, 0) scale(1); }
+.ap-menulink[aria-current="true"] { color: var(--ap-clay); }
+
+} /* end @layer components */

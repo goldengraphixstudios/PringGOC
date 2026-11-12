@@ -78,6 +78,69 @@ const equipment = [
   { src: "/extreme-gainz/gym-6.jpg", alt: "Cable Station & Free Weights" },
 ];
 
+type EmberConfig = {
+  baseSize: number;
+  sizeRange: number;
+  leftBase: number;
+  leftRange: number;
+  bottomBase: number;
+  bottomRange: number;
+  durationBase: number;
+  durationRange: number;
+  delayRange: number;
+};
+
+const heroEmberConfig: EmberConfig = {
+  baseSize: 2,
+  sizeRange: 3,
+  leftBase: 15,
+  leftRange: 70,
+  bottomBase: 5,
+  bottomRange: 15,
+  durationBase: 3,
+  durationRange: 4,
+  delayRange: 5,
+};
+
+const wideEmberConfig: EmberConfig = {
+  baseSize: 2,
+  sizeRange: 2,
+  leftBase: 20,
+  leftRange: 60,
+  bottomBase: 10,
+  bottomRange: 20,
+  durationBase: 4,
+  durationRange: 3,
+  delayRange: 4,
+};
+
+const ctaEmberConfig: EmberConfig = {
+  baseSize: 2,
+  sizeRange: 2,
+  leftBase: 30,
+  leftRange: 40,
+  bottomBase: 10,
+  bottomRange: 20,
+  durationBase: 3,
+  durationRange: 4,
+  delayRange: 5,
+};
+
+function emberStyle(i: number, config: EmberConfig) {
+  const a = ((i * 37 + 11) % 100) / 100;
+  const b = ((i * 53 + 19) % 100) / 100;
+  const c = ((i * 71 + 23) % 100) / 100;
+  return {
+    width: `${config.baseSize + a * config.sizeRange}px`,
+    height: `${config.baseSize + b * config.sizeRange}px`,
+    left: `${config.leftBase + c * config.leftRange}%`,
+    bottom: `${config.bottomBase + a * config.bottomRange}%`,
+    animation: `ember ${config.durationBase + b * config.durationRange}s ease-out infinite`,
+    animationDelay: `${c * config.delayRange}s`,
+    opacity: 0,
+  };
+}
+
 export default function ExtremeGainzPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
@@ -211,15 +274,7 @@ export default function ExtremeGainzPage() {
             <div
               key={i}
               className="absolute rounded-full bg-[#F0C030]"
-              style={{
-                width: `${2 + Math.random() * 3}px`,
-                height: `${2 + Math.random() * 3}px`,
-                left: `${15 + Math.random() * 70}%`,
-                bottom: `${5 + Math.random() * 15}%`,
-                animation: `ember ${3 + Math.random() * 4}s ease-out infinite`,
-                animationDelay: `${Math.random() * 5}s`,
-                opacity: 0,
-              }}
+              style={emberStyle(i, heroEmberConfig)}
             />
           ))}
         </div>
@@ -582,15 +637,7 @@ export default function ExtremeGainzPage() {
             <div
               key={i}
               className="absolute rounded-full bg-[#FF8C00]"
-              style={{
-                width: `${2 + Math.random() * 2}px`,
-                height: `${2 + Math.random() * 2}px`,
-                left: `${20 + Math.random() * 60}%`,
-                bottom: `${10 + Math.random() * 20}%`,
-                animation: `ember ${4 + Math.random() * 3}s ease-out infinite`,
-                animationDelay: `${Math.random() * 4}s`,
-                opacity: 0,
-              }}
+              style={emberStyle(i, wideEmberConfig)}
             />
           ))}
         </div>
@@ -694,15 +741,7 @@ export default function ExtremeGainzPage() {
             <div
               key={i}
               className="absolute rounded-full bg-[#F0C030]"
-              style={{
-                width: `${2 + Math.random() * 2}px`,
-                height: `${2 + Math.random() * 2}px`,
-                left: `${30 + Math.random() * 40}%`,
-                bottom: `${10 + Math.random() * 20}%`,
-                animation: `ember ${3 + Math.random() * 4}s ease-out infinite`,
-                animationDelay: `${Math.random() * 5}s`,
-                opacity: 0,
-              }}
+              style={emberStyle(i, ctaEmberConfig)}
             />
           ))}
         </div>

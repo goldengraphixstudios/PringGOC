@@ -140,6 +140,15 @@ const gallery = [
   { src: "/lucky-finds/unic-2.jpg",  alt: "Premium Items",        span: true },
 ];
 
+const heroSparkles = [
+  { top: "18%", left: "12%" },
+  { top: "32%", left: "24%" },
+  { top: "48%", left: "78%" },
+  { top: "64%", left: "36%" },
+  { top: "26%", left: "66%" },
+  { top: "58%", left: "88%" },
+];
+
 export default function LuckyFindsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FFFAFA] text-[#1C1917]">
@@ -277,8 +286,8 @@ export default function LuckyFindsPage() {
               key={i}
               className="absolute text-[#DC2626]/20"
               style={{
-                top: `${15 + Math.random() * 60}%`,
-                left: `${10 + Math.random() * 80}%`,
+                top: heroSparkles[i].top,
+                left: heroSparkles[i].left,
                 animation: `sparkle ${3 + i * 0.5}s ease-in-out infinite`,
                 animationDelay: `${i * 0.8}s`,
               }}

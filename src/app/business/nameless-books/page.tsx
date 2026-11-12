@@ -317,7 +317,7 @@ export default function NamelessBooksPage() {
             className="flex items-center gap-2 text-sm font-medium text-[#78716C] transition-colors hover:text-[#0F172A]">
             <ArrowLeft className="h-4 w-4" /> Back
           </Link>
-          <Link href="/business/nameless-books" className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/business/nameless-books" prefetch={false} className="absolute left-1/2 -translate-x-1/2">
             <Image src="/logos/nameless-books.jpg" alt="Nameless Books" width={44} height={44}
               className="rounded-full shadow-sm transition-transform hover:scale-110" />
           </Link>

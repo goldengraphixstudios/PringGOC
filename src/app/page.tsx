@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   Zap,
   Truck,
-  Mail,
   Send,
   Clock,
   Package,
@@ -28,6 +27,8 @@ import LoadingScreen from "@/components/LoadingScreen";
 import CountUp from "@/components/CountUp";
 import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
+import InquiryForm from "@/components/InquiryForm";
+import CalendlyInline from "@/components/CalendlyInline";
 import { GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH, GROUP_LINKEDIN_URL } from "@/data/site";
 
 const mainBusinesses = businesses;
@@ -492,6 +493,7 @@ export default function Home() {
               <ScrollReveal key={biz.slug} variant="fadeUp" delay={(i % 4) * 80}>
                   <Link
                     href={`/business/${biz.slug}`}
+                    prefetch={false}
                     className="card-glow group relative block cursor-pointer overflow-hidden rounded-2xl border border-black/[0.04] bg-white p-0"
                   >
                     <div className="h-1" style={{ background: `linear-gradient(90deg, ${biz.colors[0]}, ${biz.colors[1] || biz.colors[0]}, ${biz.colors[2] || biz.colors[0]})` }} />
@@ -614,97 +616,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal variant="fadeUp" delay={100}>
-            <div className="overflow-hidden rounded-3xl border border-black/[0.05] bg-white shadow-xl shadow-navy-900/[0.04]">
-              <div className="h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500" />
-              <form
-                action={`https://formsubmit.co/${GROUP_EMAIL}`}
-                method="POST"
-                className="grid gap-5 px-8 py-10 sm:grid-cols-2 md:px-12"
-              >
-                {/* FormSubmit config */}
-                <input type="hidden" name="_subject" value="New PGC Website Inquiry" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="text" name="_honey" className="hidden" />
-
-                <div className="sm:col-span-2 grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Full Name *</label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Your full name"
-                      className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Email Address *</label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="your@email.com"
-                      className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Phone Number</label>
-                  <input
-                    name="phone"
-                    type="tel"
-                    placeholder="+63 9XX XXX XXXX"
-                    className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Type of Inquiry *</label>
-                  <select
-                    name="inquiry_type"
-                    required
-                    className="w-full rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
-                  >
-                    <option value="">Select an inquiry type</option>
-                    <option value="Partnership">Partnership Opportunity</option>
-                    <option value="Investment">Investment Inquiry</option>
-                    <option value="Consignment">Consign Items</option>
-                    <option value="Trucking">Trucking / Logistics</option>
-                    <option value="Apartment">Apartment / Real Estate</option>
-                    <option value="Event Venue">Event Venue Booking</option>
-                    <option value="General">General Inquiry</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[12px] font-semibold text-navy-800/70">Message *</label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={4}
-                    placeholder="Tell us about your inquiry, proposal, or how we can help you..."
-                    className="w-full resize-none rounded-xl border border-black/[0.08] bg-warm-50 px-4 py-3 text-sm text-navy-900 outline-none placeholder:text-navy-700/30 focus:border-gold-500/40 focus:ring-2 focus:ring-gold-500/10 transition-all"
-                  />
-                </div>
-
-                <div className="sm:col-span-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-2 text-[11px] text-navy-700/40">
-                    <Mail className="h-3.5 w-3.5" />
-                    Sent to: {GROUP_EMAIL}
-                  </div>
-                  <button
-                    type="submit"
-                    className="group flex cursor-pointer items-center gap-2 rounded-full bg-navy-800 px-8 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-navy-700 hover:shadow-lg active:scale-[0.98]"
-                  >
-                    Send Inquiry
-                    <Send className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </button>
-                </div>
-              </form>
-            </div>
+            <InquiryForm />
           </ScrollReveal>
         </div>
       </section>
@@ -734,14 +646,7 @@ export default function Home() {
                   partnerships, business opportunities, or any inquiry.
                 </p>
 
-                {/* Calendly inline widget */}
-                <div className="overflow-hidden rounded-2xl border border-black/[0.04] bg-warm-50">
-                  <div
-                    className="calendly-inline-widget"
-                    data-url="https://calendly.com/official-pringgroupofcompany/1hr?primary_color=003b5c&hide_event_type_details=1&hide_gdpr_banner=1"
-                    style={{ minWidth: "320px", height: "500px" }}
-                  />
-                </div>
+                <CalendlyInline />
 
                 {/* Also offer quick 30-min link */}
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm">

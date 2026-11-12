@@ -407,13 +407,13 @@ export const businesses: Business[] = [
     name: "AIRPND",
     location: "Santa Rosa & Cabuyao, Laguna",
     description:
-      "Modern-style apartments located in the heart of Santa Rosa and Cabuyao, Laguna. Designed for comfort and convenience, our apartments feature sleek and stylish interiors, high-quality finishes, and a range of amenities. With 100% security and CCTV surveillance throughout the premises, you can feel at ease knowing your home is well-protected.",
+      "AIRPND Rentals offers short and monthly stays in studio and one-bedroom units across Santa Rosa and Cabuyao, Laguna. Every location has 24/7 CCTV, free WiFi and its own Jetmatic water pump, so you can settle in with peace of mind.",
     facebook: "https://www.facebook.com/modernapartment2023",
-    logo: "/logos/airpnd-main.png",
-    colors: ["#487860", "#303030", "#181818", "#C0C0C0", "#D8D8D8"],
+    logo: "/logos/airpnd-rentals.jpg",
+    colors: ["#AB582C", "#7E7A5D", "#F5EAE4", "#55523B", "#29261F"],
     category: "Real Estate",
-    tagline: "Modern Living, Designed for Comfort",
-    services: ["Studio-Type Units", "One-Bedroom Units", "Short & Monthly Stays", "Fully Furnished Units", "24/7 CCTV Security"],
+    tagline: "A Place to Land in Laguna",
+    services: ["Studio Units", "One-Bedroom Units", "Short Stays", "Monthly Stays", "24/7 CCTV Security"],
     highlights: [
       "100% security with 24/7 CCTV surveillance",
       "Free WiFi in all units",
@@ -628,7 +628,7 @@ export const businesses: Business[] = [
     description:
       "A trusted direct supplier offering a wide range of high-quality products imported from China — specializing in cookingwares and other household essentials. We guarantee 100% quality in every item. With no middleman, you get the best deals and the highest quality, all backed by our commitment to customer satisfaction.",
     facebook: "https://www.facebook.com/houseofgarmentsph",
-    logo: "/logos/house-of-garments.jpg",
+    logo: "/logos/house-of-garments.png",
     colors: ["#301818", "#F0D878", "#483000", "#604818", "#F0C048"],
     category: "Home & Kitchen",
     tagline: "100% Quality. No Middleman.",

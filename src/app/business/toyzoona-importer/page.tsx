@@ -405,7 +405,10 @@ export default function ToyZoonaImporterPage() {
         ].map((p,i)=>(
           <div key={i} style={{
             position:"absolute",zIndex:1,
-            top:(p as any).top,left:(p as any).left,right:(p as any).right,bottom:(p as any).bottom,
+            top:"top" in p ? p.top : undefined,
+            left:"left" in p ? p.left : undefined,
+            right:"right" in p ? p.right : undefined,
+            bottom:"bottom" in p ? p.bottom : undefined,
             animation:`tzFloat ${5+i*.7}s ease-in-out infinite ${p.d}`,
             pointerEvents:"none",
           }}>
@@ -929,8 +932,8 @@ export default function ToyZoonaImporterPage() {
                           <span style={{background:`${m.color}25`,color:m.color,fontSize:11,fontWeight:900,padding:"4px 12px",borderRadius:40,border:`2px solid ${m.color}`}} className="tz-body">{m.badge}</span>
                         </div>
                         <p className="tz-body" style={{fontSize:14,color:"rgba(255,255,255,.6)",lineHeight:1.6,margin:0}}>{m.desc}</p>
-                        {(m as any).link&&(
-                          <a href={(m as any).link} target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,color:m.color,textDecoration:"none",fontSize:13,fontWeight:800,marginTop:12}}>
+                        {"link" in m && m.link && (
+                          <a href={m.link} target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,color:m.color,textDecoration:"none",fontSize:13,fontWeight:800,marginTop:12}}>
                             Join the Group <ArrowRight size={13}/>
                           </a>
                         )}

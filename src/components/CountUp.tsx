@@ -24,8 +24,8 @@ export default function CountUp({
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(end);
-      return;
+      const reducedMotionTimer = window.setTimeout(() => setCount(end), 0);
+      return () => window.clearTimeout(reducedMotionTimer);
     }
 
     const observer = new IntersectionObserver(

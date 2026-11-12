@@ -8,27 +8,38 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     const sessionKey = "pgc-loading-screen-seen";
+    const timers: number[] = [];
+    const schedulePhase = (
+      nextPhase: "checking" | "loading" | "reveal" | "done",
+      delay = 0
+    ) => {
+      timers.push(window.setTimeout(() => setPhase(nextPhase), delay));
+    };
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       sessionStorage.setItem(sessionKey, "true");
-      setPhase("done");
-      return;
+      schedulePhase("done");
+      return () => timers.forEach((timer) => window.clearTimeout(timer));
+    }
+
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      sessionStorage.setItem(sessionKey, "true");
+      schedulePhase("done");
+      return () => timers.forEach((timer) => window.clearTimeout(timer));
     }
 
     if (sessionStorage.getItem(sessionKey) === "true") {
-      setPhase("done");
-      return;
+      schedulePhase("done");
+      return () => timers.forEach((timer) => window.clearTimeout(timer));
     }
 
     sessionStorage.setItem(sessionKey, "true");
-    setPhase("loading");
-
-    const revealTimer = setTimeout(() => setPhase("reveal"), 2000);
-    const doneTimer = setTimeout(() => setPhase("done"), 2800);
+    schedulePhase("loading");
+    schedulePhase("reveal", 1200);
+    schedulePhase("done", 1700);
 
     return () => {
-      clearTimeout(revealTimer);
-      clearTimeout(doneTimer);
+      timers.forEach((timer) => window.clearTimeout(timer));
     };
   }, []);
 

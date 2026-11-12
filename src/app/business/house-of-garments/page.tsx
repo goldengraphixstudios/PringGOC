@@ -223,7 +223,7 @@ export default function HouseOfGarmentsPage() {
         badge: "100% Quality",
         badgeBg: "rgba(240,192,72,0.2)",
         badgeColor: "#F0C048",
-        logoSrc: "/logos/house-of-garments.jpg",
+        logoSrc: "/logos/house-of-garments.png",
       }} />
       <style
         dangerouslySetInnerHTML={{
@@ -405,7 +405,7 @@ export default function HouseOfGarmentsPage() {
           </Link>
           <div className="flex items-center gap-3">
             <Image
-              src="/logos/house-of-garments.jpg"
+              src="/logos/house-of-garments.png"
               alt="The House of Garments PH"
               width={36}
               height={36}
@@ -573,7 +573,7 @@ export default function HouseOfGarmentsPage() {
               </div>
               {/* Logo */}
               <Image
-                src="/logos/house-of-garments.jpg"
+                src="/logos/house-of-garments.png"
                 alt="The House of Garments PH Logo"
                 width={230}
                 height={230}
@@ -1071,7 +1071,7 @@ export default function HouseOfGarmentsPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-6 md:flex-row md:justify-between md:px-12">
           <div className="flex items-center gap-3">
             <Image
-              src="/logos/house-of-garments.jpg"
+              src="/logos/house-of-garments.png"
               alt="The House of Garments PH"
               width={32}
               height={32}

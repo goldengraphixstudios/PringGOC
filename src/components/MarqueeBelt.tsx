@@ -24,6 +24,7 @@ export default function MarqueeBelt({
       <Link
         key={`${prefix}-${biz.slug}-${i}`}
         href={`/business/${biz.slug}`}
+        prefetch={false}
         className="flex shrink-0 cursor-pointer items-center gap-2.5 rounded-xl border border-transparent px-3.5 py-2 opacity-70 transition-all duration-200 hover:border-gold-500/15 hover:bg-white/60 hover:opacity-100"
       >
         <Image

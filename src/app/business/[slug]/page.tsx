@@ -1008,6 +1008,7 @@ export default async function BusinessPage({
                 <ScrollReveal key={related.slug} variant="fadeUp" delay={i * 100}>
                   <Link
                     href={`/business/${related.slug}`}
+                    prefetch={false}
                     className="group block cursor-pointer rounded-2xl p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
                     style={{
                       backgroundColor: cardBg,
@@ -1060,6 +1061,7 @@ export default async function BusinessPage({
           {prevBiz ? (
             <Link
               href={`/business/${prevBiz.slug}`}
+              prefetch={false}
               className="group flex items-center gap-3 transition-all duration-300 hover:gap-4"
               style={{ color: textSecondary }}
             >
@@ -1082,6 +1084,7 @@ export default async function BusinessPage({
           {nextBiz ? (
             <Link
               href={`/business/${nextBiz.slug}`}
+              prefetch={false}
               className="group flex items-center gap-3 text-right transition-all duration-300 hover:gap-4"
               style={{ color: textSecondary }}
             >

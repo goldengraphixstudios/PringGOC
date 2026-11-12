@@ -247,7 +247,10 @@ export default function ToyLandiaPage() {
         ].map((p,i)=>(
           <div key={i} style={{
             position:"absolute",zIndex:1,
-            top:(p as any).top,left:(p as any).left,right:(p as any).right,bottom:(p as any).bottom,
+            top:"top" in p ? p.top : undefined,
+            left:"left" in p ? p.left : undefined,
+            right:"right" in p ? p.right : undefined,
+            bottom:"bottom" in p ? p.bottom : undefined,
             animation:`tlFloat ${5.5+i*.6}s ease-in-out infinite ${p.d}`,pointerEvents:"none",
           }}>
             <Star size={p.s} fill={p.c} style={{color:p.c,filter:"drop-shadow(0 2px 8px rgba(0,0,0,.5))",opacity:.65}}/>
@@ -638,7 +641,7 @@ export default function ToyLandiaPage() {
                 <span style={{color:C.yellow}}>One Amazing Price.</span>
               </div>
               <p className="tl-body" style={{fontSize:18,color:"rgba(255,255,255,.7)",marginTop:16,fontWeight:600,maxWidth:500}}>
-                Walk in, fill your basket, weigh it — that's all there is to it. Toy Landia makes buying more toys easier and more affordable than ever.
+                Walk in, fill your basket, weigh it — that&apos;s all there is to it. Toy Landia makes buying more toys easier and more affordable than ever.
               </p>
               <a href={FACEBOOK} target="_blank" rel="noopener noreferrer"
                 className="tl-btn"

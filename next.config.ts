@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-const basePath = isProd ? (process.env.NEXT_PUBLIC_BASE_PATH || "/PringGOC") : "";
+const isStaticExport = process.env.STATIC_EXPORT === "1";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (isStaticExport ? "/PringGOC" : "");
 
 const nextConfig: NextConfig = {
-  output: "export",
   basePath,
   images: { unoptimized: true },
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
@@ -12,5 +11,10 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 };
+
+if (isStaticExport) {
+  nextConfig.output = "export";
+  nextConfig.trailingSlash = true;
+}
 
 export default nextConfig;

@@ -27,6 +27,7 @@ export default function BusinessNavArrows({ currentSlug, theme = "light" }: Prop
       {prev && (
         <Link
           href={`/business/${prev.slug}`}
+          prefetch={false}
           title={prev.name}
           style={{
             position: "fixed",
@@ -94,6 +95,7 @@ export default function BusinessNavArrows({ currentSlug, theme = "light" }: Prop
       {next && (
         <Link
           href={`/business/${next.slug}`}
+          prefetch={false}
           title={next.name}
           style={{
             position: "fixed",

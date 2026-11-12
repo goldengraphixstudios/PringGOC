@@ -1,859 +1,510 @@
-import Image from "@/components/Img";
 import Link from "next/link";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarRange,
+  Cctv,
+  Droplets,
+  Facebook,
+  Mail,
+  Plus,
+  ShowerHead,
+  Wifi,
+} from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import { bp } from "@/lib/basePath";
 import BusinessNavArrows from "@/components/BusinessNavArrows";
 import BusinessPopup from "@/components/BusinessPopup";
-import GallerySlider from "@/components/GallerySlider";
-import { businesses } from "@/data/businesses";
+import { bp } from "@/lib/basePath";
 import { GROUP_BUSINESS_LABEL, GROUP_EMAIL } from "@/data/site";
-import {
-  ArrowLeft,
-  Facebook,
-  MapPin,
-  Wifi,
-  AirVent,
-  Car,
-  Tv,
-  ShowerHead,
-  UtensilsCrossed,
-  ChevronDown,
-  Shield,
-  Sparkles,
-  Clock,
-  Phone,
-  ExternalLink,
-  ArrowRight,
-} from "lucide-react";
+import { businesses } from "@/data/businesses";
+import { airpndDisplay, airpndSans } from "./fonts";
+import { AIRPND_FACEBOOK, stays, totalUnits } from "./stays";
+import { AskAboutButton, Composer, InquiryProvider } from "./_components/Inquiry";
+import Nav from "./_components/Nav";
+import HeroBooker from "./_components/HeroBooker";
+import Stays from "./_components/Stays";
+import Neighborhood from "./_components/Neighborhood";
+import BookingCurve from "./_components/BookingCurve";
+import Slideshow, { type Slide } from "./_components/Slideshow";
+import "./airpnd.css";
 
 export const metadata: Metadata = {
-  title: "AIRPND | Premium Rental Apartments — Santa Rosa, Laguna",
+  title: "AIRPND Rentals | Short & Monthly Stays in Santa Rosa and Cabuyao, Laguna",
   description:
-    "Modern furnished apartments across Santa Rosa and Cabuyao, Laguna. Secure AIRPND locations with CCTV, WiFi, and move-in ready stays.",
+    "Book a short or monthly stay at AIRPND Rentals: studio and one-bedroom units in Macabling and Golden City, Santa Rosa, and Mamatid, Cabuyao. 24/7 CCTV and free WiFi.",
+  icons: { icon: "/airpnd/brand/mark.png" },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#f5eae4",
+};
+
+const bizIndex = businesses.findIndex((b) => b.slug === "airpnd");
+const prevBiz = bizIndex > 0 ? businesses[bizIndex - 1] : null;
+const nextBiz = bizIndex >= 0 && bizIndex < businesses.length - 1 ? businesses[bizIndex + 1] : null;
 
 const amenities = [
-  { icon: Wifi, label: "High-Speed WiFi" },
-  { icon: AirVent, label: "Air Conditioning" },
-  { icon: UtensilsCrossed, label: "Fully-Equipped Kitchen" },
-  { icon: Car, label: "Parking Space" },
-  { icon: Tv, label: "Smart TV" },
-  { icon: ShowerHead, label: "Hot & Cold Shower" },
-  { icon: Shield, label: "24/7 Security" },
-  { icon: Sparkles, label: "Weekly Housekeeping" },
+  { icon: Wifi, title: "Free WiFi", body: "In every unit, at all three locations." },
+  { icon: Cctv, title: "24/7 CCTV", body: "Cameras watch the premises around the clock." },
+  { icon: Droplets, title: "Jetmatic water pump", body: "Steady water pressure, every shower." },
+  { icon: ShowerHead, title: "Your own bathroom", body: "One private bathroom per unit." },
+  { icon: CalendarRange, title: "Nightly or monthly", body: "Book a quick stay or settle in for the month." },
 ];
 
-const locationGalleries = {
-  goldenCity: [
-    { src: "/airpnd/golden-city-1.jpg",  alt: "Golden City — Living Area" },
-    { src: "/airpnd/golden-city-2.jpg",  alt: "Golden City — Interior" },
-    { src: "/airpnd/golden-city-3.jpg",  alt: "Golden City — Bedroom" },
-    { src: "/airpnd/golden-city-4.jpg",  alt: "Golden City — Unit View" },
-    { src: "/airpnd/golden-city-5.png",  alt: "Golden City — Space" },
-    { src: "/airpnd/golden-city-6.png",  alt: "Golden City — Common Area" },
-    { src: "/airpnd/golden-city-7.png",  alt: "Golden City — Amenities" },
-    { src: "/airpnd/golden-city-8.jpg",  alt: "Golden City — Unit Interior" },
-    { src: "/airpnd/golden-city-9.jpg",  alt: "Golden City — Room Detail" },
-    { src: "/airpnd/golden-city-10.jpg", alt: "Golden City — Full View" },
-    { src: "/airpnd/golden-city-11.jpg", alt: "Golden City — Studio" },
-  ],
-  macabling: [
-    { src: "/airpnd/macabling-1.jpg",  alt: "Macabling — Living Room" },
-    { src: "/airpnd/macabling-2.jpg",  alt: "Macabling — Bedroom" },
-    { src: "/airpnd/macabling-3.jpg",  alt: "Macabling — Kitchen" },
-    { src: "/airpnd/macabling-4.jpg",  alt: "Macabling — Studio Layout" },
-    { src: "/airpnd/macabling-5.jpg",  alt: "Macabling — Unit View" },
-    { src: "/airpnd/macabling-6.jpg",  alt: "Macabling — Space" },
-    { src: "/airpnd/macabling-7.jpg",  alt: "Macabling — Interior" },
-    { src: "/airpnd/macabling-8.jpg",  alt: "Macabling — Room Detail" },
-    { src: "/airpnd/macabling-9.jpg",  alt: "Macabling — Full Unit" },
-    { src: "/airpnd/macabling-10.jpg", alt: "Macabling — Common Area" },
-  ],
-  mamatid: [
-    { src: "/airpnd/mamatid-1.jpg",  alt: "Mamatid — Garden Walkway" },
-    { src: "/airpnd/mamatid-2.jpg",  alt: "Mamatid — Exterior Corridor" },
-    { src: "/airpnd/mamatid-3.jpg",  alt: "Mamatid — Bathroom" },
-    { src: "/airpnd/mamatid-4.jpg",  alt: "Mamatid — Studio Unit" },
-    { src: "/airpnd/mamatid-5.jpg",  alt: "Mamatid — Space" },
-    { src: "/airpnd/mamatid-6.jpg",  alt: "Mamatid — Interior" },
-    { src: "/airpnd/mamatid-7.jpg",  alt: "Mamatid — Room View" },
-    { src: "/airpnd/mamatid-8.jpg",  alt: "Mamatid — Living Area" },
-    { src: "/airpnd/mamatid-9.jpg",  alt: "Mamatid — Detail" },
-    { src: "/airpnd/mamatid-10.jpg", alt: "Mamatid — Unit Layout" },
-    { src: "/airpnd/mamatid-11.jpg", alt: "Mamatid — Full View" },
-  ],
-};
+/** Interior-first slideshow for "The basics, done properly" (no bathroom shots, per the client). */
+const unitSlides: Slide[] = [
+  { src: "/airpnd/mamatid-8.jpg", alt: "Mamatid unit interior with warm cove lighting", place: "Mamatid", label: "One2011bedroom unit" },
+  { src: "/airpnd/golden-city-4.jpg", alt: "Golden City open living space leading to the kitchen", place: "Golden City", label: "Open living space" },
+  { src: "/airpnd/mamatid-5.jpg", alt: "Mamatid skylit corridor lined with unit doors", place: "Mamatid", label: "Skylit corridor" },
+  { src: "/airpnd/golden-city-2.jpg", alt: "Golden City kitchen wall with wood-front cabinets", place: "Golden City", label: "Kitchen cabinets" },
+  { src: "/airpnd/macabling-5.jpg", alt: "Macabling studio unit with glossy tile floor and window", place: "Macabling", label: "Studio unit" },
+  { src: "/airpnd/mamatid-4.jpg", alt: "Mamatid unit with marble-look floor and kitchen counter", place: "Mamatid", label: "Kitchen counter" },
+  { src: "/airpnd/macabling-4.jpg", alt: "Macabling upper-floor balcony corridor", place: "Macabling", label: "Balcony corridor" },
+  { src: "/airpnd/golden-city-3.jpg", alt: "Golden City bedroom with window and wood-look floor", place: "Golden City", label: "Bedroom" },
+];
 
-const airpndBusiness = businesses.find((business) => business.slug === "airpnd");
-const locations = airpndBusiness?.branches ?? [];
-const totalUnits = locations.reduce((sum, location) => {
-  const detailWithCount = location.details?.find((detail) => /^\d+/.test(detail));
-  const count = detailWithCount ? Number(detailWithCount.match(/^\d+/)?.[0] ?? 0) : 0;
-  return sum + count;
-}, 0);
+const faqs = [
+  {
+    q: "Why aren't rates shown on the website?",
+    a: "Rates depend on the unit, your dates and how long you stay. Send us your dates and we'll reply with the current rate.",
+  },
+  {
+    q: "Can I stay for a month or longer?",
+    a: "Yes. We take both short stays and monthly stays. Pick “Monthly” when you message us.",
+  },
+  {
+    q: "Is it safe?",
+    a: "All three locations have 24/7 CCTV on the premises.",
+  },
+  {
+    q: "Which location should I choose?",
+    a: "Macabling has the most units (studios). Golden City is our smallest building, with four one-bedroom units. Mamatid in Cabuyao has ten one-bedroom units around a garden courtyard. Not sure? Choose “Any” and we'll suggest what's free.",
+  },
+  {
+    q: "How do I book?",
+    a: "Use “Check availability” anywhere on this page. It writes the message for you; send it on Messenger or by email.",
+  },
+];
+
+const marquee = [
+  `${totalUnits} units`,
+  "3 neighborhoods",
+  "24/7 CCTV",
+  "Free WiFi",
+  "Short & monthly stays",
+  "Santa Rosa",
+  "Cabuyao",
+];
 
 export default function AirpndPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#060606] text-white">
-      <BusinessNavArrows currentSlug="airpnd" />
-      <BusinessPopup config={{
-        storageKey: "popup-airpnd",
-        delay: 2800,
-        headerBg: "linear-gradient(135deg, #041208 0%, #0A2418 50%, #1A4830 100%)",
-        headerIcon: "🏠",
-        modalBg: "#0D1117",
-        eyebrow: "FIND YOUR UNIT",
-        eyebrowColor: "#4BAF78",
-        title: "Looking for a place in Laguna?",
-        titleColor: "#E8F5EE",
-        body: "Browse studio and one-bedroom units across three Laguna locations — designed for comfort, security, and convenience.",
-        bodyColor: "rgba(232,245,238,0.48)",
-        primaryCTA: "View Locations",
-        primaryHref: "#locations",
-        ctaBg: "#487860",
-        ctaColor: "#FFFFFF",
-        secondaryCTA: "Send an Inquiry",
-        secondaryHref: "https://www.facebook.com/modernapartment2023",
-        secondaryExternal: true,
-        secondaryColor: "rgba(75,175,120,0.5)",
-        badge: "3 Locations",
-        badgeBg: "rgba(75,175,120,0.2)",
-        badgeColor: "#4BAF78",
-        locationChips: ["Macabling", "Golden City", "Mamatid"],
-        accentLine: "#487860",
-        logoSrc: "/logos/airpnd-main.png",
-      }} />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes fadeInUpAirpnd {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes scaleReveal {
-            from { opacity: 0; transform: scale(1.08); }
-            to { opacity: 1; transform: scale(1); }
-          }
-          .hero-bg-zoom {
-            animation: scaleReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
-        `,
-        }}
-      />
-
-      {/* ===== NAVIGATION ===== */}
-      <nav className="fixed top-0 right-0 left-0 z-50 border-b border-white/[0.06] bg-black/60 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link
-            href="/"
-            className="flex items-center gap-3 text-white/50 transition-colors duration-300 hover:text-white/80"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <Image
-              src="/logos/pring-group.png"
-              alt="Pring Group"
-              width={28}
-              height={28}
-              className="rounded"
-            />
-            <span className="hidden text-sm sm:inline">Pring Group</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="font-[family-name:var(--font-cursive)] text-lg font-semibold tracking-wide text-white">
-              AIRPND
-            </span>
-            <a
-              href="https://www.facebook.com/modernapartment2023"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex cursor-pointer items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-xs font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:text-white"
-            >
-              <Facebook className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Follow</span>
-            </a>
-          </div>
+    <div id="top" className={`ap ${airpndDisplay.variable} ${airpndSans.variable} relative min-h-screen overflow-x-clip`}>
+      <InquiryProvider>
+        <div className="ap-grain" aria-hidden="true" />
+        <div className="ap-bizarrows">
+          <BusinessNavArrows currentSlug="airpnd" theme="dark" />
         </div>
-      </nav>
-
-      {/* ===== HERO ===== */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="hero-bg-zoom absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={bp("/airpnd/golden-city-1.jpg")}
-            alt="AIRPND Luxury Apartments"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          {/* Logo */}
-          <div
-            className="mb-8"
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.8s",
-              animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              animationDelay: "0.3s",
-              animationFillMode: "forwards",
-            }}
-          >
-            <Image
-              src="/logos/airpnd-main.png"
-              alt="AIRPND Logo"
-              width={80}
-              height={80}
-              className="mx-auto rounded-2xl shadow-2xl"
-              priority
-            />
-          </div>
-
-          {/* Location badge */}
-          <div
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.7s",
-              animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              animationDelay: "0.5s",
-              animationFillMode: "forwards",
-            }}
-          >
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-1.5 text-[11px] font-medium tracking-[0.2em] text-white/60 uppercase backdrop-blur-sm">
-              <MapPin className="h-3 w-3" />
-              Santa Rosa, Laguna
-            </span>
-          </div>
-
-          {/* Headline */}
-          <h1
-            className="mb-6 font-[family-name:var(--font-cursive)] text-5xl leading-[1.1] font-light italic tracking-wide text-white sm:text-6xl md:text-7xl lg:text-8xl"
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.9s",
-              animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              animationDelay: "0.7s",
-              animationFillMode: "forwards",
-            }}
-          >
-            Modern Living,
-            <br />
-            Designed for Comfort
-          </h1>
-
-          {/* Decorative line */}
-          <div
-            className="mx-auto mb-6 h-px w-24 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.6s",
-              animationDelay: "0.9s",
-              animationFillMode: "forwards",
-            }}
-          />
-
-          {/* Subtitle */}
-          <p
-            className="mx-auto mb-10 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg"
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.7s",
-              animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              animationDelay: "1s",
-              animationFillMode: "forwards",
-            }}
-          >
-            Premium furnished apartments designed for modern living across
-            Santa Rosa and Cabuyao, Laguna.
-          </p>
-
-          {/* CTAs */}
-          <div
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-            style={{
-              opacity: 0,
-              animationName: "fadeInUpAirpnd",
-              animationDuration: "0.7s",
-              animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              animationDelay: "1.15s",
-              animationFillMode: "forwards",
-            }}
-          >
-            <a
-              href="#locations"
-              className="group flex cursor-pointer items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:shadow-xl hover:shadow-white/10 active:scale-[0.97]"
-            >
-              Explore Locations
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </a>
-            <a
-              href="https://www.facebook.com/modernapartment2023"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex cursor-pointer items-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/[0.05] active:scale-[0.97]"
-            >
-              <Phone className="h-4 w-4" />
-              Inquire Now
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          style={{
-            opacity: 0,
-            animationName: "fadeInUpAirpnd",
-            animationDuration: "0.5s",
-            animationDelay: "1.5s",
-            animationFillMode: "forwards",
+        <BusinessPopup
+          config={{
+            storageKey: "popup-airpnd-rentals",
+            delay: 4200,
+            headerBg: "linear-gradient(140deg, #7f3b19 0%, #ab582c 60%, #c27245 100%)",
+            headerIcon: "",
+            modalBg: "#fbf6f2",
+            eyebrow: "NOW TAKING STAYS",
+            eyebrowColor: "#7f3b19",
+            title: "Need a place in Laguna?",
+            titleColor: "#29261f",
+            body: "Short or monthly stays in Santa Rosa and Cabuyao. Send your dates and we'll reply with what's open.",
+            bodyColor: "#57524a",
+            primaryCTA: "See the stays",
+            primaryHref: "#stays",
+            ctaBg: "#9e4d24",
+            ctaColor: "#fbf6f2",
+            secondaryCTA: "Message us on Facebook",
+            secondaryHref: AIRPND_FACEBOOK,
+            secondaryExternal: true,
+            secondaryColor: "#55523b",
+            badge: "3 locations",
+            badgeBg: "rgba(126,122,93,0.16)",
+            badgeColor: "#55523b",
+            locationChips: stays.map((s) => s.name),
+            accentLine: "#ab582c",
+            logoSrc: "/airpnd/brand/logo.png",
           }}
-        >
-          <a
-            href="#about"
-            className="flex flex-col items-center gap-2 text-white/30 transition-colors hover:text-white/50"
-          >
-            <span className="text-[10px] tracking-[0.2em] uppercase">
-              Discover
-            </span>
-            <ChevronDown className="h-4 w-4 animate-bounce" />
-          </a>
-        </div>
-      </section>
+        />
 
-      {/* ===== ABOUT / OVERVIEW ===== */}
-      <section
-        id="about"
-        className="relative border-t border-white/[0.06] px-6 py-24 md:py-32"
-      >
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            {/* Animated Building */}
-            <ScrollReveal variant="fadeRight">
-              <div className="relative flex items-center justify-center rounded-2xl overflow-hidden" style={{ aspectRatio: "4/3", background: "linear-gradient(180deg, #080808 0%, #0f0f0f 60%, #181818 100%)" }}>
-                <style dangerouslySetInnerHTML={{ __html: `
-                  @keyframes airpnd-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-                  @keyframes airpnd-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-                  @keyframes airpnd-star { 0%,100%{opacity:0.8} 50%{opacity:0.2} }
-                  @keyframes airpnd-cloud { 0%{transform:translateX(-10px)} 100%{transform:translateX(10px)} }
-                  @keyframes airpnd-glow { 0%,100%{opacity:0.1} 50%{opacity:0.25} }
-                  .airpnd-win { animation: airpnd-blink var(--d,3s) var(--delay,0s) ease-in-out infinite; }
-                  .airpnd-float { animation: airpnd-float 4s ease-in-out infinite; }
-                  .airpnd-star { animation: airpnd-star var(--d,2s) var(--delay,0s) ease-in-out infinite; }
-                  .airpnd-cloud { animation: airpnd-cloud 6s ease-in-out infinite alternate; }
-                  .airpnd-glow { animation: airpnd-glow 3s ease-in-out infinite; }
-                ` }} />
-                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
-                  {/* Stars */}
-                  {[{x:30,y:20,d:"2.5s",dl:"0s"},{x:80,y:12,d:"3s",dl:"0.5s"},{x:150,y:18,d:"2s",dl:"1s"},{x:220,y:10,d:"3.5s",dl:"0.3s"},{x:300,y:15,d:"2s",dl:"0.8s"},{x:360,y:22,d:"2.5s",dl:"0.2s"},{x:50,y:40,d:"3s",dl:"1.2s"},{x:330,y:35,d:"2s",dl:"0.6s"}].map((s,i)=>(
-                    <circle key={i} cx={s.x} cy={s.y} r="1.5" fill="white" className="airpnd-star" style={{"--d":s.d,"--delay":s.dl} as React.CSSProperties} />
-                  ))}
-                  {/* Moon */}
-                  <path d="M370 30 Q378 22 378 35 Q365 42 370 30Z" fill="#F0EAD6" opacity="0.7" />
-                  {/* Ground */}
-                  <rect x="0" y="260" width="400" height="40" fill="#0a0a0a" />
-                  {/* Road */}
-                  <rect x="150" y="258" width="100" height="44" fill="#111111" />
-                  <rect x="195" y="260" width="10" height="8" fill="#F0EAD6" opacity="0.3" rx="2" />
-                  <rect x="195" y="275" width="10" height="8" fill="#F0EAD6" opacity="0.3" rx="2" />
-                  {/* Ground glow */}
-                  <ellipse cx="200" cy="265" rx="120" ry="12" fill="#888888" className="airpnd-glow" />
-                  {/* Cloud 1 */}
-                  <g className="airpnd-cloud" style={{transformOrigin:"100px 50px"}}>
-                    <ellipse cx="90" cy="55" rx="30" ry="12" fill="#222222" opacity="0.7" />
-                    <ellipse cx="108" cy="50" rx="22" ry="14" fill="#222222" opacity="0.7" />
-                    <ellipse cx="72" cy="52" rx="18" ry="11" fill="#222222" opacity="0.7" />
-                  </g>
-                  {/* Cloud 2 */}
-                  <g className="airpnd-cloud" style={{transformOrigin:"310px 45px", animationDelay:"3s"}}>
-                    <ellipse cx="310" cy="48" rx="28" ry="11" fill="#222222" opacity="0.6" />
-                    <ellipse cx="326" cy="44" rx="20" ry="13" fill="#222222" opacity="0.6" />
-                    <ellipse cx="294" cy="46" rx="16" ry="10" fill="#222222" opacity="0.6" />
-                  </g>
+        <Nav />
 
-                  {/* ── BUILDING — MAIN (center tall) ── */}
-                  <g className="airpnd-float">
-                    {/* Main body */}
-                    <rect x="155" y="80" width="90" height="180" rx="3" fill="#1c1c1c" />
-                    {/* Facade stripes */}
-                    <rect x="155" y="80" width="90" height="180" rx="3" fill="url(#bldg-stripe)" />
-                    {/* Roof top bar */}
-                    <rect x="150" y="75" width="100" height="10" rx="2" fill="#2e2e2e" />
-                    <rect x="192" y="65" width="16" height="12" rx="2" fill="#1e1e1e" />
-                    {/* Antenna */}
-                    <line x1="200" y1="45" x2="200" y2="65" stroke="#666666" strokeWidth="2" />
-                    <circle cx="200" cy="44" r="3" fill="#D4C4A8">
-                      <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite" />
-                    </circle>
-                    {/* Windows — grid 3×7 */}
-                    {[...Array(7)].map((_,row)=>
-                      [0,1,2].map(col=>{
-                        const wx = 168 + col*26;
-                        const wy = 92 + row*22;
-                        const isLit = (row*3+col) % 3 !== 2;
-                        const delay = `${(row*3+col)*0.4}s`;
-                        return (
-                          <rect key={`${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
-                            fill={isLit ? "#EDE8DC" : "#0f0f0f"}
-                            className={isLit ? "airpnd-win" : ""}
-                            style={isLit ? {"--delay":delay} as React.CSSProperties : {}}
-                            opacity={isLit ? 0.9 : 1}
-                          />
-                        );
-                      })
-                    )}
-                    {/* Balconies */}
-                    {[1,3,5].map(row=>(
-                      <rect key={row} x="152" y={92+row*22+10} width="96" height="4" rx="1" fill="#282828" />
-                    ))}
-                    {/* Ground floor entrance */}
-                    <rect x="186" y="232" width="28" height="28" rx="3" fill="#0d0d0d" />
-                    <rect x="190" y="236" width="10" height="18" rx="2" fill="#1d1d1d" />
-                    <rect x="200" y="236" width="10" height="18" rx="2" fill="#1d1d1d" />
-                    {/* Door handle */}
-                    <circle cx="199" cy="246" r="1.5" fill="#D4C4A8" opacity="0.8" />
-                    <circle cx="201" cy="246" r="1.5" fill="#D4C4A8" opacity="0.8" />
-                  </g>
+        <main>
+          {/* ═════════ HERO ═════════ */}
+          <section className="relative px-5 pt-[100px] pb-14 sm:px-8 sm:pt-[110px] lg:px-20 lg:pt-[120px] lg:pb-24">
+            {/* roofline clip path, in the photo's own coordinates */}
+            <svg width="0" height="0" className="absolute" aria-hidden="true">
+              <defs>
+                <clipPath id="ap-roof-clip" clipPathUnits="objectBoundingBox">
+                  <path d="M0,1 L0,0.36 C0.17,0.31 0.31,0.22 0.41,0.09 Q0.5,-0.03 0.585,0.1 C0.68,0.25 0.8,0.31 1,0.3 L1,1 Z" />
+                </clipPath>
+              </defs>
+            </svg>
 
-                  {/* ── BUILDING — LEFT (shorter) ── */}
-                  <g className="airpnd-float" style={{animationDelay:"1s"}}>
-                    <rect x="60" y="130" width="68" height="130" rx="3" fill="#151515" />
-                    <rect x="55" y="125" width="78" height="8" rx="2" fill="#1c1c1c" />
-                    {/* Windows 2×4 */}
-                    {[...Array(4)].map((_,row)=>
-                      [0,1].map(col=>{
-                        const wx = 72 + col*28;
-                        const wy = 140 + row*22;
-                        const isLit = (row+col) % 2 === 0;
-                        return (
-                          <rect key={`l${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
-                            fill={isLit ? "#E8E0D0" : "#0d0d0d"}
-                            className={isLit ? "airpnd-win" : ""}
-                            style={isLit ? {"--delay":`${(row*2+col)*0.6}s`} as React.CSSProperties : {}}
-                            opacity={isLit ? 0.85 : 1}
-                          />
-                        );
-                      })
-                    )}
-                    {/* Entrance */}
-                    <rect x="82" y="230" width="24" height="30" rx="2" fill="#0b0b0b" />
-                  </g>
-
-                  {/* ── BUILDING — RIGHT (medium) ── */}
-                  <g className="airpnd-float" style={{animationDelay:"2s"}}>
-                    <rect x="272" y="110" width="72" height="150" rx="3" fill="#161616" />
-                    <rect x="267" y="105" width="82" height="8" rx="2" fill="#1e1e1e" />
-                    <rect x="302" y="92" width="12" height="14" rx="2" fill="#151515" />
-                    <line x1="308" y1="78" x2="308" y2="93" stroke="#666666" strokeWidth="1.5" />
-                    <circle cx="308" cy="77" r="2.5" fill="#C8B89A">
-                      <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" begin="1s" repeatCount="indefinite" />
-                    </circle>
-                    {/* Windows 2×5 */}
-                    {[...Array(5)].map((_,row)=>
-                      [0,1].map(col=>{
-                        const wx = 283 + col*30;
-                        const wy = 118 + row*22;
-                        const isLit = !((row===1&&col===0)||(row===3&&col===1));
-                        return (
-                          <rect key={`r${row}-${col}`} x={wx} y={wy} width="14" height="14" rx="2"
-                            fill={isLit ? "#EDE8DC" : "#0d0d0d"}
-                            className={isLit ? "airpnd-win" : ""}
-                            style={isLit ? {"--delay":`${(row*2+col)*0.5}s`} as React.CSSProperties : {}}
-                            opacity={isLit ? 0.85 : 1}
-                          />
-                        );
-                      })
-                    )}
-                    <rect x="286" y="228" width="26" height="32" rx="2" fill="#0b0b0b" />
-                  </g>
-
-                  {/* Street lamps */}
-                  <line x1="140" y1="220" x2="140" y2="260" stroke="#2a2a2a" strokeWidth="3" />
-                  <ellipse cx="140" cy="218" rx="8" ry="4" fill="#2a2a2a" />
-                  <ellipse cx="140" cy="216" rx="5" ry="3" fill="#F0EAD6" opacity="0.6">
-                    <animate attributeName="opacity" values="0.6;0.3;0.6" dur="4s" repeatCount="indefinite" />
-                  </ellipse>
-                  <line x1="260" y1="220" x2="260" y2="260" stroke="#2a2a2a" strokeWidth="3" />
-                  <ellipse cx="260" cy="218" rx="8" ry="4" fill="#2a2a2a" />
-                  <ellipse cx="260" cy="216" rx="5" ry="3" fill="#F0EAD6" opacity="0.6">
-                    <animate attributeName="opacity" values="0.6;0.3;0.6" dur="4s" begin="2s" repeatCount="indefinite" />
-                  </ellipse>
-
-                  {/* AIRPND sign glow on main building */}
-                  <rect x="167" y="82" width="66" height="14" rx="3" fill="#222222" opacity="0.8" />
-                  <text x="200" y="92" textAnchor="middle" fill="#F0EAD6" fontSize="8" fontWeight="bold" letterSpacing="2" opacity="0.9">AIRPND</text>
-
-                  <defs>
-                    <pattern id="bldg-stripe" x="0" y="0" width="10" height="40" patternUnits="userSpaceOnUse">
-                      <rect x="0" y="0" width="10" height="40" fill="none" />
-                      <line x1="0" y1="0" x2="0" y2="40" stroke="#2e2e2e" strokeWidth="0.5" opacity="0.3" />
-                    </pattern>
-                  </defs>
-                </svg>
-              </div>
-            </ScrollReveal>
-
-            {/* Text */}
-            <ScrollReveal variant="fadeLeft" delay={150}>
-              <div>
-                <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                  About AIRPND
-                </span>
-                <h2 className="mb-6 font-[family-name:var(--font-cursive)] text-3xl font-light italic leading-tight text-white md:text-4xl lg:text-5xl">
-                  Where Design
+            <div className="mx-auto grid max-w-[1320px] items-end gap-10 md:grid-cols-12 md:gap-8 lg:gap-10">
+              <div className="md:col-span-6 md:pb-4 lg:pb-28">
+                <p className="ap-label ap-rise mb-7" style={{ animationDelay: "0.1s" }}>
+                  AIRPND Rentals · Laguna
+                </p>
+                <h1 className="ap-display ap-h1 ap-rise mb-8" style={{ animationDelay: "0.2s" }}>
+                  A place to land
                   <br />
-                  Meets Comfort
-                </h2>
-                <div className="mb-8 h-px w-16 bg-white/20" />
-                <p className="mb-6 text-base leading-[1.8] text-white/50">
-                  AIRPND offers premium rental apartments in Santa Rosa,
-                  Laguna &mdash; designed with modern aesthetics and equipped
-                  with everything you need. Whether you&apos;re staying for a
-                  short stay or planning a longer move, our fully furnished
-                  spaces are built for a smoother arrival.
+                  in <span className="ap-accent">Laguna</span>.
+                </h1>
+                <p className="ap-lede ap-rise mb-10 max-w-[33rem]" style={{ animationDelay: "0.35s" }}>
+                  Clean, secure studio and one-bedroom stays in Santa Rosa and Cabuyao. Book for a few nights or
+                  settle in for the month.
                 </p>
-                <p className="mb-8 text-base leading-[1.8] text-white/50">
-                  Each unit is thoughtfully designed with contemporary interiors,
-                  high-quality furnishings, and smart amenities that make you
-                  feel right at home, with security and convenience already in place.
-                </p>
-
-                {/* Key stats */}
-                <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-                  {[
-                    { value: locations.length, unit: "", label: "Locations" },
-                    { value: totalUnits, unit: "", label: "Total Units" },
-                    { value: 2, unit: "", label: "Cities" },
-                    { value: "24/7", unit: "", label: "Security" },
-                  ].map((stat) => (
-                    <div key={stat.label}>
-                      <div className="font-[family-name:var(--font-cursive)] text-2xl font-semibold text-white">
-                        {stat.value}
-                        <span className="text-sm text-white/40">
-                          {stat.unit}
-                        </span>
-                      </div>
-                      <div className="text-[11px] tracking-[0.1em] text-white/30 uppercase">
-                        {stat.label}
-                      </div>
+                <div className="ap-rise flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: "0.5s" }}>
+                  <a href="#stays" className="ap-btn ap-btn-ghost">
+                    Browse the stays
+                    <ArrowRight className="ap-arrow h-4 w-4" />
+                  </a>
+                  <dl className="flex gap-8">
+                    <div>
+                      <dt className="text-[13px] font-semibold text-[var(--ap-ink-soft)]">Units</dt>
+                      <dd className="ap-display text-[1.9rem] leading-none">{totalUnits}</dd>
                     </div>
-                  ))}
+                    <div>
+                      <dt className="text-[13px] font-semibold text-[var(--ap-ink-soft)]">Locations</dt>
+                      <dd className="ap-display text-[1.9rem] leading-none">{stays.length}</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
 
-      {/* ===== LOCATIONS ===== */}
-      <section
-        id="locations"
-        className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32"
-      >
-        <div className="mx-auto max-w-6xl">
-          <ScrollReveal variant="fadeUp">
-            <div className="mb-16 text-center">
-              <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                Our Locations
-              </span>
-              <h2 className="font-[family-name:var(--font-cursive)] text-3xl font-light italic text-white md:text-4xl lg:text-5xl">
-                Find Your Space
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="space-y-10">
-            {locations.map((location, i) => {
-              const key = location.name.toLowerCase().includes("golden")
-                ? "goldenCity"
-                : location.name.toLowerCase().includes("macabling")
-                ? "macabling"
-                : "mamatid";
-              const slides = locationGalleries[key as keyof typeof locationGalleries];
-              return (
-                <ScrollReveal key={location.name} variant="fadeUp" delay={i * 120}>
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    {/* Gallery slider */}
-                    <GallerySlider
-                      accentColor="#ffffff"
-                      objectFit="contain"
-                      slideBg="#0a0a0a"
-                      slides={slides}
+              <div className="relative md:col-span-6">
+                {/* the dot from the logo, hovering over the roof peak */}
+                <span
+                  className="ap-sun absolute top-[1%] left-[49.5%] z-10 h-[clamp(26px,3.6vw,46px)] w-[clamp(26px,3.6vw,46px)] -translate-x-1/2 rounded-full bg-[var(--ap-clay)]"
+                  aria-hidden="true"
+                />
+                <div className="relative pt-[9%]">
+                  <div className="relative">
+                  <div className="ap-roof-photo relative aspect-[5/5.4] w-full overflow-hidden bg-[var(--ap-sand)] sm:aspect-[5/4.4] md:aspect-[5/5.8] lg:aspect-[5/5.1]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={bp("/airpnd/mamatid-1.jpg")}
+                      alt="Garden courtyard with a stone lantern at AIRPND Mamatid"
+                      className="ap-zoom-in h-full w-full object-cover"
+                      fetchPriority="high"
                     />
-
-                    {/* Card info below slider */}
-                    <div className="p-8">
-                      <h3 className="mb-1 font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white">
-                        {location.name}
-                      </h3>
-                      <div className="mb-5 flex items-center gap-2 text-sm text-white/40">
-                        <MapPin className="h-3.5 w-3.5 shrink-0" />
-                        <span>{location.address}</span>
-                      </div>
-
-                      <div className="mb-6 flex flex-wrap gap-x-6 gap-y-2">
-                        {(location.details ?? []).map((detail) => (
-                          <div
-                            key={detail}
-                            className="flex items-center gap-2 text-sm text-white/35"
-                          >
-                            <Sparkles className="h-3.5 w-3.5 shrink-0 text-white/30" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </div>
-
+                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(41,38,31,0.45)] via-transparent to-transparent" />
+                    <div className="absolute right-5 bottom-5 left-5 flex items-end justify-between gap-4 text-[var(--ap-paper)]">
+                      <p className="max-w-[16rem] text-[13.5px] leading-snug font-semibold sm:text-[14.5px]">
+                        The garden courtyard at Mamatid, Cabuyao
+                      </p>
                       <a
-                        href={`mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(`AIRPND inquiry - ${location.name}`)}`}
-                        className="group/btn inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 px-6 py-2.5 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:bg-white hover:text-black"
+                        href="#stay-mamatid"
+                        className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[var(--ap-paper)] text-[var(--ap-ink)] transition hover:scale-105"
+                        aria-label="See the Mamatid stay"
                       >
-                        Inquire About This Location
-                        <ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+                        <ArrowUpRight className="h-5 w-5" />
                       </a>
                     </div>
                   </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-
-          <ScrollReveal variant="fadeUp" delay={200}>
-            <p className="mt-8 text-center text-sm text-white/25">
-              Email us your preferred AIRPND location and stay duration for
-              current availability.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ===== AMENITIES ===== */}
-      <section className="relative border-t border-white/[0.06] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <ScrollReveal variant="fadeRight">
-              <div>
-                <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                  Premium Amenities
-                </span>
-                <h2 className="mb-6 font-[family-name:var(--font-cursive)] text-3xl font-light italic leading-tight text-white md:text-4xl lg:text-5xl">
-                  Everything You Need,
-                  <br />
-                  Nothing You Don&apos;t
-                </h2>
-                <div className="mb-8 h-px w-16 bg-white/20" />
-                <p className="text-base leading-[1.8] text-white/50">
-                  Every AIRPND unit comes equipped with premium amenities
-                  designed for your comfort. From high-speed WiFi to fully
-                  equipped kitchens, we&apos;ve thought of everything so you can
-                  focus on what matters.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal variant="fadeLeft" delay={150}>
-              <div className="grid grid-cols-2 gap-4">
-                {amenities.map((amenity) => (
-                  <div
-                    key={amenity.label}
-                    className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05]"
+                  {/* roofline stroke, drawn on load */}
+                  <svg
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                    className="ap-roof-line pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+                    aria-hidden="true"
                   >
-                    <amenity.icon className="h-5 w-5 shrink-0 text-white/40" />
-                    <span className="text-sm font-medium text-white/60">
-                      {amenity.label}
-                    </span>
+                    <path
+                      d="M0,36 C17,31 31,22 41,9 Q50,-3 58.5,10 C68,25 80,31 100,30"
+                      pathLength={1}
+                      fill="none"
+                      stroke="var(--ap-clay)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      transform="translate(0,-2.4)"
+                    />
+                  </svg>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ap-rise relative z-20 mx-auto mt-10 max-w-[1320px] lg:-mt-14" style={{ animationDelay: "0.7s" }}>
+              <HeroBooker />
+            </div>
+          </section>
+
+          {/* ═════════ MARQUEE ═════════ */}
+          <div className="ap-belt bg-[var(--ap-sage-deep)] py-3 text-[var(--ap-paper)] sm:py-3.5" aria-hidden="true">
+            <div className="ap-marquee">
+              <div className="ap-marquee-track">
+                {[...marquee, ...marquee].map((m, i) => (
+                  <span
+                    key={i}
+                    className="flex items-center gap-5 px-2.5 text-[12px] font-semibold tracking-[0.2em] whitespace-nowrap text-[var(--ap-paper)] uppercase sm:gap-6 sm:px-3 sm:text-[13px]"
+                  >
+                    {m}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={bp("/airpnd/brand/mark-cream.png")} alt="" className="ap-belt-mark" />
+                  </span>
                 ))}
               </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ===== LOCATION ===== */}
-      <section className="relative border-t border-white/[0.06] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <ScrollReveal variant="fadeRight">
-              <div>
-                <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-                  Prime Location
-                </span>
-                <h2 className="mb-6 font-[family-name:var(--font-cursive)] text-3xl font-light italic leading-tight text-white md:text-4xl lg:text-5xl">
-                  The Heart of
-                  <br />
-                  Santa Rosa
-                </h2>
-                <div className="mb-8 h-px w-16 bg-white/20" />
-                <p className="mb-8 text-base leading-[1.8] text-white/50">
-                  Strategically located in Santa Rosa, Laguna &mdash; one of the
-                  fastest-growing cities in the Philippines. Enjoy easy access to
-                  major commercial centers, restaurants, and transportation hubs.
-                </p>
-
-                <div className="space-y-4">
-                  {[
-                    "SM City Santa Rosa — 10 min drive",
-                    "Nuvali — 15 min drive",
-                    "Enchanted Kingdom — 10 min drive",
-                    "SLEX / CALAX Access — 5 min drive",
-                    "Paseo de Santa Rosa — 8 min drive",
-                  ].map((place) => (
-                    <div
-                      key={place}
-                      className="flex items-center gap-3 text-sm text-white/40"
-                    >
-                      <div className="h-1 w-1 rounded-full bg-white/30" />
-                      {place}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Location card */}
-            <ScrollReveal variant="fadeLeft" delay={150}>
-              <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8">
-                {/* Subtle grid pattern */}
-                <div
-                  className="absolute inset-0 opacity-[0.03]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-                    backgroundSize: "40px 40px",
-                  }}
-                />
-                <div className="relative flex h-full flex-col items-center justify-center text-center">
-                  <MapPin className="mb-4 h-10 w-10 text-white/20" />
-                  <h3 className="mb-2 font-[family-name:var(--font-cursive)] text-2xl font-semibold italic text-white">
-                    Santa Rosa, Laguna
-                  </h3>
-                  <p className="mb-6 text-sm text-white/30">
-                    The Lion City of South Luzon
-                  </p>
-                  <div className="h-px w-16 bg-white/10" />
-                  <p className="mt-6 font-[family-name:var(--font-cursive)] text-lg italic text-white/20">
-                    14.3147&deg; N, 121.1113&deg; E
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CTA ===== */}
-      <section className="relative border-t border-white/[0.06] bg-[#0a0a0a] px-6 py-24 md:py-32">
-        <div
-          className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <ScrollReveal variant="fadeUp">
-            <span className="mb-4 inline-block font-[family-name:var(--font-cursive)] text-sm italic tracking-[0.15em] text-white/40 uppercase">
-              Ready to Move In?
-            </span>
-            <h2 className="mb-6 font-[family-name:var(--font-cursive)] text-4xl font-light italic leading-tight text-white md:text-5xl lg:text-6xl">
-              Your New Home
-              <br />
-              Awaits
-            </h2>
-            <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <p className="mx-auto mb-10 max-w-md text-base leading-relaxed text-white/40">
-              Contact us today to schedule a viewing and ask about the best
-              AIRPND location for your stay.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal variant="fadeUp" delay={100}>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="https://www.facebook.com/modernapartment2023"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex cursor-pointer items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:shadow-xl hover:shadow-white/10 active:scale-[0.97]"
-              >
-                <Facebook className="h-4 w-4" />
-                Message Us on Facebook
-              </a>
-              <a
-                href="https://www.facebook.com/modernapartment2023"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-medium text-white/60 transition-all duration-300 hover:border-white/30 hover:text-white"
-              >
-                <Phone className="h-4 w-4" />
-                Call for Inquiries
-              </a>
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ===== PART OF PRING GROUP ===== */}
-      <section className="relative border-t border-white/[0.06] px-6 py-20">
-        <div className="mx-auto max-w-4xl text-center">
-          <ScrollReveal variant="scale">
-            <Image
-              src="/logos/pring-group.png"
-              alt="Pring Group"
-              width={48}
-              height={48}
-              className="mx-auto mb-5 rounded opacity-60"
-            />
-            <p className="mb-2 text-[11px] tracking-[0.2em] text-white/20 uppercase">
-              A Member Of
-            </p>
-            <h3 className="mb-3 font-[family-name:var(--font-cursive)] text-xl font-semibold italic text-white/50">
-              Pring Group of Companies
-            </h3>
-            <p className="mx-auto mb-6 max-w-md text-sm text-white/25">
-              AIRPND is one of {GROUP_BUSINESS_LABEL} businesses under the Pring Group &mdash; a
-              family-owned conglomerate building a legacy across the Philippines.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm font-medium text-white/30 transition-colors duration-300 hover:text-white/60"
-            >
-              Explore All Businesses
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="border-t border-white/[0.06] px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logos/airpnd-main.png"
-              alt="AIRPND"
-              width={24}
-              height={24}
-              className="rounded"
-            />
-            <span className="font-[family-name:var(--font-cursive)] text-sm italic text-white/30">
-              AIRPND
-            </span>
           </div>
-          <p className="text-[11px] text-white/20">
-            &copy; {new Date().getFullYear()} AIRPND &mdash; A Pring Group
-            Company. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </main>
+
+          {/* ═════════ STAYS ═════════ */}
+          <section id="stays" className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24 lg:px-20 md:py-36">
+            <div className="mx-auto max-w-[1320px]">
+              <ScrollReveal>
+                <div className="mb-10 grid gap-6 lg:grid-cols-12 lg:items-end">
+                  <div className="lg:col-span-7">
+                    <p className="ap-label mb-5">The stays</p>
+                    <h2 className="ap-display ap-h2">
+                      Three addresses,
+                      <br />
+                      one way of <span className="ap-accent">hosting</span>.
+                    </h2>
+                  </div>
+                  <p className="ap-lede lg:col-span-5">
+                    All three are run by the same AIRPND team. Pick the neighborhood that fits your trip, then tap
+                    any photo to look around.
+                  </p>
+                </div>
+              </ScrollReveal>
+              <Stays />
+            </div>
+          </section>
+
+          {/* ═════════ INSIDE / AMENITIES ═════════ */}
+          <section id="inside" className="scroll-mt-20 bg-[var(--ap-sand)] px-5 py-20 sm:px-8 sm:py-24 lg:px-20 md:py-36">
+            <div className="mx-auto max-w-[1320px]">
+              {/* Phones: heading → slideshow → list. Desktop: slideshow left, heading + list right. */}
+              <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
+                <ScrollReveal className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:pt-2">
+                  <p className="ap-label mb-5">In every stay</p>
+                  <h2 className="ap-display ap-h2">The basics, done properly.</h2>
+                  <p className="ap-lede mt-5">
+                    Nothing fancy, just the things that make a stay easy. Same standard at all three addresses.
+                  </p>
+                </ScrollReveal>
+
+                <ScrollReveal className="lg:col-span-7 lg:col-start-1 lg:row-span-2 lg:row-start-1" variant="scale">
+                  <Slideshow
+                    slides={unitSlides}
+                    className="aspect-[4/5] rounded-[24px] min-[480px]:aspect-[4/3] sm:rounded-[30px] lg:aspect-auto lg:min-h-[620px]"
+                  />
+                </ScrollReveal>
+
+                <div className="lg:col-span-5 lg:col-start-8 lg:row-start-2">
+                  <ul className="ap-amenity-list lg:mt-10">
+                    {amenities.map((a, i) => (
+                      <li key={a.title}>
+                      <ScrollReveal delay={i * 70}>
+                        <div className="ap-amenity">
+                          <span className="ap-tile-icon !h-11 !w-11 shrink-0">
+                            <a.icon className="h-5 w-5" strokeWidth={1.8} />
+                          </span>
+                          <div className="min-w-0">
+                            <h3 className="ap-display text-[1.12rem] leading-tight sm:text-[1.25rem]">{a.title}</h3>
+                            <p className="ap-body mt-0.5 text-[14.5px] leading-snug sm:text-[15px]">{a.body}</p>
+                          </div>
+                        </div>
+                      </ScrollReveal>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ═════════ NEIGHBORHOOD ═════════ */}
+          <section id="neighborhood" className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24 lg:px-20 md:py-36">
+            <div className="mx-auto max-w-[1320px]">
+              <ScrollReveal>
+                <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
+                  <div className="lg:col-span-7">
+                    <p className="ap-label mb-5">The neighborhood</p>
+                    <h2 className="ap-display ap-h2">
+                      South of Manila,
+                      <br />
+                      close to <span className="ap-accent">everything</span>.
+                    </h2>
+                  </div>
+                  <p className="ap-lede lg:col-span-5">
+                    Santa Rosa and Cabuyao sit along SLEX, with Enchanted Kingdom, Nuvali and the malls of Santa Rosa
+                    nearby. Pick a location to see it on the map.
+                  </p>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={100}>
+                <Neighborhood />
+              </ScrollReveal>
+            </div>
+          </section>
+
+          {/* ═════════ HOW TO BOOK ═════════ */}
+          <section id="how" className="scroll-mt-20 border-t border-[rgba(126,122,93,0.2)] bg-[var(--ap-paper)] px-5 py-20 sm:px-8 sm:py-24 lg:px-20 md:py-36">
+            <div className="mx-auto max-w-[1320px]">
+              <ScrollReveal>
+                <div className="mb-10 max-w-[46rem] md:mb-4">
+                  <p className="ap-label mb-5">How booking works</p>
+                  <h2 className="ap-display ap-h2">Three steps to your key.</h2>
+                </div>
+              </ScrollReveal>
+              <BookingCurve />
+            </div>
+          </section>
+
+          {/* ═════════ FAQ ═════════ */}
+          <section id="faq" className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24 lg:px-20 md:py-36">
+            <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                <ScrollReveal>
+                  <p className="ap-label mb-5">Good to know</p>
+                  <h2 className="ap-display ap-h2 mb-6">Questions, answered.</h2>
+                  <p className="ap-body mb-8 max-w-[22rem]">Something else on your mind? Ask us directly.</p>
+                  <AskAboutButton className="ap-btn ap-btn-ghost">
+                    Ask a question
+                    <ArrowRight className="ap-arrow h-4 w-4" />
+                  </AskAboutButton>
+                </ScrollReveal>
+              </div>
+              <div className="lg:col-span-8">
+                {faqs.map((f) => (
+                  <details key={f.q} name="ap-faq" className="ap-faq">
+                    <summary>
+                      {f.q}
+                      <span className="ap-faq-icon" aria-hidden="true">
+                        <Plus className="h-4 w-4" />
+                      </span>
+                    </summary>
+                    <p className="ap-faq-body">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ═════════ BOOK / COMPOSER ═════════ */}
+          <section id="book" className="scroll-mt-20 px-2 pb-2 sm:px-5 sm:pb-5">
+            <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[28px] bg-[var(--ap-clay)] px-3 py-14 sm:rounded-[36px] sm:px-10 sm:py-16 md:py-24">
+              {/* oversized mark, cropped, as texture */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={bp("/airpnd/brand/mark-cream.png")}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-10 -right-28 w-[380px] max-w-none opacity-[0.09] select-none sm:-top-16 sm:-right-24 sm:w-[620px]"
+              />
+              <div className="relative mx-auto max-w-[1200px]">
+                <ScrollReveal>
+                  <div className="mb-10 grid gap-5 px-2 text-[var(--ap-paper)] sm:mb-12 sm:gap-6 sm:px-0 lg:grid-cols-12 lg:items-end">
+                    <div className="lg:col-span-7">
+                      <p className="mb-5 text-[12.5px] font-bold tracking-[0.26em] text-[rgba(251,246,242,0.85)] uppercase">
+                        Check availability
+                      </p>
+                      <h2 className="ap-display ap-h2 !text-[var(--ap-paper)]">Tell us your dates.</h2>
+                    </div>
+                    <p className="text-[1.12rem] leading-relaxed text-[rgba(251,246,242,0.9)] lg:col-span-5">
+                      Fill this in and we&apos;ll write the message for you. Send it on Messenger or by email, and we
+                      reply with what&apos;s open.
+                    </p>
+                  </div>
+                </ScrollReveal>
+                <div className="rounded-[22px] bg-[var(--ap-paper)] p-4 sm:rounded-[28px] sm:p-8">
+                  <Composer tone="inline" idPrefix="inline" />
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        {/* ═════════ FOOTER ═════════ */}
+        <footer className="ap-safe-bottom px-5 pt-16 sm:px-8 sm:pt-20 sm:pb-10 lg:px-20">
+          <div className="mx-auto max-w-[1320px]">
+            <div className="grid gap-10 border-b border-[rgba(41,38,31,0.12)] pb-12 sm:grid-cols-2 sm:gap-12 sm:pb-14 md:grid-cols-12">
+              <div className="sm:col-span-2 md:col-span-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={bp("/airpnd/brand/logo.png")} alt="AIRPND Rentals" className="mb-6 h-24 w-auto sm:h-28" />
+                <p className="ap-body max-w-[22rem]">
+                  Short and monthly stays in Santa Rosa and Cabuyao, Laguna.
+                </p>
+              </div>
+              <div className="md:col-span-3">
+                <p className="ap-label mb-3">Stays</p>
+                <ul className="grid">
+                  {stays.map((s) => (
+                    <li key={s.id}>
+                      <a href={`#stay-${s.id}`} className="inline-flex min-h-[44px] items-center text-[16px] font-medium text-[var(--ap-ink)] transition hover:text-[var(--ap-clay)]">
+                        {s.name}, {s.city}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="md:col-span-4">
+                <p className="ap-label mb-3">Get in touch</p>
+                <ul className="grid">
+                  <li>
+                    <a
+                      href={AIRPND_FACEBOOK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[44px] items-center gap-2.5 text-[16px] font-medium text-[var(--ap-ink)] transition hover:text-[var(--ap-clay)]"
+                    >
+                      <Facebook className="h-4 w-4" /> AIRPND on Facebook
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`mailto:${GROUP_EMAIL}?subject=${encodeURIComponent("AIRPND stay inquiry")}`}
+                      className="inline-flex min-h-[44px] items-center gap-2.5 text-[16px] font-medium break-all text-[var(--ap-ink)] transition hover:text-[var(--ap-clay)]"
+                    >
+                      <Mail className="h-4 w-4 shrink-0" /> {GROUP_EMAIL}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {prevBiz || nextBiz ? (
+              <nav aria-label="Other Pring Group businesses" className="grid grid-cols-2 gap-3 border-b border-[rgba(41,38,31,0.12)] py-6 sm:max-w-xl lg:hidden">
+                {prevBiz ? (
+                  <Link href={`/business/${prevBiz.slug}`} prefetch={false} className="flex min-h-[64px] flex-col justify-center rounded-[18px] bg-[var(--ap-paper)] px-4 py-3">
+                    <span className="text-[12.5px] font-semibold text-[var(--ap-ink-soft)]">← Previous</span>
+                    <span className="text-[15px] font-semibold leading-tight text-[var(--ap-ink)]">{prevBiz.name}</span>
+                  </Link>
+                ) : <span />}
+                {nextBiz ? (
+                  <Link href={`/business/${nextBiz.slug}`} prefetch={false} className="flex min-h-[64px] flex-col items-end justify-center rounded-[18px] bg-[var(--ap-paper)] px-4 py-3 text-right">
+                    <span className="text-[12.5px] font-semibold text-[var(--ap-ink-soft)]">Next →</span>
+                    <span className="text-[15px] font-semibold leading-tight text-[var(--ap-ink)]">{nextBiz.name}</span>
+                  </Link>
+                ) : null}
+              </nav>
+            ) : null}
+
+            <div className="flex flex-col items-start justify-between gap-5 pt-8 md:flex-row md:items-center">
+              <Link href="/" className="group inline-flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={bp("/logos/pring-group.png")} alt="" className="h-9 w-9 rounded" />
+                <span className="text-[15px] text-[var(--ap-ink-soft)]">
+                  A <span className="font-semibold text-[var(--ap-ink)] group-hover:text-[var(--ap-clay)]">Pring Group</span>{" "}
+                  company, one of {GROUP_BUSINESS_LABEL} family businesses
+                </span>
+              </Link>
+              <p className="text-[14px] text-[var(--ap-ink-soft)]">
+                © {new Date().getFullYear()} AIRPND Rentals. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </InquiryProvider>
+    </div>
   );
 }

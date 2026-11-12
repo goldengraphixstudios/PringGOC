@@ -12,7 +12,8 @@ export default function WelcomePopup() {
     // Only show once per session
     const seen = sessionStorage.getItem("pgc-welcome-seen");
     if (!seen) {
-      const timer = setTimeout(() => setVisible(true), 1200);
+      const delay = window.matchMedia("(max-width: 767px)").matches ? 3500 : 1600;
+      const timer = setTimeout(() => setVisible(true), delay);
       return () => clearTimeout(timer);
     }
   }, []);

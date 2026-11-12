@@ -310,7 +310,7 @@ export default function NBLoungeGMAPage() {
           <Link href="/" className="flex items-center gap-2 text-sm font-medium text-[#6B706A] transition-colors hover:text-[#1A1E18]">
             <ArrowLeft className="h-4 w-4" /> Back
           </Link>
-          <Link href="/business/nb-lounge-gma" className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/business/nb-lounge-gma" prefetch={false} className="absolute left-1/2 -translate-x-1/2">
             <Image src="/logos/nb-lounge-gma.jpg" alt="NB Lounge GMA" width={40} height={40}
               className="rounded-full shadow-sm transition-transform hover:scale-110" />
           </Link>
