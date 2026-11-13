@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { GROUP_BOOKING_EMBED_URL } from "@/data/site";
 
 const CALENDLY_SCRIPT_ID = "pgc-calendly-widget";
 
@@ -41,8 +42,8 @@ export default function CalendlyInline() {
       {active ? (
         <div
           className="calendly-inline-widget"
-          data-url="https://calendly.com/official-pringgroupofcompany/1hr?primary_color=003b5c&hide_event_type_details=1&hide_gdpr_banner=1"
-          style={{ minWidth: "320px", height: "500px" }}
+          data-url={GROUP_BOOKING_EMBED_URL}
+          style={{ minWidth: "280px", height: "700px" }}
         />
       ) : (
         <div className="flex min-h-[260px] flex-col items-center justify-center gap-3 px-6 text-center">

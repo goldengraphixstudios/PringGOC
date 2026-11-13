@@ -29,7 +29,7 @@ import MarqueeBelt from "@/components/MarqueeBelt";
 import WelcomePopup from "@/components/WelcomePopup";
 import InquiryForm from "@/components/InquiryForm";
 import CalendlyInline from "@/components/CalendlyInline";
-import { GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH, GROUP_LINKEDIN_URL } from "@/data/site";
+import { GROUP_BOOKING_URL, GROUP_BUSINESS_COUNT, GROUP_BUSINESS_LABEL, GROUP_EMAIL, GROUP_INQUIRY_PATH, GROUP_LINKEDIN_URL } from "@/data/site";
 
 const mainBusinesses = businesses;
 
@@ -648,17 +648,17 @@ export default function Home() {
 
                 <CalendlyInline />
 
-                {/* Also offer quick 30-min link */}
+                {/* Fallback if the embedded calendar is blocked or slow */}
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm">
-                  <span className="text-navy-700/45">Prefer a quick call?</span>
+                  <span className="text-navy-700/45">Calendar not loading?</span>
                   <a
-                    href="https://calendly.com/alisonjoy-pringg/30min"
+                    href={GROUP_BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 font-semibold text-navy-700 underline underline-offset-2 hover:text-navy-900"
                   >
                     <Clock className="h-3.5 w-3.5" />
-                    Book a 30-min call instead
+                    Open the booking page
                   </a>
                 </div>
               </div>
